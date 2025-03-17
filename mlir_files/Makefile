@@ -1,35 +1,34 @@
-OPT = mlir-opt
-TRANSLATE = mlir-translate
+OPT = /root/llvm-project/build/bin/mlir-opt
+TRANSLATE = /root/llvm-project/build/bin/mlir-translate
 
-#Allow specifying additional flags before the default flags
-OPTFLAGS += 
+# Output directory
+BUILD_DIR = build
+SRC_DIR = .
 
-#Default optimization flags
-#OPTFLAGS += -linalg-generalize-named-opsà
-#OPTFLAGS += -sparsification-and-bufferization
-#OPTFLAGS += -sparse-tensor-codegen
-#OPTFLAGS += -sparse-storage-specifier-to-llvm
-#OPTFLAGS += -finalize-memref-to-llvm
-#OPTFLAGS += -canonicalize
-#OPTFLAGS += -cse
+# Allow specifying additional flags before the default flags
+OPTFLAGS +=
+
+# Default optimization flags
 OPTFLAGS += -linalg-generalize-named-ops
 OPTFLAGS += -linalg-fuse-elementwise-ops
 OPTFLAGS += -sparsification-and-bufferization="vl=4 enable-vla-vectorization=true"
 OPTFLAGS += -sparse-storage-specifier-to-llvm
-OPTFLAGS += -sparse-tensor-codegen #this is the one that generates the code
+OPTFLAGS += -sparse-tensor-codegen
 OPTFLAGS += -canonicalize
-OPTFLAGS += -cse
-OPTFLAGS += -finalizing-bufferize
+OPTFLAGS += -one-shot-bufferize
 OPTFLAGS += -sparse-gpu-codegen
 OPTFLAGS += -convert-linalg-to-loops
+OPTFLAGS += -convert-vector-to-scf
 OPTFLAGS += -expand-realloc
 OPTFLAGS += -convert-scf-to-cf
+OPTFLAGS += -convert-cf-to-llvm
 OPTFLAGS += -expand-strided-metadata
 OPTFLAGS += -lower-affine
 OPTFLAGS += -convert-vector-to-llvm
 OPTFLAGS += -finalize-memref-to-llvm
 OPTFLAGS += -convert-complex-to-standard
 OPTFLAGS += -arith-expand
+OPTFLAGS += -convert-arith-to-llvm
 OPTFLAGS += -convert-math-to-llvm
 OPTFLAGS += -convert-math-to-libm
 OPTFLAGS += -convert-complex-to-libm
@@ -39,18 +38,25 @@ OPTFLAGS += -convert-vector-to-llvm
 OPTFLAGS += -convert-func-to-llvm
 OPTFLAGS += -reconcile-unrealized-casts
 
+# Ensure the build directory exists
+$(shell mkdir -p $(BUILD_DIR))
+
+# Rules
 .PRECIOUS: %.llvm.mlir
 .PRECIOUS: %.ll
-.PRECIOUS: %.S
 
+# Generate .llvm.mlir files in the build directory
 %.llvm.mlir: %.mlir
 	$(OPT) $(OPTFLAGS) -o $@ $<
 
+# Generate .ll files in the build directory
 %.ll: %.llvm.mlir
 	$(TRANSLATE) -mlir-to-llvmir -o $@ $<
 
+# Generate .S files in the build directory
 %.S: %.ll
 	/root/llvm-project/build/bin/llc -march=riscv64 -mattr=+m,+a,+f,+d,+v,+c -o $@ $<
 
+# Generate final executable in the build directory
 %: %.S
 	riscv64-redhat-linux-gcc-14 -march=rv64imafdcv -mabi=lp64d -o $@ $<
