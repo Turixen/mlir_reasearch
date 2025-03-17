@@ -1,14 +1,14 @@
 
  Performance counter stats for './build/mlir_sparsity_50_stride_1/mlir_sparsity_50_stride_1' (10 runs):
 
-              3.75 msec task-clock                       #    0.676 CPUs utilized               ( +-  0.50% )
+              3.73 msec task-clock                       #    0.672 CPUs utilized               ( +-  0.60% )
                  0      context-switches                 #    0.000 /sec                      
                  0      cpu-migrations                   #    0.000 /sec                      
-                83      page-faults                      #   22.135 K/sec                       ( +-  0.35% )
-         6,731,829      cycles                           #    1.795 GHz                         ( +-  0.50% )
-         1,730,063      instructions                     #    0.26  insn per cycle              ( +-  0.33% )
-           191,129      branches                         #   50.971 M/sec                       ( +-  0.27% )
-            13,545      branch-misses                    #    7.09% of all branches             ( +-  0.89% )
+                83      page-faults                      #   22.237 K/sec                       ( +-  0.41% )
+         6,701,126      cycles                           #    1.795 GHz                         ( +-  0.60% )
+         1,723,461      instructions                     #    0.26  insn per cycle              ( +-  0.36% )
+           190,389      branches                         #   51.009 M/sec                       ( +-  0.32% )
+            13,648      branch-misses                    #    7.17% of all branches             ( +-  0.84% )
 
-         0.0055507 +- 0.0000304 seconds time elapsed  ( +-  0.55% )
+         0.0055540 +- 0.0000310 seconds time elapsed  ( +-  0.56% )
 
