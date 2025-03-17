@@ -7,13 +7,15 @@ RESULTS_DIR="results"
 PERF_LOG="$RESULTS_DIR/perf_results.txt"
 
 mkdir -p $RESULTS_DIR
+cd mlir_files
 
-for file in /mlir_files/*
+for file in ./*
 do
     name="${file%.*}"
+    echo $name
     # Compile
     echo "[+] Compiling MLIR file..."
-    make $name
+    make "$name"
 
     # Run perf test
     echo "[+] Running perf test..."
