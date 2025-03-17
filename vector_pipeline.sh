@@ -3,7 +3,7 @@ set -e  # Stop on error
 
 # Parameters
 EXE_FILE="build/my_program"
-RESULTS_DIR="../results"
+RESULTS_DIR="../results_vector"
 
 mkdir -p $RESULTS_DIR
 cd mlir_files
@@ -27,7 +27,7 @@ do
 
     # Compile
     echo "[+] Compiling MLIR file..."
-    make "$name"
+    make -f Makefile_vector "$name"
 
 
     if [ -f "$name.llvm.mlir" ]; then mv "$name.llvm.mlir" "$FILE_BUILD_DIR/"; fi
