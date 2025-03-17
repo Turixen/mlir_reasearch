@@ -36,7 +36,7 @@ do
 
     # Run perf test
     echo "[+] Running perf test..."
-    perf stat -r 10 "./$FILE_BUILD_DIR/$name" > "$RESULTS_DIR/$name.txt" 2>&1 || { echo "Perf test failed for $name"; continue; }
+    perf stat -r 10 -x, "./$FILE_BUILD_DIR/$name" > "$RESULTS_DIR/$name.csv" 2>&1 || { echo "Perf test failed for $name"; continue; }
 
     # Generate Performance Chart
     #echo "[+] Generating performance chart..."
