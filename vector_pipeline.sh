@@ -20,7 +20,7 @@ do
     name="${name#./}"  # Removes the leading ./
 
     # Create a separate directory for this file inside build/
-    FILE_BUILD_DIR="$BUILD_DIR/$name"
+    FILE_BUILD_DIR="$BUILD_DIR/${name}_vector"
     mkdir -p "$FILE_BUILD_DIR"
 
     echo "$name"

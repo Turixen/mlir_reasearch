@@ -1,0 +1,14 @@
+
+ Performance counter stats for './build/mlir_sparsity_80_stride_3_scalar/mlir_sparsity_80_stride_3' (10 runs):
+
+              2.86 msec task-clock                       #    0.601 CPUs utilized               ( +-  0.94% )
+                 0      context-switches                 #    0.000 /sec                      
+                 0      cpu-migrations                   #    0.000 /sec                      
+                82      page-faults                      #   28.695 K/sec                       ( +-  0.47% )
+         5,124,922      cycles                           #    1.793 GHz                         ( +-  0.93% )
+         2,186,222      instructions                     #    0.43  insn per cycle              ( +-  0.20% )
+           225,874      branches                         #   79.041 M/sec                       ( +-  0.20% )
+            13,131      branch-misses                    #    5.81% of all branches             ( +-  0.93% )
+
+         0.0047576 +- 0.0000494 seconds time elapsed  ( +-  1.04% )
+

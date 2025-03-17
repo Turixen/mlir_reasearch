@@ -2,7 +2,6 @@
 set -e  # Stop on error
 
 # Parameters
-EXE_FILE="build/my_program"
 RESULTS_DIR="../results_scalar"
 
 mkdir -p $RESULTS_DIR
@@ -20,7 +19,7 @@ do
     name="${name#./}"  # Removes the leading ./
 
     # Create a separate directory for this file inside build/
-    FILE_BUILD_DIR="$BUILD_DIR/$name"
+    FILE_BUILD_DIR="$BUILD_DIR/${name}_scalar"
     mkdir -p "$FILE_BUILD_DIR"
 
     echo "$name"
