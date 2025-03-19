@@ -35,7 +35,10 @@ This Bash script processes `.mlir` files, compiles them, and runs performance te
 chmod +x vector_pipeline.sh
 ./vector_pipeline.sh
 ```
-
+```sh
+chmod +x scalar_pipeline.sh
+./vector_pipeline.sh
+```
 ### 3. Performance Analysis (`plot_perf.ipynb`)
 A Jupyter Notebook for visualizing and analyzing the collected performance data.
 
