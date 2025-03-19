@@ -94,7 +94,7 @@ def main():
     size = 100
     sparsity_levels = np.arange(0.5, 0.91, 0.05)
     strides = [1, 3, 5]
-    matrix_output_folder = "../mlir_matrices"
+    matrix_output_folder = "../matrices"
     mlir_output_folder = "../mlir_files"
 
     os.makedirs(matrix_output_folder, exist_ok=True)
