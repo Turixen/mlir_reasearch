@@ -94,7 +94,7 @@ module {{
         %row_indices = arith.constant dense<[{', '.join(map(str, row_indices))}]> : tensor<{len(row_indices)}xindex>
         %col_pointers = arith.constant dense<[{', '.join(map(str, col_pointers))}]> : tensor<{len(col_pointers)}xindex>
         %sparse_tensor = sparse_tensor.assemble (%col_pointers, %row_indices), %values
-            : (tensor<{len(col_pointers)}xindex>, tensor<{len(row_indices)}xindex>, tensor<{len(values)}xf64>) -> tensor<{m}x{k}xf64, #CSC>
+            : (tensor<{len(col_pointers)}xindex>, tensor<{len(row_indices)}xindex>), tensor<{len(values)}xf64> -> tensor<{m}x{k}xf64, #CSC>
         return %sparse_tensor : tensor<{m}x{k}xf64, #CSC>
     }}
 }}
