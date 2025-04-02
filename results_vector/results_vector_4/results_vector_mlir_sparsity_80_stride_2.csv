@@ -1,10 +1,8 @@
-Workload failed: No such file or directory
-Workload failed: No such file or directory
-Workload failed: No such file or directory
-Workload failed: No such file or directory
-Workload failed: No such file or directory
-Workload failed: No such file or directory
-Workload failed: No such file or directory
-Workload failed: No such file or directory
-Workload failed: No such file or directory
-Workload failed: No such file or directory
+2.83,msec,task-clock,0.66%,2863500,100.00,0.605,CPUs utilized
+0,,context-switches,0.00%,2863500,100.00,0.000,/sec
+0,,cpu-migrations,0.00%,2863500,100.00,0.000,/sec
+82,,page-faults,0.48%,2863500,100.00,29.001,K/sec
+5070842,,cycles,0.66%,2863500,100.00,1.793,GHz
+1216522,,instructions,0.45%,2863500,100.00,0.24,insn per cycle
+139596,,branches,0.41%,2863500,100.00,49.372,M/sec
+13354,,branch-misses,0.43%,2863500,100.00,9.57,of all branches
