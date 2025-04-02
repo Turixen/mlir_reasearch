@@ -11,7 +11,7 @@ cd mlir_files
 echo "$(pwd)"
 
 # Find all Makefiles of the format Makefile_vector_x
-for makefile in ../Makefile_vector_*; do
+for makefile in Makefile_vector_*; do
     [[ -e "$makefile" ]] || continue  # Skip if no Makefiles found
 
     # Extract the ID number from the Makefile name
