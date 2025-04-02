@@ -1,0 +1,3 @@
+Executable,Sparsity Level,Stride,Implementation,Branch Misses_value,Branches_value,Context Switch_value,CPU Migration_value,Cycles_value,Instructions_value,Page Faults_value
+mlir_sparsity_95_stride_4,95,4,Vector,13445.0,114405.0,0.0,0.0,3850411.0,965481.0,82.0
+mlir_sparsity_95_stride_4,95,4,Scalar,13485.0,159081.0,0.0,0.0,4255483.0,1455020.0,82.0

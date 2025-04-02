@@ -1,0 +1,7 @@
+Performance Summary for Stride 1
+===============================
+
+1. Average cycles - Vector: 5401957.64, Scalar: 7293096.36, Speedup: 1.35x
+2. Average instructions - Vector: 1373398.45, Scalar: 4028305.36, Speedup: 2.93x
+3. Best instructions speedup: 3.79x at Sparsity=50.0%
+4. Worst instructions speedup: 1.48x at Sparsity=95.0%

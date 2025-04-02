@@ -1,0 +1,7 @@
+Performance Summary for Stride 2
+===============================
+
+1. Average cycles - Vector: 5394801.10, Scalar: 7237626.70, Speedup: 1.34x
+2. Average instructions - Vector: 1346346.20, Scalar: 3976713.20, Speedup: 2.95x
+3. Best instructions speedup: 3.78x at Sparsity=50.0%
+4. Worst instructions speedup: 1.51x at Sparsity=95.0%

@@ -1,0 +1,7 @@
+Performance Summary for Stride 4
+===============================
+
+1. Average cycles - Vector: 3850411.00, Scalar: 4255483.00, Speedup: 1.11x
+2. Average instructions - Vector: 965481.00, Scalar: 1455020.00, Speedup: 1.51x
+3. Best instructions speedup: 1.51x at Sparsity=95.0%
+4. Worst instructions speedup: 1.51x at Sparsity=95.0%

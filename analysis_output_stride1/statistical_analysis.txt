@@ -1,0 +1,15 @@
+Statistical Analysis Results (Stride 1 Only)
+=======================================
+
+Vector Sparsity-Cycles Correlation:
+  r: -0.998446956993126
+  p-value: 1.338980275565965e-12
+
+Scalar Sparsity-Cycles Correlation:
+  r: -0.99982844489894
+  p-value: 6.63932914972748e-17
+
+Vector vs Scalar Cycles T-test:
+  t-statistic: -2.860709684634012
+  p-value: 0.009664140738532374
+

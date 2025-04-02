@@ -2,22 +2,22 @@ Statistical Analysis Results
 ============================
 
 Vector Sparsity-Cycles Correlation:
-  r: -0.3426374591674146
-  p-value: 0.08019548548227035
+  r: -0.9957899166157916
+  p-value: 1.0655188842490062e-32
 
 Vector Stride-Cycles Correlation:
-  r: -0.8003417478230559
-  p-value: 5.398219051953012e-07
+  r: -0.1436781160477923
+  p-value: 0.4327392639083517
 
 Scalar Sparsity-Cycles Correlation:
-  r: -0.33924898145923577
-  p-value: 0.08342706225221148
+  r: -0.9991818125022032
+  p-value: 2.3209789268798608e-43
 
 Scalar Stride-Cycles Correlation:
-  r: -0.8010553788302819
-  p-value: 5.183433433003204e-07
+  r: -0.12617408763422688
+  p-value: 0.49138405656160716
 
 Vector vs Scalar Cycles T-test:
-  t-statistic: -2.689438331421016
-  p-value: 0.009597063550565738
+  t-statistic: -4.817096434062313
+  p-value: 9.764922232481535e-06
 

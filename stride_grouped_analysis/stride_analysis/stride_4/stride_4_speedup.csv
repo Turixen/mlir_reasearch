@@ -1,0 +1,2 @@
+Sparsity Level,Stride,cycles_speedup,instructions_speedup,branches_speedup
+95,4,1.105202275808998,1.5070415678817086,1.3905074078930117
