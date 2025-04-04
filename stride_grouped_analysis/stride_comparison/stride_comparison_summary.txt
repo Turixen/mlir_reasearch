@@ -1,23 +1,23 @@
 Stride Comparison Summary
 ========================
 
-Stride 1 - Average Instructions Speedup: 2.90x
-Stride 2 - Average Instructions Speedup: 2.83x
-Stride 3 - Average Instructions Speedup: 2.83x
-Stride 4 - Average Instructions Speedup: 1.51x
+Stride 1 - Average Instructions Speedup: 3.29x
+Stride 2 - Average Instructions Speedup: 3.27x
+Stride 3 - Average Instructions Speedup: 3.27x
+Stride 4 - Average Instructions Speedup: 1.55x
 
 Best Performing Combinations:
 ----------------------------
-Stride 1.0, Sparsity 50.0% - Speedup: 3.79x
-Stride 2.0, Sparsity 50.0% - Speedup: 3.78x
-Stride 3.0, Sparsity 50.0% - Speedup: 3.77x
-Stride 1.0, Sparsity 55.0% - Speedup: 3.74x
-Stride 1.0, Sparsity 55.0% - Speedup: 3.62x
+Stride 2.0, Sparsity 50.0% - Speedup: 4.65x
+Stride 1.0, Sparsity 50.0% - Speedup: 4.64x
+Stride 3.0, Sparsity 50.0% - Speedup: 4.64x
+Stride 2.0, Sparsity 55.0% - Speedup: 4.40x
+Stride 1.0, Sparsity 55.0% - Speedup: 4.37x
 
 Worst Performing Combinations:
 -----------------------------
-Stride 1.0, Sparsity 95.0% - Speedup: 1.48x
-Stride 4.0, Sparsity 95.0% - Speedup: 1.51x
-Stride 2.0, Sparsity 95.0% - Speedup: 1.51x
-Stride 3.0, Sparsity 95.0% - Speedup: 1.51x
-Stride 2.0, Sparsity 90.0% - Speedup: 1.88x
+Stride 2.0, Sparsity 95.0% - Speedup: 1.54x
+Stride 1.0, Sparsity 95.0% - Speedup: 1.55x
+Stride 4.0, Sparsity 95.0% - Speedup: 1.55x
+Stride 3.0, Sparsity 95.0% - Speedup: 1.56x
+Stride 2.0, Sparsity 90.0% - Speedup: 2.01x

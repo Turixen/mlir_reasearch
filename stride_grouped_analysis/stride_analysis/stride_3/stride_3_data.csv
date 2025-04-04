@@ -1,14 +1,14 @@
 Executable,Sparsity Level,Stride,Implementation,Branch Misses_value,Branches_value,Context Switch_value,CPU Migration_value,Cycles_value,Instructions_value,Page Faults_value
-mlir_sparsity_50_stride_3,50,3,Vector,13522.0,190032.0,0.0,0.0,6731025.0,1722838.0,82.0
-mlir_sparsity_55_stride_3,55,3,Vector,13674.0,182784.0,0.0,0.0,6458038.0,1648911.0,83.0
-mlir_sparsity_60_stride_3,60,3,Vector,13390.0,173265.0,0.0,0.0,6085780.0,1553526.0,83.0
-mlir_sparsity_65_stride_3,65,3,Vector,13418.0,164585.0,0.0,0.0,5785999.0,1467589.0,83.0
-mlir_sparsity_70_stride_3,70,3,Vector,13509.0,157312.0,0.0,0.0,5491397.0,1391985.0,83.0
-mlir_sparsity_75_stride_3,75,3,Vector,13416.0,149107.0,0.0,0.0,5146805.0,1309592.0,83.0
-mlir_sparsity_80_stride_3,80,3,Vector,13561.0,140019.0,0.0,0.0,4894461.0,1220351.0,82.0
-mlir_sparsity_85_stride_3,85,3,Vector,13581.0,131399.0,0.0,0.0,4586577.0,1134908.0,82.0
-mlir_sparsity_90_stride_3,90,3,Vector,13500.0,123857.0,0.0,0.0,4200197.0,1056939.0,82.0
-mlir_sparsity_95_stride_3,95,3,Vector,13301.0,114889.0,0.0,0.0,3873097.0,969117.0,82.0
+results_vector_mlir_sparsity_50_stride_3,50,3,Vector,13446.0,159721.0,0.0,0.0,6825748.0,1401286.0,83.0
+results_vector_mlir_sparsity_55_stride_3,55,3,Vector,13595.0,155325.0,0.0,0.0,6617412.0,1359325.0,83.0
+results_vector_mlir_sparsity_60_stride_3,60,3,Vector,13391.0,149066.0,0.0,0.0,6267672.0,1298178.0,83.0
+results_vector_mlir_sparsity_65_stride_3,65,3,Vector,13789.0,144581.0,0.0,0.0,5937142.0,1253104.0,83.0
+results_vector_mlir_sparsity_70_stride_3,70,3,Vector,13353.0,137714.0,0.0,0.0,5549786.0,1188404.0,82.0
+results_vector_mlir_sparsity_75_stride_3,75,3,Vector,13484.0,133367.0,0.0,0.0,5247348.0,1146161.0,82.0
+results_vector_mlir_sparsity_80_stride_3,80,3,Vector,13621.0,129351.0,0.0,0.0,4972816.0,1102795.0,82.0
+results_vector_mlir_sparsity_85_stride_3,85,3,Vector,13375.0,122015.0,0.0,0.0,4631051.0,1036821.0,81.0
+results_vector_mlir_sparsity_90_stride_3,90,3,Vector,13381.0,117633.0,0.0,0.0,4254338.0,990649.0,82.0
+results_vector_mlir_sparsity_95_stride_3,95,3,Vector,13413.0,112123.0,0.0,0.0,3942220.0,936138.0,82.0
 mlir_sparsity_50_stride_3,50,3,Scalar,13611.0,620548.0,0.0,0.0,10052251.0,6496454.0,83.0
 mlir_sparsity_55_stride_3,55,3,Scalar,13755.0,569202.0,0.0,0.0,9391560.0,5936820.0,83.0
 mlir_sparsity_60_stride_3,60,3,Scalar,13576.0,518641.0,0.0,0.0,8851184.0,5380408.0,83.0

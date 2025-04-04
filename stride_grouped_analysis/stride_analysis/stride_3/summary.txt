@@ -1,7 +1,7 @@
 Performance Summary for Stride 3
 ===============================
 
-1. Average cycles - Vector: 5325337.60, Scalar: 7211006.60, Speedup: 1.35x
-2. Average instructions - Vector: 1347575.60, Scalar: 3977590.90, Speedup: 2.95x
-3. Best instructions speedup: 3.77x at Sparsity=50.0%
-4. Worst instructions speedup: 1.51x at Sparsity=95.0%
+1. Average cycles - Vector: 5424553.30, Scalar: 7211006.60, Speedup: 1.33x
+2. Average instructions - Vector: 1171286.10, Scalar: 3977590.90, Speedup: 3.40x
+3. Best instructions speedup: 4.64x at Sparsity=50.0%
+4. Worst instructions speedup: 1.56x at Sparsity=95.0%
