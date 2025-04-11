@@ -5,7 +5,11 @@
 
 ```
 ├── all_results_vector/ (csv merged per tipo di vectorization )
-│   
+│   ├── all_results_vector_4.csv
+│   ├── all_results_vector_8.csv
+│   ├── all_results_vector_16.csv
+│   └── all_results_vector_32.csv
+│
 ├── analysis_output/
 ├── analysis_output_stride1/
 ├── jupiter/
@@ -18,7 +22,7 @@
 │   ├── build_16/
 │   └── build_32/
 │   	└── mlir_sparsity_<50–95>_stride_<1–4>_vector/ 
-│         (repeated for each sparsity and stride combination)
+│         (repetuta per ogni combinazione di stride e sparsità)
 ├── python/
 ├── results_scalar/
 ├── results_vector/
@@ -45,7 +49,7 @@
 ### Flusso di lavoro:
 Dato che ci sono problemi di liberie python sul Jupiter il flow di test è:
 1. Generare file mlir da "python/full_generator_2.py" che verrano inseriti in "mlir_files/" le matrici generate invece sono salvate in "matrices/"
-2. Su Jupiter lanciare sia "vector_pipeline.sh" e "scalar_pipeline.sh" che genereranno i file di build, gli eseguibi e su di loro eseguono il comando perf. Questo per tutti i tipi di vectorLenght (vl=[4,8,16,32]). 
+2. Su Jupiter lanciare sia "vector_pipeline.sh" e "scalar_pipeline.sh" che genereranno i file di build, gli eseguibi e su di loro eseguono il comando perf. Questo per tutti i tipi di vectorLength (vl=[4,8,16,32]). 
 3. I risultati dei perf vengono inseriti in "result_scalar/" e "result_vector/result_vector_<4-8-16-32>/" sotto forma di csv file
 4. In "jupiter/" ci sono una serie di Jupiter Notebook che permettono di vedere graficamente i risultati dei perf e le relazioni tra scalare e le diverse vectorization
 
@@ -83,8 +87,8 @@ Nell'output del file è indicato anche il:
 ![Vectors perfomance Analysis](jupiter/stride_comparison.png)
 
 ## Analisi dei grafici
-### Confronto tra diverse vector lenght
-![Cycle count for vectors lenght](jupiter/vector_cycle_analysis.png)
+### Confronto tra diverse vector length
+![Cycle count for vectors length](jupiter/vector_cycle_analysis.png)
 ![Vectors perfomance Analysis](jupiter/vector_performance_dashboard.png)
 
-### Confronto vector lenght migliore (4) con performance scalare
+### Confronto vector length migliore (4) con performance scalare
