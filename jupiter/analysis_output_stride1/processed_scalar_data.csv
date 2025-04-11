@@ -1,0 +1,12 @@
+Executable,Sparsity Level,Stride,Implementation,Branch Misses_value,Branches_value,Context Switch_value,CPU Migration_value,Cycles_value,Instructions_value,Page Faults_value
+mlir_sparsity_50_stride_1,50,1,Scalar,13742.0,620989.0,0.0,0.0,10100090.0,6499674.0,83.0
+mlir_sparsity_55_stride_1,55,1,Scalar,13626.0,570344.0,0.0,0.0,9510600.0,5944308.0,83.0
+mlir_sparsity_60_stride_1,60,1,Scalar,13364.0,517967.0,0.0,0.0,8779833.0,5374562.0,84.0
+mlir_sparsity_60_stride_1.llvm,60,1,Scalar,13443.0,518245.0,0.0,0.0,8786906.0,4582155.0,83.0
+mlir_sparsity_65_stride_1,65,1,Scalar,13414.0,465953.0,0.0,0.0,8095799.0,4810932.0,83.0
+mlir_sparsity_70_stride_1,70,1,Scalar,13463.0,415899.0,0.0,0.0,7472212.0,4259105.0,83.0
+mlir_sparsity_75_stride_1,75,1,Scalar,13533.0,363348.0,0.0,0.0,6843071.0,3690352.0,82.0
+mlir_sparsity_80_stride_1,80,1,Scalar,13280.0,310516.0,0.0,0.0,6075904.0,3116768.0,81.0
+mlir_sparsity_85_stride_1,85,1,Scalar,13343.0,261643.0,0.0,0.0,5518656.0,2578142.0,82.0
+mlir_sparsity_90_stride_1,90,1,Scalar,13361.0,210192.0,0.0,0.0,4851537.0,2014168.0,82.0
+mlir_sparsity_95_stride_1,95,1,Scalar,13325.0,157160.0,0.0,0.0,4189452.0,1441193.0,81.0

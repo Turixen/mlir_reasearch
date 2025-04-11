@@ -1,0 +1,155 @@
+.
+├── __pycache__
+├── all_results_vector
+├── analysis_output
+├── analysis_output_stride1
+├── jupiter
+│   ├── analysis_output_stride1
+│   └── stride_grouped_analysis
+├── matrices
+├── mlir_files
+│   ├── build_16
+│   │   ├── mlir_sparsity_50_stride_1_vector
+│   │   ├── mlir_sparsity_50_stride_2_vector
+│   │   ├── mlir_sparsity_50_stride_3_vector
+│   │   ├── mlir_sparsity_55_stride_1_vector
+│   │   ├── mlir_sparsity_55_stride_2_vector
+│   │   ├── mlir_sparsity_55_stride_3_vector
+│   │   ├── mlir_sparsity_60_stride_1_vector
+│   │   ├── mlir_sparsity_60_stride_2_vector
+│   │   ├── mlir_sparsity_60_stride_3_vector
+│   │   ├── mlir_sparsity_65_stride_1_vector
+│   │   ├── mlir_sparsity_65_stride_2_vector
+│   │   ├── mlir_sparsity_65_stride_3_vector
+│   │   ├── mlir_sparsity_70_stride_1_vector
+│   │   ├── mlir_sparsity_70_stride_2_vector
+│   │   ├── mlir_sparsity_70_stride_3_vector
+│   │   ├── mlir_sparsity_75_stride_1_vector
+│   │   ├── mlir_sparsity_75_stride_2_vector
+│   │   ├── mlir_sparsity_75_stride_3_vector
+│   │   ├── mlir_sparsity_80_stride_1_vector
+│   │   ├── mlir_sparsity_80_stride_2_vector
+│   │   ├── mlir_sparsity_80_stride_3_vector
+│   │   ├── mlir_sparsity_85_stride_1_vector
+│   │   ├── mlir_sparsity_85_stride_2_vector
+│   │   ├── mlir_sparsity_85_stride_3_vector
+│   │   ├── mlir_sparsity_90_stride_1_vector
+│   │   ├── mlir_sparsity_90_stride_2_vector
+│   │   ├── mlir_sparsity_90_stride_3_vector
+│   │   ├── mlir_sparsity_95_stride_1_vector
+│   │   ├── mlir_sparsity_95_stride_2_vector
+│   │   ├── mlir_sparsity_95_stride_3_vector
+│   │   └── mlir_sparsity_95_stride_4_vector
+│   ├── build_32
+│   │   ├── mlir_sparsity_50_stride_1_vector
+│   │   ├── mlir_sparsity_50_stride_2_vector
+│   │   ├── mlir_sparsity_50_stride_3_vector
+│   │   ├── mlir_sparsity_55_stride_1_vector
+│   │   ├── mlir_sparsity_55_stride_2_vector
+│   │   ├── mlir_sparsity_55_stride_3_vector
+│   │   ├── mlir_sparsity_60_stride_1_vector
+│   │   ├── mlir_sparsity_60_stride_2_vector
+│   │   ├── mlir_sparsity_60_stride_3_vector
+│   │   ├── mlir_sparsity_65_stride_1_vector
+│   │   ├── mlir_sparsity_65_stride_2_vector
+│   │   ├── mlir_sparsity_65_stride_3_vector
+│   │   ├── mlir_sparsity_70_stride_1_vector
+│   │   ├── mlir_sparsity_70_stride_2_vector
+│   │   ├── mlir_sparsity_70_stride_3_vector
+│   │   ├── mlir_sparsity_75_stride_1_vector
+│   │   ├── mlir_sparsity_75_stride_2_vector
+│   │   ├── mlir_sparsity_75_stride_3_vector
+│   │   ├── mlir_sparsity_80_stride_1_vector
+│   │   ├── mlir_sparsity_80_stride_2_vector
+│   │   ├── mlir_sparsity_80_stride_3_vector
+│   │   ├── mlir_sparsity_85_stride_1_vector
+│   │   ├── mlir_sparsity_85_stride_2_vector
+│   │   ├── mlir_sparsity_85_stride_3_vector
+│   │   ├── mlir_sparsity_90_stride_1_vector
+│   │   ├── mlir_sparsity_90_stride_2_vector
+│   │   ├── mlir_sparsity_90_stride_3_vector
+│   │   ├── mlir_sparsity_95_stride_1_vector
+│   │   ├── mlir_sparsity_95_stride_2_vector
+│   │   ├── mlir_sparsity_95_stride_3_vector
+│   │   └── mlir_sparsity_95_stride_4_vector
+│   ├── build_4
+│   │   ├── mlir_sparsity_50_stride_1_vector
+│   │   ├── mlir_sparsity_50_stride_2_vector
+│   │   ├── mlir_sparsity_50_stride_3_vector
+│   │   ├── mlir_sparsity_55_stride_1_vector
+│   │   ├── mlir_sparsity_55_stride_2_vector
+│   │   ├── mlir_sparsity_55_stride_3_vector
+│   │   ├── mlir_sparsity_60_stride_1_vector
+│   │   ├── mlir_sparsity_60_stride_2_vector
+│   │   ├── mlir_sparsity_60_stride_3_vector
+│   │   ├── mlir_sparsity_65_stride_1_vector
+│   │   ├── mlir_sparsity_65_stride_2_vector
+│   │   ├── mlir_sparsity_65_stride_3_vector
+│   │   ├── mlir_sparsity_70_stride_1_vector
+│   │   ├── mlir_sparsity_70_stride_2_vector
+│   │   ├── mlir_sparsity_70_stride_3_vector
+│   │   ├── mlir_sparsity_75_stride_1_vector
+│   │   ├── mlir_sparsity_75_stride_2_vector
+│   │   ├── mlir_sparsity_75_stride_3_vector
+│   │   ├── mlir_sparsity_80_stride_1_vector
+│   │   ├── mlir_sparsity_80_stride_2_vector
+│   │   ├── mlir_sparsity_80_stride_3_vector
+│   │   ├── mlir_sparsity_85_stride_1_vector
+│   │   ├── mlir_sparsity_85_stride_2_vector
+│   │   ├── mlir_sparsity_85_stride_3_vector
+│   │   ├── mlir_sparsity_90_stride_1_vector
+│   │   ├── mlir_sparsity_90_stride_2_vector
+│   │   ├── mlir_sparsity_90_stride_3_vector
+│   │   ├── mlir_sparsity_95_stride_1_vector
+│   │   ├── mlir_sparsity_95_stride_2_vector
+│   │   ├── mlir_sparsity_95_stride_3_vector
+│   │   └── mlir_sparsity_95_stride_4_vector
+│   └── build_8
+│       ├── mlir_sparsity_50_stride_1_vector
+│       ├── mlir_sparsity_50_stride_2_vector
+│       ├── mlir_sparsity_50_stride_3_vector
+│       ├── mlir_sparsity_55_stride_1_vector
+│       ├── mlir_sparsity_55_stride_2_vector
+│       ├── mlir_sparsity_55_stride_3_vector
+│       ├── mlir_sparsity_60_stride_1_vector
+│       ├── mlir_sparsity_60_stride_2_vector
+│       ├── mlir_sparsity_60_stride_3_vector
+│       ├── mlir_sparsity_65_stride_1_vector
+│       ├── mlir_sparsity_65_stride_2_vector
+│       ├── mlir_sparsity_65_stride_3_vector
+│       ├── mlir_sparsity_70_stride_1_vector
+│       ├── mlir_sparsity_70_stride_2_vector
+│       ├── mlir_sparsity_70_stride_3_vector
+│       ├── mlir_sparsity_75_stride_1_vector
+│       ├── mlir_sparsity_75_stride_2_vector
+│       ├── mlir_sparsity_75_stride_3_vector
+│       ├── mlir_sparsity_80_stride_1_vector
+│       ├── mlir_sparsity_80_stride_2_vector
+│       ├── mlir_sparsity_80_stride_3_vector
+│       ├── mlir_sparsity_85_stride_1_vector
+│       ├── mlir_sparsity_85_stride_2_vector
+│       ├── mlir_sparsity_85_stride_3_vector
+│       ├── mlir_sparsity_90_stride_1_vector
+│       ├── mlir_sparsity_90_stride_2_vector
+│       ├── mlir_sparsity_90_stride_3_vector
+│       ├── mlir_sparsity_95_stride_1_vector
+│       ├── mlir_sparsity_95_stride_2_vector
+│       ├── mlir_sparsity_95_stride_3_vector
+│       └── mlir_sparsity_95_stride_4_vector
+├── python
+├── results_scalar
+├── results_vector
+│   ├── results_vector_16
+│   ├── results_vector_32
+│   ├── results_vector_4
+│   └── results_vector_8
+├── src
+└── stride_grouped_analysis
+    ├── stride_analysis
+    │   ├── stride_1
+    │   ├── stride_2
+    │   ├── stride_3
+    │   └── stride_4
+    └── stride_comparison
+
+153 directories
