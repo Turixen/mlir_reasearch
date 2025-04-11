@@ -1,0 +1,17 @@
+Conclusions for Vector Size 8:
+==================================================
+
+1. Impact of Sparsity: As sparsity increases (from 50% to 95%), cycle count decreases by 43.3%
+
+2. Impact of Stride (compared to Stride=1):
+
+   - Stride=2: 2.2% increase in cycles
+
+   - Stride=3: 0.5% increase in cycles
+
+   - Stride=4: -28.5% decrease in cycles
+
+3. Best Configuration: Sparsity=95.0%, Stride=4.0, Cycles=3843625
+
+4. Worst Configuration: Sparsity=50.0%, Stride=1.0, Cycles=6927601
+
