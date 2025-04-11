@@ -1,0 +1,11708 @@
+	.attribute	4, 16
+	.attribute	5, "rv64i2p1_m2p0_a2p1_f2p2_d2p2_c2p0_v1p0_zicsr2p0_zmmul1p0_zaamo1p0_zalrsc1p0_zve32f1p0_zve32x1p0_zve64d1p0_zve64f1p0_zve64x1p0_zvl128b1p0_zvl32b1p0_zvl64b1p0"
+	.file	"LLVMDialectModule"
+	.text
+	.globl	matmul                          # -- Begin function matmul
+	.p2align	1
+	.type	matmul,@function
+matmul:                                 # @matmul
+	.cfi_startproc
+# %bb.0:
+	addi	sp, sp, -192
+	.cfi_def_cfa_offset 192
+	sd	ra, 184(sp)                     # 8-byte Folded Spill
+	sd	s0, 176(sp)                     # 8-byte Folded Spill
+	sd	s1, 168(sp)                     # 8-byte Folded Spill
+	sd	s2, 160(sp)                     # 8-byte Folded Spill
+	sd	s3, 152(sp)                     # 8-byte Folded Spill
+	sd	s4, 144(sp)                     # 8-byte Folded Spill
+	sd	s5, 136(sp)                     # 8-byte Folded Spill
+	sd	s6, 128(sp)                     # 8-byte Folded Spill
+	sd	s7, 120(sp)                     # 8-byte Folded Spill
+	sd	s8, 112(sp)                     # 8-byte Folded Spill
+	sd	s9, 104(sp)                     # 8-byte Folded Spill
+	sd	s10, 96(sp)                     # 8-byte Folded Spill
+	sd	s11, 88(sp)                     # 8-byte Folded Spill
+	.cfi_offset ra, -8
+	.cfi_offset s0, -16
+	.cfi_offset s1, -24
+	.cfi_offset s2, -32
+	.cfi_offset s3, -40
+	.cfi_offset s4, -48
+	.cfi_offset s5, -56
+	.cfi_offset s6, -64
+	.cfi_offset s7, -72
+	.cfi_offset s8, -80
+	.cfi_offset s9, -88
+	.cfi_offset s10, -96
+	.cfi_offset s11, -104
+	csrr	a1, vlenb
+	li	a3, 68
+	mul	a1, a1, a3
+	sub	sp, sp, a1
+	.cfi_escape 0x0f, 0x0f, 0x72, 0x00, 0x11, 0xc0, 0x01, 0x22, 0x11, 0xc4, 0x00, 0x92, 0xa2, 0x38, 0x00, 0x1e, 0x22 # sp + 192 + 68 * vlenb
+	li	s3, 0
+	li	t5, 0
+	csrr	a1, vlenb
+	li	a3, 68
+	mul	a1, a1, a3
+	add	a1, a1, sp
+	ld	s5, 304(a1)
+	csrr	a1, vlenb
+	li	a3, 68
+	mul	a1, a1, a3
+	add	a1, a1, sp
+	ld	a1, 400(a1)
+	sd	a1, 64(sp)                      # 8-byte Folded Spill
+	csrr	a1, vlenb
+	li	a3, 68
+	mul	a1, a1, a3
+	add	a1, a1, sp
+	ld	a1, 392(a1)
+	sd	a1, 56(sp)                      # 8-byte Folded Spill
+	csrr	a1, vlenb
+	li	a3, 68
+	mul	a1, a1, a3
+	add	a1, a1, sp
+	ld	a1, 384(a1)
+	sd	a1, 48(sp)                      # 8-byte Folded Spill
+	csrr	a1, vlenb
+	li	a3, 68
+	mul	a1, a1, a3
+	add	a1, a1, sp
+	ld	a1, 376(a1)
+	sd	a1, 40(sp)                      # 8-byte Folded Spill
+	csrr	a1, vlenb
+	li	a3, 68
+	mul	a1, a1, a3
+	add	a1, a1, sp
+	ld	a1, 368(a1)
+	sd	a1, 32(sp)                      # 8-byte Folded Spill
+	csrr	a1, vlenb
+	li	a3, 68
+	mul	a1, a1, a3
+	add	a1, a1, sp
+	ld	s8, 360(a1)
+	csrr	a1, vlenb
+	li	a3, 68
+	mul	a1, a1, a3
+	add	a1, a1, sp
+	ld	a1, 352(a1)
+	sd	a1, 24(sp)                      # 8-byte Folded Spill
+	csrr	a1, vlenb
+	li	a3, 68
+	mul	a1, a1, a3
+	add	a1, a1, sp
+	ld	t6, 224(a1)
+	csrr	t4, vlenb
+	li	s4, 99
+	li	s2, 800
+	vsetvli	a1, zero, e32, m8, ta, ma
+	vid.v	v8
+	slli	s9, t4, 5
+	slli	t2, t4, 2
+	slli	a1, t4, 1
+	slli	t0, t4, 3
+	vadd.vx	v8, v8, a1
+	addi	a1, sp, 80
+	vs8r.v	v8, (a1)                        # Unknown-size Folded Spill
+	sub	t3, s9, t0
+	slli	t4, t4, 4
+	j	.LBB0_2
+.LBB0_1:                                #   in Loop: Header=BB0_2 Depth=1
+	addi	t5, t5, 1
+	addi	s3, s3, 800
+.LBB0_2:                                # =>This Loop Header: Depth=1
+                                        #     Child Loop BB0_5 Depth 2
+                                        #       Child Loop BB0_8 Depth 3
+	blt	s4, t5, .LBB0_11
+# %bb.3:                                #   in Loop: Header=BB0_2 Depth=1
+	slli	a1, t5, 3
+	add	a1, a1, a2
+	lwu	a4, 4(a1)
+	lwu	a5, 0(a1)
+	lwu	s0, 12(a1)
+	lwu	a1, 8(a1)
+	slli	a4, a4, 32
+	or	s6, a4, a5
+	slli	s0, s0, 32
+	or	s7, s0, a1
+	j	.LBB0_5
+.LBB0_4:                                #   in Loop: Header=BB0_5 Depth=2
+	addi	s6, s6, 1
+.LBB0_5:                                #   Parent Loop BB0_2 Depth=1
+                                        # =>  This Loop Header: Depth=2
+                                        #       Child Loop BB0_8 Depth 3
+	bge	s6, s7, .LBB0_1
+# %bb.6:                                #   in Loop: Header=BB0_5 Depth=2
+	li	a6, 0
+	slli	a1, s6, 3
+	add	a4, a7, a1
+	lwu	a5, 4(a4)
+	lwu	a4, 0(a4)
+	add	a1, a1, t6
+	fld	fa5, 0(a1)
+	slli	a5, a5, 32
+	or	a4, a4, a5
+	mul	a5, a4, s2
+	li	a4, 100
+	mv	s1, s3
+	j	.LBB0_8
+.LBB0_7:                                #   in Loop: Header=BB0_8 Depth=3
+	vsetvli	a3, zero, e32, m8, ta, ma
+	vmv.v.x	v8, a1
+	add	a1, s8, a5
+	vsetvli	a3, zero, e64, m8, ta, ma
+	vmv.v.i	v16, 0
+	addi	a3, sp, 80
+	vl8r.v	v24, (a3)                       # Unknown-size Folded Reload
+	vsetvli	zero, zero, e32, m4, ta, ma
+	vmslt.vv	v5, v24, v8
+	csrr	a3, vlenb
+	li	t1, 43
+	mul	a3, a3, t1
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vs1r.v	v5, (a3)                        # Unknown-size Folded Spill
+	vmslt.vv	v4, v28, v12
+	vsetvli	a3, zero, e32, m8, ta, ma
+	vid.v	v24
+	vsetvli	a3, zero, e32, m4, ta, ma
+	vmslt.vv	v7, v24, v8
+	vmslt.vv	v3, v28, v12
+	add	s11, a1, t3
+	csrr	a3, vlenb
+	li	t1, 60
+	mul	a3, a3, t1
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vs8r.v	v16, (a3)                       # Unknown-size Folded Spill
+	add	ra, a1, t4
+	vmv8r.v	v24, v16
+	add	s10, a1, t0
+	csrr	a3, vlenb
+	slli	t1, a3, 5
+	add	a3, a3, t1
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vs1r.v	v4, (a3)                        # Unknown-size Folded Spill
+	vmv1r.v	v0, v4
+	csrr	a3, vlenb
+	li	t1, 60
+	mul	a3, a3, t1
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vl8r.v	v8, (a3)                        # Unknown-size Folded Reload
+	vsetvli	zero, zero, e64, m8, ta, mu
+	vle64.v	v8, (s11), v0.t
+	csrr	a3, vlenb
+	li	t1, 60
+	mul	a3, a3, t1
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vs8r.v	v8, (a3)                        # Unknown-size Folded Spill
+	vmv1r.v	v0, v5
+	vle64.v	v24, (ra), v0.t
+	csrr	a3, vlenb
+	li	t1, 52
+	mul	a3, a3, t1
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vs8r.v	v24, (a3)                       # Unknown-size Folded Spill
+	vmv8r.v	v8, v16
+	vmv1r.v	v0, v3
+	csrr	a3, vlenb
+	slli	a3, a3, 5
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vs1r.v	v3, (a3)                        # Unknown-size Folded Spill
+	vle64.v	v8, (s10), v0.t
+	csrr	a3, vlenb
+	li	t1, 44
+	mul	a3, a3, t1
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vs8r.v	v8, (a3)                        # Unknown-size Folded Spill
+	vmv8r.v	v8, v16
+	csrr	a3, vlenb
+	li	t1, 42
+	mul	a3, a3, t1
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vs1r.v	v7, (a3)                        # Unknown-size Folded Spill
+	vmv1r.v	v0, v7
+	vle64.v	v8, (a1), v0.t
+	csrr	a3, vlenb
+	li	t1, 34
+	mul	a3, a3, t1
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vs8r.v	v8, (a3)                        # Unknown-size Folded Spill
+	add	a3, s5, s1
+	add	t1, a3, t3
+	vmv8r.v	v8, v16
+	vmv1r.v	v0, v4
+	vle64.v	v8, (t1), v0.t
+	csrr	t1, vlenb
+	li	s0, 24
+	mul	t1, t1, s0
+	add	t1, t1, sp
+	addi	t1, t1, 80
+	vs8r.v	v8, (t1)                        # Unknown-size Folded Spill
+	vmv8r.v	v24, v16
+	vmv1r.v	v0, v7
+	vle64.v	v24, (a3), v0.t
+	add	s0, a3, t0
+	vmv8r.v	v8, v16
+	vmv1r.v	v0, v3
+	vle64.v	v8, (s0), v0.t
+	csrr	t1, vlenb
+	li	s0, 24
+	mul	t1, t1, s0
+	add	t1, t1, sp
+	addi	t1, t1, 80
+	vl8r.v	v0, (t1)                        # Unknown-size Folded Reload
+	vfmul.vf	v0, v0, fa5
+	vfmul.vf	v24, v24, fa5
+	csrr	t1, vlenb
+	slli	t1, t1, 4
+	add	t1, t1, sp
+	addi	t1, t1, 80
+	vs8r.v	v24, (t1)                       # Unknown-size Folded Spill
+	csrr	t1, vlenb
+	li	s0, 60
+	mul	t1, t1, s0
+	add	t1, t1, sp
+	addi	t1, t1, 80
+	vl8r.v	v24, (t1)                       # Unknown-size Folded Reload
+	vfadd.vv	v24, v24, v0
+	csrr	t1, vlenb
+	li	s0, 24
+	mul	t1, t1, s0
+	add	t1, t1, sp
+	addi	t1, t1, 80
+	vs8r.v	v24, (t1)                       # Unknown-size Folded Spill
+	vfmul.vf	v8, v8, fa5
+	csrr	t1, vlenb
+	slli	t1, t1, 3
+	add	t1, t1, sp
+	addi	t1, t1, 80
+	vs8r.v	v8, (t1)                        # Unknown-size Folded Spill
+	add	a3, a3, t4
+	csrr	t1, vlenb
+	li	s0, 43
+	mul	t1, t1, s0
+	add	t1, t1, sp
+	addi	t1, t1, 80
+	vl1r.v	v7, (t1)                        # Unknown-size Folded Reload
+	vmv1r.v	v0, v7
+	vle64.v	v16, (a3), v0.t
+	csrr	a3, vlenb
+	li	t1, 34
+	mul	a3, a3, t1
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vl8r.v	v24, (a3)                       # Unknown-size Folded Reload
+	csrr	a3, vlenb
+	slli	a3, a3, 4
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vl8r.v	v8, (a3)                        # Unknown-size Folded Reload
+	vfadd.vv	v24, v24, v8
+	csrr	a3, vlenb
+	li	t1, 60
+	mul	a3, a3, t1
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vs8r.v	v24, (a3)                       # Unknown-size Folded Spill
+	csrr	a3, vlenb
+	slli	t1, a3, 5
+	add	a3, a3, t1
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vl1r.v	v0, (a3)                        # Unknown-size Folded Reload
+	csrr	a3, vlenb
+	li	t1, 24
+	mul	a3, a3, t1
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vl8r.v	v24, (a3)                       # Unknown-size Folded Reload
+	vse64.v	v24, (s11), v0.t
+	csrr	a3, vlenb
+	li	t1, 44
+	mul	a3, a3, t1
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vl8r.v	v24, (a3)                       # Unknown-size Folded Reload
+	csrr	a3, vlenb
+	slli	a3, a3, 3
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vl8r.v	v8, (a3)                        # Unknown-size Folded Reload
+	vfadd.vv	v8, v24, v8
+	vfmul.vf	v16, v16, fa5
+	csrr	a3, vlenb
+	li	t1, 52
+	mul	a3, a3, t1
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vl8r.v	v24, (a3)                       # Unknown-size Folded Reload
+	vfadd.vv	v16, v24, v16
+	vmv1r.v	v0, v7
+	vse64.v	v16, (ra), v0.t
+	csrr	a3, vlenb
+	slli	a3, a3, 5
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vl1r.v	v0, (a3)                        # Unknown-size Folded Reload
+	vse64.v	v8, (s10), v0.t
+	csrr	a3, vlenb
+	li	t1, 42
+	mul	a3, a3, t1
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vl1r.v	v0, (a3)                        # Unknown-size Folded Reload
+	csrr	a3, vlenb
+	li	t1, 60
+	mul	a3, a3, t1
+	add	a3, a3, sp
+	addi	a3, a3, 80
+	vl8r.v	v8, (a3)                        # Unknown-size Folded Reload
+	vse64.v	v8, (a1), v0.t
+	add	a6, a6, t2
+	add	a5, a5, s9
+	add	s1, s1, s9
+	sub	a4, a4, t2
+.LBB0_8:                                #   Parent Loop BB0_2 Depth=1
+                                        #     Parent Loop BB0_5 Depth=2
+                                        # =>    This Inner Loop Header: Depth=3
+	blt	s4, a6, .LBB0_4
+# %bb.9:                                #   in Loop: Header=BB0_8 Depth=3
+	mv	a1, a4
+	blt	a4, t2, .LBB0_7
+# %bb.10:                               #   in Loop: Header=BB0_8 Depth=3
+	mv	a1, t2
+	j	.LBB0_7
+.LBB0_11:
+	ld	a1, 24(sp)                      # 8-byte Folded Reload
+	sd	a1, 0(a0)
+	sd	s8, 8(a0)
+	ld	a1, 32(sp)                      # 8-byte Folded Reload
+	sd	a1, 16(a0)
+	ld	a1, 40(sp)                      # 8-byte Folded Reload
+	sd	a1, 24(a0)
+	ld	a1, 48(sp)                      # 8-byte Folded Reload
+	sd	a1, 32(a0)
+	ld	a1, 56(sp)                      # 8-byte Folded Reload
+	sd	a1, 40(a0)
+	ld	a1, 64(sp)                      # 8-byte Folded Reload
+	sd	a1, 48(a0)
+	csrr	a0, vlenb
+	li	a1, 68
+	mul	a0, a0, a1
+	add	sp, sp, a0
+	.cfi_def_cfa sp, 192
+	ld	ra, 184(sp)                     # 8-byte Folded Reload
+	ld	s0, 176(sp)                     # 8-byte Folded Reload
+	ld	s1, 168(sp)                     # 8-byte Folded Reload
+	ld	s2, 160(sp)                     # 8-byte Folded Reload
+	ld	s3, 152(sp)                     # 8-byte Folded Reload
+	ld	s4, 144(sp)                     # 8-byte Folded Reload
+	ld	s5, 136(sp)                     # 8-byte Folded Reload
+	ld	s6, 128(sp)                     # 8-byte Folded Reload
+	ld	s7, 120(sp)                     # 8-byte Folded Reload
+	ld	s8, 112(sp)                     # 8-byte Folded Reload
+	ld	s9, 104(sp)                     # 8-byte Folded Reload
+	ld	s10, 96(sp)                     # 8-byte Folded Reload
+	ld	s11, 88(sp)                     # 8-byte Folded Reload
+	.cfi_restore ra
+	.cfi_restore s0
+	.cfi_restore s1
+	.cfi_restore s2
+	.cfi_restore s3
+	.cfi_restore s4
+	.cfi_restore s5
+	.cfi_restore s6
+	.cfi_restore s7
+	.cfi_restore s8
+	.cfi_restore s9
+	.cfi_restore s10
+	.cfi_restore s11
+	addi	sp, sp, 192
+	.cfi_def_cfa_offset 0
+	ret
+.Lfunc_end0:
+	.size	matmul, .Lfunc_end0-matmul
+	.cfi_endproc
+                                        # -- End function
+	.globl	main                            # -- Begin function main
+	.p2align	1
+	.type	main,@function
+main:                                   # @main
+	.cfi_startproc
+# %bb.0:
+	addi	sp, sp, -464
+	.cfi_def_cfa_offset 464
+	sd	ra, 456(sp)                     # 8-byte Folded Spill
+	sd	s0, 448(sp)                     # 8-byte Folded Spill
+	sd	s1, 440(sp)                     # 8-byte Folded Spill
+	.cfi_offset ra, -8
+	.cfi_offset s0, -16
+	.cfi_offset s1, -24
+	lui	a0, 20
+	addiw	a0, a0, -1856
+	call	malloc
+	mv	s0, a0
+	addi	a0, a0, 63
+	andi	s1, a0, -64
+	addi	a0, sp, 280
+	call	test_assemble
+	addi	a0, sp, 400
+	addi	t0, sp, 336
+	ld	a5, 312(sp)
+	ld	a6, 320(sp)
+	ld	a7, 328(sp)
+	vsetivli	zero, 4, e64, m2, ta, ma
+	vle64.v	v8, (a0)
+	ld	a1, 280(sp)
+	ld	a2, 288(sp)
+	ld	a3, 296(sp)
+	ld	a4, 304(sp)
+	vsetivli	zero, 8, e64, m4, ta, ma
+	vle64.v	v12, (t0)
+	ld	a0, 432(sp)
+	sd	s0, 160(sp)
+	sd	s1, 168(sp)
+	sd	zero, 176(sp)
+	li	t0, 1
+	lui	t1, %hi(.L__constant_100x100xf64)
+	addi	t1, t1, %lo(.L__constant_100x100xf64)
+	lui	s1, 228023
+	lui	t2, 5702
+	addi	t3, sp, 184
+	slli	s1, s1, 2
+	addi	s1, s1, -273
+	sd	a0, 96(sp)
+	sd	s1, 104(sp)
+	sd	t1, 112(sp)
+	sd	t0, 152(sp)
+	lui	a0, 411206
+	addi	s1, t2, 1124
+	vse64.v	v12, (sp)
+	vmv.s.x	v10, s1
+	addi	s1, sp, 120
+	addi	a0, a0, 1024
+	vmv.s.x	v11, a0
+	addi	s0, sp, 64
+	vsetivli	zero, 4, e64, m2, ta, ma
+	vsext.vf8	v12, v10
+	vse64.v	v12, (t3)
+	addi	a0, sp, 224
+	vsext.vf8	v12, v11
+	vse64.v	v12, (s1)
+	vse64.v	v8, (s0)
+	call	matmul
+	ld	a0, 232(sp)
+	fld	fa5, 808(a0)
+	fcvt.l.d	a0, fa5, rtz
+	ld	ra, 456(sp)                     # 8-byte Folded Reload
+	ld	s0, 448(sp)                     # 8-byte Folded Reload
+	ld	s1, 440(sp)                     # 8-byte Folded Reload
+	.cfi_restore ra
+	.cfi_restore s0
+	.cfi_restore s1
+	addi	sp, sp, 464
+	.cfi_def_cfa_offset 0
+	ret
+.Lfunc_end1:
+	.size	main, .Lfunc_end1-main
+	.cfi_endproc
+                                        # -- End function
+	.section	.rodata.cst32,"aM",@progbits,32
+	.p2align	5, 0x0                          # -- Begin function test_assemble
+.LCPI2_0:
+	.quad	0                               # 0x0
+	.quad	500                             # 0x1f4
+	.quad	1                               # 0x1
+	.quad	100                             # 0x64
+.LCPI2_1:
+	.quad	0                               # 0x0
+	.quad	500                             # 0x1f4
+	.quad	1                               # 0x1
+	.quad	3735928559                      # 0xdeadbeef
+.LCPI2_2:
+	.quad	0                               # 0x0
+	.quad	101                             # 0x65
+	.quad	1                               # 0x1
+	.quad	3735928559                      # 0xdeadbeef
+	.text
+	.globl	test_assemble
+	.p2align	1
+	.type	test_assemble,@function
+test_assemble:                          # @test_assemble
+	.cfi_startproc
+# %bb.0:
+	lui	a1, %hi(.L__constant_101xindex)
+	addi	a1, a1, %lo(.L__constant_101xindex)
+	lui	a7, %hi(.L__constant_500xindex)
+	addi	a7, a7, %lo(.L__constant_500xindex)
+	lui	t0, %hi(.L__constant_500xf64)
+	addi	t0, t0, %lo(.L__constant_500xf64)
+	li	a6, 101
+	li	a5, 100
+	lui	a4, 228023
+	lui	a2, %hi(.LCPI2_0)
+	addi	a2, a2, %lo(.LCPI2_0)
+	addi	a3, a0, 96
+	vsetivli	zero, 4, e64, m2, ta, ma
+	vle64.v	v8, (a2)
+	lui	a2, %hi(.LCPI2_1)
+	addi	a2, a2, %lo(.LCPI2_1)
+	vle64.v	v10, (a2)
+	ld	a2, 800(a1)
+	slli	a4, a4, 2
+	addi	a4, a4, -273
+	sd	a4, 0(a0)
+	sd	a1, 8(a0)
+	sd	a7, 48(a0)
+	sd	t0, 88(a0)
+	lui	a1, %hi(.LCPI2_2)
+	addi	a1, a1, %lo(.LCPI2_2)
+	sd	a5, 128(a0)
+	sd	a6, 136(a0)
+	sd	a2, 144(a0)
+	sd	a2, 152(a0)
+	vse64.v	v8, (a3)
+	vle64.v	v8, (a1)
+	addi	a1, a0, 56
+	vse64.v	v10, (a1)
+	addi	a0, a0, 16
+	vse64.v	v8, (a0)
+	ret
+.Lfunc_end2:
+	.size	test_assemble, .Lfunc_end2-test_assemble
+	.cfi_endproc
+                                        # -- End function
+	.type	.L__constant_101xindex,@object  # @__constant_101xindex
+	.section	.rodata,"a",@progbits
+	.p2align	6, 0x0
+.L__constant_101xindex:
+	.quad	0                               # 0x0
+	.quad	15                              # 0xf
+	.quad	15                              # 0xf
+	.quad	25                              # 0x19
+	.quad	25                              # 0x19
+	.quad	32                              # 0x20
+	.quad	32                              # 0x20
+	.quad	41                              # 0x29
+	.quad	41                              # 0x29
+	.quad	53                              # 0x35
+	.quad	53                              # 0x35
+	.quad	60                              # 0x3c
+	.quad	60                              # 0x3c
+	.quad	74                              # 0x4a
+	.quad	74                              # 0x4a
+	.quad	79                              # 0x4f
+	.quad	79                              # 0x4f
+	.quad	90                              # 0x5a
+	.quad	90                              # 0x5a
+	.quad	95                              # 0x5f
+	.quad	95                              # 0x5f
+	.quad	104                             # 0x68
+	.quad	104                             # 0x68
+	.quad	112                             # 0x70
+	.quad	112                             # 0x70
+	.quad	122                             # 0x7a
+	.quad	122                             # 0x7a
+	.quad	135                             # 0x87
+	.quad	135                             # 0x87
+	.quad	149                             # 0x95
+	.quad	149                             # 0x95
+	.quad	154                             # 0x9a
+	.quad	154                             # 0x9a
+	.quad	167                             # 0xa7
+	.quad	167                             # 0xa7
+	.quad	175                             # 0xaf
+	.quad	175                             # 0xaf
+	.quad	186                             # 0xba
+	.quad	186                             # 0xba
+	.quad	197                             # 0xc5
+	.quad	197                             # 0xc5
+	.quad	207                             # 0xcf
+	.quad	207                             # 0xcf
+	.quad	224                             # 0xe0
+	.quad	224                             # 0xe0
+	.quad	230                             # 0xe6
+	.quad	230                             # 0xe6
+	.quad	243                             # 0xf3
+	.quad	243                             # 0xf3
+	.quad	250                             # 0xfa
+	.quad	250                             # 0xfa
+	.quad	262                             # 0x106
+	.quad	262                             # 0x106
+	.quad	272                             # 0x110
+	.quad	272                             # 0x110
+	.quad	277                             # 0x115
+	.quad	277                             # 0x115
+	.quad	286                             # 0x11e
+	.quad	286                             # 0x11e
+	.quad	298                             # 0x12a
+	.quad	298                             # 0x12a
+	.quad	308                             # 0x134
+	.quad	308                             # 0x134
+	.quad	322                             # 0x142
+	.quad	322                             # 0x142
+	.quad	334                             # 0x14e
+	.quad	334                             # 0x14e
+	.quad	343                             # 0x157
+	.quad	343                             # 0x157
+	.quad	354                             # 0x162
+	.quad	354                             # 0x162
+	.quad	364                             # 0x16c
+	.quad	364                             # 0x16c
+	.quad	373                             # 0x175
+	.quad	373                             # 0x175
+	.quad	384                             # 0x180
+	.quad	384                             # 0x180
+	.quad	397                             # 0x18d
+	.quad	397                             # 0x18d
+	.quad	408                             # 0x198
+	.quad	408                             # 0x198
+	.quad	413                             # 0x19d
+	.quad	413                             # 0x19d
+	.quad	422                             # 0x1a6
+	.quad	422                             # 0x1a6
+	.quad	429                             # 0x1ad
+	.quad	429                             # 0x1ad
+	.quad	441                             # 0x1b9
+	.quad	441                             # 0x1b9
+	.quad	453                             # 0x1c5
+	.quad	453                             # 0x1c5
+	.quad	463                             # 0x1cf
+	.quad	463                             # 0x1cf
+	.quad	470                             # 0x1d6
+	.quad	470                             # 0x1d6
+	.quad	478                             # 0x1de
+	.quad	478                             # 0x1de
+	.quad	487                             # 0x1e7
+	.quad	487                             # 0x1e7
+	.quad	500                             # 0x1f4
+	.quad	500                             # 0x1f4
+	.size	.L__constant_101xindex, 808
+
+	.type	.L__constant_500xindex,@object  # @__constant_500xindex
+	.p2align	6, 0x0
+.L__constant_500xindex:
+	.quad	8                               # 0x8
+	.quad	10                              # 0xa
+	.quad	12                              # 0xc
+	.quad	22                              # 0x16
+	.quad	40                              # 0x28
+	.quad	44                              # 0x2c
+	.quad	52                              # 0x34
+	.quad	56                              # 0x38
+	.quad	64                              # 0x40
+	.quad	70                              # 0x46
+	.quad	80                              # 0x50
+	.quad	82                              # 0x52
+	.quad	90                              # 0x5a
+	.quad	94                              # 0x5e
+	.quad	96                              # 0x60
+	.quad	8                               # 0x8
+	.quad	22                              # 0x16
+	.quad	24                              # 0x18
+	.quad	26                              # 0x1a
+	.quad	36                              # 0x24
+	.quad	52                              # 0x34
+	.quad	62                              # 0x3e
+	.quad	74                              # 0x4a
+	.quad	78                              # 0x4e
+	.quad	84                              # 0x54
+	.quad	14                              # 0xe
+	.quad	18                              # 0x12
+	.quad	36                              # 0x24
+	.quad	42                              # 0x2a
+	.quad	52                              # 0x34
+	.quad	62                              # 0x3e
+	.quad	82                              # 0x52
+	.quad	2                               # 0x2
+	.quad	4                               # 0x4
+	.quad	14                              # 0xe
+	.quad	24                              # 0x18
+	.quad	36                              # 0x24
+	.quad	40                              # 0x28
+	.quad	44                              # 0x2c
+	.quad	52                              # 0x34
+	.quad	88                              # 0x58
+	.quad	8                               # 0x8
+	.quad	10                              # 0xa
+	.quad	22                              # 0x16
+	.quad	32                              # 0x20
+	.quad	46                              # 0x2e
+	.quad	56                              # 0x38
+	.quad	68                              # 0x44
+	.quad	70                              # 0x46
+	.quad	84                              # 0x54
+	.quad	86                              # 0x56
+	.quad	96                              # 0x60
+	.quad	98                              # 0x62
+	.quad	20                              # 0x14
+	.quad	42                              # 0x2a
+	.quad	44                              # 0x2c
+	.quad	46                              # 0x2e
+	.quad	52                              # 0x34
+	.quad	66                              # 0x42
+	.quad	78                              # 0x4e
+	.quad	0                               # 0x0
+	.quad	2                               # 0x2
+	.quad	6                               # 0x6
+	.quad	30                              # 0x1e
+	.quad	32                              # 0x20
+	.quad	54                              # 0x36
+	.quad	58                              # 0x3a
+	.quad	60                              # 0x3c
+	.quad	62                              # 0x3e
+	.quad	70                              # 0x46
+	.quad	82                              # 0x52
+	.quad	86                              # 0x56
+	.quad	94                              # 0x5e
+	.quad	98                              # 0x62
+	.quad	4                               # 0x4
+	.quad	6                               # 0x6
+	.quad	36                              # 0x24
+	.quad	38                              # 0x26
+	.quad	46                              # 0x2e
+	.quad	6                               # 0x6
+	.quad	30                              # 0x1e
+	.quad	34                              # 0x22
+	.quad	42                              # 0x2a
+	.quad	44                              # 0x2c
+	.quad	50                              # 0x32
+	.quad	56                              # 0x38
+	.quad	66                              # 0x42
+	.quad	80                              # 0x50
+	.quad	86                              # 0x56
+	.quad	94                              # 0x5e
+	.quad	0                               # 0x0
+	.quad	18                              # 0x12
+	.quad	56                              # 0x38
+	.quad	74                              # 0x4a
+	.quad	78                              # 0x4e
+	.quad	22                              # 0x16
+	.quad	34                              # 0x22
+	.quad	42                              # 0x2a
+	.quad	44                              # 0x2c
+	.quad	50                              # 0x32
+	.quad	52                              # 0x34
+	.quad	54                              # 0x36
+	.quad	72                              # 0x48
+	.quad	80                              # 0x50
+	.quad	14                              # 0xe
+	.quad	60                              # 0x3c
+	.quad	68                              # 0x44
+	.quad	72                              # 0x48
+	.quad	80                              # 0x50
+	.quad	86                              # 0x56
+	.quad	92                              # 0x5c
+	.quad	94                              # 0x5e
+	.quad	22                              # 0x16
+	.quad	24                              # 0x18
+	.quad	32                              # 0x20
+	.quad	34                              # 0x22
+	.quad	44                              # 0x2c
+	.quad	52                              # 0x34
+	.quad	58                              # 0x3a
+	.quad	74                              # 0x4a
+	.quad	86                              # 0x56
+	.quad	92                              # 0x5c
+	.quad	2                               # 0x2
+	.quad	18                              # 0x12
+	.quad	20                              # 0x14
+	.quad	24                              # 0x18
+	.quad	30                              # 0x1e
+	.quad	40                              # 0x28
+	.quad	56                              # 0x38
+	.quad	64                              # 0x40
+	.quad	72                              # 0x48
+	.quad	80                              # 0x50
+	.quad	84                              # 0x54
+	.quad	86                              # 0x56
+	.quad	98                              # 0x62
+	.quad	0                               # 0x0
+	.quad	10                              # 0xa
+	.quad	14                              # 0xe
+	.quad	24                              # 0x18
+	.quad	30                              # 0x1e
+	.quad	32                              # 0x20
+	.quad	42                              # 0x2a
+	.quad	44                              # 0x2c
+	.quad	46                              # 0x2e
+	.quad	76                              # 0x4c
+	.quad	88                              # 0x58
+	.quad	92                              # 0x5c
+	.quad	96                              # 0x60
+	.quad	98                              # 0x62
+	.quad	0                               # 0x0
+	.quad	6                               # 0x6
+	.quad	62                              # 0x3e
+	.quad	94                              # 0x5e
+	.quad	96                              # 0x60
+	.quad	0                               # 0x0
+	.quad	8                               # 0x8
+	.quad	16                              # 0x10
+	.quad	18                              # 0x12
+	.quad	22                              # 0x16
+	.quad	24                              # 0x18
+	.quad	36                              # 0x24
+	.quad	40                              # 0x28
+	.quad	42                              # 0x2a
+	.quad	50                              # 0x32
+	.quad	52                              # 0x34
+	.quad	76                              # 0x4c
+	.quad	94                              # 0x5e
+	.quad	0                               # 0x0
+	.quad	18                              # 0x12
+	.quad	22                              # 0x16
+	.quad	34                              # 0x22
+	.quad	54                              # 0x36
+	.quad	60                              # 0x3c
+	.quad	82                              # 0x52
+	.quad	92                              # 0x5c
+	.quad	0                               # 0x0
+	.quad	6                               # 0x6
+	.quad	16                              # 0x10
+	.quad	28                              # 0x1c
+	.quad	36                              # 0x24
+	.quad	46                              # 0x2e
+	.quad	50                              # 0x32
+	.quad	52                              # 0x34
+	.quad	58                              # 0x3a
+	.quad	84                              # 0x54
+	.quad	96                              # 0x60
+	.quad	0                               # 0x0
+	.quad	6                               # 0x6
+	.quad	10                              # 0xa
+	.quad	14                              # 0xe
+	.quad	16                              # 0x10
+	.quad	48                              # 0x30
+	.quad	50                              # 0x32
+	.quad	52                              # 0x34
+	.quad	62                              # 0x3e
+	.quad	64                              # 0x40
+	.quad	68                              # 0x44
+	.quad	8                               # 0x8
+	.quad	18                              # 0x12
+	.quad	20                              # 0x14
+	.quad	22                              # 0x16
+	.quad	26                              # 0x1a
+	.quad	36                              # 0x24
+	.quad	60                              # 0x3c
+	.quad	64                              # 0x40
+	.quad	70                              # 0x46
+	.quad	80                              # 0x50
+	.quad	4                               # 0x4
+	.quad	6                               # 0x6
+	.quad	12                              # 0xc
+	.quad	16                              # 0x10
+	.quad	18                              # 0x12
+	.quad	22                              # 0x16
+	.quad	32                              # 0x20
+	.quad	38                              # 0x26
+	.quad	42                              # 0x2a
+	.quad	54                              # 0x36
+	.quad	58                              # 0x3a
+	.quad	68                              # 0x44
+	.quad	70                              # 0x46
+	.quad	78                              # 0x4e
+	.quad	80                              # 0x50
+	.quad	90                              # 0x5a
+	.quad	96                              # 0x60
+	.quad	12                              # 0xc
+	.quad	42                              # 0x2a
+	.quad	58                              # 0x3a
+	.quad	68                              # 0x44
+	.quad	74                              # 0x4a
+	.quad	76                              # 0x4c
+	.quad	6                               # 0x6
+	.quad	8                               # 0x8
+	.quad	22                              # 0x16
+	.quad	30                              # 0x1e
+	.quad	34                              # 0x22
+	.quad	48                              # 0x30
+	.quad	52                              # 0x34
+	.quad	60                              # 0x3c
+	.quad	62                              # 0x3e
+	.quad	66                              # 0x42
+	.quad	70                              # 0x46
+	.quad	88                              # 0x58
+	.quad	94                              # 0x5e
+	.quad	16                              # 0x10
+	.quad	74                              # 0x4a
+	.quad	76                              # 0x4c
+	.quad	88                              # 0x58
+	.quad	90                              # 0x5a
+	.quad	96                              # 0x60
+	.quad	98                              # 0x62
+	.quad	10                              # 0xa
+	.quad	24                              # 0x18
+	.quad	28                              # 0x1c
+	.quad	34                              # 0x22
+	.quad	36                              # 0x24
+	.quad	48                              # 0x30
+	.quad	58                              # 0x3a
+	.quad	60                              # 0x3c
+	.quad	72                              # 0x48
+	.quad	82                              # 0x52
+	.quad	90                              # 0x5a
+	.quad	98                              # 0x62
+	.quad	8                               # 0x8
+	.quad	10                              # 0xa
+	.quad	24                              # 0x18
+	.quad	28                              # 0x1c
+	.quad	34                              # 0x22
+	.quad	68                              # 0x44
+	.quad	72                              # 0x48
+	.quad	76                              # 0x4c
+	.quad	88                              # 0x58
+	.quad	92                              # 0x5c
+	.quad	2                               # 0x2
+	.quad	48                              # 0x30
+	.quad	66                              # 0x42
+	.quad	70                              # 0x46
+	.quad	94                              # 0x5e
+	.quad	4                               # 0x4
+	.quad	16                              # 0x10
+	.quad	30                              # 0x1e
+	.quad	36                              # 0x24
+	.quad	44                              # 0x2c
+	.quad	56                              # 0x38
+	.quad	88                              # 0x58
+	.quad	90                              # 0x5a
+	.quad	92                              # 0x5c
+	.quad	6                               # 0x6
+	.quad	10                              # 0xa
+	.quad	26                              # 0x1a
+	.quad	30                              # 0x1e
+	.quad	40                              # 0x28
+	.quad	44                              # 0x2c
+	.quad	50                              # 0x32
+	.quad	56                              # 0x38
+	.quad	62                              # 0x3e
+	.quad	66                              # 0x42
+	.quad	68                              # 0x44
+	.quad	90                              # 0x5a
+	.quad	0                               # 0x0
+	.quad	18                              # 0x12
+	.quad	22                              # 0x16
+	.quad	26                              # 0x1a
+	.quad	28                              # 0x1c
+	.quad	42                              # 0x2a
+	.quad	52                              # 0x34
+	.quad	76                              # 0x4c
+	.quad	78                              # 0x4e
+	.quad	86                              # 0x56
+	.quad	8                               # 0x8
+	.quad	12                              # 0xc
+	.quad	24                              # 0x18
+	.quad	28                              # 0x1c
+	.quad	36                              # 0x24
+	.quad	40                              # 0x28
+	.quad	42                              # 0x2a
+	.quad	46                              # 0x2e
+	.quad	50                              # 0x32
+	.quad	54                              # 0x36
+	.quad	60                              # 0x3c
+	.quad	64                              # 0x40
+	.quad	82                              # 0x52
+	.quad	92                              # 0x5c
+	.quad	6                               # 0x6
+	.quad	10                              # 0xa
+	.quad	20                              # 0x14
+	.quad	30                              # 0x1e
+	.quad	36                              # 0x24
+	.quad	42                              # 0x2a
+	.quad	52                              # 0x34
+	.quad	56                              # 0x38
+	.quad	66                              # 0x42
+	.quad	74                              # 0x4a
+	.quad	78                              # 0x4e
+	.quad	98                              # 0x62
+	.quad	8                               # 0x8
+	.quad	34                              # 0x22
+	.quad	38                              # 0x26
+	.quad	48                              # 0x30
+	.quad	60                              # 0x3c
+	.quad	62                              # 0x3e
+	.quad	72                              # 0x48
+	.quad	90                              # 0x5a
+	.quad	96                              # 0x60
+	.quad	2                               # 0x2
+	.quad	12                              # 0xc
+	.quad	40                              # 0x28
+	.quad	42                              # 0x2a
+	.quad	62                              # 0x3e
+	.quad	64                              # 0x40
+	.quad	72                              # 0x48
+	.quad	78                              # 0x4e
+	.quad	84                              # 0x54
+	.quad	86                              # 0x56
+	.quad	94                              # 0x5e
+	.quad	8                               # 0x8
+	.quad	28                              # 0x1c
+	.quad	40                              # 0x28
+	.quad	42                              # 0x2a
+	.quad	56                              # 0x38
+	.quad	60                              # 0x3c
+	.quad	62                              # 0x3e
+	.quad	78                              # 0x4e
+	.quad	86                              # 0x56
+	.quad	94                              # 0x5e
+	.quad	6                               # 0x6
+	.quad	10                              # 0xa
+	.quad	38                              # 0x26
+	.quad	46                              # 0x2e
+	.quad	48                              # 0x30
+	.quad	50                              # 0x32
+	.quad	52                              # 0x34
+	.quad	56                              # 0x38
+	.quad	62                              # 0x3e
+	.quad	0                               # 0x0
+	.quad	4                               # 0x4
+	.quad	18                              # 0x12
+	.quad	20                              # 0x14
+	.quad	34                              # 0x22
+	.quad	44                              # 0x2c
+	.quad	52                              # 0x34
+	.quad	56                              # 0x38
+	.quad	76                              # 0x4c
+	.quad	84                              # 0x54
+	.quad	88                              # 0x58
+	.quad	4                               # 0x4
+	.quad	12                              # 0xc
+	.quad	24                              # 0x18
+	.quad	28                              # 0x1c
+	.quad	30                              # 0x1e
+	.quad	48                              # 0x30
+	.quad	58                              # 0x3a
+	.quad	64                              # 0x40
+	.quad	66                              # 0x42
+	.quad	72                              # 0x48
+	.quad	88                              # 0x58
+	.quad	90                              # 0x5a
+	.quad	92                              # 0x5c
+	.quad	8                               # 0x8
+	.quad	24                              # 0x18
+	.quad	26                              # 0x1a
+	.quad	32                              # 0x20
+	.quad	46                              # 0x2e
+	.quad	48                              # 0x30
+	.quad	66                              # 0x42
+	.quad	70                              # 0x46
+	.quad	80                              # 0x50
+	.quad	82                              # 0x52
+	.quad	92                              # 0x5c
+	.quad	0                               # 0x0
+	.quad	12                              # 0xc
+	.quad	18                              # 0x12
+	.quad	38                              # 0x26
+	.quad	42                              # 0x2a
+	.quad	12                              # 0xc
+	.quad	38                              # 0x26
+	.quad	48                              # 0x30
+	.quad	50                              # 0x32
+	.quad	62                              # 0x3e
+	.quad	72                              # 0x48
+	.quad	78                              # 0x4e
+	.quad	86                              # 0x56
+	.quad	96                              # 0x60
+	.quad	4                               # 0x4
+	.quad	6                               # 0x6
+	.quad	10                              # 0xa
+	.quad	16                              # 0x10
+	.quad	52                              # 0x34
+	.quad	54                              # 0x36
+	.quad	68                              # 0x44
+	.quad	14                              # 0xe
+	.quad	22                              # 0x16
+	.quad	36                              # 0x24
+	.quad	44                              # 0x2c
+	.quad	48                              # 0x30
+	.quad	56                              # 0x38
+	.quad	58                              # 0x3a
+	.quad	72                              # 0x48
+	.quad	74                              # 0x4a
+	.quad	80                              # 0x50
+	.quad	90                              # 0x5a
+	.quad	98                              # 0x62
+	.quad	8                               # 0x8
+	.quad	12                              # 0xc
+	.quad	26                              # 0x1a
+	.quad	32                              # 0x20
+	.quad	52                              # 0x34
+	.quad	54                              # 0x36
+	.quad	56                              # 0x38
+	.quad	68                              # 0x44
+	.quad	76                              # 0x4c
+	.quad	90                              # 0x5a
+	.quad	96                              # 0x60
+	.quad	98                              # 0x62
+	.quad	10                              # 0xa
+	.quad	26                              # 0x1a
+	.quad	44                              # 0x2c
+	.quad	46                              # 0x2e
+	.quad	74                              # 0x4a
+	.quad	76                              # 0x4c
+	.quad	78                              # 0x4e
+	.quad	84                              # 0x54
+	.quad	88                              # 0x58
+	.quad	90                              # 0x5a
+	.quad	26                              # 0x1a
+	.quad	50                              # 0x32
+	.quad	52                              # 0x34
+	.quad	64                              # 0x40
+	.quad	72                              # 0x48
+	.quad	82                              # 0x52
+	.quad	98                              # 0x62
+	.quad	2                               # 0x2
+	.quad	8                               # 0x8
+	.quad	40                              # 0x28
+	.quad	44                              # 0x2c
+	.quad	54                              # 0x36
+	.quad	72                              # 0x48
+	.quad	90                              # 0x5a
+	.quad	94                              # 0x5e
+	.quad	10                              # 0xa
+	.quad	16                              # 0x10
+	.quad	40                              # 0x28
+	.quad	48                              # 0x30
+	.quad	58                              # 0x3a
+	.quad	66                              # 0x42
+	.quad	76                              # 0x4c
+	.quad	92                              # 0x5c
+	.quad	98                              # 0x62
+	.quad	2                               # 0x2
+	.quad	6                               # 0x6
+	.quad	14                              # 0xe
+	.quad	18                              # 0x12
+	.quad	28                              # 0x1c
+	.quad	34                              # 0x22
+	.quad	48                              # 0x30
+	.quad	50                              # 0x32
+	.quad	52                              # 0x34
+	.quad	64                              # 0x40
+	.quad	72                              # 0x48
+	.quad	80                              # 0x50
+	.quad	98                              # 0x62
+	.size	.L__constant_500xindex, 4000
+
+	.type	.L__constant_500xf64,@object    # @__constant_500xf64
+	.p2align	6, 0x0
+.L__constant_500xf64:
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.quad	0x3ff0000000000000              # double 1
+	.size	.L__constant_500xf64, 4000
+
+	.type	.L__constant_100x100xf64,@object # @__constant_100x100xf64
+	.p2align	6, 0x0
+.L__constant_100x100xf64:
+	.quad	0x3fecbd2f77fb66bf              # double 0.89809392389289389
+	.quad	0x3fcbe579aa04b39c              # double 0.21794052888563165
+	.quad	0x3fe8296ed934a8d4              # double 0.7550577394770479
+	.quad	0x3fd5d460059fb6a6              # double 0.34108734654624084
+	.quad	0x3fe045cfcc6b6968              # double 0.50852193761538178
+	.quad	0x3fd048957f22b5a2              # double 0.25443017402252555
+	.quad	0x3fe68bb4bec17271              # double 0.70455395943606736
+	.quad	0x3fc6a432c3646840              # double 0.17688593426356825
+	.quad	0x3fe8d8bce36ac6e9              # double 0.77645725648309594
+	.quad	0x3f93c573fb854060              # double 0.019307911135286182
+	.quad	0x3fd0e6c461752b7e              # double 0.26408490674355523
+	.quad	0x3fc6be7148b46bec              # double 0.17768684434926685
+	.quad	0x3fbe5a7ae26f94b8              # double 0.11856811550349533
+	.quad	0x3fd85b0a0dc0f7a8              # double 0.38055659621374582
+	.quad	0x3fe41afa4c4027d3              # double 0.62829317944237528
+	.quad	0x3fe729b71cd2066d              # double 0.72384219769464908
+	.quad	0x3fe36e1792ca3a6b              # double 0.60718897504723424
+	.quad	0x3fd06ed088522afc              # double 0.25676358521074838
+	.quad	0x3fe0d3b4355a1efd              # double 0.5258427660018864
+	.quad	0x3fdce173fe6120b6              # double 0.45126056520212943
+	.quad	0x3fd0f2e025ae66f2              # double 0.26482394866762526
+	.quad	0x3fe9ab609894eddb              # double 0.80217008401035217
+	.quad	0x3fdabdc8ad1073b2              # double 0.41783348942572751
+	.quad	0x3fe1dc85b203cba6              # double 0.55816921967049349
+	.quad	0x3fe83945c94392a2              # double 0.75699128445974773
+	.quad	0x3feb814e1072af2e              # double 0.85953429424760031
+	.quad	0x3fed299c24fd6ab2              # double 0.9113293383082548
+	.quad	0x3fe3cdc19ba5985d              # double 0.61886673354889477
+	.quad	0x3fdc9a706c30bf30              # double 0.44692621770353735
+	.quad	0x3fea62ec5a01a891              # double 0.82457559184446627
+	.quad	0x3fe5e27e350c9e26              # double 0.68389807091893284
+	.quad	0x3fc9b1c0a6304ab0              # double 0.20073707689933462
+	.quad	0x3fe79aa4f5d6b942              # double 0.73762748732932715
+	.quad	0x3fee6181d5b1180e              # double 0.94940273033785316
+	.quad	0x3fe3d32b31554473              # double 0.61952743182531689
+	.quad	0x3f7f8a1f8e105380              # double 0.0077000839819633126
+	.quad	0x3fe3f5d8391cca09              # double 0.62376032976891438
+	.quad	0x3fe985cf4e5fbe62              # double 0.79758420283719667
+	.quad	0x3fea37851c7a82e4              # double 0.81927733957499215
+	.quad	0x3fec719e0ed158b0              # double 0.88886931318372397
+	.quad	0x3fde34c26a719ad4              # double 0.47197018046283046
+	.quad	0x3fec4a3a8a9eca81              # double 0.88406111788056319
+	.quad	0x3fe0b1c519c14c0b              # double 0.52170043020521584
+	.quad	0x3feb9bf62f499980              # double 0.86278828845824762
+	.quad	0x3fdff75e711388e2              # double 0.4994732002507033
+	.quad	0x3fecc2a05c50fe91              # double 0.89875810652297805
+	.quad	0x3fe419d5a5297186              # double 0.62815363176518768
+	.quad	0x3feca843957893eb              # double 0.89554003900104584
+	.quad	0x3fe4da9b2c1b3b9d              # double 0.65168532003905322
+	.quad	0x3fc4c80ecf0aed74              # double 0.16235528096681728
+	.quad	0x3fef1c6668fb7b03              # double 0.9722168016849938
+	.quad	0x3fe52084dc7417e0              # double 0.66021960313150529
+	.quad	0x3fcb1df4266f01f0              # double 0.2118516147293259
+	.quad	0x3feddfedcdc70adb              # double 0.93358507338447383
+	.quad	0x3fe588a3c3cb00d2              # double 0.67292965164963392
+	.quad	0x3fe37adf5aa3cb17              # double 0.60874908164109598
+	.quad	0x3fe954cf726e011e              # double 0.79160282468368215
+	.quad	0x3fc6d8582e45c4ac              # double 0.17847730883980739
+	.quad	0x3fe7f902e8b3f54e              # double 0.74914689492985942
+	.quad	0x3fe383c89b8e04d5              # double 0.60983686811246207
+	.quad	0x3fbe31a9c20ed0d8              # double 0.1179452990316493
+	.quad	0x3fe1ad07b317443e              # double 0.55237183550537572
+	.quad	0x3fab1ff40bbf45b0              # double 0.052978159364680422
+	.quad	0x3fef5cb143192c6b              # double 0.98006499390738832
+	.quad	0x3fe6dbd9863a3456              # double 0.71433712211877309
+	.quad	0x3fe99654eda07648              # double 0.7996010438107044
+	.quad	0x3fee2576f4fb4f80              # double 0.94207332466110927
+	.quad	0x3fe462282d16372e              # double 0.63698204809199921
+	.quad	0x3fe1ca97f331a29c              # double 0.55598065851980349
+	.quad	0x3feef5fac26f01fa              # double 0.9675267980128972
+	.quad	0x3fc2751bb362049c              # double 0.14419885882310701
+	.quad	0x3fb3ee48710f8e78              # double 0.077854659655310132
+	.quad	0x3fee57a5130451a5              # double 0.94819883074028566
+	.quad	0x3fe06b78f813559d              # double 0.51311920597315785
+	.quad	0x3fde167358144f52              # double 0.47012027360437003
+	.quad	0x3fe137a847fd2cf6              # double 0.53804410991997886
+	.quad	0x3fe2e74883b8c03d              # double 0.59073281981364512
+	.quad	0x3fb3b52556b53a38              # double 0.076982816380429919
+	.quad	0x3fd62248cda1b598              # double 0.3458425529596183
+	.quad	0x3fc9b0eb8f665954              # double 0.20071167470878015
+	.quad	0x3fd678c75a259ee6              # double 0.35112174800313622
+	.quad	0x3fef5fa7542aac7e              # double 0.9804264682656052
+	.quad	0x3fd48f7d2fab1c1a              # double 0.32125787406079243
+	.quad	0x3fe0b1cb17b45be9              # double 0.52170328740873828
+	.quad	0x3fd447243ff626d4              # double 0.31684213873141442
+	.quad	0x3fd2df85857bdad8              # double 0.29489267383125428
+	.quad	0x3fd1942ae1d3b346              # double 0.27466842702306271
+	.quad	0x3fbee61bb5102570              # double 0.12069867296681536
+	.quad	0x3fc84b2951ce1400              # double 0.18979374403366478
+	.quad	0x3fb48da238a33c80              # double 0.080286158397244733
+	.quad	0x3fe0823305e97fc2              # double 0.51589347033222333
+	.quad	0x3fd9579dfbba72d0              # double 0.39597272475093082
+	.quad	0x3fc56da0d1695bec              # double 0.1674080870168092
+	.quad	0x3fe4e00f48b3c085              # double 0.65235103797569194
+	.quad	0x3fe82ab8b85a98de              # double 0.75521503454799777
+	.quad	0x3fd37515342d6060              # double 0.30402116866526363
+	.quad	0x3fe0047a5ab2cd02              # double 0.50054662432231134
+	.quad	0x3feed42e9c6ee5b8              # double 0.96340113213880496
+	.quad	0x3fc453d87bfc2b4c              # double 0.15880876592594928
+	.quad	0x3fe00ade2ada93d8              # double 0.50132664079557809
+	.quad	0x3fd001a55296adc6              # double 0.25010045113841917
+	.quad	0x3fda6ed6db560f04              # double 0.41301509303615114
+	.quad	0x3fba65cfb47fdfa8              # double 0.10311601788259728
+	.quad	0x3fde065559f98c88              # double 0.46913656031228657
+	.quad	0x3fedc0ffe5fcdad7              # double 0.92980952186084209
+	.quad	0x3feaf315dee6f43b              # double 0.84217351470545709
+	.quad	0x3fe8d080a80e9497              # double 0.77545197318672165
+	.quad	0x3fe63c25f3654508              # double 0.69484231508445848
+	.quad	0x3fe1f076083cb38f              # double 0.56060315712748998
+	.quad	0x3fed4b199c4c04b8              # double 0.91541748549220525
+	.quad	0x3faf90d97ffc53d0              # double 0.061651989815949215
+	.quad	0x3fc0414b9af2ddf0              # double 0.12699265542845195
+	.quad	0x3fc8e90adb4e4e6c              # double 0.19461188991828082
+	.quad	0x3fe7d8c548b34d56              # double 0.74521125983521119
+	.quad	0x3fdf5cf4ee2ee5ae              # double 0.49004863033368451
+	.quad	0x3fe0d3444da916f9              # double 0.52578940551822406
+	.quad	0x3fcf79d2feef5e84              # double 0.24590527961730768
+	.quad	0x3fd6a05e29a0ba02              # double 0.35353807511538105
+	.quad	0x3fe64d8a512beb0f              # double 0.69696536878413606
+	.quad	0x3feb2d5c9174ae7a              # double 0.84928730401357133
+	.quad	0x3fd499f05e50de72              # double 0.32189568720375583
+	.quad	0x3fe2fa7cf2c43511              # double 0.59307715812033923
+	.quad	0x3fb77099cac66098              # double 0.091561901097863774
+	.quad	0x3fcac5a748e5992c              # double 0.20915690478722959
+	.quad	0x3fc0a48c5341395c              # double 0.13002161088156583
+	.quad	0x3fcf6a6da60e5728              # double 0.24543543441966986
+	.quad	0x3fecf78101bf1329              # double 0.90521288243380582
+	.quad	0x3fedc998fcf3c341              # double 0.93085908322073163
+	.quad	0x3fec5532f577112f              # double 0.88540027563479906
+	.quad	0x3fd577f9043631a4              # double 0.33544755374239288
+	.quad	0x3fe3fa04aa773d5d              # double 0.62426980299089119
+	.quad	0x3fea1e080eeb84b2              # double 0.81616595186291918
+	.quad	0x3fd5ba9d231fbeee              # double 0.33951500349119967
+	.quad	0x3fe87563307c05bf              # double 0.76432952375051133
+	.quad	0x3fb9e6950556fd38              # double 0.10117465381971591
+	.quad	0x3fd0fe3acf8914c2              # double 0.26551695124755892
+	.quad	0x3fe27e7a874759b2              # double 0.57793928548453821
+	.quad	0x3fe32117f796eda6              # double 0.59778974873863855
+	.quad	0x3fd97cfdcc979f6a              # double 0.39825386981691813
+	.quad	0x3fe431555ce88e90              # double 0.63102214952637503
+	.quad	0x3fe6bd99c124e1ca              # double 0.71064460490657066
+	.quad	0x3fca61308a244dec              # double 0.20609099145131837
+	.quad	0x3feb4b95250d5d41              # double 0.85297639118918067
+	.quad	0x3fec0c8271674785              # double 0.87652704381092461
+	.quad	0x3fe346109e3996a7              # double 0.60230284598647621
+	.quad	0x3fc76135402a9538              # double 0.1826540530502514
+	.quad	0x3fddf643074b65f6              # double 0.46815562927585519
+	.quad	0x3fedeee4dc8e30b7              # double 0.93541186406357368
+	.quad	0x3fcd9c687ba88020              # double 0.23133569753645222
+	.quad	0x3fd2de110f513194              # double 0.29480387206856418
+	.quad	0x3fca3822930e3324              # double 0.20483810596888319
+	.quad	0x3fea839e227a0f6c              # double 0.82856661542653631
+	.quad	0x3fe3181abd0dc436              # double 0.59669243740621059
+	.quad	0x3fe5202976308786              # double 0.66017602046871171
+	.quad	0x3fe997f12f6cf578              # double 0.79979762327972903
+	.quad	0x3fea7179f45eb394              # double 0.82635209778310292
+	.quad	0x3fe18aea4d47dc45              # double 0.54820742696654945
+	.quad	0x3fe801b13ff98288              # double 0.75020658965156972
+	.quad	0x3fa18b112c676db0              # double 0.034264122648632322
+	.quad	0x3febe1811a5631d1              # double 0.87127738136183031
+	.quad	0x3fc7f0f57806a7ec              # double 0.18704098091740151
+	.quad	0x3fe1adb0e86c417c              # double 0.55245252032368297
+	.quad	0x3fe190016e3ec7c1              # double 0.54882880718491134
+	.quad	0x3fd688d5c49552b6              # double 0.35210174748980749
+	.quad	0x3fa30c0c6dc9bc40              # double 0.037201298143252348
+	.quad	0x3fe3ac7678837ca6              # double 0.61480258500877905
+	.quad	0x3fa585f0d8ddeaa0              # double 0.042037512276654754
+	.quad	0x3fe3ce6c37b9bad2              # double 0.61894808658493106
+	.quad	0x3fdc0924f4892a9e              # double 0.43805812721681459
+	.quad	0x3fe42709459c18da              # double 0.62976516338019484
+	.quad	0x3fe2914de5248bb6              # double 0.58023733858532611
+	.quad	0x3fc2139aa6a0faf4              # double 0.14122326980756095
+	.quad	0x3fd1c0a74da08e48              # double 0.27738363819864675
+	.quad	0x3fd7e053e30c1584              # double 0.37306687519625137
+	.quad	0x3fd00261c8457e50              # double 0.25014538343200332
+	.quad	0x3feb58382f831c3b              # double 0.85451897887913419
+	.quad	0x3fcfc88381afc3e8              # double 0.24830669243195236
+	.quad	0x3fe72e6e3e0789f9              # double 0.72441780200125472
+	.quad	0x3fe477cf5d195748              # double 0.63962524588962655
+	.quad	0x3fd62a1c51a54c92              # double 0.34632022832119802
+	.quad	0x3fddf5440c9794c0              # double 0.46809483747194847
+	.quad	0x3fe36de61da5e910              # double 0.60716539183275309
+	.quad	0x3fac841e1ce74c40              # double 0.055695477512607727
+	.quad	0x3fb7f0e48b690cc0              # double 0.093519481693010498
+	.quad	0x3f987d8fec5b5f80              # double 0.023916481782037646
+	.quad	0x3fdba288498e9f2e              # double 0.43179518874466083
+	.quad	0x3fdeca03918ad6c8              # double 0.48107995236510392
+	.quad	0x3f93a756d44ae340              # double 0.01919303580027365
+	.quad	0x3fecccb699f651c9              # double 0.89998941488971085
+	.quad	0x3fec6f2ce5f85c8b              # double 0.88857121387526783
+	.quad	0x3fef73ca46e8e04b              # double 0.98288453912301443
+	.quad	0x3feab92be1f23630              # double 0.83510393266778316
+	.quad	0x3fedd171667bcfef              # double 0.93181676880203479
+	.quad	0x3fd7e2ad97e7f51c              # double 0.37321033320024966
+	.quad	0x3f954fd64cff4fa0              # double 0.020812366914313096
+	.quad	0x3fe5ec21825fb55c              # double 0.68507457221646062
+	.quad	0x3fe680ff26f75830              # double 0.70324666605552544
+	.quad	0x3fe07d306f19711d              # double 0.51528188418481913
+	.quad	0x3fb675d6027d77c8              # double 0.087735534294068107
+	.quad	0x3fdea9d4744ab012              # double 0.47911559445015073
+	.quad	0x3fd7316adbe3c512              # double 0.36239119981390033
+	.quad	0x3fe4b34c4eaf61b2              # double 0.64688697212391433
+	.quad	0x3fd5a86740e8a8a8              # double 0.33840352381470007
+	.quad	0x3fd9159dbed9453e              # double 0.39194434773988351
+	.quad	0x3fd1aabd7da71c26              # double 0.2760461546972145
+	.quad	0x3fe9b82dac3bd88c              # double 0.80373271598252093
+	.quad	0x3fdcee91e561bd88              # double 0.45206115150991666
+	.quad	0x3fe4f9a37b3be50c              # double 0.65547346181043187
+	.quad	0x3fecc835a688b8ed              # double 0.89943964506326568
+	.quad	0x3fed928d0c6d5c68              # double 0.92413952281175415
+	.quad	0x3fbce78fce9e0438              # double 0.11290835184446812
+	.quad	0x3fe73506c1c362bb              # double 0.72522294849758084
+	.quad	0x3fa4034483d3a9d0              # double 0.039087430088176611
+	.quad	0x3fd5d646834b4a24              # double 0.3412033350151964
+	.quad	0x3fe1965b4a7a0486              # double 0.54960407777993292
+	.quad	0x3fe4e35c7c4e8b35              # double 0.65275406149553439
+	.quad	0x3fb9d01081648bf0              # double 0.10083106192591607
+	.quad	0x3fd7742a75712764              # double 0.36646520108171488
+	.quad	0x3fe00099bbb2c959              # double 0.50007330570069108
+	.quad	0x3fe5b36eeb675745              # double 0.6781534764984164
+	.quad	0x3fec855a4ab27168              # double 0.89127840604082298
+	.quad	0x3fe6b5f9d7e990a5              # double 0.70971386118300883
+	.quad	0x3fc90160c64f130c              # double 0.19535455401469226
+	.quad	0x3fe982002f71b524              # double 0.79711922899665355
+	.quad	0x3feca8fcc18e9297              # double 0.8956283359917333
+	.quad	0x3fe893a68791e2a0              # double 0.76802374342431178
+	.quad	0x3fd26b7969a63986              # double 0.28780970876041356
+	.quad	0x3fcca6482e86c348              # double 0.22382452270314901
+	.quad	0x3fe674cb81ca6bc5              # double 0.70175719594714592
+	.quad	0x3fc199e1febdaef4              # double 0.13750863016627302
+	.quad	0x3fd49dde4e84e71e              # double 0.32213552158246894
+	.quad	0x3fe201f819308aa1              # double 0.56274037284704914
+	.quad	0x3fecc777277e9307              # double 0.89934880937343642
+	.quad	0x3fb28ecec3359af0              # double 0.072491572054427911
+	.quad	0x3fe858ff1a3a1a2f              # double 0.7608638298268654
+	.quad	0x3feabc06e9c114ee              # double 0.83545251517412367
+	.quad	0x3fc03e5414410a60              # double 0.12690211285560604
+	.quad	0x3fb0b8e730e6dd10              # double 0.065321397246283164
+	.quad	0x3febdd64b12c6786              # double 0.87077555278959617
+	.quad	0x3feef02283963a7b              # double 0.96681333256294921
+	.quad	0x3fee1ba9c0f1b1b1              # double 0.94087684330366106
+	.quad	0x3fe930df1027287e              # double 0.78721573977351489
+	.quad	0x3fdf5506163bb088              # double 0.48956443949897066
+	.quad	0x3fe8d6c1d75658d4              # double 0.77621547754349728
+	.quad	0x3fcd5d3e2dcd9e00              # double 0.22940804707035056
+	.quad	0x3fa5bf7607383060              # double 0.042476356869969534
+	.quad	0x3feef65170c4180e              # double 0.96756813072784253
+	.quad	0x3fe1d19a759b03dd              # double 0.55683634729222897
+	.quad	0x3fc6e0075194bf68              # double 0.17871180995416158
+	.quad	0x3fe8061b258495a5              # double 0.75074536636082156
+	.quad	0x3fe08f27f603b58c              # double 0.51747510957436438
+	.quad	0x3fe40deeae3f17db              # double 0.62670072586547165
+	.quad	0x3fea75a852e59dea              # double 0.82686248961266284
+	.quad	0x3feb8546c63fc13a              # double 0.86001909943119093
+	.quad	0x3f9b832f179f48c0              # double 0.026867614571366216
+	.quad	0x3fe0d04d1182c77f              # double 0.52542737407769369
+	.quad	0x3fe8349d5f264c79              # double 0.75642269691378694
+	.quad	0x3feae53686b6043b              # double 0.84048010168783749
+	.quad	0x3fb4a8030e5af240              # double 0.080688658718778505
+	.quad	0x3fdc153039708290              # double 0.43879323586774266
+	.quad	0x3fc117e45a52b6f8              # double 0.13354162607486564
+	.quad	0x3fd3292de457ac24              # double 0.299388382902807
+	.quad	0x3fcb1fa4d24b2df4              # double 0.21190319317098238
+	.quad	0x3fdaf8ff97e355fe              # double 0.42144765694442288
+	.quad	0x3febe43e5c2091e2              # double 0.87161176675413921
+	.quad	0x3fe6ffaa921850e7              # double 0.71870926412750868
+	.quad	0x3fc5967336ad0808              # double 0.16865387124750009
+	.quad	0x3fe577058d81301f              # double 0.67077901494622327
+	.quad	0x3fed8ceab689b00e              # double 0.92345176364824666
+	.quad	0x3fe6d81e37def8dc              # double 0.7138815966825649
+	.quad	0x3fe4299792e400aa              # double 0.63007715882851767
+	.quad	0x3fe1d7d76fba77dd              # double 0.55759784528686007
+	.quad	0x3fe17f4b37f0bbf7              # double 0.54678879667142055
+	.quad	0x3fc18d5a7b2714dc              # double 0.13712626469911171
+	.quad	0x3fba40aaed2e00c8              # double 0.10254925051231389
+	.quad	0x3fb9c25e1d197a48              # double 0.10062206468999435
+	.quad	0x3fdf180e9a930802              # double 0.4858433255686806
+	.quad	0x3faf743c9089ea80              # double 0.061433689731491548
+	.quad	0x3fedac93fed410ae              # double 0.92731666346710084
+	.quad	0x3fd1757153a77316              # double 0.2727931324896401
+	.quad	0x3fd70b849e9b9c00              # double 0.3600780056862618
+	.quad	0x3fe7ee765c772361              # double 0.74785917338986618
+	.quad	0x3fe27e3dbe6aea4c              # double 0.57791030112213937
+	.quad	0x3fdeeb2c9eedb80a              # double 0.48310390015001359
+	.quad	0x3faca18cd9a08fd0              # double 0.055920030179805402
+	.quad	0x3fcc29d6e98745b0              # double 0.22002684023622754
+	.quad	0x3fe17ea63c4dc560              # double 0.54671012666782914
+	.quad	0x3fe4db9830301523              # double 0.65180596744236075
+	.quad	0x3fe105b3bca5ca5a              # double 0.5319460567973906
+	.quad	0x3fce4cd4b037a4d4              # double 0.23671969036448692
+	.quad	0x3fea2fc1a322802b              # double 0.81832963812121784
+	.quad	0x3fe4c50a56be1836              # double 0.64905278150468493
+	.quad	0x3fc7d534f6739ec4              # double 0.1861940577866702
+	.quad	0x3fbc4af52a560808              # double 0.11051876338572708
+	.quad	0x3fdd42323069544a              # double 0.45716528632812425
+	.quad	0x3feb805633791cf8              # double 0.85941610387172229
+	.quad	0x3fd5dcc566036fd2              # double 0.34159979784248862
+	.quad	0x3fda13f4b4096084              # double 0.40746800977422759
+	.quad	0x3f65ab6c40b03800              # double 0.0026452173528985767
+	.quad	0x3f798c8fb6d5e700              # double 0.0062375654064170671
+	.quad	0x3fee056bf9512a27              # double 0.9381618375276205
+	.quad	0x3fec5d23f50c870d              # double 0.88636968480224854
+	.quad	0x3fdf0ef23efc3dec              # double 0.48528724814329283
+	.quad	0x3fe078cabc8160f4              # double 0.51474510972459919
+	.quad	0x3feba5d6b0e10b81              # double 0.86399397417731916
+	.quad	0x3fd5c0796172de5c              # double 0.33987268940425053
+	.quad	0x3fef1651474286c7              # double 0.97147430341666385
+	.quad	0x3fe65e8b7e9c3c9d              # double 0.69904112557005116
+	.quad	0x3fec814b7d879dc0              # double 0.89078306691674669
+	.quad	0x3fe6ba14163365c5              # double 0.71021465622032365
+	.quad	0x3fb62644c73ced80              # double 0.086521433488931265
+	.quad	0x3feb8cd1ad019e99              # double 0.86093982496545884
+	.quad	0x3fe6ffecf4115f31              # double 0.71874091786864913
+	.quad	0x3fe90082ea490faa              # double 0.78131242522112143
+	.quad	0x3fe3e51380678418              # double 0.62171340064026293
+	.quad	0x3fe7b222a0786675              # double 0.7404950269876297
+	.quad	0x3fefa11e7467e7dc              # double 0.98841784225009687
+	.quad	0x3fb4e48f1a586128              # double 0.081612533504430318
+	.quad	0x3fef76befa257969              # double 0.98324536186900701
+	.quad	0x3feeab428c064263              # double 0.95840575550580486
+	.quad	0x3fbd786603f0f968              # double 0.11511838527892382
+	.quad	0x3fe319ed2eb1018e              # double 0.59691485518855969
+	.quad	0x3fc3b6d8832bf8e4              # double 0.15401750950690662
+	.quad	0x3fe90a4d98274c74              # double 0.78250770299417959
+	.quad	0x3f77b096cb93a980              # double 0.0057836428106646798
+	.quad	0x3fbd38b5f40352a8              # double 0.11414658744190354
+	.quad	0x3fdff628d389600a              # double 0.4993993821894952
+	.quad	0x3fe8f869937d8648              # double 0.78032378012375947
+	.quad	0x3fe0456c07616900              # double 0.50847436372285415
+	.quad	0x3fe673e1dd73df01              # double 0.70164578678574696
+	.quad	0x3fc9dcd83d662220              # double 0.20205214498516089
+	.quad	0x3fdfc7a49206b7c4              # double 0.49656023273825789
+	.quad	0x3fb87177a3282a80              # double 0.095481374104716465
+	.quad	0x3fecdd402a237d45              # double 0.90200813512994016
+	.quad	0x3fd2efe22524fe2a              # double 0.29589131953614134
+	.quad	0x3fd373ca2409675e              # double 0.30394223708355195
+	.quad	0x3fe0502ae8e8aaa9              # double 0.50978608598719177
+	.quad	0x3fe5e78cf71864af              # double 0.68451545964048488
+	.quad	0x3fe9b6955407aec5              # double 0.80353800212966375
+	.quad	0x3fc62466c6a69bb4              # double 0.17298588466402764
+	.quad	0x3fea4b14df116c00              # double 0.82166522567729317
+	.quad	0x3fe9a1ff67041d97              # double 0.80102510567023699
+	.quad	0x3fe797ce6169056a              # double 0.73728102708279875
+	.quad	0x3fede3bc4b3deb7f              # double 0.934049746472155
+	.quad	0x3fde189b8574067a              # double 0.47025192291776075
+	.quad	0x3f91b12f47fbe200              # double 0.017277468460607182
+	.quad	0x3fda3b7641f1378c              # double 0.4098792690245936
+	.quad	0x3fefe65848a48924              # double 0.99686826885252743
+	.quad	0x3fd634ac92618a4a              # double 0.34696497244855051
+	.quad	0x3fa0a34556646640              # double 0.032495657726212546
+	.quad	0x3fed93205863cd51              # double 0.92420975936549088
+	.quad	0x3fc444d7dfef432c              # double 0.15835092958743624
+	.quad	0x3fe331621d5bcb6f              # double 0.59977823003860731
+	.quad	0x3fe07835f3e1bf55              # double 0.51467416413468448
+	.quad	0x3fab47f71fd708d0              # double 0.053283426892009822
+	.quad	0x3feeea2549c4d1d0              # double 0.96608223350500033
+	.quad	0x3fbe7b9802f55b60              # double 0.11907339164950548
+	.quad	0x3fde1a67973f54e6              # double 0.47036161203625537
+	.quad	0x3fc5bebe160403f4              # double 0.16988349986061702
+	.quad	0x3fe072bda2c6775f              # double 0.5140064410404469
+	.quad	0x3feb8cf0f790867c              # double 0.86095474579288078
+	.quad	0x3fe58fb8174fc078              # double 0.67379383614571875
+	.quad	0x3fdb65f74be03162              # double 0.42809851083509021
+	.quad	0x3feb79b81310ddf2              # double 0.8586082813625906
+	.quad	0x3fe655281b4ccd09              # double 0.69789510089904738
+	.quad	0x3f9181d6232eb6c0              # double 0.017096849343650744
+	.quad	0x3fc545d73aebcb90              # double 0.16619387032514199
+	.quad	0x3fdb17951b7dfb4a              # double 0.42331435856606403
+	.quad	0x3fea55585d078e76              # double 0.82291811151340144
+	.quad	0x3fe34e0aa14dbb79              # double 0.60327655319802809
+	.quad	0x3fee63a98a0444d4              # double 0.94966580349332696
+	.quad	0x3fea1fa169663bcc              # double 0.81636114679155857
+	.quad	0x3fee0718edfb0f75              # double 0.93836637955290192
+	.quad	0x3fe972dd1d441d54              # double 0.79527145114927089
+	.quad	0x3fd2d5a2edcc3bc8              # double 0.29428933355751186
+	.quad	0x3fe3c24891b55aee              # double 0.61746624430346997
+	.quad	0x3feaaf71a21c6e79              # double 0.83391648924175776
+	.quad	0x3fcb6acc020a884c              # double 0.21419668292679928
+	.quad	0x3fe2e222893c4ecb              # double 0.59010435870956124
+	.quad	0x3fe5129c760b9dce              # double 0.65852187209832791
+	.quad	0x3fec8bc72c3ca9f4              # double 0.8920627464297568
+	.quad	0x3fc1dd931aad04b8              # double 0.13957442095310113
+	.quad	0x3fc0908e713430a4              # double 0.12941151168377474
+	.quad	0x3fa152b256d6c060              # double 0.033834050274322847
+	.quad	0x3fb503b46367bf38              # double 0.082087778347838092
+	.quad	0x3fc6ffa272475128              # double 0.17967634754189388
+	.quad	0x3fe74d2505394bee              # double 0.7281670667674669
+	.quad	0x3fea699c9fd8b3c3              # double 0.8253920671464744
+	.quad	0x3fe611f8f4b1d639              # double 0.68969390670708386
+	.quad	0x3fe0b25c4e0b88af              # double 0.52177253001379664
+	.quad	0x3fe99928364369d2              # double 0.79994593237216294
+	.quad	0x3fe72bea0d26760d              # double 0.72411062782674807
+	.quad	0x3fe7baf6eb58e2cb              # double 0.74157281843425815
+	.quad	0x3fe28db7175e38f2              # double 0.5797992187888481
+	.quad	0x3fcb96b5c9e1bf34              # double 0.21553680760870864
+	.quad	0x3fe3377a2db0ee72              # double 0.60052212642717806
+	.quad	0x3fd2ff6c26a51d5e              # double 0.29683975004123464
+	.quad	0x3fbcafbc61722d70              # double 0.11205651644757153
+	.quad	0x3fd06fb03ae14a5e              # double 0.25681691884998326
+	.quad	0x3fcf08db8ac9ec74              # double 0.24245781208796624
+	.quad	0x3fe878eb6802f9fe              # double 0.76476068796893037
+	.quad	0x3fd57f3864feaee2              # double 0.335889910342969
+	.quad	0x3fb9ea68a2d89388              # double 0.1012330434392209
+	.quad	0x3fcedd72563c8c58              # double 0.24113301478164106
+	.quad	0x3fd7579f9972974c              # double 0.36472311005706071
+	.quad	0x3fc65892f7449e44              # double 0.1745780665744282
+	.quad	0x3fd939bc6fb07382              # double 0.39414893061785261
+	.quad	0x3fe6ce83f0c730d5              # double 0.71270939852686388
+	.quad	0x3fd255ae28e8a28c              # double 0.28647951121323767
+	.quad	0x3fb5f5841dc78450              # double 0.085777528066971031
+	.quad	0x3fed6ddeb1132710              # double 0.91966185173916593
+	.quad	0x3fdf9c09af960c06              # double 0.49389879366953016
+	.quad	0x3fea55e025e44b0f              # double 0.82298285866485965
+	.quad	0x3fbff2c73bc45f38              # double 0.12479825219304252
+	.quad	0x3faf74c1d838b9f0              # double 0.061437661785351483
+	.quad	0x3fce92ebc88e01f4              # double 0.23885867397986227
+	.quad	0x3fe5745a38cfda82              # double 0.67045317741470023
+	.quad	0x3fecbd733c472dc6              # double 0.89812623761229626
+	.quad	0x3fb390301b8859f0              # double 0.076418883058387399
+	.quad	0x3fd07e96c85f91b2              # double 0.2577263790865586
+	.quad	0x3fd2d0f8ee25c02c              # double 0.29400466209972609
+	.quad	0x3f95dd489e9bfdc0              # double 0.021351942711587801
+	.quad	0x3fef3ea7da119e1e              # double 0.97639839736524769
+	.quad	0x3fc0cc22c1ce6ebc              # double 0.13122972930147181
+	.quad	0x3fe3b94ea351f810              # double 0.6163705053184021
+	.quad	0x3fe077a610b06d2b              # double 0.51460555324175539
+	.quad	0x3fd9ab2ce1bd23e4              # double 0.40107271237189779
+	.quad	0x3fe3577f4abcf686              # double 0.60443081471721949
+	.quad	0x3fd4a6a10a76b5dc              # double 0.32267023107382697
+	.quad	0x3fe88b7194469c1a              # double 0.76702193222161275
+	.quad	0x3fb12cedcc321950              # double 0.067091810562577736
+	.quad	0x3fd021246cbc6c78              # double 0.25202284449341716
+	.quad	0x3fdaf56a2c4cc910              # double 0.42122892690817171
+	.quad	0x3fd114065e0f58f0              # double 0.26684722123663018
+	.quad	0x3febc265d759c5cb              # double 0.86748020229986744
+	.quad	0x3fe4b26793fad0ca              # double 0.6467779054860554
+	.quad	0x3fe9dcd7b7d7fb15              # double 0.80820833117454305
+	.quad	0x3fd60750123e42ee              # double 0.34419633657039028
+	.quad	0x3fe46dfd21b1933c              # double 0.63842636662284447
+	.quad	0x3fe57aeba59ac85b              # double 0.67125494331981927
+	.quad	0x3fa56268626076b0              # double 0.041766416558158936
+	.quad	0x3fb25c3709566f78              # double 0.071719589023301
+	.quad	0x3fe4b746447a8cad              # double 0.64737237334010944
+	.quad	0x3fea7a68cbc92777              # double 0.82744254877000756
+	.quad	0x3fef7ecac20a6ac1              # double 0.98422754190990968
+	.quad	0x3fb0117d6dcfebc8              # double 0.062766875562302649
+	.quad	0x3fe0852479272bce              # double 0.51625274336526572
+	.quad	0x3fef14c3fea11624              # double 0.97128486377977596
+	.quad	0x3fb18ad0885b7df0              # double 0.068524392404917256
+	.quad	0x3fd020e6c67022be              # double 0.25200814608301048
+	.quad	0x3fdd83fc5179e810              # double 0.46118076283130538
+	.quad	0x3f964f9d465623c0              # double 0.021788079660413961
+	.quad	0x3fc081cee013908c              # double 0.12896142903548868
+	.quad	0x3fded9fc1ed9853c              # double 0.48205473911919561
+	.quad	0x3fd227d7bc9addec              # double 0.2836818067403033
+	.quad	0x3fe0b85d44d72873              # double 0.52250541158106356
+	.quad	0x3feffa6bdcb5edfc              # double 0.99931901080657281
+	.quad	0x3fe016bb90a6de2e              # double 0.50277498485860916
+	.quad	0x3fd69ba62dfefa9c              # double 0.35325006954000471
+	.quad	0x3fe1766df1894e73              # double 0.54570672202176096
+	.quad	0x3fe892e09beda092              # double 0.76792936758740127
+	.quad	0x3fc2b2c9703f48c8              # double 0.14608114224262736
+	.quad	0x3fef2022543aa0d2              # double 0.97267261935214777
+	.quad	0x3fc34cd0896b9150              # double 0.1507816954609873
+	.quad	0x3fe791cacb65d1fb              # double 0.73654689527626205
+	.quad	0x3fcdd8f387f6ec40              # double 0.23318332804578468
+	.quad	0x3fe749cd94738c00              # double 0.72775916094212789
+	.quad	0x3feebc97764e0bb3              # double 0.96052144152087348
+	.quad	0x3fe4a65e409012ef              # double 0.64530861482543667
+	.quad	0x3fd5b221fd16e47c              # double 0.33899736133350422
+	.quad	0x3fd64d8b5ff5a60c              # double 0.34848293658305418
+	.quad	0x3feb0f1ee6b5bcf7              # double 0.84559578953294945
+	.quad	0x3fe8609a26655871              # double 0.76179225444026433
+	.quad	0x3fb73baebc56eb88              # double 0.090754433614092744
+	.quad	0x3fe0348448837408              # double 0.50641073382178181
+	.quad	0x3fee3679767c4c18              # double 0.94414971486765164
+	.quad	0x3fb6989da58c7c40              # double 0.088266232411556622
+	.quad	0x3fcdd25f9205b084              # double 0.23298258428565444
+	.quad	0x3fdc8d619bb2b0ba              # double 0.44612922863849358
+	.quad	0x3fe85888e1bf0a25              # double 0.76080745783867043
+	.quad	0x3fe6fab7aa4d56de              # double 0.71810515653734419
+	.quad	0x3fd0d87c00596f8a              # double 0.26321315797917377
+	.quad	0x3fe03eb4ef22f7ad              # double 0.50765463549008916
+	.quad	0x3fed25705dcf338a              # double 0.91082018205780568
+	.quad	0x3f9da7986fde36e0              # double 0.028959638431436896
+	.quad	0x3fe0836b96334eb9              # double 0.51604251228351139
+	.quad	0x3fe56e451856fd54              # double 0.66971068147533197
+	.quad	0x3fe4b238d92bb4d8              # double 0.64675562301786282
+	.quad	0x3fdabfd5745cdab2              # double 0.41795860637231919
+	.quad	0x3fda8c665947bb56              # double 0.4148193237187362
+	.quad	0x3fd49c48916ce782              # double 0.32203878595066027
+	.quad	0x3fe5c01c85fd5837              # double 0.67970110101555903
+	.quad	0x3fc9b3837f3b2570              # double 0.20079082214787602
+	.quad	0x3fe71088d56c5f80              # double 0.72076837238545011
+	.quad	0x3fe89a7484cfa36f              # double 0.76885438861527955
+	.quad	0x3fea62ab8429d13e              # double 0.82454467595247372
+	.quad	0x3feccc1c698d79fa              # double 0.89991589179754716
+	.quad	0x3fcd94d603af2b20              # double 0.2311046140660773
+	.quad	0x3feabee4a3ef0eee              # double 0.83580238359760783
+	.quad	0x3fe767bd643ef999              # double 0.73141355113311868
+	.quad	0x3fe68a0c698d1729              # double 0.70435162177520738
+	.quad	0x3fc67e9008dafcb0              # double 0.17573738510507075
+	.quad	0x3fc81fd5caf6445c              # double 0.18847153101208647
+	.quad	0x3febf016237309a4              # double 0.87305743144706982
+	.quad	0x3fc7c9aea55d5864              # double 0.18584235262341331
+	.quad	0x3fee853d74a2fd67              # double 0.95376465588189496
+	.quad	0x3fd88863fac154ee              # double 0.38332461822331154
+	.quad	0x3fa8a1061fb4a7d0              # double 0.048103515024493171
+	.quad	0x3faddc8532a72170              # double 0.058323061402520859
+	.quad	0x3feb8e964fdb3c58              # double 0.86115565869284705
+	.quad	0x3fb5d14b9cb61528              # double 0.085224843749604262
+	.quad	0x3fdacb6fbc31c65c              # double 0.41866677645075412
+	.quad	0x3fd49c92dec2967a              # double 0.32205650094906668
+	.quad	0x3fe6075b76010949              # double 0.68839810416856395
+	.quad	0x3fef966495b2bdc3              # double 0.98710850942546135
+	.quad	0x3fd51b788942303a              # double 0.32980168728022685
+	.quad	0x3fdb8e80fed063b6              # double 0.43057274707967552
+	.quad	0x3fed29db5a823b87              # double 0.91135947873577627
+	.quad	0x3fcefd048224a920              # double 0.24209648470543588
+	.quad	0x3fe6b3770f4f5cfc              # double 0.70940735807644684
+	.quad	0x3fbcf01af81411f0              # double 0.11303871685601741
+	.quad	0x3fd2409035a92d5c              # double 0.28519063225095009
+	.quad	0x3fecc9cd2bebc1e8              # double 0.89963396623903424
+	.quad	0x3fea8809a812a3eb              # double 0.82910616709443496
+	.quad	0x3fe93ed2a101e02a              # double 0.78891879507773877
+	.quad	0x3fd8e17acf3a886c              # double 0.38876219021961478
+	.quad	0x3fe17a31ae815952              # double 0.54616626818714509
+	.quad	0x3feeaebe79ca86f5              # double 0.95883106028870079
+	.quad	0x3feb0673d398351b              # double 0.84453765227377475
+	.quad	0x3fb049e3e1d45fc8              # double 0.063627474435974496
+	.quad	0x3fe11d46a08aa4ad              # double 0.53482371669556061
+	.quad	0x3fb248eb259d19f0              # double 0.071425148661638849
+	.quad	0x3fe60a1517ebc743              # double 0.6887307612616741
+	.quad	0x3fd7be1437276654              # double 0.37097649942515898
+	.quad	0x3fd568fb3d01d3fe              # double 0.33453255613068211
+	.quad	0x3fe38b6c8b83921c              # double 0.61076953171556481
+	.quad	0x3fd7f0a08f0eb5b8              # double 0.3740617177052985
+	.quad	0x3fec84a1146413fe              # double 0.89119009001353766
+	.quad	0x3fed9779103ce572              # double 0.92474034472904365
+	.quad	0x3fd9a32b97ce158a              # double 0.40058412384708986
+	.quad	0x3fd52a24ca3a7daa              # double 0.33069724797129629
+	.quad	0x3fc50e435445a7e8              # double 0.16449777235840135
+	.quad	0x3feec1ca42d83a0a              # double 0.96115601592629329
+	.quad	0x3fb1452ad9465c40              # double 0.067461660428635106
+	.quad	0x3fed97adefb3a85b              # double 0.92476555649524117
+	.quad	0x3fe9f92a31ea0a93              # double 0.81166562794563146
+	.quad	0x3fee75d48b18df96              # double 0.95188357512869248
+	.quad	0x3fd52e720d46ddfe              # double 0.33095980927052426
+	.quad	0x3fb911522a1f46a8              # double 0.097920546802266473
+	.quad	0x3fe830a5362e07f6              # double 0.75593815404886189
+	.quad	0x3fec886d31b9a150              # double 0.89165363037049339
+	.quad	0x3fe1704e0c400156              # double 0.54495909111578089
+	.quad	0x3fe53229c11b68fe              # double 0.66237342563843504
+	.quad	0x3fd2fd50c8183284              # double 0.29671115437012241
+	.quad	0x3fb00125f40a7218              # double 0.06251752098109653
+	.quad	0x3fe22fd420e548c4              # double 0.56833845543794625
+	.quad	0x3fda8b110c35819c              # double 0.41473795120512036
+	.quad	0x3fe50e1130fd2742              # double 0.65796718185558967
+	.quad	0x3fbe68110944c248              # double 0.11877542949947284
+	.quad	0x3fd2d24d28139c04              # double 0.29408577836733252
+	.quad	0x3fedac3dde695bac              # double 0.92727559509045454
+	.quad	0x3fbf0cadda730c60              # double 0.12128721793401231
+	.quad	0x3fd93a4adc0d0d46              # double 0.39418288697580228
+	.quad	0x3fe2698749c42e8c              # double 0.57538189322936395
+	.quad	0x3fea5c2a55c6051f              # double 0.82375065567626737
+	.quad	0x3fea1818465e3ce7              # double 0.81544126266262829
+	.quad	0x3fd975a501b172fe              # double 0.39780545392368072
+	.quad	0x3fe7967e8fad38e9              # double 0.73712089597554808
+	.quad	0x3fe0f85fc849595d              # double 0.53031911009274391
+	.quad	0x3fecd580d5d63ddd              # double 0.90106241002097998
+	.quad	0x3fda145634e832e6              # double 0.40749125639631101
+	.quad	0x3fd9c78b7cde020e              # double 0.40280425256790486
+	.quad	0x3fc179e3633e91b8              # double 0.13653223367613321
+	.quad	0x3fe81b57d32476a2              # double 0.75333777655369638
+	.quad	0x3fe691a90cd64ee6              # double 0.70528080470327548
+	.quad	0x3feea3393b789d17              # double 0.95742475142916106
+	.quad	0x3f9260ad7059c040              # double 0.017946920378051567
+	.quad	0x3fd9c9fa4ae4ce08              # double 0.40295274080128296
+	.quad	0x3fd02d3b62145876              # double 0.25276074007104599
+	.quad	0x3feca456b3b104c8              # double 0.89506087394706757
+	.quad	0x3fe10b3092bbcb1f              # double 0.53261593493366266
+	.quad	0x3fddeabb401212a8              # double 0.46745187050718551
+	.quad	0x3fec1d128cce2c5b              # double 0.87854888440177648
+	.quad	0x3fe3bb0bd3e061a4              # double 0.61658278829695634
+	.quad	0x3feefe0869eb3567              # double 0.96850987136137411
+	.quad	0x3fdaf64e2b1e0a14              # double 0.42128328524282321
+	.quad	0x3fe824ffbf4d02ae              # double 0.7545164810508902
+	.quad	0x3fb32480a9d00fe8              # double 0.074775735338391436
+	.quad	0x3fd1f5686c14cda0              # double 0.2806035094719963
+	.quad	0x3fd6164ec8bdc8b4              # double 0.345111557041615
+	.quad	0x3fd5d287b71745f8              # double 0.34097473983737769
+	.quad	0x3fe2a3b675d3ab77              # double 0.58248446476987581
+	.quad	0x3fe4762799bb4fba              # double 0.63942317987174779
+	.quad	0x3fe80291a4826720              # double 0.7503135884355494
+	.quad	0x3fd61299d2eb3b8a              # double 0.34488530728861433
+	.quad	0x3fdb4d9ed008b360              # double 0.42661257091349647
+	.quad	0x3fdbc4334342c79e              # double 0.43385011261409001
+	.quad	0x3fea3c9690c6080d              # double 0.81989601398550038
+	.quad	0x3fc8fc8ae678de8c              # double 0.19520698789141411
+	.quad	0x3fd9ee903f3fcb48              # double 0.40518575836829429
+	.quad	0x3fe6097af801ff72              # double 0.68865726889633394
+	.quad	0x3fe80c91c0d31c2f              # double 0.75153434430183619
+	.quad	0x3fe806730f15af8f              # double 0.75078728624565538
+	.quad	0x3fcfd8b089b35200              # double 0.24880034183173905
+	.quad	0x3fad25647b622820              # double 0.056925907193616121
+	.quad	0x3fe36fe0ea4cf7c3              # double 0.60740705262991701
+	.quad	0x3fdda647ce3828d2              # double 0.46327395571337349
+	.quad	0x3fd5b488d049ee94              # double 0.33914394703581618
+	.quad	0x3fb9ac24ef7590c0              # double 0.10028296323941088
+	.quad	0x3fec69b01c68f402              # double 0.88790135907004264
+	.quad	0x3fea5b31d40ca44b              # double 0.82363215843100457
+	.quad	0x3fe8642d41d35063              # double 0.76222861153156563
+	.quad	0x3fec15c27a324f96              # double 0.87765621057995946
+	.quad	0x3fc9da9cf20d4f4c              # double 0.20198404139466175
+	.quad	0x3fdfadb0102e9ba8              # double 0.4949760587718921
+	.quad	0x3fd7c55c5e0b0632              # double 0.37142094787495517
+	.quad	0x3fe9c638c272def3              # double 0.80544698694481409
+	.quad	0x3fa28522175a86f0              # double 0.036171975470336792
+	.quad	0x3fef217879d651d6              # double 0.97283576771092828
+	.quad	0x3fb001019d82cea8              # double 0.062515355067086831
+	.quad	0x3fe56161b5fbee22              # double 0.66813741248865122
+	.quad	0x3fe1cf39f7ec802b              # double 0.55654619619963819
+	.quad	0x3fe27dc27a8e93a4              # double 0.57785152375128179
+	.quad	0x3fde62c8c82de7d4              # double 0.47477931545983876
+	.quad	0x3fe69d7e64a0aba6              # double 0.70672530797798028
+	.quad	0x3fe97c47c941fe5c              # double 0.79642094906007399
+	.quad	0x3fd26dd591554ace              # double 0.28795375054066319
+	.quad	0x3fdab7996fa7d46a              # double 0.41745601562371937
+	.quad	0x3f99efaa9bfda1a0              # double 0.025328317423743862
+	.quad	0x3fd9e235ced222b0              # double 0.40443177411411124
+	.quad	0x3fea4788bbbda21b              # double 0.82123219173542183
+	.quad	0x3fd337d3ea9852b6              # double 0.30028245839757106
+	.quad	0x3fd4622e6f6d456a              # double 0.31849251634147058
+	.quad	0x3fe2f821c62503de              # double 0.59278954219928059
+	.quad	0x3fef5f3586394afe              # double 0.98037220206819575
+	.quad	0x3fdc306c1365bb9e              # double 0.44045545477177395
+	.quad	0x3fd03201a83c8968              # double 0.25305215291350303
+	.quad	0x3fab3254ee1437f0              # double 0.053118375837683973
+	.quad	0x3fd91fe7132ff868              # double 0.39257218240516645
+	.quad	0x3fed57b515c2cfb8              # double 0.9169564652461224
+	.quad	0x3fe787370895dd4d              # double 0.7352557342227698
+	.quad	0x3fd33e344cc5ab82              # double 0.30067164895324805
+	.quad	0x3fe228f9289f6cf7              # double 0.56750162061817278
+	.quad	0x3fc92b44279fbd88              # double 0.19663288054242067
+	.quad	0x3fec2191fe8b7b0a              # double 0.87909793582716245
+	.quad	0x3feed9388a74c54a              # double 0.96401621858800834
+	.quad	0x3fd036f36ecdcd84              # double 0.2533539373464111
+	.quad	0x3fe86618c7d2489a              # double 0.76246298816319613
+	.quad	0x3fe57c46525f1de3              # double 0.67142025078004186
+	.quad	0x3fdc4e39adf44bbc              # double 0.44227449405405728
+	.quad	0x3fec829e748005eb              # double 0.89094469789432418
+	.quad	0x3feefc52896a9e51              # double 0.96830107535510923
+	.quad	0x3fe5414f27958e89              # double 0.66422231417932764
+	.quad	0x3fe0a6f60a71d299              # double 0.52038099327053822
+	.quad	0x3fb6f3fb00837e18              # double 0.089660346627617904
+	.quad	0x3fe5cba74216f95e              # double 0.68111002834465828
+	.quad	0x3feb1a00e22c10f3              # double 0.84692424940342759
+	.quad	0x3fd121efb5e55f90              # double 0.26769631160049645
+	.quad	0x3fdb55d97ec6fa7c              # double 0.42711484318343884
+	.quad	0x3fead9fe5e25ff42              # double 0.83911054981579292
+	.quad	0x3fde0a1491301ee6              # double 0.46936525515091743
+	.quad	0x3fe215df6474bedd              # double 0.56516999836272996
+	.quad	0x3fe201f301b33651              # double 0.56273794490852869
+	.quad	0x3fd36d25c6774064              # double 0.30353683835438106
+	.quad	0x3fd23a8ace5e305e              # double 0.28482313302152373
+	.quad	0x3feea1e62f5c2591              # double 0.95726308107366453
+	.quad	0x3fd27534976753a0              # double 0.28840365205297225
+	.quad	0x3fd5142d6fc794a6              # double 0.32935653606393556
+	.quad	0x3fec493a5627f28d              # double 0.88393894984581467
+	.quad	0x3fe953b8e158f0f1              # double 0.79146999371690019
+	.quad	0x3fe0b9aaa6e8eb8f              # double 0.52266438102320645
+	.quad	0x3fe9708e2ce32ba7              # double 0.79498966948573446
+	.quad	0x3fe9738323629971              # double 0.79535061751520975
+	.quad	0x3fed9436c4e35774              # double 0.92434252218912016
+	.quad	0x3fded4d9be786d78              # double 0.48174136734606732
+	.quad	0x3fed946b42b3fa5a              # double 0.92436755207001942
+	.quad	0x3fd643b47468c910              # double 0.347882379227614
+	.quad	0x3fc2daf806ea24b8              # double 0.14730739915493074
+	.quad	0x3fc96d0980b3c8ac              # double 0.1986400488309007
+	.quad	0x3fea4d4d379bd4ad              # double 0.82193623410298289
+	.quad	0x3fef0b9e7a3faa83              # double 0.97016834141443586
+	.quad	0x3fed1c35f42bda54              # double 0.90969369592387261
+	.quad	0x3fde77e58e0099c8              # double 0.47606791369835522
+	.quad	0x3fe57e2c6a9089ae              # double 0.67165203870199774
+	.quad	0x3fced5500aff0a78              # double 0.24088478600431862
+	.quad	0x3fe643095200d43d              # double 0.69568315521485824
+	.quad	0x3fea3ffaa43e0035              # double 0.82030994490197051
+	.quad	0x3fe81ca664dc4152              # double 0.75349731158534383
+	.quad	0x3fdc10f8a9ad2574              # double 0.43853584833103487
+	.quad	0x3fe2c4848333c8c5              # double 0.58648896813817741
+	.quad	0x3fc5eb97b2eed0f8              # double 0.1712522147842106
+	.quad	0x3fcdb70e996c110c              # double 0.23214895716967765
+	.quad	0x3fe03e07bc6b1f74              # double 0.50757204819181689
+	.quad	0x3fb1215dae057900              # double 0.066915373788535959
+	.quad	0x3febcf55b9e5cb5d              # double 0.8690594321072741
+	.quad	0x3fed7fac951a04b7              # double 0.92183522340214707
+	.quad	0x3fdf7c5b803a9350              # double 0.491965174888084
+	.quad	0x3fe1a896aaa3e3ef              # double 0.55182965591586519
+	.quad	0x3fdb653625f68dcc              # double 0.42805246074041459
+	.quad	0x3fd61eebae696cf4              # double 0.34563724548725294
+	.quad	0x3fe701e1c572790d              # double 0.71897972644708974
+	.quad	0x3fe1171c59ef74cd              # double 0.53407113614562152
+	.quad	0x3fd75623e06104ec              # double 0.36463257705697916
+	.quad	0x3fe2c25679740b65              # double 0.58622287484500346
+	.quad	0x3fd7d6dfbbc94870              # double 0.37248986567022424
+	.quad	0x3fee3750abb0ce20              # double 0.94425233395890373
+	.quad	0x3fe2109b7723cf12              # double 0.56452725667483805
+	.quad	0x3fb886b58a20efa8              # double 0.09580549833566343
+	.quad	0x3fe26de885e5509a              # double 0.5759165396834931
+	.quad	0x3fc848d49f39d728              # double 0.18972261213974062
+	.quad	0x3fe985480552d9a4              # double 0.79751969375393061
+	.quad	0x3fe1f513e254bcd1              # double 0.56116670804285651
+	.quad	0x3fee166d68830f99              # double 0.94023771679393342
+	.quad	0x3fd4917d5e8410e6              # double 0.32137998800341305
+	.quad	0x3feb522052e0ea53              # double 0.85377517878743914
+	.quad	0x3fd434f736387f20              # double 0.31573276801099048
+	.quad	0x3fbfef8918c2a190              # double 0.12474877218722313
+	.quad	0x3fef5cac0977c08f              # double 0.98006250237632908
+	.quad	0x3fcf32e509e143ec              # double 0.24374068243426394
+	.quad	0x3fe1cbeae6a4ea57              # double 0.55614228294082124
+	.quad	0x3fcf18f191cde7d8              # double 0.24294871920920857
+	.quad	0x3fd74e289ff31ed0              # double 0.36414542789542015
+	.quad	0x3fde29406b03ffa4              # double 0.47126779986137479
+	.quad	0x3fe13e02edf6822f              # double 0.53881975628980239
+	.quad	0x3fd9bb3c78b2e850              # double 0.40205299174306663
+	.quad	0x3fdfe92f3301459e              # double 0.49860744458154638
+	.quad	0x3fc97b8c59be63e0              # double 0.19908289320008432
+	.quad	0x3fb3abbbb569c238              # double 0.076839191236793947
+	.quad	0x3fee811fea62f911              # double 0.95326228884349196
+	.quad	0x3fef8d21ea46575d              # double 0.98597808605948566
+	.quad	0x3fb38e1b27ddc318              # double 0.076387116654370479
+	.quad	0x3fe28ce2eef42948              # double 0.57969805403380636
+	.quad	0x3fad5af9ff9ebad0              # double 0.057334721044176029
+	.quad	0x3fd26791c0ae445a              # double 0.2875713712356337
+	.quad	0x3fe6232937db7a3b              # double 0.69179211530337825
+	.quad	0x3fec90acf0b13767              # double 0.89266058931546588
+	.quad	0x3fab8295fd546500              # double 0.053730666326552878
+	.quad	0x3fd1e2b8e06c5d20              # double 0.2794630233415365
+	.quad	0x3fe7e54b8e20f3e7              # double 0.74674012908473919
+	.quad	0x3fe112eb19d4c847              # double 0.5335593704715017
+	.quad	0x3fe5bdfa2785d353              # double 0.67944057196892016
+	.quad	0x3fd611f2f0f34862              # double 0.34484551935486796
+	.quad	0x3fee549fc6253464              # double 0.9478300924325933
+	.quad	0x3fde849ad06b235a              # double 0.47684355119104327
+	.quad	0x3fd61bf2ad9f834a              # double 0.34545580821400235
+	.quad	0x3fe39ec261694d7c              # double 0.61312979722644867
+	.quad	0x3fdbb754ffdd661c              # double 0.43306469904709544
+	.quad	0x3fedf9ce8925831d              # double 0.93674399172241218
+	.quad	0x3fefe3dadc0a4849              # double 0.99656432129473515
+	.quad	0x3fe1498d2940c59b              # double 0.54022844369153533
+	.quad	0x3fe1a8b62b41508b              # double 0.5518446774317608
+	.quad	0x3fe41a54f7e12897              # double 0.62821434415788502
+	.quad	0x3fda5c75bc7d1648              # double 0.4118933048924629
+	.quad	0x3fe485a24f10cf78              # double 0.64131274645340763
+	.quad	0x3fd115c53a29dd90              # double 0.26695376091034806
+	.quad	0x3fe7c74104ed1f39              # double 0.74307299577865316
+	.quad	0x3fe7c369d1da7ab4              # double 0.74260416972159371
+	.quad	0x3fd269fdfa059e3c              # double 0.28771924415784489
+	.quad	0x3fe1e78787f9ee1d              # double 0.5595128684794336
+	.quad	0x3fd32a098c3e7c7e              # double 0.29944075294219619
+	.quad	0x3fd40b8b71ea4d22              # double 0.31320463299307921
+	.quad	0x3fcc83e166de9314              # double 0.22277467272683593
+	.quad	0x3fccb1d7c2c490ac              # double 0.22417733202121803
+	.quad	0x3fc8d7b76c615718              # double 0.19408314506534263
+	.quad	0x3fe96c82bc5a3d5e              # double 0.79449593341443481
+	.quad	0x3feb2374050bab41              # double 0.84807778344598017
+	.quad	0x3fe5f5da9bb99678              # double 0.68626146712331515
+	.quad	0x3feca49ab9f14307              # double 0.89509331051712671
+	.quad	0x3fda28256cf4708a              # double 0.40870032920953092
+	.quad	0x3fedb41a12731aa0              # double 0.92823508838121782
+	.quad	0x3fea0f10a2097a86              # double 0.81433898589951137
+	.quad	0x3fb47e26e7f79678              # double 0.080049926407434913
+	.quad	0x3fcd14b149bf1900              # double 0.22719398594762907
+	.quad	0x3fdbcb118d40e1e0              # double 0.43426932138711827
+	.quad	0x3feeda894e67d400              # double 0.9641768008574445
+	.quad	0x3fe9e36368ef1bc8              # double 0.80900736327100109
+	.quad	0x3fc645ae70fedfa4              # double 0.17400150792468339
+	.quad	0x3fe6217a4ea21baf              # double 0.69158664091161437
+	.quad	0x3fa5c05b81ab5f90              # double 0.042483195856845346
+	.quad	0x3fee9c9b9c74b0ac              # double 0.95661716993119716
+	.quad	0x3fe2e45b6c762cae              # double 0.59037562545690547
+	.quad	0x3fe2fd978b88269b              # double 0.59345605137169188
+	.quad	0x3fe5999eb90e03b2              # double 0.67500244277481714
+	.quad	0x3fefbe880f0859b7              # double 0.99200823722895037
+	.quad	0x3fdb15f1fee1494a              # double 0.42321443453433416
+	.quad	0x3fe12d2ce4201c85              # double 0.53676456981419618
+	.quad	0x3fbbc7e491a5de28              # double 0.1085188727937455
+	.quad	0x3fe897a5612a8bcf              # double 0.76851147630474681
+	.quad	0x3fd35231ebc7bc1c              # double 0.30189178491031199
+	.quad	0x3fec49468be13831              # double 0.88394477195993748
+	.quad	0x3fe7fa07631de1b9              # double 0.74927110060439539
+	.quad	0x3fe4c39daf5eb8f8              # double 0.64887890102343615
+	.quad	0x3fef7c4174875a44              # double 0.98391793021694029
+	.quad	0x3fdd2f50b84eb366              # double 0.45601289747974361
+	.quad	0x3fd437c0961d7a84              # double 0.31590284976656613
+	.quad	0x3fee8d7980cfb7cd              # double 0.95476985128856884
+	.quad	0x3f709f0a88271780              # double 0.0040579234504941608
+	.quad	0x3fe465e008eb1e10              # double 0.63743592969780316
+	.quad	0x3f95e726646be760              # double 0.021389579657785318
+	.quad	0x3fc4bb4928a5739c              # double 0.1619655083149184
+	.quad	0x3fce392750abd988              # double 0.23611918868091331
+	.quad	0x3fac805727039dd0              # double 0.055666659843889854
+	.quad	0x3feb08b1a388b8db              # double 0.84481126728294542
+	.quad	0x3fec10a3f1649139              # double 0.87703129908599131
+	.quad	0x3fe1aa32e2b40ca7              # double 0.55202621725074585
+	.quad	0x3fe06a20f4ae9922              # double 0.51295516766984783
+	.quad	0x3fe3d3815beb27ae              # double 0.61956851914259459
+	.quad	0x3fb10bb6c1d24288              # double 0.0665849898525811
+	.quad	0x3fdd34889cc51246              # double 0.45633139905502096
+	.quad	0x3fe2ee49f2d17062              # double 0.5915879957715442
+	.quad	0x3fe0c97f01f22cc8              # double 0.52459669475629145
+	.quad	0x3fef238d861c9094              # double 0.9730899447790926
+	.quad	0x3fd93e6d9e74653c              # double 0.39443531488503303
+	.quad	0x3fec1af5969179b8              # double 0.87829093368400546
+	.quad	0x3fcd7848abe34b0c              # double 0.23023327248537162
+	.quad	0x3fe22464782da0e2              # double 0.56694243881522888
+	.quad	0x3fda0d347b70f376              # double 0.40705596976095337
+	.quad	0x3fec15a1e1159fbf              # double 0.87764066659746465
+	.quad	0x3fe2a41e9a86bbd4              # double 0.58253412419241579
+	.quad	0x3fc0a29f1f0778f4              # double 0.12996281638238083
+	.quad	0x3fee02e62137166e              # double 0.9378538750394918
+	.quad	0x3fdfd016dc15e7f2              # double 0.49707576267940035
+	.quad	0x3fd33a1bd2437b6c              # double 0.30042167218737492
+	.quad	0x3fe22518cb72a0ca              # double 0.56702842460529124
+	.quad	0x3fbb6457cfec12a0              # double 0.10699986292099561
+	.quad	0x3fdb413ec5c88caa              # double 0.42585725130829621
+	.quad	0x3fe99e9d06507d4e              # double 0.80061198457034677
+	.quad	0x3fe0bcb4746347cf              # double 0.5230352662276746
+	.quad	0x3fca5139f7efd860              # double 0.20560383421224326
+	.quad	0x3fe0292208632acc              # double 0.50502111089857626
+	.quad	0x3fb5b770683138a0              # double 0.084830308377805697
+	.quad	0x3fe46fc78f74cea1              # double 0.63864496249012259
+	.quad	0x3f8af1722c665680              # double 0.013155834178898873
+	.quad	0x3fe57d28ff5acf11              # double 0.67152833818406255
+	.quad	0x3feed9681c2601ad              # double 0.96403890130755132
+	.quad	0x3fe4d7e73da288ab              # double 0.6513553813749885
+	.quad	0x3fd14a7c18d354d4              # double 0.27017118858686939
+	.quad	0x3fc16d676f4c9b74              # double 0.13615124640019938
+	.quad	0x3fbccc369db8d1f8              # double 0.11249104834207191
+	.quad	0x3fda8e4e15d5b1f2              # double 0.41493560917186223
+	.quad	0x3feb9c5c074407d3              # double 0.86283685130205823
+	.quad	0x3fe913005d1fb2c5              # double 0.7835695093941345
+	.quad	0x3fefb9f336255cb6              # double 0.99144898009662685
+	.quad	0x3fe5854d7dd0f666              # double 0.67252230237472754
+	.quad	0x3f9fa3f4d6eadb20              # double 0.030898881547467671
+	.quad	0x3fe95f55402bff80              # double 0.79288733037536474
+	.quad	0x3fe74aae38a4ea3f              # double 0.72786627829857042
+	.quad	0x3feb5314e1378af1              # double 0.85389179217994926
+	.quad	0x3fe7bbf062a7ee83              # double 0.74169177311655721
+	.quad	0x3f9e377d75e11b20              # double 0.029508552856238102
+	.quad	0x3fc8a641e01c0f58              # double 0.19257377093173988
+	.quad	0x3fcf872dcaa9deb8              # double 0.24631283183747654
+	.quad	0x3fc2039642364e9c              # double 0.14073446496023656
+	.quad	0x3fb52f8e7f61f2d8              # double 0.08275690660407109
+	.quad	0x3fd5a1729ece7be4              # double 0.33797898777441859
+	.quad	0x3f958a4aeff7a520              # double 0.021035357376523511
+	.quad	0x3fd665d9a101a828              # double 0.34996643756187717
+	.quad	0x3fe63ac41536917e              # double 0.69467357772059279
+	.quad	0x3fcd6eae8bf03640              # double 0.2299402411739937
+	.quad	0x3fb8240d77c0baa8              # double 0.094300119148764794
+	.quad	0x3fec819520d1feff              # double 0.89081818018163961
+	.quad	0x3fcac321c9ede474              # double 0.20907995567157267
+	.quad	0x3fe01aab9dcbea2f              # double 0.50325566119801646
+	.quad	0x3fef81840e2b706c              # double 0.9845600392104763
+	.quad	0x3fdb2dc5b0263516              # double 0.42466871454310373
+	.quad	0x3febdb7c8b4840c4              # double 0.87054278567850262
+	.quad	0x3fe4d9df5ab2b35a              # double 0.65159576143706066
+	.quad	0x3fb79f58791498a0              # double 0.092275170860917743
+	.quad	0x3f8915183bd1e900              # double 0.012247266126213407
+	.quad	0x3fe6ab546a265660              # double 0.7084142754781162
+	.quad	0x3fe9e513c91766bc              # double 0.80921353603044776
+	.quad	0x3fb47e3e49781168              # double 0.080051320015689265
+	.quad	0x3f933a6d9acbde00              # double 0.018777573178310192
+	.quad	0x3fe0cfff13c01ea4              # double 0.52539018495095435
+	.quad	0x3fea4191dc2d34d7              # double 0.82050412181129218
+	.quad	0x3fc8c9428a294ef0              # double 0.19364196535263245
+	.quad	0x3fe9a500cca1a31b              # double 0.80139198271817536
+	.quad	0x3fa009c1ef68f8b0              # double 0.031324444269999474
+	.quad	0x3fea412ad0099bfc              # double 0.82045498497325253
+	.quad	0x3fcb5cf4d5fd1cb4              # double 0.21377430390041285
+	.quad	0x3fd738f99dd105ea              # double 0.36285248195426212
+	.quad	0x3fecfa70db12a4bb              # double 0.90557139194165559
+	.quad	0x3fef54ca96439b71              # double 0.97910050724463648
+	.quad	0x3fde99f2f857da60              # double 0.47814630748999853
+	.quad	0x3fd6cf644b868b82              # double 0.35640818954032494
+	.quad	0x3fde78a9e091b45c              # double 0.47611472063619487
+	.quad	0x3fe2f68aa088fd69              # double 0.59259539942278849
+	.quad	0x3fb0d2b6b650ce40              # double 0.065715236197143589
+	.quad	0x3fc93b6b0059338c              # double 0.19712579266561325
+	.quad	0x3f85d8f21850b600              # double 0.010667697302859658
+	.quad	0x3feccece7e8b0941              # double 0.90024494853449977
+	.quad	0x3fb623fdd74a40d0              # double 0.086486687718436927
+	.quad	0x3fed741af23f969a              # double 0.92042300523890508
+	.quad	0x3fe5d428243ec93f              # double 0.68214804724838263
+	.quad	0x3fd0a7266a9fc8c2              # double 0.26020203030124034
+	.quad	0x3fdb857b9c723656              # double 0.43002214696830288
+	.quad	0x3fc7126e4218e220              # double 0.18024996020700801
+	.quad	0x3fd1098075707bc0              # double 0.26620494335832845
+	.quad	0x3fe1f564473e6cb0              # double 0.56120504298032436
+	.quad	0x3fda484ef494fef4              # double 0.41066335568392209
+	.quad	0x3fe34dc755a974aa              # double 0.60324446421477274
+	.quad	0x3fd43d777c8135a6              # double 0.31625163229622399
+	.quad	0x3fb2594a51e9e1a0              # double 0.071674962042271861
+	.quad	0x3fc23ccdc108767c              # double 0.14248058247988016
+	.quad	0x3fd6ed77e17b27ca              # double 0.3582439138377792
+	.quad	0x3fea725af0dd3dc1              # double 0.82645937961381588
+	.quad	0x3fde8bf9031bac34              # double 0.47729325583958659
+	.quad	0x3fe3334861461626              # double 0.60001009939941663
+	.quad	0x3fdf85ab9ab604ea              # double 0.49253358944413483
+	.quad	0x3fe9fef5401c7714              # double 0.81237280389516053
+	.quad	0x3fd23b0e50dffcbc              # double 0.28485448739952424
+	.quad	0x3fea4a65d8b21dbf              # double 0.82158176730529664
+	.quad	0x3febe6c433a68027              # double 0.8719197281643617
+	.quad	0x3fbe89aaa423ca00              # double 0.11928812510794984
+	.quad	0x3fcc62a862974598              # double 0.22176079572686258
+	.quad	0x3fe627c3e7713990              # double 0.69235415652819832
+	.quad	0x3fda2f4900145eb6              # double 0.40913605697412991
+	.quad	0x3fcf8022e6679284              # double 0.24609791040633777
+	.quad	0x3fdd2ffb96801e08              # double 0.45605363557157874
+	.quad	0x3fe3f5ec12218879              # double 0.62376979390343401
+	.quad	0x3fd6916fda18243a              # double 0.35262676523467784
+	.quad	0x3fe091371af478f4              # double 0.5177264715637464
+	.quad	0x3feb467a8e0c1c89              # double 0.85235336059203448
+	.quad	0x3feb10308be0a5fd              # double 0.84572627372580167
+	.quad	0x3fefaa7f0ed12147              # double 0.98956253904274482
+	.quad	0x3fe842aa7cdd86d3              # double 0.7581379355217116
+	.quad	0x3fe624f95210b438              # double 0.69201341656083226
+	.quad	0x3fe9b1e4d3c7f470              # double 0.8029655586575597
+	.quad	0x3fa9624a147d37a0              # double 0.049578013421167855
+	.quad	0x3fe4a6c39006e695              # double 0.64535692339196038
+	.quad	0x3fdbdc27bb3258c4              # double 0.43531220704006679
+	.quad	0x3fdba9bcb13948be              # double 0.43223492915161532
+	.quad	0x3fd42a6684a620c2              # double 0.31508791879651821
+	.quad	0x3fd028af3c21ead2              # double 0.25248318550408755
+	.quad	0x3fd3631682e4ca4a              # double 0.3029228475817588
+	.quad	0x3fd7bbcc649135b6              # double 0.37083730526941439
+	.quad	0x3fd35b6a1589f62e              # double 0.30245449164781035
+	.quad	0x3fde68538b791f26              # double 0.47511757488654138
+	.quad	0x3feac588da20ed35              # double 0.83661310771223063
+	.quad	0x3fe583e03b72d694              # double 0.67234813319255915
+	.quad	0x3febcb3de416a097              # double 0.86855978535187972
+	.quad	0x3feaeb250b459b4a              # double 0.84120418740790481
+	.quad	0x3fdcc9e7dc68d24a              # double 0.44982334637032706
+	.quad	0x3fd8e7e31a4b2224              # double 0.38915326659892657
+	.quad	0x3fdc4f22e99bd14a              # double 0.44233010114046023
+	.quad	0x3feb8309781fe4de              # double 0.85974572622140122
+	.quad	0x3f918bbee27149c0              # double 0.017134649821238801
+	.quad	0x3fc0813eb5093460              # double 0.1289442428555132
+	.quad	0x3fbf3ac83634e788              # double 0.12199069331555112
+	.quad	0x3fe0b9621fc9866b              # double 0.5226297970622914
+	.quad	0x3fdc024d977b7620              # double 0.43764056962194964
+	.quad	0x3fb164738a86e950              # double 0.067939015693729177
+	.quad	0x3f5b7a6f9f357200              # double 0.0016771402414043068
+	.quad	0x3fe556309901e202              # double 0.66677122005700107
+	.quad	0x3fd8fca786c313a8              # double 0.39042080078462016
+	.quad	0x3feb4a579ddc26a0              # double 0.85282498199486056
+	.quad	0x3fea38c946894727              # double 0.81943191315278774
+	.quad	0x3feb13ab03bb7261              # double 0.8461508820433431
+	.quad	0x3fe4d952c057d42f              # double 0.65152871672638024
+	.quad	0x3fe799cb1f378232              # double 0.7375236139014929
+	.quad	0x3fe7d83794992f63              # double 0.74514369032975158
+	.quad	0x3fce17eaaf11d2dc              # double 0.23510488079377623
+	.quad	0x3fe771e03db1c0b4              # double 0.73265087175061305
+	.quad	0x3fd9f68d762da6d6              # double 0.40567337551929705
+	.quad	0x3fe7c2b46882c887              # double 0.7425176659801459
+	.quad	0x3fe313fafcdeb77b              # double 0.59618901623410581
+	.quad	0x3fd0ee1439118352              # double 0.2645311887081806
+	.quad	0x3fd078d891cb9aaa              # double 0.25737585294556686
+	.quad	0x3fc14848594f2188              # double 0.13501839028164064
+	.quad	0x3fe6821bcfce1fe8              # double 0.70338240229557147
+	.quad	0x3fe94d4764236db6              # double 0.79068345602302403
+	.quad	0x3fe4032bb2762d88              # double 0.62538704734599637
+	.quad	0x3fe50ea5db6d7b1d              # double 0.65803807122196967
+	.quad	0x3fd07c308137a312              # double 0.2575799238098152
+	.quad	0x3fef0f637c74f448              # double 0.97062849338511458
+	.quad	0x3f92a4fd6c918b80              # double 0.018207511664865006
+	.quad	0x3fe26302c0e3592a              # double 0.57458627389386163
+	.quad	0x3fe71461d034e509              # double 0.72123804726939611
+	.quad	0x3fea8d1e1c1ca16f              # double 0.8297262715396253
+	.quad	0x3fb725b9f46b7ef0              # double 0.090419408963039904
+	.quad	0x3fd748f0e728113e              # double 0.36382696699026329
+	.quad	0x3fd4e120ce2620c4              # double 0.32624073154194044
+	.quad	0x3fe49d0485cfb3df              # double 0.64416719565417313
+	.quad	0x3fbdb74b4b729ac0              # double 0.11607809631332611
+	.quad	0x3fd031d5ac32a5e4              # double 0.25304166618533785
+	.quad	0x3fe9293a75c2d4cb              # double 0.78628275871474196
+	.quad	0x3faa0688e22ec1a0              # double 0.050831105814157285
+	.quad	0x3fe64f8b679b5553              # double 0.6972100280351391
+	.quad	0x3fb94715e59d9e50              # double 0.098740929182548287
+	.quad	0x3fe75367b7dab93a              # double 0.72893129262028045
+	.quad	0x3fdba26fa01d542c              # double 0.43178930889308975
+	.quad	0x3fdf89e7fd67f470              # double 0.49279212710081932
+	.quad	0x3feeec5c41614aa7              # double 0.96635258454837902
+	.quad	0x3fde5df92fc750fe              # double 0.47448568025471605
+	.quad	0x3fcfffba3ba9e880              # double 0.24999168313280862
+	.quad	0x3fb34c36b0112ca8              # double 0.075381677613381215
+	.quad	0x3fc179adb02bd124              # double 0.13652583219630643
+	.quad	0x3fea662da05c9c1d              # double 0.82497292824416812
+	.quad	0x3feb7d900aa305ce              # double 0.85907747342587881
+	.quad	0x3fcadeebd710a9e8              # double 0.20992801667428229
+	.quad	0x3feeacd3e2b7b375              # double 0.9585971286847853
+	.quad	0x3fe9a44a20debb52              # double 0.80130487842493836
+	.quad	0x3fe03716c0dac19a              # double 0.50672471682451037
+	.quad	0x3fe42d2e65edabba              # double 0.63051528842822013
+	.quad	0x3fd9ec0d6e40f75c              # double 0.40503249899835736
+	.quad	0x3fe547a30461dadf              # double 0.66499472480685629
+	.quad	0x3fe27c7101ae18fb              # double 0.57769060447824871
+	.quad	0x3fb22a16738cadf8              # double 0.070954707346281398
+	.quad	0x3feb6534ccf22a52              # double 0.85610427883632156
+	.quad	0x3fd77c47dc73a9e0              # double 0.36696049240586426
+	.quad	0x3fdaa6b7c4d09892              # double 0.41642564983556796
+	.quad	0x3fe7395a569bbd07              # double 0.72575108447736703
+	.quad	0x3fcd069179aa28a8              # double 0.22676294747026771
+	.quad	0x3f9d78a13d66adc0              # double 0.028780478832840961
+	.quad	0x3fdec6930ea8a538              # double 0.48087002212067231
+	.quad	0x3fe2d1e04340be1f              # double 0.58811963210422735
+	.quad	0x3fefbb7034c87eaf              # double 0.99163065251555859
+	.quad	0x3fe6f7047310fc5c              # double 0.71765348886391278
+	.quad	0x3fb29d254c4b3d48              # double 0.072710353018227925
+	.quad	0x3fe3b88ec099c1ef              # double 0.61627900712306694
+	.quad	0x3fe447c86ca3ebf7              # double 0.63376256197750436
+	.quad	0x3fe1585b22647448              # double 0.54203564374223223
+	.quad	0x3fd95661df0ff99a              # double 0.39589735778272372
+	.quad	0x3fd4317970710efa              # double 0.31551967602375408
+	.quad	0x3fe6b5f442c2e93c              # double 0.70971119918184611
+	.quad	0x3feace8fa0e1ee3d              # double 0.83771497175570853
+	.quad	0x3feb94129b52c252              # double 0.86182527863099723
+	.quad	0x3fea3165d100fd93              # double 0.81852999516552172
+	.quad	0x3fec8db2a7a2d13b              # double 0.8922971033230519
+	.quad	0x3fe028b710f5051c              # double 0.50497010528502839
+	.quad	0x3fe47b705e9b1fc5              # double 0.64006823041653915
+	.quad	0x3fe1afe48a6dabf9              # double 0.55272128140256804
+	.quad	0x3fe0f2fd0f615999              # double 0.52966168407401704
+	.quad	0x3fe6428ff6a29e70              # double 0.69562528773253796
+	.quad	0x3fedd40a65fd87f3              # double 0.93213386459342329
+	.quad	0x3fed20b272a4eaa4              # double 0.9102413405556331
+	.quad	0x3fe5207ceccfd54c              # double 0.66021581890405789
+	.quad	0x3fe8f5352f2ceeba              # double 0.77993258680313393
+	.quad	0x3fca0c326ac77e28              # double 0.20349722112494928
+	.quad	0x3fe490e683a26577              # double 0.64268804273449021
+	.quad	0x3fc3327dd5f605bc              # double 0.14997837970081018
+	.quad	0x3f70690a06875800              # double 0.0040064231511305337
+	.quad	0x3fe9faafcd116dc4              # double 0.81185140659675214
+	.quad	0x3fda2dbe7d073c9a              # double 0.40904199800292818
+	.quad	0x3fcd9ad6074b9864              # double 0.23128772121634988
+	.quad	0x3fced32fe6a107b0              # double 0.24081991921599188
+	.quad	0x3fec7a3b9d303734              # double 0.88992100430343734
+	.quad	0x3fdc2512c214a26e              # double 0.43976277306732114
+	.quad	0x3feac2dc4db67961              # double 0.83628668955115526
+	.quad	0x3fca270ce41822a4              # double 0.204316722273025
+	.quad	0x3fc3d684444c3350              # double 0.15498402914854603
+	.quad	0x3fcdc117dbde2400              # double 0.23245523677567803
+	.quad	0x3fec33440710a145              # double 0.88125802402377273
+	.quad	0x3f725bbfbb28f780              # double 0.0044820298667768155
+	.quad	0x3feec13a33d4aeef              # double 0.96108732341005331
+	.quad	0x3fe3595f08d10260              # double 0.60465957376443313
+	.quad	0x3fd861cf49a1a55a              # double 0.38096983137673635
+	.quad	0x3fb4ffb75e385df0              # double 0.082026920798277336
+	.quad	0x3fd05330ecf861a8              # double 0.25507758275628101
+	.quad	0x3fce55611c10ac78              # double 0.23698057051055677
+	.quad	0x3febc171818247b6              # double 0.86736369414051384
+	.quad	0x3fe82e065cc49b7b              # double 0.75561826819180966
+	.quad	0x3fe5e65fb4dc94fb              # double 0.68437180828610111
+	.quad	0x3fecdcf86baca43a              # double 0.90197392492439765
+	.quad	0x3fd42f97eb0b0452              # double 0.31540487245007853
+	.quad	0x3fcb011cef679dbc              # double 0.21097146691975677
+	.quad	0x3fe9829ab43923cb              # double 0.79719290923923702
+	.quad	0x3fe9c24d5a10894b              # double 0.80496852484456249
+	.quad	0x3f90bb8cea2e84a0              # double 0.016340448182408651
+	.quad	0x3fac1dd2a52a3700              # double 0.054915030156832856
+	.quad	0x3fc216eaf12c9300              # double 0.14132439399795516
+	.quad	0x3fd3c5e6c21d2998              # double 0.3089539428371153
+	.quad	0x3fa572c279a0e320              # double 0.041891171786522685
+	.quad	0x3fec03c25ff1bfe7              # double 0.87545889605644056
+	.quad	0x3fbd1f2e75890908              # double 0.11375704164041534
+	.quad	0x3fdf7355971b0b44              # double 0.49141444927606792
+	.quad	0x3fa05aca402fffe0              # double 0.031942673049343062
+	.quad	0x3fe8d96f4a4596e9              # double 0.77654232507913179
+	.quad	0x3fe84aeac1632514              # double 0.75914514323190696
+	.quad	0x3feab2f2280fcd98              # double 0.83434398483807382
+	.quad	0x3fcfed3192eff80c              # double 0.24942607569386188
+	.quad	0x3fef073372304ddb              # double 0.96962902357557412
+	.quad	0x3fd95a0046c4954c              # double 0.39611822997024571
+	.quad	0x3fe4ccf2a521f633              # double 0.65001804592583878
+	.quad	0x3fe7378bf6f69430              # double 0.72553060755729426
+	.quad	0x3fe9b00e0589c948              # double 0.80274106103596754
+	.quad	0x3fcd3f5667b8b7c4              # double 0.22849540771988874
+	.quad	0x3fe5d9a4d9fc14c2              # double 0.68281786513457399
+	.quad	0x3fc0ca5217a4c070              # double 0.13117433695288438
+	.quad	0x3fbc7ae6f31d1568              # double 0.11125033793822114
+	.quad	0x3fe4adaaf33d6f8e              # double 0.64619967944916978
+	.quad	0x3f8f8311d57ea2c0              # double 0.01538671429428129
+	.quad	0x3fb813fedfd330f0              # double 0.094055108685271227
+	.quad	0x3fc3516a1eb916d8              # double 0.15092207431933136
+	.quad	0x3fed6cd2c709b363              # double 0.91953410029018945
+	.quad	0x3fd963e5a862a7e8              # double 0.39672223514446481
+	.quad	0x3fe50c904e2f1502              # double 0.65778365392966998
+	.quad	0x3fd0653a09b07392              # double 0.25617838808266769
+	.quad	0x3fc4fa813680c5f8              # double 0.16389479790954886
+	.quad	0x3fbc9af5c6fc43a0              # double 0.11173950298349533
+	.quad	0x3fd443eef1b1ecc4              # double 0.31664632418660354
+	.quad	0x3fe144ed602a7c8d              # double 0.53966397077955863
+	.quad	0x3fe74cf6b28b2514              # double 0.72814497825416646
+	.quad	0x3fe4f8e466748860              # double 0.65538234720976263
+	.quad	0x3fc6f549d92dd8f0              # double 0.17936061005065751
+	.quad	0x3fee5d7540f07a4a              # double 0.94890844996900481
+	.quad	0x3fdb95413d7f124e              # double 0.43098479276185209
+	.quad	0x3fd602e15bd33c08              # double 0.34392580001161877
+	.quad	0x3fe7b9d1a78bb92e              # double 0.74143297885692561
+	.quad	0x3fc0d3bacb8588cc              # double 0.13146147668437036
+	.quad	0x3fcb247aa1324150              # double 0.212050751408706
+	.quad	0x3fed50fd90ccd7c8              # double 0.91613653451235511
+	.quad	0x3fea6ccf34ba7b11              # double 0.82578239725612168
+	.quad	0x3fe41a32cc80acc9              # double 0.62819805089875402
+	.quad	0x3fb361c5a710c868              # double 0.075710633552064643
+	.quad	0x3fe10ffed14991b0              # double 0.53320256115380538
+	.quad	0x3fd2d480537092d4              # double 0.29422004841243887
+	.quad	0x3fa1de6ff3795c30              # double 0.034900186987833925
+	.quad	0x3fda366e17e3ee88              # double 0.40957214673083131
+	.quad	0x3fe383262c8a2c6b              # double 0.60975941371124287
+	.quad	0x3fe316df9d750480              # double 0.59654217484798266
+	.quad	0x3fd4ac75857e909a              # double 0.32302606617509755
+	.quad	0x3fea9354bbf4a80f              # double 0.83048474035354214
+	.quad	0x3fb38a0cfdb80fa8              # double 0.076325237219917796
+	.quad	0x3fe8be7674cbebae              # double 0.77324984371022309
+	.quad	0x3fd5934cc79fe7b0              # double 0.33711547369568517
+	.quad	0x3fdb73e349e15f0c              # double 0.42894823279264993
+	.quad	0x3fe5676c4d902958              # double 0.66887488507317538
+	.quad	0x3fb1c7f82e0b6300              # double 0.069457541695907565
+	.quad	0x3fd5716a0a80941e              # double 0.33504725480662667
+	.quad	0x3feb0c70d4321168              # double 0.84526864475678298
+	.quad	0x3fe17eb5942d1315              # double 0.54671744290007729
+	.quad	0x3fe68e5f493a2ef4              # double 0.70487942030146522
+	.quad	0x3fda480cd3ccf538              # double 0.41064758952764491
+	.quad	0x3fcbb980d26e9760              # double 0.21659860873222225
+	.quad	0x3fe844887cc190bf              # double 0.75836586347988788
+	.quad	0x3fdb33ef41abdcc4              # double 0.42504483617035427
+	.quad	0x3fccefb1f4c24404              # double 0.22606491519084682
+	.quad	0x3fe1d860e17f4eae              # double 0.55766338388862891
+	.quad	0x3f889053c41b9d00              # double 0.011994032308804581
+	.quad	0x3fee88fd253cead1              # double 0.95422227166212725
+	.quad	0x3feefceeddbb86e2              # double 0.968375619002668
+	.quad	0x3fdc13379b5c4286              # double 0.43867292568123906
+	.quad	0x3feec57a74ba4ac8              # double 0.96160624311809161
+	.quad	0x3fcdc0a294d56174              # double 0.23244125621091494
+	.quad	0x3fe2556a9475a081              # double 0.57292679782860045
+	.quad	0x3fe4d30520bf1b17              # double 0.65075928111841363
+	.quad	0x3fee7a2ffdc43735              # double 0.95241546214831507
+	.quad	0x3fc07fd608a4f250              # double 0.12890124723516516
+	.quad	0x3fd2ce504bbed2a8              # double 0.2938423862172308
+	.quad	0x3fddd2313ee2f6f8              # double 0.46595412389056845
+	.quad	0x3fe6a14b33f70171              # double 0.70718917989147034
+	.quad	0x3fe7a43f484f9853              # double 0.73879970668054751
+	.quad	0x3fe77719998757f6              # double 0.73328857408591719
+	.quad	0x3fd36bdf13212226              # double 0.30345894687755715
+	.quad	0x3fe2dbf76f69dc46              # double 0.58935138473942383
+	.quad	0x3fd9e7bc95bc53dc              # double 0.40476908323881644
+	.quad	0x3fdf055c02500a5e              # double 0.48470211244435812
+	.quad	0x3fed256ad17496cb              # double 0.9108175364424026
+	.quad	0x3fcb87bfa125bdb0              # double 0.21508021706129687
+	.quad	0x3fd92e7eef82cd6a              # double 0.39346288099041848
+	.quad	0x3fe12a31a7a6efac              # double 0.53640063042211272
+	.quad	0x3fe3cecdcfd4545c              # double 0.61899462310487818
+	.quad	0x3fe45717d53c0b10              # double 0.63563148162242733
+	.quad	0x3fefca206db1b198              # double 0.99342366623527578
+	.quad	0x3fe642a8e5836e7a              # double 0.69563717676960768
+	.quad	0x3fe19f406e53296f              # double 0.55068990276167351
+	.quad	0x3fee43ce6796d603              # double 0.94577713234201644
+	.quad	0x3fcc76c968fcbeb8              # double 0.22237508417446405
+	.quad	0x3fe4c7cad9d53833              # double 0.64938871903883066
+	.quad	0x3fd017dacc59e0e6              # double 0.25145597416077548
+	.quad	0x3fedf8658a239533              # double 0.93657185535690812
+	.quad	0x3f92afea3547e620              # double 0.018249186994557687
+	.quad	0x3fe3b83b9fc66361              # double 0.61623936849637684
+	.quad	0x3fe35a439ba7bef8              # double 0.60476856614511032
+	.quad	0x3fe3a5d4bd7d4339              # double 0.61399304399137755
+	.quad	0x3fed429a1dd92ddc              # double 0.91438012914425881
+	.quad	0x3fe6482b58b9f557              # double 0.696309731763601
+	.quad	0x3fba758bf43da458              # double 0.10335612023267637
+	.quad	0x3fb799203890e4c0              # double 0.092180265245491277
+	.quad	0x3fb86a8c17ba78b0              # double 0.095375781815593141
+	.quad	0x3f6af37767878c00              # double 0.003289921962492226
+	.quad	0x3fba1509c90f0898              # double 0.1018835178247478
+	.quad	0x3fdae304f1cd2c50              # double 0.42010615933822226
+	.quad	0x3fd54b57175cb8dc              # double 0.33272340089287211
+	.quad	0x3fe380706b713f05              # double 0.60942860588872405
+	.quad	0x3fe476f2c741a09c              # double 0.63952006261117189
+	.quad	0x3fddee8363420480              # double 0.46768269246246774
+	.quad	0x3fd7f83fa608872e              # double 0.37452689375105563
+	.quad	0x3feb275c1a17dc0f              # double 0.84855465980843003
+	.quad	0x3fe762ddd812aaf7              # double 0.73081867410414147
+	.quad	0x3fdba598aa4c17c0              # double 0.43198219900693502
+	.quad	0x3fe0a2f3ec846b3d              # double 0.51989170260217288
+	.quad	0x3fd7f521d4ca32d2              # double 0.37433667927034009
+	.quad	0x3fe406586d4d935c              # double 0.62577458713768008
+	.quad	0x3fbed8f961ef0e80              # double 0.12049826279604225
+	.quad	0x3feb8dfe75ed5299              # double 0.86108325035691557
+	.quad	0x3fb91342e68b4b18              # double 0.097950154576477266
+	.quad	0x3fd882e2f1adfe1e              # double 0.38298867799309899
+	.quad	0x3fe7da6c5bce4bd8              # double 0.7454129975397974
+	.quad	0x3fcd1fb6b49a8584              # double 0.22753032511267801
+	.quad	0x3fda055340c3acbe              # double 0.40657502483982089
+	.quad	0x3fd14575300e496e              # double 0.26986436551046367
+	.quad	0x3fbc0693ecd2cd10              # double 0.1094753697569113
+	.quad	0x3fe182f7b68930ae              # double 0.54723725940268308
+	.quad	0x3fe7fcc9f07c9b69              # double 0.74960801096027041
+	.quad	0x3fd5808b8e5bbdc2              # double 0.3359707727640534
+	.quad	0x3feed956de340282              # double 0.96403067969374967
+	.quad	0x3fe24f1c0682f93f              # double 0.57215691825675907
+	.quad	0x3f98b7aab7cf4b00              # double 0.02413813349614724
+	.quad	0x3fc4bc33b75a6c58              # double 0.16199346974176154
+	.quad	0x3fc0d3d72c9cec84              # double 0.13146485975616795
+	.quad	0x3fe80fd82fccd63c              # double 0.75193414054837814
+	.quad	0x3fec8fafbc005472              # double 0.89253985136987368
+	.quad	0x3fdddd409d0c0bc4              # double 0.46662917458177966
+	.quad	0x3fe4cc1cbcb25c33              # double 0.64991604666545866
+	.quad	0x3fe58742cc08e75b              # double 0.67276134348433503
+	.quad	0x3f93f4e1ec1b3900              # double 0.019488840137278807
+	.quad	0x3fe0f8742b3edb3f              # double 0.5303288311614337
+	.quad	0x3fe51041bd86781c              # double 0.65823447243360844
+	.quad	0x3fcba161aaab9dcc              # double 0.21586247285379867
+	.quad	0x3fe636090c4cd478              # double 0.69409611132017712
+	.quad	0x3fc4931a46fce0b8              # double 0.16073921648217548
+	.quad	0x3fea8c39a9455bca              # double 0.82961733875969768
+	.quad	0x3fe403f238c4fa64              # double 0.62548171127111774
+	.quad	0x3f87989d1236fec0              # double 0.011521556013462386
+	.quad	0x3f95026fb3a60b00              # double 0.020517106380348871
+	.quad	0x3fb20f861abcf678              # double 0.070549375083794774
+	.quad	0x3fc1bd5bd7f773e0              # double 0.13859127087826462
+	.quad	0x3fe864948713c61e              # double 0.76227785475038323
+	.quad	0x3fe04d85d2e3b393              # double 0.50946322621676854
+	.quad	0x3fd9f46a5907a11e              # double 0.40554293340984937
+	.quad	0x3fb038142ce057d8              # double 0.063355694728982725
+	.quad	0x3fddf044c18191d6              # double 0.46778983018000753
+	.quad	0x3fe6b4acd5e27464              # double 0.70955507063230217
+	.quad	0x3fe553dd47c4475d              # double 0.66648735062538444
+	.quad	0x3fdd8e00c424c604              # double 0.46179217486050583
+	.quad	0x3fe632a16e6ed10e              # double 0.69368049210473415
+	.quad	0x3fd90c7f15a72964              # double 0.39138772120045062
+	.quad	0x3fd9b462a336d08a              # double 0.40163484515074599
+	.quad	0x3fd333e12048682a              # double 0.30004146721478497
+	.quad	0x3fddce4f749a57ba              # double 0.46571718585016308
+	.quad	0x3fe63478a24dc643              # double 0.69390517902338222
+	.quad	0x3f86c1a5f7406780              # double 0.011111542327899349
+	.quad	0x3faedfdafecfb5b0              # double 0.060301631550696455
+	.quad	0x3fe8ba7947b3cad0              # double 0.77276290897710886
+	.quad	0x3f8256229cc3b140              # double 0.0089533523646073698
+	.quad	0x3fe87545b2bf8afc              # double 0.76431546127091065
+	.quad	0x3fe27609619b875f              # double 0.57690877021762421
+	.quad	0x3fe81baf80d7131f              # double 0.75337958492363899
+	.quad	0x3fef44f3a61e9076              # double 0.97716696210092269
+	.quad	0x3fe3fb29112dfc89              # double 0.62440923076054944
+	.quad	0x3f9d8a88a7686980              # double 0.028848777024998551
+	.quad	0x3fcd10f477851468              # double 0.22707992397241417
+	.quad	0x3fedffef30b889ea              # double 0.93749198451797366
+	.quad	0x3fe5bfade6ce6bf6              # double 0.67964835242616917
+	.quad	0x3fe420fc106d2788              # double 0.6290264435603925
+	.quad	0x3fe767673491b8e5              # double 0.73137245433261155
+	.quad	0x3fecf66815facc70              # double 0.90507892887980113
+	.quad	0x3fe4d634f11e0c2a              # double 0.65114829152333198
+	.quad	0x3fcb68271244e424              # double 0.21411598579450797
+	.quad	0x3fc145e76a762d98              # double 0.1349457998115724
+	.quad	0x3fdc6b323a4347dc              # double 0.44404273690918017
+	.quad	0x3fe8bd886ad38ef6              # double 0.77313633789569169
+	.quad	0x3feb5fe8ea91b2da              # double 0.85545774282726517
+	.quad	0x3fbced0d77d96e18              # double 0.11299213577279266
+	.quad	0x3fe413b02fd3c5ca              # double 0.62740334836251432
+	.quad	0x3fead3556a60464e              # double 0.83829756523682319
+	.quad	0x3fda79cdb0d0cfb8              # double 0.41368429438739041
+	.quad	0x3fe6785b748be816              # double 0.70219204676618818
+	.quad	0x3fce896f4139a208              # double 0.23856917080708251
+	.quad	0x3fee46b2d80cdf05              # double 0.94613020131416248
+	.quad	0x3fec94a02cd7ce8c              # double 0.89314278372190036
+	.quad	0x3fd6be43669d2108              # double 0.35536274929883449
+	.quad	0x3fb83da0bcc6f138              # double 0.094690366829074502
+	.quad	0x3fe425fd0e749a61              # double 0.62963726828895628
+	.quad	0x3fe587b281da974e              # double 0.6728146110733435
+	.quad	0x3fc252bb64bd10a8              # double 0.14314978045343207
+	.quad	0x3fe858d29170a3a5              # double 0.7608425942063276
+	.quad	0x3fd88ce08f181c2e              # double 0.38359846090355887
+	.quad	0x3fd226b0dee372cc              # double 0.28361150518848599
+	.quad	0x3fed6db12bedffae              # double 0.91964014606491218
+	.quad	0x3fc98a9d024c4784              # double 0.19954264270978339
+	.quad	0x3fd144fc9ce0af76              # double 0.26983561821065594
+	.quad	0x3fecbb3ce6e35671              # double 0.8978561887294757
+	.quad	0x3fe28c5b7b8aa773              # double 0.57963346604559118
+	.quad	0x3fe672fa97811255              # double 0.70153550711308788
+	.quad	0x3fcf429798073164              # double 0.24421973155257171
+	.quad	0x3fece596fa6268e4              # double 0.90302609351354279
+	.quad	0x3fc66e1d17a2cea0              # double 0.17523540166950102
+	.quad	0x3fd6c5a227b76dcc              # double 0.35581258657995529
+	.quad	0x3fd418ff37eb8a68              # double 0.31402569256730439
+	.quad	0x3fef4a1deb19782b              # double 0.97779746930951227
+	.quad	0x3fee28b0faf4538f              # double 0.94246720327883959
+	.quad	0x3fedebdca27e0cdc              # double 0.935041730277955
+	.quad	0x3fdf1dedb6baaa46              # double 0.48620169491428944
+	.quad	0x3fe7e7ae44f9a23b              # double 0.7470313403292218
+	.quad	0x3fedc07d8466f953              # double 0.92974735126316899
+	.quad	0x3fe1f58c87076ccd              # double 0.56122423527576759
+	.quad	0x3fe9e665e0c9ba8c              # double 0.8093747511282614
+	.quad	0x3fd132f2cc61d7fa              # double 0.26873464545440096
+	.quad	0x3fe530da1bf51ef4              # double 0.66221337757539667
+	.quad	0x3fe5ec1c3da72055              # double 0.68507206002778764
+	.quad	0x3fdb9c409c0fd152              # double 0.43141188850792844
+	.quad	0x3fe18092aae9d508              # double 0.54694493657612586
+	.quad	0x3fe2e87469947d7d              # double 0.59087582226850055
+	.quad	0x3fbc1e6ab0e4d290              # double 0.10983912295052733
+	.quad	0x3fd914a7ce771808              # double 0.39188571131342131
+	.quad	0x3fcbcad51a0a0fa8              # double 0.21712745448541892
+	.quad	0x3fd502f8dc101b3a              # double 0.32830640306967818
+	.quad	0x3fec903207272aba              # double 0.89260198018140291
+	.quad	0x3fb01e095651c550              # double 0.062958320211483398
+	.quad	0x3fed6435f0d16245              # double 0.91848275217768871
+	.quad	0x3fda0b0f6d9e78c0              # double 0.40692506508811377
+	.quad	0x3fc7f98a916f3a78              # double 0.18730289555829294
+	.quad	0x3feb9de277db5b7d              # double 0.86302302751106164
+	.quad	0x3f9524b4775d6720              # double 0.020647830758526386
+	.quad	0x3fe98fad4bea9e7e              # double 0.79878868892133403
+	.quad	0x3fd8f27d5ca68d22              # double 0.38980039642247466
+	.quad	0x3fe1a468fda77f81              # double 0.55131959478238468
+	.quad	0x3fecd532f8cfffd8              # double 0.90102528186980191
+	.quad	0x3fdb96579be3182c              # double 0.43105116103504559
+	.quad	0x3fded5fce24ab49a              # double 0.48181078051386239
+	.quad	0x3fdf1dccba57512e              # double 0.48619383046504339
+	.quad	0x3fa194a342e9bd10              # double 0.03433714095887741
+	.quad	0x3fe27c0395331099              # double 0.57763842716714742
+	.quad	0x3fdad60369728322              # double 0.41931233689870073
+	.quad	0x3fd8915e04429f98              # double 0.38387251297035041
+	.quad	0x3fe41d21da219086              # double 0.62855618098957744
+	.quad	0x3fcc67332ec9f3f4              # double 0.22189941200841157
+	.quad	0x3fd765bc5d18b202              # double 0.36558446017696167
+	.quad	0x3fe1296c552bf4bb              # double 0.53630653987024546
+	.quad	0x3fc6217afd23d224              # double 0.17289674148891365
+	.quad	0x3fdb0560d9401fb0              # double 0.42220326629512339
+	.quad	0x3fc4621cfd410214              # double 0.15924417844691219
+	.quad	0x3fe4d58386613a88              # double 0.65106369253210605
+	.quad	0x3fe6b9b606529833              # double 0.71016980395211815
+	.quad	0x3fe123b01bf03e3f              # double 0.53560643631676175
+	.quad	0x3fd63b1af0705a86              # double 0.34735749702796459
+	.quad	0x3fd3c4eced6a835e              # double 0.30889437852061075
+	.quad	0x3fd41bcc11296d3e              # double 0.31419660259208004
+	.quad	0x3fe0ea23e85eee6e              # double 0.52858157524992833
+	.quad	0x3fc9c7688088c800              # double 0.2013979556664367
+	.quad	0x3feca303ed94b24a              # double 0.89489933397778398
+	.quad	0x3feb08ddb3dd2473              # double 0.84483227853446718
+	.quad	0x3fe7495a79a13c6d              # double 0.72770427470994792
+	.quad	0x3fd3947737a8a496              # double 0.30593662677217404
+	.quad	0x3fa08441ba9103c0              # double 0.032259038948275087
+	.quad	0x3feb0b98f6834fd7              # double 0.84516571185167322
+	.quad	0x3feb0765c9c762ca              # double 0.84465302858287683
+	.quad	0x3feb9ed0f2140390              # double 0.86313674240965277
+	.quad	0x3fdc929893c9757a              # double 0.44644751007384509
+	.quad	0x3fe3e1e01f155019              # double 0.62132268973300875
+	.quad	0x3fd82f34d0f2fbb0              # double 0.37788124470892637
+	.quad	0x3fc3f4cb9a5b62c4              # double 0.15590806042634686
+	.quad	0x3fa033586e5e01e0              # double 0.03164173457389885
+	.quad	0x3fcfec79de335d8c              # double 0.24940417623177458
+	.quad	0x3fe56e2026c78854              # double 0.66969306539636841
+	.quad	0x3fee333d40d42d96              # double 0.94375479375723859
+	.quad	0x3fee77dc27e04ce7              # double 0.95213134563746571
+	.quad	0x3fec626741bfeb25              # double 0.88701212732062074
+	.quad	0x3fe74fce5756b5ce              # double 0.72849194582311738
+	.quad	0x3fba1872806a7f38              # double 0.10193553576618519
+	.quad	0x3fee258d0cffe980              # double 0.94208385981555409
+	.quad	0x3fc8548cb6014c70              # double 0.19008025061575351
+	.quad	0x3fbf14c82c890d10              # double 0.12141085707940058
+	.quad	0x3fe47004d94175d1              # double 0.63867418701891598
+	.quad	0x3fe2412bcd10ed93              # double 0.57045545627572591
+	.quad	0x3fe1d3dcb1d0cae0              # double 0.55711207131966134
+	.quad	0x3fee3f5eb815b8b7              # double 0.94523559526512357
+	.quad	0x3fe13cfbf3522080              # double 0.53869435809703248
+	.quad	0x3fe33f9810dc8731              # double 0.60151294034242231
+	.quad	0x3fd87aa81819e514              # double 0.38248636582973572
+	.quad	0x3fd6315a7a11f6ac              # double 0.3467622940150743
+	.quad	0x3fc62fb46ffade90              # double 0.17333083598872578
+	.quad	0x3fc418c2f419e748              # double 0.15700566214564504
+	.quad	0x3fdb2a24def90252              # double 0.42444726729084892
+	.quad	0x3fd3fc914b854892              # double 0.31229050040304529
+	.quad	0x3fdffb9d2e191b1e              # double 0.49973229886784221
+	.quad	0x3fe4b43cc403d093              # double 0.64700163158569735
+	.quad	0x3fd3a677a2a0d65c              # double 0.30703535920779301
+	.quad	0x3fedcd73dbdedf0e              # double 0.93132965987658323
+	.quad	0x3fe3690c03234cc4              # double 0.60657311070317421
+	.quad	0x3fe97941df41c841              # double 0.79605191807628028
+	.quad	0x3fc8de23893c9a24              # double 0.19427913857471524
+	.quad	0x3fd8b101b7e1f874              # double 0.38580363232893622
+	.quad	0x3fd1e4febffe51ee              # double 0.27960175275191446
+	.quad	0x3fea3be90a94edd1              # double 0.8198132712054137
+	.quad	0x3fddda70ddcfa0be              # double 0.46645757352099426
+	.quad	0x3fd12c994d5bcf98              # double 0.26834709696344694
+	.quad	0x3fd092f9d8345506              # double 0.25897070039475556
+	.quad	0x3fbc8d993ecb49c0              # double 0.11153562338885248
+	.quad	0x3fe94f558a6f8769              # double 0.79093434370245774
+	.quad	0x3fe9b7ce1a958786              # double 0.80368714515883322
+	.quad	0x3fd02c151e6afd3e              # double 0.25269058199406291
+	.quad	0x3fea40c668c1d699              # double 0.82040710888277879
+	.quad	0x3fe3eb7356723ac0              # double 0.62249152072930514
+	.quad	0x3fe753d94db54e85              # double 0.72898545434368656
+	.quad	0x3fa3d21170b13810              # double 0.038712067610149004
+	.quad	0x3fe0f7facb62a176              # double 0.53027095531164892
+	.quad	0x3fd1718321cf9ebc              # double 0.27255323697907463
+	.quad	0x3fdc194d1cf97f9e              # double 0.43904426412154318
+	.quad	0x3fe1c3a2981f0f10              # double 0.55513124190517438
+	.quad	0x3fee495d48b17aa2              # double 0.94645561406999357
+	.quad	0x3fef2397639ef36f              # double 0.97309464890677854
+	.quad	0x3fe14deafdc28dcd              # double 0.54076146662230828
+	.quad	0x3fe39b312de1444f              # double 0.61269434891631558
+	.quad	0x3fdd102886ae62bc              # double 0.45411122467480047
+	.quad	0x3febe414fdd56431              # double 0.8715920407950134
+	.quad	0x3fdaae083402586e              # double 0.41687207297343931
+	.quad	0x3fe25b87ec836aea              # double 0.57367321199430177
+	.quad	0x3fe1b6c90198f872              # double 0.55356264411945078
+	.quad	0x3fe8ac699b551067              # double 0.77104645098053204
+	.quad	0x3fe8180bd1b15922              # double 0.75293532329195423
+	.quad	0x3fd94b4e8e526d68              # double 0.39522136591559454
+	.quad	0x3fea691ba92775d3              # double 0.82533057248991282
+	.quad	0x3fd3e96210a6eff0              # double 0.31111957193547735
+	.quad	0x3fb5a4d800852cb8              # double 0.084546566130643153
+	.quad	0x3fe3f9d45242bcca              # double 0.62424675051252021
+	.quad	0x3fe71cdde0aa3bcf              # double 0.72227376823308898
+	.quad	0x3fd8048342937a86              # double 0.37527543546267628
+	.quad	0x3fb6965fc0c487e8              # double 0.088232025682856041
+	.quad	0x3fe22af57925efd8              # double 0.56774400388485002
+	.quad	0x3fd7e4a59b2d6656              # double 0.37333049921071415
+	.quad	0x3fc925c19521dd74              # double 0.19646472722864028
+	.quad	0x3fd9d26c866f81fa              # double 0.40346825722193069
+	.quad	0x3feaba1fc9044436              # double 0.83522023449962179
+	.quad	0x3fe0d9458e51a68c              # double 0.52652242466611332
+	.quad	0x3fd48bb4abcb0e8c              # double 0.32102696205786496
+	.quad	0x3fbecfdd0ce33b18              # double 0.12035924496306583
+	.quad	0x3fd85f388b879932              # double 0.38081182123132173
+	.quad	0x3fd6ea77d6e6d3ba              # double 0.35806079851618799
+	.quad	0x3fd3995f49213c00              # double 0.30623609677871855
+	.quad	0x3fa8b4336bf9c920              # double 0.048249823504095568
+	.quad	0x3fe23abdbe6e26c9              # double 0.56967055505193642
+	.quad	0x3fe688b80c48ec76              # double 0.70418932341944074
+	.quad	0x3fef10f51e6482e5              # double 0.97082000671443025
+	.quad	0x3fe5604d948f5682              # double 0.66800574317558437
+	.quad	0x3feb87827d1e5a91              # double 0.86029171406956284
+	.quad	0x3fdc3067ab0a0f0c              # double 0.44045440390640134
+	.quad	0x3f9b97101fe27020              # double 0.026943447061612003
+	.quad	0x3fc02a9bdb9cb09c              # double 0.12630031798596952
+	.quad	0x3fdf49544520bcba              # double 0.48885065794724947
+	.quad	0x3fec5ff8f4bc2fc8              # double 0.88671539115738884
+	.quad	0x3fd810dff8bc21a2              # double 0.37602996149555612
+	.quad	0x3feaf904bbb1c56f              # double 0.84289776476923162
+	.quad	0x3f9ee04482ee0480              # double 0.030152388087576032
+	.quad	0x3fe2c9163f057bf5              # double 0.58704674061652773
+	.quad	0x3feb7fed1ce9d8e2              # double 0.85936599394952062
+	.quad	0x3fcf67859c197e64              # double 0.24534673807191887
+	.quad	0x3fea0c45df7c9ae0              # double 0.81399816179040485
+	.quad	0x3fe5eed33c899edc              # double 0.68540345977541106
+	.quad	0x3feaabcfa55cd952              # double 0.83347303674126239
+	.quad	0x3fd66687c5112280              # double 0.35000795597856182
+	.quad	0x3fef04ac2c929ba1              # double 0.96932038026431055
+	.quad	0x3fe74d31a6efbb5b              # double 0.72817309002662556
+	.quad	0x3fe8060cacd6524b              # double 0.75073846585525794
+	.quad	0x3fe5a1c5e87cab51              # double 0.67599769027342849
+	.quad	0x3febbb701c9fa8d7              # double 0.86663060751495891
+	.quad	0x3fc0dcd087918df4              # double 0.13173872584876245
+	.quad	0x3fc522dd280eaf74              # double 0.16512646156240474
+	.quad	0x3fe12a656ef0042e              # double 0.53642532031529355
+	.quad	0x3fe759afcd050c9e              # double 0.72969808619417953
+	.quad	0x3fd8ce39ffbad916              # double 0.38758707021351435
+	.quad	0x3fb86eee163545f0              # double 0.09544265787305739
+	.quad	0x3fe081dc4dff7448              # double 0.51585211976965528
+	.quad	0x3fe41cf61b6f6f4a              # double 0.62853532179313132
+	.quad	0x3fee47484e1cad5f              # double 0.94620146995786658
+	.quad	0x3fb925ccc18b8fe8              # double 0.098233029606091926
+	.quad	0x3fe4867ab4c8a608              # double 0.64141593274433806
+	.quad	0x3fe164952a0f0118              # double 0.54352815832683898
+	.quad	0x3fae3b3b6dd6ffa0              # double 0.059045655401404717
+	.quad	0x3fcb2fea98771760              # double 0.21239979214277138
+	.quad	0x3fdd1cab92b49b56              # double 0.4548748905821659
+	.quad	0x3fc6d640096c0c20              # double 0.17841339550076984
+	.quad	0x3fe33e2ad1887bba              # double 0.60133877682152748
+	.quad	0x3fecb6a9ceef3d5a              # double 0.89729776780033466
+	.quad	0x3fe1a954488114f0              # double 0.55192007218343342
+	.quad	0x3fe8a98688f4f9e9              # double 0.77069403409387605
+	.quad	0x3fe281e2acc7d351              # double 0.57835515733914111
+	.quad	0x3fc0443628c1fe70              # double 0.12708165159346008
+	.quad	0x3fe30407e30cb819              # double 0.59424204202310016
+	.quad	0x3fef767430939c9f              # double 0.98320970046633593
+	.quad	0x3fda785b1ed5fd5c              # double 0.41359594355886542
+	.quad	0x3fe23306fd5236fd              # double 0.56872891880786336
+	.quad	0x3fe23a337df5068b              # double 0.56960463143350759
+	.quad	0x3fe5af4f49e07775              # double 0.67765011242930362
+	.quad	0x3fc3a788fcb371cc              # double 0.15355026568330599
+	.quad	0x3fbd3761913ada68              # double 0.11412629886295067
+	.quad	0x3fe42f21467ec4c0              # double 0.63075317162124378
+	.quad	0x3fa5f3fe423418b0              # double 0.042877145368082181
+	.quad	0x3fee4dff8e98d40d              # double 0.94702127314542539
+	.quad	0x3fe1cab212ff0e70              # double 0.55599311552255237
+	.quad	0x3fdfe8d73754000a              # double 0.49858646777283921
+	.quad	0x3fc485e15fffef7c              # double 0.16033570468414016
+	.quad	0x3fd6f3f2a006cc38              # double 0.35863938930123451
+	.quad	0x3fd774755a0b577a              # double 0.36648305695904748
+	.quad	0x3fceda74e37f4a8c              # double 0.24104176624549145
+	.quad	0x3fdddb80e9729faa              # double 0.46652243421203343
+	.quad	0x3fb9307fd94a3ea0              # double 0.098396292256661244
+	.quad	0x3fe7e2e05f00435e              # double 0.74644487910164137
+	.quad	0x3fc49c775c6d17e0              # double 0.16102497113223446
+	.quad	0x3fe2be3140dad747              # double 0.58571684519731881
+	.quad	0x3fe30a7665c6e3b1              # double 0.59502715948393903
+	.quad	0x3fc35fc1a08b009c              # double 0.15135975207340813
+	.quad	0x3fe93d31fdaf1637              # double 0.78872012660639867
+	.quad	0x3fd2d7fce6b600c8              # double 0.294432854941999
+	.quad	0x3fe56e6aba160169              # double 0.66972862572587843
+	.quad	0x3fcdffe335c76bb4              # double 0.23437156797339542
+	.quad	0x3fb3f4f870dfc0a8              # double 0.077956702763688157
+	.quad	0x3f9b5953c6341e20              # double 0.026707943889986763
+	.quad	0x3feb4abb8ad80f2d              # double 0.85287263029065274
+	.quad	0x3fa52a4410294300              # double 0.04133808800964367
+	.quad	0x3fd0124eb610a47a              # double 0.25111739902292352
+	.quad	0x3fd55c07e90f13b0              # double 0.33374212035806305
+	.quad	0x3fd5ec6d31121968              # double 0.34255533020077289
+	.quad	0x3fc07e568d1ff1e4              # double 0.12885553255900029
+	.quad	0x3fe0697134458005              # double 0.51287136277460432
+	.quad	0x3fef407cb3d8aab5              # double 0.97662196279755753
+	.quad	0x3fe94cc83a12b716              # double 0.79062281935123013
+	.quad	0x3fe117e8add7ef2a              # double 0.53416856721694228
+	.quad	0x3febf38cdd702036              # double 0.87348025560004916
+	.quad	0x3fe7d0d2de3830dd              # double 0.74424117471928819
+	.quad	0x3fc7292ff91423e4              # double 0.18094443952602923
+	.quad	0x3fc4a69a3a0eddc8              # double 0.16133430323473719
+	.quad	0x3fe1110eaf9ce5cd              # double 0.53333219813719668
+	.quad	0x3fdd0edf2b080fca              # double 0.45403269960683856
+	.quad	0x3fcf19b9d2d20bec              # double 0.24297259134263471
+	.quad	0x3fe55cf6407bef5c              # double 0.66759789080195331
+	.quad	0x3fd27529be54aa06              # double 0.28840106570228874
+	.quad	0x3fb46f51f191c988              # double 0.079823609806942142
+	.quad	0x3fd75d03117b98ec              # double 0.36505200106911562
+	.quad	0x3fea50f9b7e88f22              # double 0.82238470000854513
+	.quad	0x3fd0f96b52f78eea              # double 0.26522334196327668
+	.quad	0x3fe01375a1f662b4              # double 0.50237542756356968
+	.quad	0x3fe728cb4a2027c3              # double 0.72372974851281702
+	.quad	0x3fd0b1859c97e5ce              # double 0.26083507816619267
+	.quad	0x3fd026debb850eb0              # double 0.2523724395034419
+	.quad	0x3fe952957c1c027e              # double 0.79133104553336842
+	.quad	0x3feba224043914fc              # double 0.8635425646286019
+	.quad	0x3fb95effd0fb51c0              # double 0.099105824013640209
+	.quad	0x3fcd84bdc0756c44              # double 0.23061344048878329
+	.quad	0x3fefc911189df8aa              # double 0.99329428489706584
+	.quad	0x3fe24014305ea83c              # double 0.57032212683885275
+	.quad	0x3fc74991ed6e0920              # double 0.18193267911198863
+	.quad	0x3fe28c6ccb0c49fa              # double 0.57964172036946526
+	.quad	0x3fef452e946705e1              # double 0.97719506249285015
+	.quad	0x3fdb432213ff97c0              # double 0.42597248032540946
+	.quad	0x3fe90bedc70b282f              # double 0.78270615459155646
+	.quad	0x3fe20e54d30cb3d6              # double 0.56424943180683829
+	.quad	0x3fe445cb7db16bf2              # double 0.63351988362717138
+	.quad	0x3fd9a61578e65408              # double 0.40076195532429937
+	.quad	0x3fe4a30beb15748f              # double 0.64490314402395821
+	.quad	0x3febed38594156b3              # double 0.87270753319417904
+	.quad	0x3fdb1200bbf168f2              # double 0.42297380784806571
+	.quad	0x3fa6622187e0d1e0              # double 0.04371742995900596
+	.quad	0x3fdfab422f2f0b72              # double 0.49482779128827936
+	.quad	0x3fc5ec7e4b9e21fc              # double 0.17127970402022175
+	.quad	0x3f9c772e50a25f80              # double 0.027798389121556522
+	.quad	0x3fcb280fd1180abc              # double 0.21216008863128433
+	.quad	0x3fe063a5d426eb30              # double 0.51216403423254597
+	.quad	0x3fe19451e478a716              # double 0.54935545562077226
+	.quad	0x3fe0ce388d58f7ea              # double 0.52517345053615583
+	.quad	0x3fc568b6bf2070b0              # double 0.16725811321601247
+	.quad	0x3fd47209fd1293ac              # double 0.31946038927190545
+	.quad	0x3fd34c431b594656              # double 0.30152967139028897
+	.quad	0x3f9cf7208212cdc0              # double 0.028286464633038966
+	.quad	0x3f80c208dfa349c0              # double 0.0081825917481282983
+	.quad	0x3fded28f59bd944a              # double 0.48160156024670597
+	.quad	0x3fd1f1cd63e703bc              # double 0.28038344150632688
+	.quad	0x3f9fbebf01f58f40              # double 0.031001076216298218
+	.quad	0x3fe28f81ccd25ffd              # double 0.5800179481911979
+	.quad	0x3fe43b32b94f2ece              # double 0.63222633546089368
+	.quad	0x3fe581146c461b6e              # double 0.67200680873143681
+	.quad	0x3fe3981819798be9              # double 0.61231617904229296
+	.quad	0x3fe4f53d9063459e              # double 0.65493658257235032
+	.quad	0x3fe627e395360a37              # double 0.69236926214973138
+	.quad	0x3fcc150942f52478              # double 0.21939197320378745
+	.quad	0x3f9098472609abc0              # double 0.016205894180909786
+	.quad	0x3fee4a6bfe66e892              # double 0.94658469856155336
+	.quad	0x3fef50cc7eded2b5              # double 0.97861313609481348
+	.quad	0x3fe41a22b75bc8cc              # double 0.62819038212026035
+	.quad	0x3fd0d718c0f8b8d0              # double 0.26312846035842785
+	.quad	0x3fedbcbc190e9f1a              # double 0.92928891080825626
+	.quad	0x3fe68bae0ba28645              # double 0.70455076477464529
+	.quad	0x3fd96a246afc172e              # double 0.39710340926864063
+	.quad	0x3fee99555c237aa1              # double 0.95621746059244483
+	.quad	0x3fa0696d7a51be90              # double 0.032054349118763814
+	.quad	0x3fef168259b236a0              # double 0.97149770277765767
+	.quad	0x3fe33e080e97a744              # double 0.60132220125272129
+	.quad	0x3fef07de92ae1528              # double 0.9697106232494308
+	.quad	0x3fd03c5bf139be02              # double 0.25368403012450369
+	.quad	0x3fee0711e43ab638              # double 0.93836302352946798
+	.quad	0x3fd929959153572a              # double 0.39316310111950037
+	.quad	0x3f96f9f0238adaa0              # double 0.022437812966667026
+	.quad	0x3fd629515bd51c52              # double 0.34627183883680346
+	.quad	0x3fd40ec9e07c6772              # double 0.31340262339073555
+	.quad	0x3fe75aeab76be7a5              # double 0.72984824966919304
+	.quad	0x3fead1b22db8c710              # double 0.83809765749012577
+	.quad	0x3fd51bbdf6fed02c              # double 0.32981824036255847
+	.quad	0x3fe2b9f09dcfde22              # double 0.5851977426781938
+	.quad	0x3fe70eafd6f818d8              # double 0.72054283128889107
+	.quad	0x3feb8a5a98776b04              # double 0.86063890246018148
+	.quad	0x3fbcc66c21f29c60              # double 0.11240268544007526
+	.quad	0x3fb87d235cb1ec90              # double 0.095659456377619855
+	.quad	0x3fcd7cb35ddab0ac              # double 0.23036806185462433
+	.quad	0x3fe22d9f658c5f69              # double 0.56806917031916015
+	.quad	0x3fdb8e77f123af3c              # double 0.43057058857697306
+	.quad	0x3fe4c7241e286967              # double 0.64930921449858381
+	.quad	0x3fee4e0cc03ec519              # double 0.94702756450547831
+	.quad	0x3fdab73d77e2ecba              # double 0.41743408878000887
+	.quad	0x3fe7316d8f5ef70a              # double 0.72478368761196177
+	.quad	0x3fa6dcb4f14c4740              # double 0.04465260930568471
+	.quad	0x3fd5b036dea0d400              # double 0.33888026944197236
+	.quad	0x3fdf9c10ed8130c2              # double 0.49390052026570797
+	.quad	0x3fed64b12fb160b9              # double 0.91854152026191749
+	.quad	0x3fa87f229aaa2710              # double 0.047844964389765932
+	.quad	0x3fed449216187fc2              # double 0.91462044063154502
+	.quad	0x3fe5f8e5c15bfcd9              # double 0.68663299336904082
+	.quad	0x3fdfa1b07304ebd6              # double 0.4942437289461713
+	.quad	0x3fe0f90d9f4b1aa2              # double 0.53040200340258914
+	.quad	0x3fea5f48b2701aa9              # double 0.82413134432939217
+	.quad	0x3fee0219ecd0861f              # double 0.93775650265542143
+	.quad	0x3fc0fbe99a1ed168              # double 0.13268775964173618
+	.quad	0x3fc9d25e96aa15b4              # double 0.20173246723804328
+	.quad	0x3fe21373a4a42501              # double 0.5648744788788066
+	.quad	0x3fe2ec38b6971ec1              # double 0.59133563673182021
+	.quad	0x3fe20e24d3f9411d              # double 0.56422654534438588
+	.quad	0x3fa5d157b957a550              # double 0.042612782835770191
+	.quad	0x3fe1ce6ce0b13870              # double 0.55644840131004791
+	.quad	0x3fc2554b770adfac              # double 0.14322799027081368
+	.quad	0x3fed2639cbc2bfe3              # double 0.9109162311269724
+	.quad	0x3fcc213b74563b9c              # double 0.21976416759977446
+	.quad	0x3f8de48bd4aff5c0              # double 0.014596073559000611
+	.quad	0x3fbf6705dff0ea08              # double 0.12266575543700509
+	.quad	0x3fee84f799313f9e              # double 0.95373134537111404
+	.quad	0x3fe0c0c8fd21aeef              # double 0.52353333892594189
+	.quad	0x3fef3777f48bc515              # double 0.9755210663117021
+	.quad	0x3fefcf2a166c3453              # double 0.99403862361362838
+	.quad	0x3fe8d7bedc81db0f              # double 0.77633612697431598
+	.quad	0x3fe7708b668209f2              # double 0.73248834630095261
+	.quad	0x3fe2bcc0787a47a4              # double 0.58554099589149589
+	.quad	0x3fef0a207d4640e4              # double 0.96998619525586748
+	.quad	0x3fe0e565a1b16b73              # double 0.52800256329224593
+	.quad	0x3fe79e1b799423ca              # double 0.73805021043619345
+	.quad	0x3fd7568bdd34cdee              # double 0.36465736963438544
+	.quad	0x3fe30c587055644b              # double 0.59525701465748548
+	.quad	0x3fd199ac4b38b856              # double 0.27500445695739495
+	.quad	0x3f91d34aeca333a0              # double 0.017407580083090957
+	.quad	0x3febc83a19891635              # double 0.86819176661874187
+	.quad	0x3fe2dd77297df106              # double 0.58953435996912229
+	.quad	0x3fe19d421b23c7e6              # double 0.55044656086670041
+	.quad	0x3fddc2e2768cdde0              # double 0.46501981331991082
+	.quad	0x3fe65c02f9b17bc7              # double 0.69873188751432103
+	.quad	0x3fe7c6c72c1f21a8              # double 0.74301489465238024
+	.quad	0x3fabadee597c60e0              # double 0.05406136362415892
+	.quad	0x3fc067ef42c9ba48              # double 0.12817183266766308
+	.quad	0x3fd64438551e6594              # double 0.34791382133843141
+	.quad	0x3fed166b7d56c9df              # double 0.90898680191304126
+	.quad	0x3fc261e612e02544              # double 0.14361263200434327
+	.quad	0x3fe17e227f2a1c67              # double 0.54664730870071032
+	.quad	0x3fefba4c62a6e40c              # double 0.9914915015025385
+	.quad	0x3fd1af3b38315ac4              # double 0.27632027137353199
+	.quad	0x3fda354cd3c75a32              # double 0.4095031803275645
+	.quad	0x3fa846ddeb2a5fc0              # double 0.047415671307305285
+	.quad	0x3fe27950e3e28a4e              # double 0.5773090792539024
+	.quad	0x3fe97113dc546c2e              # double 0.79505341561469378
+	.quad	0x3fdb31f8d078e420              # double 0.42492504461876202
+	.quad	0x3fe258fabb1c9469              # double 0.57336174531213857
+	.quad	0x3fe1465add9f5823              # double 0.53983825002319852
+	.quad	0x3fe8c822fbe2074a              # double 0.77443074413188495
+	.quad	0x3fd06103f4afdc5c              # double 0.2559213532944733
+	.quad	0x3fd05d32f56de8fe              # double 0.25568841903408657
+	.quad	0x3fdd0bc001643652              # double 0.45384216438182989
+	.quad	0x3fbd2f81b4c5b4d0              # double 0.11400614417444221
+	.quad	0x3fe17c8eebd4801c              # double 0.54645486889421901
+	.quad	0x3fd4d53f6b949ca0              # double 0.32551560884389552
+	.quad	0x3fce2736efbd9d38              # double 0.23557173448646451
+	.quad	0x3fe12e9fe70d7ea8              # double 0.53694148185237101
+	.quad	0x3fb60bcb3af0d270              # double 0.086117460145780588
+	.quad	0x3fc42f3d4f0f1a50              # double 0.1576916347532511
+	.quad	0x3fd5ecdc3d8f62e6              # double 0.3425818062947158
+	.quad	0x3fcd5be4926ba978              # double 0.22936684750977654
+	.quad	0x3fcf559b1adf4ddc              # double 0.2447999840938867
+	.quad	0x3f3052ee9c45a800              # double 2.4908376169341384E-4
+	.quad	0x3fd94c702622fa62              # double 0.39529041027336664
+	.quad	0x3fc384a8d3c8ccc8              # double 0.15248594609292909
+	.quad	0x3fee3e989068a580              # double 0.94514110760535175
+	.quad	0x3fc0ab27bdef9e88              # double 0.13022324346751568
+	.quad	0x3fe2cb21fbbd59aa              # double 0.58729647796535756
+	.quad	0x3fd660da5ca6a552              # double 0.34966143653817483
+	.quad	0x3fead355764416ff              # double 0.83829758738349358
+	.quad	0x3fe343fb8b3d540d              # double 0.60204865641810701
+	.quad	0x3fe9c9816352222c              # double 0.80584782980537772
+	.quad	0x3fe37157446fc887              # double 0.60758555761846444
+	.quad	0x3fea12bc8f792fa0              # double 0.81478717825074298
+	.quad	0x3fead55855f11888              # double 0.83854309831146256
+	.quad	0x3fe8aa07e747e021              # double 0.77075572177910001
+	.quad	0x3fe0f3946bf56bd2              # double 0.52973385892561908
+	.quad	0x3fe88b5e0c65b5de              # double 0.76701261922215358
+	.quad	0x3fcf077ca35fd83c              # double 0.24241598107590956
+	.quad	0x3fe745f4f1b176c2              # double 0.72728965001780232
+	.quad	0x3fdc7b94f55a3a90              # double 0.44504283867073813
+	.quad	0x3fe44c91224722c1              # double 0.63434654898545528
+	.quad	0x3fe0dda8ecf067b1              # double 0.52705808903851026
+	.quad	0x3fb553c459c7b6e0              # double 0.08330943290612991
+	.quad	0x3fd5c5218a5417da              # double 0.34015692242280482
+	.quad	0x3fc0b9155023e0e4              # double 0.13064829266637112
+	.quad	0x3fb4305a98ee4010              # double 0.078862821899974955
+	.quad	0x3fed45d1eb628254              # double 0.91477294896692251
+	.quad	0x3fe69c529c535324              # double 0.70658236057588342
+	.quad	0x3fec8029e67e0344              # double 0.89064497964873412
+	.quad	0x3fdd3560c43eadf0              # double 0.45638293423209486
+	.quad	0x3fd07c710fac2a9e              # double 0.25759531527061508
+	.quad	0x3fd2b7c76cc68966              # double 0.29246698019610162
+	.quad	0x3fef66dd76d4eca6              # double 0.98130677422831947
+	.quad	0x3fe9774e341bc965              # double 0.79581365754556244
+	.quad	0x3fefd91cb7fad4a7              # double 0.99525295194202534
+	.quad	0x3fd240d94621ad90              # double 0.28520805214676503
+	.quad	0x3fb8eac7e0ab4d40              # double 0.097332470274797522
+	.quad	0x3fda39cf3afbd79e              # double 0.40977841148503014
+	.quad	0x3fe70e3fe71dd190              # double 0.72048945560395516
+	.quad	0x3fe5241bbd0c841e              # double 0.66065775798427118
+	.quad	0x3fd9287ac3aed844              # double 0.39309567556063407
+	.quad	0x3fd7346b5c0ee2c2              # double 0.36257442464879486
+	.quad	0x3fe20673f788dd70              # double 0.56328771921736909
+	.quad	0x3fe802b279f3d451              # double 0.75032924479331531
+	.quad	0x3fd506b1fab3f8ce              # double 0.32853364451137856
+	.quad	0x3fb5338503bab440              # double 0.082817376528240949
+	.quad	0x3fede7b0a706b9b1              # double 0.93453247663801708
+	.quad	0x3fe95b184abdc1f0              # double 0.79236998174570594
+	.quad	0x3fd69e4e93c03a86              # double 0.35341228894041199
+	.quad	0x3fe6c993044e04ed              # double 0.71210623589300115
+	.quad	0x3fe6778d0e459c6b              # double 0.70209362781032547
+	.quad	0x3fc8eb2f93334884              # double 0.19467730224147684
+	.quad	0x3fdd91d113918ca2              # double 0.46202494536391658
+	.quad	0x3fe1763cb72a5e63              # double 0.54568324827682735
+	.quad	0x3fe28bc28df1ea1d              # double 0.57956054423931713
+	.quad	0x3fe1532cb1f553c3              # double 0.54140314824564262
+	.quad	0x3fee88b299b32a51              # double 0.95418672580246711
+	.quad	0x3feccc83c73e2341              # double 0.89996518053622065
+	.quad	0x3f91b8857f34fb60              # double 0.017305456055733415
+	.quad	0x3fd22b4ec7f37032              # double 0.28389329458673551
+	.quad	0x3fa15c10e7e9c080              # double 0.033905533132270627
+	.quad	0x3fe8480fc44dc005              # double 0.75879658070152856
+	.quad	0x3fe42339d003eb73              # double 0.62930002811422836
+	.quad	0x3fd7e9df51e709ac              # double 0.37364943502702874
+	.quad	0x3f6dfa32188c3600              # double 0.0036593416629162601
+	.quad	0x3fd41a563deb9c80              # double 0.3141074757281288
+	.quad	0x3fc98262bbc31424              # double 0.19929155510013274
+	.quad	0x3fc757a6ff801ae0              # double 0.1823624370155903
+	.quad	0x3feb788450203b8b              # double 0.85846152925101771
+	.quad	0x3fe827792818ff85              # double 0.75481851417133383
+	.quad	0x3fed951f46617714              # double 0.92445338960871703
+	.quad	0x3fe1172d3a3d9afd              # double 0.53407918334127624
+	.quad	0x3fe51268acfe67e1              # double 0.65849717891546444
+	.quad	0x3fec4e48ae0853f6              # double 0.88455614081124057
+	.quad	0x3fe1a8ec3f850744              # double 0.5518704643838892
+	.quad	0x3f89105c4d065980              # double 0.012238236523256729
+	.quad	0x3fba034166a1e8f8              # double 0.10161217456507987
+	.quad	0x3fd42fcf52cda08c              # double 0.31541808210614231
+	.quad	0x3fc6d301f21e6cfc              # double 0.17831444093904014
+	.quad	0x3fe9294a35bb35e2              # double 0.78629026884453546
+	.quad	0x3fec67d946c75e36              # double 0.88767684768658373
+	.quad	0x3fd28dcf33b9dd36              # double 0.289905357850745
+	.quad	0x3fed69c205c9497b              # double 0.91915989999897307
+	.quad	0x3fee0eb23917025f              # double 0.93929396772734808
+	.quad	0x3fd0665da1299348              # double 0.25624790895954108
+	.quad	0x3fb19bb97c63c760              # double 0.068782418125719058
+	.quad	0x3fa3e16a768e6ab0              # double 0.03882916161747596
+	.quad	0x3fbe6f472aaf97d0              # double 0.11888546745430451
+	.quad	0x3fe2ffcd65043db7              # double 0.59372586946294958
+	.quad	0x3f9e9600a9508e40              # double 0.029869089445254682
+	.quad	0x3fea3580b3d1e187              # double 0.81903109665931673
+	.quad	0x3fa3a79ef328a300              # double 0.03838822096105865
+	.quad	0x3fc36971e7fb6638              # double 0.15165542437789425
+	.quad	0x3fe3339bcfb7b37e              # double 0.60004988260116909
+	.quad	0x3fd43a5998bcfdcc              # double 0.31606140056461807
+	.quad	0x3fcdb334491be714              # double 0.23203137941146024
+	.quad	0x3fecfcc5d9f75e0e              # double 0.90585606166399812
+	.quad	0x3fea646306c8540c              # double 0.82475425076211328
+	.quad	0x3fcde84b71f8d23c              # double 0.23365157189404495
+	.quad	0x3fe5e57ff2f52363              # double 0.68426511242533328
+	.quad	0x3fed0289eaddf87e              # double 0.90655990478968795
+	.quad	0x3fe71bfcb9c33b6f              # double 0.72216640741122073
+	.quad	0x3fe656769514580c              # double 0.6980545913418168
+	.quad	0x3fd6350e137fdc14              # double 0.34698821930163715
+	.quad	0x3fcddd26cae23a24              # double 0.23331150919371269
+	.quad	0x3fe74b8036fec16c              # double 0.72796641103017867
+	.quad	0x3fd1761a7dc16288              # double 0.27283346443940859
+	.quad	0x3fb7dcff51c0e6b8              # double 0.093215901812892521
+	.quad	0x3fecab3711258396              # double 0.89590028141911904
+	.quad	0x3fed04d6cb0e199e              # double 0.90684070262141225
+	.quad	0x3fd58fd539f9c66c              # double 0.33690386449516185
+	.quad	0x3fc3168d5284af54              # double 0.1491257336541546
+	.quad	0x3fdf537365f4c280              # double 0.48946843105935756
+	.quad	0x3fee09b7cc8e396d              # double 0.93868627502687974
+	.quad	0x3fdfc79fda7d37c6              # double 0.49655910813168835
+	.quad	0x3fdd24261128e2a4              # double 0.45533134151222954
+	.quad	0x3fed2a7fa9adbb94              # double 0.91143782749519397
+	.quad	0x3fb3cedeb68a0f90              # double 0.077375335278757839
+	.quad	0x3fe2824c3565e3bd              # double 0.57840547971056078
+	.quad	0x3fabf1ab2cbbb7a0              # double 0.054578160486797644
+	.quad	0x3fe21ea4206d58d6              # double 0.56624037106919434
+	.quad	0x3fe55521076b4d04              # double 0.66664172600795313
+	.quad	0x3fed5f87b8f77b75              # double 0.91791139723123527
+	.quad	0x3fa1af4645f5cff0              # double 0.034540363349975567
+	.quad	0x3fc248082754341c              # double 0.14282323761327198
+	.quad	0x3fb3f110706a51d0              # double 0.07789709801210809
+	.quad	0x3fe8a0658435645f              # double 0.76957965681061669
+	.quad	0x3fcc7a6e81a69a50              # double 0.22248631792645535
+	.quad	0x3fe8329067340ae8              # double 0.75617237240689139
+	.quad	0x3feee079824a4e29              # double 0.96490168998065428
+	.quad	0x3fe6d708dffc7ad8              # double 0.71374934909166665
+	.quad	0x3fd392edf62dd0f4              # double 0.30584286728777887
+	.quad	0x3fe1f61f2d0a8549              # double 0.56129416272248378
+	.quad	0x3fe26ca52eaf4c51              # double 0.57576235883824201
+	.quad	0x3fd4d7c9adf361ec              # double 0.32567064273237523
+	.quad	0x3fd87546409fde5a              # double 0.38215786276803032
+	.quad	0x3fc95f6a31c7170c              # double 0.19822432928611311
+	.quad	0x3fe91a0d882862b9              # double 0.78443028062164111
+	.quad	0x3fdf5fb1b9fef07c              # double 0.49021571315439139
+	.quad	0x3fe050f6ffb74678              # double 0.50988340324893411
+	.quad	0x3fe7f6d25fb2147f              # double 0.74887961092521482
+	.quad	0x3feedb0a6f000f1c              # double 0.96423837356312303
+	.quad	0x3fe13a9eff541adf              # double 0.53840589398245331
+	.quad	0x3fc51ca7a3fceb68              # double 0.1649369765017028
+	.quad	0x3faab93f4647b1a0              # double 0.05219457371626679
+	.quad	0x3fdaba2279a5b50e              # double 0.41761075858706043
+	.quad	0x3fa5aec02e36c400              # double 0.042348867074345264
+	.quad	0x3fd8cac727f9fd44              # double 0.38737658409077746
+	.quad	0x3fe1ce06dcf6027c              # double 0.55639975696983823
+	.quad	0x3f1475dcf939c000              # double 7.8050243524918627E-5
+	.quad	0x3fef442ea4b653c5              # double 0.97707302255968697
+	.quad	0x3f9d73df30ee6f80              # double 0.028762328492674794
+	.quad	0x3fd9a56e7ac81416              # double 0.40072214117418647
+	.quad	0x3fe1037d776ac6ee              # double 0.53167603801395358
+	.quad	0x3feff56b7adfda7c              # double 0.99870847700988418
+	.quad	0x3fdcbac84a9f01cc              # double 0.448900292274655
+	.quad	0x3fc916c14ec26ac4              # double 0.19600693078685627
+	.quad	0x3fe440bcd2eba218              # double 0.63290253825568055
+	.quad	0x3feca5320017b04f              # double 0.89516544359276817
+	.quad	0x3fe523393c310817              # double 0.66054975277097838
+	.quad	0x3fe1d1d9bd74e1e9              # double 0.55686652186619512
+	.quad	0x3fd3e66de74033aa              # double 0.31093928893170164
+	.quad	0x3fee7c6f65bcc3c6              # double 0.95268983717516487
+	.quad	0x3fed8489858b690f              # double 0.92242885668682273
+	.quad	0x3fc0fe1965844778              # double 0.1327544923483932
+	.quad	0x3fe7bde80cad9c8f              # double 0.74193193889813525
+	.quad	0x3fd6d3d5dfe011a8              # double 0.35667940962619094
+	.quad	0x3fef9463c7b974a1              # double 0.98686398514441375
+	.quad	0x3fe6266571189a68              # double 0.69218704308589185
+	.quad	0x3fecde2526906e6b              # double 0.90211732418124535
+	.quad	0x3fd81a9b28a5dfc6              # double 0.37662390679861024
+	.quad	0x3fb1647fadc147b8              # double 0.0679397391516251
+	.quad	0x3fc623ff59c37a3c              # double 0.17297355540263648
+	.quad	0x3fcea38262a1ed00              # double 0.23936490837136404
+	.quad	0x3fe3c4fc855a509b              # double 0.61779619260279917
+	.quad	0x3fc422a6874baf74              # double 0.15730744940026009
+	.quad	0x3fc886132fa57f78              # double 0.19159164263237094
+	.quad	0x3fea50b754d21531              # double 0.8223530441906971
+	.quad	0x3fe4807970de9880              # double 0.64068290753199619
+	.quad	0x3fdde5ee313c4134              # double 0.46715884025708765
+	.quad	0x3fec35075c90e9d5              # double 0.88147323684034495
+	.quad	0x3fec4abe2a9e594f              # double 0.88412388156829447
+	.quad	0x3fe3143fff93fd90              # double 0.5962219230422523
+	.quad	0x3fde62b5c3598296              # double 0.47477478100885528
+	.quad	0x3fe1890e91b581b8              # double 0.54798057993689664
+	.quad	0x3febf36db0076365              # double 0.87346538906704707
+	.quad	0x3fa3231970145b60              # double 0.037377161914426749
+	.quad	0x3fe2e826d50dfdcc              # double 0.59083882915722929
+	.quad	0x3fda074e2383c2e4              # double 0.40669587581855482
+	.quad	0x3fdb3cffa48708a4              # double 0.42559805934082306
+	.quad	0x3feabd2dce7d01c7              # double 0.8355931313490651
+	.quad	0x3fdd039c486f7640              # double 0.4533453662278113
+	.quad	0x3fbeceeaa6ea3c48              # double 0.12034479689667521
+	.quad	0x3febee47ca87d4f3              # double 0.87283696705585923
+	.quad	0x3fe2e6dd337895c4              # double 0.59068164875923701
+	.quad	0x3fb9fda4aed69468              # double 0.10152653950224677
+	.quad	0x3fcc67134d9e2124              # double 0.22189561166693139
+	.quad	0x3fc8af1eb4c292e0              # double 0.19284423662352079
+	.quad	0x3fd15d1042445bac              # double 0.27130514594449084
+	.quad	0x3fdf4961ca7870cc              # double 0.48885388157374332
+	.quad	0x3fe5c935f97128c2              # double 0.68081186980386854
+	.quad	0x3fe94527503224c0              # double 0.78969159758812424
+	.quad	0x3fbd8891b7913430              # double 0.11536513072606236
+	.quad	0x3fe6d91f711e0dac              # double 0.71400425046197347
+	.quad	0x3fcdfdbda07a54d4              # double 0.23430605254967551
+	.quad	0x3fcefc6f055f3254              # double 0.24207866442010817
+	.quad	0x3fd8a116f1c528f0              # double 0.3848321305309943
+	.quad	0x3faa308012d02a50              # double 0.051151277824904029
+	.quad	0x3fe0f45080eba8ce              # double 0.52982354335588311
+	.quad	0x3fd70a01a7093806              # double 0.35998574554548701
+	.quad	0x3fe5f30d0ef18afe              # double 0.68591931265504491
+	.quad	0x3fe8edbc21e9d09e              # double 0.77902037261675949
+	.quad	0x3fe364802986570a              # double 0.60601814375215324
+	.quad	0x3fd4a86ff40e910a              # double 0.32278059800798131
+	.quad	0x3fd00394929f08aa              # double 0.25021852797011468
+	.quad	0x3feb39a801b7b757              # double 0.85078811965443435
+	.quad	0x3fe13a719bd6e0e5              # double 0.5383842509973219
+	.quad	0x3fee1287b9ed0d3f              # double 0.93976198495548846
+	.quad	0x3fdfaa1ff8064b52              # double 0.49475859852934889
+	.quad	0x3fd4a00c38b6bcf8              # double 0.32226853884181095
+	.quad	0x3feed76749ec9805              # double 0.96379436910933746
+	.quad	0x3fe8f1afb9ba1702              # double 0.77950273775852019
+	.quad	0x3fe570ff4160eb74              # double 0.67004359025246041
+	.quad	0x3fe090ca8aebc98d              # double 0.51767470486656608
+	.quad	0x3fd7a9029a5ad94e              # double 0.36969056199759087
+	.quad	0x3fe7a82768d9fb49              # double 0.7392766044502902
+	.quad	0x3fd40d4b699465ce              # double 0.31331143675342055
+	.quad	0x3faa345601a80850              # double 0.051180541708177985
+	.quad	0x3fd31448568f380e              # double 0.29811294987746428
+	.quad	0x3fe7f22e9a8d35ae              # double 0.74831323800906602
+	.quad	0x3fe7a388b9de80cf              # double 0.73871265699929178
+	.quad	0x3fdd4507ada530cc              # double 0.45733825643106907
+	.quad	0x3fd98b5f6278eeb2              # double 0.39913162819332648
+	.quad	0x3fea01bc98165ed1              # double 0.81271199898307078
+	.quad	0x3face38d239a0cc0              # double 0.05642357883064042
+	.quad	0x3fd503dd87d091da              # double 0.32836092246205129
+	.quad	0x3fdc7ccf15948b8e              # double 0.44511773211905215
+	.quad	0x3fd624a6584cb998              # double 0.34598692534464126
+	.quad	0x3fc5b6a42c5a80f4              # double 0.16963627019595828
+	.quad	0x3fb3959f01835778              # double 0.076501787061116988
+	.quad	0x3fed4e0f014cec4d              # double 0.91577863935470705
+	.quad	0x3fd1db3841b77e46              # double 0.27900511186269161
+	.quad	0x3fe625a8f62897c5              # double 0.69209716871113669
+	.quad	0x3fddb3d333e9370c              # double 0.46410064763482306
+	.quad	0x3fabc001de5fe480              # double 0.054199274440130729
+	.quad	0x3fc5d1bdcb3958e0              # double 0.17046329901740531
+	.quad	0x3faba02b447e01e0              # double 0.053956367598406052
+	.quad	0x3fe40a1e7f30f298              # double 0.62623524515182094
+	.quad	0x3fdc65549de505ce              # double 0.44368472499271838
+	.quad	0x3fea968917d83ac0              # double 0.83087591797978888
+	.quad	0x3fe009f282f1aa83              # double 0.50121427130700658
+	.quad	0x3feef233affff6ad              # double 0.96706566214534961
+	.quad	0x3fea90084da96605              # double 0.83008208435347852
+	.quad	0x3fa0774fa973b760              # double 0.032160272059498451
+	.quad	0x3fed00f3f1e902e0              # double 0.90636632202230416
+	.quad	0x3fd9c399b1da9c78              # double 0.40256349915075118
+	.quad	0x3fd0a692833f250c              # double 0.26016676728302524
+	.quad	0x3fed80843a6e14e3              # double 0.92193805133925044
+	.quad	0x3fdf686f1e3114c0              # double 0.49074914883051335
+	.quad	0x3fa7fa8016ac1ee0              # double 0.046833040969486595
+	.quad	0x3feed241b1a6d4fc              # double 0.96316609094233696
+	.quad	0x3fb70c4eaffdc050              # double 0.09003154560719051
+	.quad	0x3fec79b415758abf              # double 0.88985637847175514
+	.quad	0x3fed73d7bf04e469              # double 0.92039096172733281
+	.quad	0x3fe227c027460fb7              # double 0.5673523680747995
+	.quad	0x3fec0deffd702f59              # double 0.87670135020878626
+	.quad	0x3fe669a97886cb2d              # double 0.70039819279040716
+	.quad	0x3fc1fef631842248              # double 0.14059331338673275
+	.quad	0x3fc04cbde7297bf8              # double 0.12734197413644188
+	.quad	0x3fef3b5910d48af2              # double 0.97599461829335454
+	.quad	0x3fe5cc0cf1e81c58              # double 0.68115851638220715
+	.quad	0x3fc93b6727a42050              # double 0.19712533412553279
+	.quad	0x3fdc72fb4f3b04c8              # double 0.44451792466504658
+	.quad	0x3fb98809e7fd3ea0              # double 0.09973203576850631
+	.quad	0x3f754bf50d46cc00              # double 0.0051993915880528263
+	.quad	0x3f7d2ac738983900              # double 0.0071208746026185654
+	.quad	0x3f8dce989b1e5000              # double 0.01455420707114996
+	.quad	0x3fd41ebda2bbf2e4              # double 0.314376267356961
+	.quad	0x3fe0c67ee8136922              # double 0.52423043563183946
+	.quad	0x3fa1ba78c0437540              # double 0.034625791043917165
+	.quad	0x3fe2fc4e49e81016              # double 0.59329904970991509
+	.quad	0x3fa24dd3d970eac0              # double 0.035750026982403593
+	.quad	0x3fc2e9773a1432ac              # double 0.14774980865367604
+	.quad	0x3fdb92ce71112992              # double 0.43083535234168224
+	.quad	0x3fb083d44a31f518              # double 0.064511554826783502
+	.quad	0x3fd1e6633fefdfaa              # double 0.27968674892280865
+	.quad	0x3fb0fbddda6d0568              # double 0.066343179537417307
+	.quad	0x3fdd3c02e68b2428              # double 0.45678780092254323
+	.quad	0x3fe527e9d95f92ae              # double 0.66112225013474357
+	.quad	0x3fd3ba7901ddef12              # double 0.30825638944928457
+	.quad	0x3feea2fd930ad6d3              # double 0.95739630431372758
+	.quad	0x3fd0c5a45ccd2fe6              # double 0.26206311285636585
+	.quad	0x3fe8e8b58459b1bb              # double 0.7784068665474061
+	.quad	0x3fe3884bc83250a7              # double 0.61038769818198524
+	.quad	0x3fe38fd210c8b118              # double 0.61130622175326987
+	.quad	0x3fa4d47cbbdc41c0              # double 0.040683648998427469
+	.quad	0x3fe3cfada0493524              # double 0.61910134607174827
+	.quad	0x3faea68f073a4ca0              # double 0.059864492065707653
+	.quad	0x3fb391e152a52588              # double 0.076444704701449706
+	.quad	0x3feeb2464068b3a8              # double 0.95926201419716949
+	.quad	0x3fe6b509780380ff              # double 0.7095992416398359
+	.quad	0x3fcb850690c5e3bc              # double 0.21499712056154674
+	.quad	0x3fec48b682e2a454              # double 0.88387609065569927
+	.quad	0x3fe450376a88dcd5              # double 0.63479204947989365
+	.quad	0x3fc3e5b9c0355b1c              # double 0.15544816861321287
+	.quad	0x3fe40e0154a6384e              # double 0.62670961888375998
+	.quad	0x3fe2299398c3d8dc              # double 0.56757526242179379
+	.quad	0x3fe6a3428a84eb69              # double 0.70742919020208916
+	.quad	0x3fe6096492b3c186              # double 0.68864658978240878
+	.quad	0x3fe80dbe6fb20f94              # double 0.75167772117173337
+	.quad	0x3fecf75e342a6254              # double 0.90519628704630372
+	.quad	0x3febf0cca5684528              # double 0.87314445787538819
+	.quad	0x3fdfaeb6bda0a42a              # double 0.49503868597327261
+	.quad	0x3fd9388f8c60ee78              # double 0.39407719334460678
+	.quad	0x3fd77ef69a1d3c64              # double 0.36712422418799506
+	.quad	0x3fe90a9a35d183bf              # double 0.78254423629197578
+	.quad	0x3fdf7a09d6173d4a              # double 0.49182363421728736
+	.quad	0x3fe689c12b654ccb              # double 0.70431574321482893
+	.quad	0x3fbfc6133a471960              # double 0.12411613629146734
+	.quad	0x3fbe3cdd092747f8              # double 0.11811620210144713
+	.quad	0x3fe7be4ce10b6668              # double 0.74198001817712811
+	.quad	0x3fe47b45625da5a6              # double 0.64004773342201271
+	.quad	0x3fc38fd9532b096c              # double 0.15282742081587786
+	.quad	0x3fe2496d5e98b19a              # double 0.57146328426238147
+	.quad	0x3fe4f2036db02801              # double 0.6545426504465014
+	.quad	0x3fe0a25669932894              # double 0.51981659526906521
+	.quad	0x3fda6a0bc6033e92              # double 0.41272253358054301
+	.quad	0x3fd0f8481db84c3a              # double 0.26515391256652132
+	.quad	0x3fb1f93910c267a8              # double 0.070209089843415229
+	.quad	0x3fdd57065065cfe6              # double 0.45843656398142085
+	.quad	0x3fda6762b9dce328              # double 0.41256015921276168
+	.quad	0x3fe70a7a40073d55              # double 0.7200289965202652
+	.quad	0x3fba540f37ab2fa8              # double 0.10284514531229993
+	.quad	0x3fccd59ef1afe850              # double 0.22526919175271809
+	.quad	0x3fc85f12c6e81b20              # double 0.19040140831222008
+	.quad	0x3fe5887e39051065              # double 0.67291175018955285
+	.quad	0x3fe81a791ebbe452              # double 0.75323158266759038
+	.quad	0x3fc66913825bceb0              # double 0.17508167138259045
+	.quad	0x3fc8d4ef6c7ff2cc              # double 0.1939982681068585
+	.quad	0x3fdf59e9c42d1afe              # double 0.48986286313849792
+	.quad	0x3fe74a3fbf815b4d              # double 0.72781360057238376
+	.quad	0x3fdad32a6ee8395a              # double 0.41913853483938157
+	.quad	0x3fe3d00f0853f9a6              # double 0.61914779306953416
+	.quad	0x3fe378a000e5fd5b              # double 0.60847473311870759
+	.quad	0x3fdd356a6f708242              # double 0.45638523943674525
+	.quad	0x3fdb8906a127c788              # double 0.43023839700537581
+	.quad	0x3fd0716db42a80f4              # double 0.25692312807406315
+	.quad	0x3fe89d0001053cd0              # double 0.76916504096325333
+	.quad	0x3fe2db15b46038db              # double 0.58924374799405699
+	.quad	0x3fd641d277bb6340              # double 0.34776746456696017
+	.quad	0x3fd52339e8c68a5a              # double 0.330275037116882
+	.quad	0x3fef700527ff29e7              # double 0.98242433368551196
+	.quad	0x3fb3f0cd32629070              # double 0.077893090058354763
+	.quad	0x3fe01cf4ba95f0ac              # double 0.50353466455955731
+	.quad	0x3fea8bce87b386fd              # double 0.829566254655418
+	.quad	0x3fe632c7b54bf02b              # double 0.69369874391077724
+	.quad	0x3fef322e51cfee62              # double 0.9748756025214329
+	.quad	0x3fe07e8f9a4b8cd5              # double 0.51544933448567554
+	.quad	0x3fe9cd7706723c5a              # double 0.80633116969137153
+	.quad	0x3fd70139ccc04a1a              # double 0.35944981570460899
+	.quad	0x3fc1acca3d62ad80              # double 0.13808563229882154
+	.quad	0x3fdee3dd6cbdc5c2              # double 0.48265777224795781
+	.quad	0x3f99cbe7924d94e0              # double 0.025191896729116148
+	.quad	0x3fe80bc0e11b4d70              # double 0.75143474546568534
+	.quad	0x3fe3e52abc3cc045              # double 0.62172447934245467
+	.quad	0x3feb600967b1f8b4              # double 0.85547323468178726
+	.quad	0x3fdc904b963d0450              # double 0.4463070838137968
+	.quad	0x3fbaf839f1f5be58              # double 0.10535013348793976
+	.quad	0x3fd3415691f0605a              # double 0.30086292507031021
+	.quad	0x3fe630730641c569              # double 0.69341422292761223
+	.quad	0x3fa25bf628c13290              # double 0.035857861018120052
+	.quad	0x3fcee9d63f120ae8              # double 0.24151113586056927
+	.quad	0x3fd0a5e3c8134cca              # double 0.26012510813343381
+	.quad	0x3fd2acbb52f44184              # double 0.29179270840634097
+	.quad	0x3fd3f42c287ff92e              # double 0.31177810626094782
+	.quad	0x3fb0367c7a876590              # double 0.063331394113808281
+	.quad	0x3fc6957e1da910e8              # double 0.17643715332281507
+	.quad	0x3fd4795310a986c6              # double 0.31990505816621029
+	.quad	0x3fd107fe937d6758              # double 0.26611294177347622
+	.quad	0x3fec05c68ef8f62b              # double 0.87570503162686941
+	.quad	0x3fec4d32e2fb095f              # double 0.88442367870474559
+	.quad	0x3fe4a0c34d64fed6              # double 0.64462437740436473
+	.quad	0x3fb7d93f8584fa20              # double 0.093158693406600879
+	.quad	0x3fdc47bba1a3239a              # double 0.44187823090447298
+	.quad	0x3fdc0457e99de548              # double 0.43776510061396268
+	.quad	0x3feed5bba8742e3b              # double 0.96359045888079408
+	.quad	0x3fe1a69a772002e5              # double 0.55158732668504895
+	.quad	0x3fe52046af9bb5f4              # double 0.66018995569692018
+	.quad	0x3fece1a14524794e              # double 0.90254271988286816
+	.quad	0x3fc9ba4e33d13094              # double 0.20099809198507457
+	.quad	0x3fe7842bd408cab9              # double 0.73488418019254376
+	.quad	0x3fd2c462d4759302              # double 0.2932364535138704
+	.quad	0x3fe71438ee4b6926              # double 0.72121855298909021
+	.quad	0x3fe5dd36548f994d              # double 0.68325344577605451
+	.quad	0x3feecc594f494974              # double 0.96244492993927943
+	.quad	0x3fe757a073eaa21a              # double 0.72944662704418595
+	.quad	0x3febf83c8e34e6eb              # double 0.87405231261001626
+	.quad	0x3fe5c0e8bc7a2036              # double 0.6797984772865735
+	.quad	0x3fc852a17e1cddc8              # double 0.19002169282769743
+	.quad	0x3fdd81b6e62ff6f8              # double 0.46104214171633329
+	.quad	0x3fd9b28971b74bd0              # double 0.40152202706411533
+	.quad	0x3fce370d574843c8              # double 0.23605505716162001
+	.quad	0x3fe675548255d607              # double 0.70182252365219788
+	.quad	0x3fdc15b1dac27ade              # double 0.43882414210558618
+	.quad	0x3fb72e7f5296ffa8              # double 0.090553243316206733
+	.quad	0x3fefcbd44a47ff11              # double 0.99363150127462251
+	.quad	0x3fba1486aff7f228              # double 0.10187570377451804
+	.quad	0x3fe6f3cd03976862              # double 0.71726084424450343
+	.quad	0x3fe7b949d93e39d3              # double 0.74136822157179905
+	.quad	0x3fdc628bb57386c4              # double 0.44351475448466382
+	.quad	0x3fed29038aebe193              # double 0.91125657208526645
+	.quad	0x3fef00229d462a69              # double 0.96876650540918973
+	.quad	0x3fba47276535a900              # double 0.10264822216928238
+	.quad	0x3fd7a1fb174a7da4              # double 0.3692615249110196
+	.quad	0x3fda698c4c41116a              # double 0.41269214102455598
+	.quad	0x3f9d16a4c02668c0              # double 0.028406690814883673
+	.quad	0x3fed1409bbe5ac1a              # double 0.90869604777015245
+	.quad	0x3fefd360986d4510              # double 0.99455289622179244
+	.quad	0x3fecc8bb6ac335e8              # double 0.89950342990931365
+	.quad	0x3febd1e9ae2ed0b8              # double 0.86937412281124349
+	.quad	0x3fbdc1c2be263060              # double 0.11623780386270388
+	.quad	0x3fde9966c8c8181e              # double 0.47811288459377177
+	.quad	0x3fea137e432af317              # double 0.81487954252915784
+	.quad	0x3fd79478e610c12c              # double 0.36843702761963715
+	.quad	0x3f77c3820ea6b780              # double 0.0058016853676415847
+	.quad	0x3fe58d6360dd0c10              # double 0.67350930136342591
+	.quad	0x3fb2ea4436d0c280              # double 0.073887122519190384
+	.quad	0x3fe9ef4e12dcd65a              # double 0.81046203312025544
+	.quad	0x3fef808f1b3936a6              # double 0.98444323842132486
+	.quad	0x3fd97894d3888876              # double 0.39798470170547462
+	.quad	0x3fe8cdb31fb7cd37              # double 0.77510982699315079
+	.quad	0x3fa302a5479ac300              # double 0.037129559508121801
+	.quad	0x3fb5806222a929f8              # double 0.08399022432528358
+	.quad	0x3fd8ce07ce7297a4              # double 0.38757510338688861
+	.quad	0x3fd90449ff2c33fa              # double 0.39088678282934064
+	.quad	0x3fe8419dbc6d0735              # double 0.75800978471691016
+	.quad	0x3fd7eac8e310604c              # double 0.37370512174812087
+	.quad	0x3fd3e97afa884108              # double 0.31112551179923331
+	.quad	0x3feaeb0f0bf522b2              # double 0.8411936982675654
+	.quad	0x3fce96bd9ea0b07c              # double 0.23897524114125079
+	.quad	0x3fca6b11de53f54c              # double 0.20639251094682221
+	.quad	0x3fb514bc00249138              # double 0.082347631487725503
+	.quad	0x3fef119dc01f338a              # double 0.97090041660122606
+	.quad	0x3febd375454610e0              # double 0.86956275491732171
+	.quad	0x3fedaf42b1a51377              # double 0.92764410682921905
+	.quad	0x3fb881c923bd2bf0              # double 0.095730372643785477
+	.quad	0x3fe1f614a3c963db              # double 0.56128913869462893
+	.quad	0x3fd616b0eed565b6              # double 0.34513495753852952
+	.quad	0x3fd5641f8639e6c8              # double 0.33423603160882154
+	.quad	0x3fe26ae8d62aefed              # double 0.57555047826417438
+	.quad	0x3fb40df357f76d08              # double 0.078337868667791466
+	.quad	0x3fd6faeaddfa31bc              # double 0.35906478574250023
+	.quad	0x3fe49396e65dd2fc              # double 0.64301629060227539
+	.quad	0x3fd9654a506dded6              # double 0.39680726866161586
+	.quad	0x3fd6856f176f5c5c              # double 0.35189416206907764
+	.quad	0x3fe688c731a6ab9e              # double 0.70419654557678135
+	.quad	0x3fed0dfa534b20a8              # double 0.90795627849822313
+	.quad	0x3fd39f377572b83e              # double 0.30659281224768964
+	.quad	0x3fe57ef8c451c25e              # double 0.67174948066356044
+	.quad	0x3fddf09cd413302e              # double 0.46781082830853193
+	.quad	0x3fe5ef5692aff7a0              # double 0.68546608590962776
+	.quad	0x3fec802cd92a994f              # double 0.89064638533890583
+	.quad	0x3fc7b64f3158d058              # double 0.18525113973157903
+	.quad	0x3fe2243269789752              # double 0.56691856956306652
+	.quad	0x3fd9760588f03ce4              # double 0.39782846806424588
+	.quad	0x3fa0de2e9dfc1ae0              # double 0.032945114884616933
+	.quad	0x3fd29db768a982f0              # double 0.2908762476054525
+	.quad	0x3fccc1a3c0a73a5c              # double 0.22465941340347484
+	.quad	0x3fcb8fcbc087d250              # double 0.2153258028116789
+	.quad	0x3f973d1aa8da06a0              # double 0.022694031291854544
+	.quad	0x3fe9b64c6fe8836e              # double 0.80350324494439263
+	.quad	0x3fec3f9cde722fbb              # double 0.88276523062221857
+	.quad	0x3feeb2d4e61dafab              # double 0.95933003372691894
+	.quad	0x3fb6cd32b3f95300              # double 0.08906857389349554
+	.quad	0x3fddb62f78781770              # double 0.46424471630631725
+	.quad	0x3fdcb10360cf375c              # double 0.44830402807280278
+	.quad	0x3fe6138a2027c0cd              # double 0.68988519935921888
+	.quad	0x3fb5606468ad75c0              # double 0.083502078586625395
+	.quad	0x3fe92cbf242e56ac              # double 0.78671223703959958
+	.quad	0x3feea5bae3a6dcba              # double 0.95773071730845705
+	.quad	0x3fe2c53673a3d2a6              # double 0.58657381616520321
+	.quad	0x3fe2dd70978e658a              # double 0.58953122711970818
+	.quad	0x3fea1a57e3200f8f              # double 0.81571573601148539
+	.quad	0x3fe4762a0092299a              # double 0.63942432509911673
+	.quad	0x3fae218ce13790e0              # double 0.058849718563381392
+	.quad	0x3fbe2e21254a8780              # double 0.1178913799326704
+	.quad	0x3faeddbc0ee64cf0              # double 0.060285450762558201
+	.quad	0x3fe917349a7d26d3              # double 0.7840827004776777
+	.quad	0x3fb4268f37a9f628              # double 0.078713370408842409
+	.quad	0x3fc8b4763f6b33bc              # double 0.19300726029032755
+	.quad	0x3fdcff118c145730              # double 0.45306814841875376
+	.quad	0x3fec95f05c97bf9c              # double 0.89330308994793794
+	.quad	0x3fea3f076a4775b4              # double 0.82019396550793155
+	.quad	0x3fd36fd4b433f8b2              # double 0.30370061490965405
+	.quad	0x3fb2e46bfca402e0              # double 0.073797940425730513
+	.quad	0x3fcd745642494790              # double 0.23011282192834104
+	.quad	0x3fe0e2a926044119              # double 0.52766854691620602
+	.quad	0x3fed6e3236510587              # double 0.91970167740525788
+	.quad	0x3fbe61b97ffb5b68              # double 0.1186786591964456
+	.quad	0x3fc9695c2de90a64              # double 0.19852783433641996
+	.quad	0x3fe40a957597ea76              # double 0.62629197089638811
+	.quad	0x3fe38c64ee44a42a              # double 0.61088797127479677
+	.quad	0x3fe0766dea53e2ab              # double 0.51445670859455583
+	.quad	0x3fed729e3d94fabb              # double 0.92024147060131811
+	.quad	0x3fbb42e7280059a0              # double 0.10648960806461227
+	.quad	0x3fecf7653bbf4615              # double 0.90519963902824208
+	.quad	0x3fef969fb28c2d52              # double 0.98713669655391301
+	.quad	0x3fcb3462f9c60394              # double 0.21253621288272184
+	.quad	0x3fd66f2e2acc125c              # double 0.35053590945634538
+	.quad	0x3fe985b09cc5db0a              # double 0.79756956691457614
+	.quad	0x3fe780563294b50d              # double 0.73441610220985043
+	.quad	0x3fe1635c1500cd72              # double 0.54337886907744193
+	.quad	0x3febb2cb9d4505de              # double 0.86557560650561149
+	.quad	0x3fed77c027c1396f              # double 0.920867993970928
+	.quad	0x3fe04f299888b969              # double 0.50966338912784892
+	.quad	0x3fed450c78b4f687              # double 0.91467879844249544
+	.quad	0x3fd5a20e90065658              # double 0.33801616730611306
+	.quad	0x3fb2ed089b2f86a8              # double 0.073929345976945116
+	.quad	0x3fa5d0bfaec20c80              # double 0.042608251650585238
+	.quad	0x3fc2cb86394c35b8              # double 0.14683606908549307
+	.quad	0x3fe478c09aabb88d              # double 0.63974027833116198
+	.quad	0x3fdc8f5f6673d9b0              # double 0.44625077252512835
+	.quad	0x3fe53c3a3320e373              # double 0.66360197053937353
+	.quad	0x3fed40b21273c94a              # double 0.91414741138422895
+	.quad	0x3f83ccf0362b8a00              # double 0.0096682325869936747
+	.quad	0x3fe30ea69b616b5b              # double 0.59553842876207896
+	.quad	0x3fe4c431f3378eef              # double 0.6489495992977633
+	.quad	0x3fe645960e750898              # double 0.69599440406479385
+	.quad	0x3fee57668ef6b0b8              # double 0.94816902086815613
+	.quad	0x3fd93bb65015029e              # double 0.3942695409823872
+	.quad	0x3fe8db6a1fa947cf              # double 0.77678400214994692
+	.quad	0x3fed47e90c7dfb28              # double 0.91502811851373611
+	.quad	0x3f766c1a5215fe80              # double 0.0054741886282269059
+	.quad	0x3fc9ad38ffe1dff4              # double 0.20059883589033201
+	.quad	0x3fed98f101c1f02e              # double 0.92491960852885824
+	.quad	0x3fe061d4ea07ce62              # double 0.51194234570580144
+	.quad	0x3fed4abd9ea0be03              # double 0.91537362081538765
+	.quad	0x3fe3aedf88ab68c8              # double 0.61509682362818641
+	.quad	0x3fe87fd23d42dbc3              # double 0.76560317959853597
+	.quad	0x3fe377bb608e4b86              # double 0.6083657155853508
+	.quad	0x3fee393e6096c23f              # double 0.94448775162715737
+	.quad	0x3fca2ccb9aaa47c0              # double 0.20449204494485507
+	.quad	0x3fd093111318607e              # double 0.25897623886840637
+	.quad	0x3fe12dbaff43976d              # double 0.53683233124023177
+	.quad	0x3fd5aa8d009acac4              # double 0.33853459414528353
+	.quad	0x3fe68836b1de43e1              # double 0.70412764301192621
+	.quad	0x3fd4c01ee25360aa              # double 0.32422611333960083
+	.quad	0x3fee0e8b95e2fdb4              # double 0.93927554392569456
+	.quad	0x3fe8d814aef4e4c5              # double 0.77637705012525571
+	.quad	0x3fe859196393fdf2              # double 0.76087636422010818
+	.quad	0x3fd361cc263ffc60              # double 0.30284408316942368
+	.quad	0x3fe783b1c23a0e7b              # double 0.73482597289007801
+	.quad	0x3fc198aa088df1a8              # double 0.13747144143770851
+	.quad	0x3fe4ca6f64ce906c              # double 0.64971131981702746
+	.quad	0x3fc9fb94340b3790              # double 0.20299007931901913
+	.quad	0x3fe7879d1e9e19a2              # double 0.7353044126510222
+	.quad	0x3fe41b820d157665              # double 0.62835791163861343
+	.quad	0x3fd611fe993f70c6              # double 0.34484829869849098
+	.quad	0x3fd233283649c1ce              # double 0.28437238027165967
+	.quad	0x3feca233f180d074              # double 0.89480015915479649
+	.quad	0x3fe950ebdc8e95da              # double 0.79112809255155558
+	.quad	0x3fe22790fb201a88              # double 0.56732987449579841
+	.quad	0x3fdcb2b89f84b47a              # double 0.44840827539412198
+	.quad	0x3fe11afc37da6d53              # double 0.53454409512361634
+	.quad	0x3fe4f21fd9a4d897              # double 0.65455620297031458
+	.quad	0x3fd1a9adad40b934              # double 0.27598134917470252
+	.quad	0x3fba8b129aa2d5d0              # double 0.10368458056731034
+	.quad	0x3fe061b792f3ee06              # double 0.51192835523346569
+	.quad	0x3fdc6f4720fbd958              # double 0.44429186078140992
+	.quad	0x3fd95c90f5ccda9a              # double 0.3962747955696756
+	.quad	0x3fdd73328f4124c8              # double 0.46015609731382456
+	.quad	0x3fe8f976fe87d090              # double 0.78045224869721785
+	.quad	0x3fe035cf8cff0726              # double 0.5065686944801413
+	.quad	0x3fdee6674035f216              # double 0.48281270285204536
+	.quad	0x3fe609a97a36a62a              # double 0.68867944593256891
+	.quad	0x3fc1b27c20437da8              # double 0.13825942588208062
+	.quad	0x3fe3b8d46f7ac97d              # double 0.6163122346245441
+	.quad	0x3fdc14e580b9b6ce              # double 0.4387754208645277
+	.quad	0x3fe8bd8e7f1e43df              # double 0.77313923671510654
+	.quad	0x3fd2e8a91e162f5c              # double 0.29545047701025395
+	.quad	0x3fd1e6f4e68f19de              # double 0.27972147479559151
+	.quad	0x3fe3dd0f0f91d213              # double 0.62073472062053481
+	.quad	0x3fecf0b66504f019              # double 0.90438384752588086
+	.quad	0x3fe9e74d4aa8e01f              # double 0.80948509771315347
+	.quad	0x3fee00690b601e29              # double 0.9375500890900571
+	.quad	0x3fda7af2a648dd94              # double 0.41375414122327325
+	.quad	0x3fd78231c25e339a              # double 0.36732143384215876
+	.quad	0x3fe730d9958e6ff0              # double 0.72471312723382475
+	.quad	0x3fe8473f4d1df152              # double 0.75869717657000479
+	.quad	0x3feb3955c6e552a7              # double 0.85074890944323023
+	.quad	0x3fdec99091f418a4              # double 0.48105253461143094
+	.quad	0x3fe8e278112ed9a9              # double 0.77764514308983224
+	.quad	0x3fd4a23566fbae0e              # double 0.32240042740770114
+	.quad	0x3fa9d5e54b8b62f0              # double 0.050460019561517799
+	.quad	0x3fe7fc8287d568e4              # double 0.74957396059042169
+	.quad	0x3fd96e7b902b1bd6              # double 0.3973683269400089
+	.quad	0x3fe85b9ce1901b3a              # double 0.76118320517784999
+	.quad	0x3fb8c881b06e34b8              # double 0.09680948789010102
+	.quad	0x3fe90182738598f6              # double 0.78143427431930834
+	.quad	0x3fa2b1c07ae1a820              # double 0.036512389183215754
+	.quad	0x3fe0c10a40a13bf8              # double 0.52356445906650517
+	.quad	0x3fc82d5a6c639070              # double 0.18888407032420984
+	.quad	0x3fea46ae136b80bc              # double 0.82112792771297149
+	.quad	0x3fe8d520401f48e6              # double 0.77601635478847864
+	.quad	0x3fea052c403c6342              # double 0.81313145204612902
+	.quad	0x3fc86be7ccc91f34              # double 0.19079301356600242
+	.quad	0x3fee645029d78e8d              # double 0.94974525615948979
+	.quad	0x3fe9ec6ec32293f3              # double 0.81011140930479397
+	.quad	0x3feb8e1f6ad20477              # double 0.86109896529536811
+	.quad	0x3fe0f394f086136e              # double 0.52973410584728042
+	.quad	0x3fd5845899e37ef0              # double 0.33620276477993993
+	.quad	0x3feae2a4fa3e0688              # double 0.84016655803152762
+	.quad	0x3fd80393ce41a37a              # double 0.37521834509112006
+	.quad	0x3fc2ebb21a8fe9f8              # double 0.14781786248188644
+	.quad	0x3fd4fc1a567722be              # double 0.32788713878521125
+	.quad	0x3fe888e291b81c02              # double 0.76670959912087278
+	.quad	0x3fed2ce10ec27379              # double 0.9117284096024455
+	.quad	0x3fe6d023cc98b113              # double 0.71290769539112586
+	.quad	0x3feb0e29d24a8535              # double 0.8454789263961745
+	.quad	0x3fec373f4998cd7c              # double 0.88174404501334846
+	.quad	0x3fec41acae06c611              # double 0.88301691045325204
+	.quad	0x3fe808a3b6d62b59              # double 0.75105462751649121
+	.quad	0x3fed71eca1bd4e40              # double 0.92015678014508495
+	.quad	0x3fbc18432f5576c0              # double 0.10974521546946914
+	.quad	0x3f6b5f7af8d5aa00              # double 0.0033414270207476893
+	.quad	0x3fc16e35e6b16224              # double 0.13617585911085073
+	.quad	0x3fefec95df307b84              # double 0.99763005820919703
+	.quad	0x3fecd79df08e19c6              # double 0.90132042869009221
+	.quad	0x3fedfbdf966566a7              # double 0.93699626325834096
+	.quad	0x3fe06425a7b96778              # double 0.51222498663558635
+	.quad	0x3fd0a5333f11bc6a              # double 0.26008301886662955
+	.quad	0x3fe752b4fb661d4c              # double 0.72884606458038936
+	.quad	0x3fd8e90e66d47a7e              # double 0.38922462503425226
+	.quad	0x3fe24cbc87a9c50d              # double 0.57186724182807469
+	.quad	0x3fdf3019cc406040              # double 0.4873108381884812
+	.quad	0x3fc53522f9d82348              # double 0.16568410109928267
+	.quad	0x3fb0e3938d0d1fb0              # double 0.065972539841026245
+	.quad	0x3fe6e2294b4397a2              # double 0.71510758113867134
+	.quad	0x3fe2ff8df1cef6d9              # double 0.59369561413015071
+	.quad	0x3fbf841ae40bb310              # double 0.12310951297304151
+	.quad	0x3fe5337da1675ab1              # double 0.66253549122014566
+	.quad	0x3fcc0e445efff0b0              # double 0.21918539656315295
+	.quad	0x3fcd475b4703926c              # double 0.22874012916067288
+	.quad	0x3fe4b956bc556762              # double 0.64762436660678824
+	.quad	0x3fa4ed772213e310              # double 0.040874216947434872
+	.quad	0x3fa0ae2579b1e000              # double 0.032578631501507971
+	.quad	0x3fe48a8d9b00bd12              # double 0.64191322587967847
+	.quad	0x3fe5bf357283ce0a              # double 0.67959091535743821
+	.quad	0x3fd683b4a6474d7c              # double 0.35178867567193328
+	.quad	0x3fe7326172306f91              # double 0.72489998152330959
+	.quad	0x3fe05ab73c37b791              # double 0.51107370148905507
+	.quad	0x3fd8fb6ce7bff860              # double 0.39034578925919128
+	.quad	0x3fe88dfe18968495              # double 0.76733307649932903
+	.quad	0x3fddc169bf616abc              # double 0.46492999734406815
+	.quad	0x3fe1b64dcce63cec              # double 0.55350389499099384
+	.quad	0x3fd9287aec4f83c2              # double 0.39309571339805072
+	.quad	0x3fa77f1ab8af1f00              # double 0.0458916044659059
+	.quad	0x3fd3eaa060269956              # double 0.31119546308254564
+	.quad	0x3fee9364cdb093c9              # double 0.95549240278034475
+	.quad	0x3fe075cdc0c6074a              # double 0.51438033724864707
+	.quad	0x3fb7ce0737aa3080              # double 0.092987490739860234
+	.quad	0x3fe03d5e0474546e              # double 0.50749112005236241
+	.quad	0x3fe3c1d954fb9d68              # double 0.61741320226876173
+	.quad	0x3fe33b6c20e19061              # double 0.60100370809642467
+	.quad	0x3fb6d64afd669a30              # double 0.089207350602557466
+	.quad	0x3fdf3899a374d854              # double 0.48782959902326195
+	.quad	0x3fc369e7e7bfee04              # double 0.15166949096588678
+	.quad	0x3f925035820a5d60              # double 0.017884098112145863
+	.quad	0x3fc1ffc95b8d4cfc              # double 0.14061848612127636
+	.quad	0x3fd081a827195c6c              # double 0.25791362589138234
+	.quad	0x3fd28e6ccab5fbca              # double 0.28994293018325534
+	.quad	0x3fbcb7f934b5b500              # double 0.11218221222744162
+	.quad	0x3fe604198d576e0d              # double 0.68800046544805726
+	.quad	0x3fe4e73e772030e9              # double 0.65322802798030211
+	.quad	0x3feb78c696c91401              # double 0.85849313211713263
+	.quad	0x3fbd9d7954284c70              # double 0.11568411163925574
+	.quad	0x3fe3bd2c11ffe9be              # double 0.61684230342444102
+	.quad	0x3fc7dfd861b847c8              # double 0.18651871463276692
+	.quad	0x3f4bf1ebd9dc2400              # double 8.5281387484414939E-4
+	.quad	0x3feb36137ec22037              # double 0.85035109288674604
+	.quad	0x3fc659b9fa3ea8a8              # double 0.17461323470098944
+	.quad	0x3fe90bd8d71402f1              # double 0.78269617087798171
+	.quad	0x3fe8fc2d81088beb              # double 0.78078341676552776
+	.quad	0x3febe1e3fc634a2c              # double 0.87132453245641761
+	.quad	0x3fe77a3d1ff25d2f              # double 0.7336717246970802
+	.quad	0x3fc35ea9b923758c              # double 0.15132638492552208
+	.quad	0x3fc371b89ddc6444              # double 0.15190799434711455
+	.quad	0x3feb6bb3bf4181c1              # double 0.85689723353066694
+	.quad	0x3fc57b899344aad0              # double 0.16783256235915767
+	.quad	0x3fe20461a924ac4c              # double 0.56303484950820737
+	.quad	0x3fd47db92a7e951c              # double 0.32017354154443622
+	.quad	0x3fed61ad2e957021              # double 0.91817339990985058
+	.quad	0x3fd798bf2e43592c              # double 0.36869792478445862
+	.quad	0x3fc2aa57f27bebf0              # double 0.14582347240488458
+	.quad	0x3fea2b7ef370c3d1              # double 0.81780955836267755
+	.quad	0x3fcd0e4a70332968              # double 0.2269986198283036
+	.quad	0x3fedfde44cc9c2e4              # double 0.93724265096360825
+	.quad	0x3fea8d5725d73032              # double 0.82975346937883487
+	.quad	0x3fe2a7341c8cd92d              # double 0.58291059089859731
+	.quad	0x3fdbd30416e55110              # double 0.43475439296641216
+	.quad	0x3fcf3d73ddda744c              # double 0.24406288464243386
+	.quad	0x3fdfe69c026496c2              # double 0.49845028146442527
+	.quad	0x3fe5663e8b38441a              # double 0.66873099509587353
+	.quad	0x3fe526e48c5d7376              # double 0.66099765219733686
+	.quad	0x3fbe3d63935155d8              # double 0.11812422129272393
+	.quad	0x3fdb6fc3b315b17a              # double 0.42869656075233531
+	.quad	0x3fe155d4141d83e8              # double 0.54172710350769382
+	.quad	0x3fc1e204f5d82514              # double 0.13971006397358876
+	.quad	0x3fcf8bab71eff8a4              # double 0.24644988120411881
+	.quad	0x3fdcbeadfd491cfc              # double 0.44913816199228029
+	.quad	0x3fef455b7936f009              # double 0.97721646952368346
+	.quad	0x3feb174402a6a831              # double 0.84659004705213736
+	.quad	0x3fe0675fdf29411c              # double 0.51261895738756236
+	.quad	0x3fe51c1d9dea1383              # double 0.65968209116600496
+	.quad	0x3fd45bfac8e043de              # double 0.31811399094391202
+	.quad	0x3feda440ee4121f7              # double 0.9263004926115731
+	.quad	0x3fe94a9f5b582476              # double 0.79035919037518343
+	.quad	0x3fef4864459317ce              # double 0.97758687580857795
+	.quad	0x3fc388183c6a8888              # double 0.15259077978140945
+	.quad	0x3fec20ed2a5c8b14              # double 0.87901933931093134
+	.quad	0x3fdbbf77ec842c0e              # double 0.43356130692762995
+	.quad	0x3fc9fc6fbf28dc20              # double 0.20301625093426967
+	.quad	0x3fc277826146ddf8              # double 0.14427213430256791
+	.quad	0x3fd2fce990126358              # double 0.29668654508127679
+	.quad	0x3fd249e19f18d2dc              # double 0.2857593587571452
+	.quad	0x3fee350cd4cc28ee              # double 0.94397584497462872
+	.quad	0x3fd93d8c8701fcce              # double 0.39438164886810234
+	.quad	0x3fdb57d2cbc0bfa8              # double 0.42723531625505951
+	.quad	0x3fe92f0467956826              # double 0.78698940497566094
+	.quad	0x3fdef0a6478e11d0              # double 0.48343808162487978
+	.quad	0x3fe516ebd761b222              # double 0.65904800478671555
+	.quad	0x3fd143a4b34cefa0              # double 0.26975362310235518
+	.quad	0x3fcbe499bfadb56c              # double 0.21791383609108139
+	.quad	0x3feb43f7f794f9ec              # double 0.85204695087287296
+	.quad	0x3fea9376c285377e              # double 0.83050096504460647
+	.quad	0x3fe1290defe0cd97              # double 0.53626152850340503
+	.quad	0x3fe25cffeca8f81f              # double 0.57385250303900992
+	.quad	0x3fc91342467cd12c              # double 0.1959002346208164
+	.quad	0x3fbf8133826478d8              # double 0.12306520398530851
+	.quad	0x3feadfd40a5354da              # double 0.83982278839780666
+	.quad	0x3fce0b0a011dbfb4              # double 0.23471188597204462
+	.quad	0x3fe1247be315062e              # double 0.53570360519387861
+	.quad	0x3fa707de3c85df70              # double 0.04498190392308643
+	.quad	0x3fd1f1cc3c14135e              # double 0.280383165998776
+	.quad	0x3fdfaa0395bb4ffc              # double 0.49475183126673961
+	.quad	0x3fc0e44d37b516d4              # double 0.1319672128685655
+	.quad	0x3f80fd1b74ca3a40              # double 0.0082952637688126218
+	.quad	0x3fe5288060a57807              # double 0.66119402767412871
+	.quad	0x3fd6c09f19528b40              # double 0.35550668213743464
+	.quad	0x3fdb222f9c63a698              # double 0.42396154663456675
+	.quad	0x3fe752be29fa7f68              # double 0.72885044287612022
+	.quad	0x3f5c8c95dddc3c00              # double 0.0017425025502608715
+	.quad	0x3fed9129ce26cf9a              # double 0.92397012962327385
+	.quad	0x3feafa10900bb29b              # double 0.84302547582554455
+	.quad	0x3fde056a36e86f5c              # double 0.46908049928764739
+	.quad	0x3fcdd2f42f01e760              # double 0.2330003003624439
+	.quad	0x3fa6b99cd6fb0240              # double 0.044384862177598183
+	.quad	0x3fd0b7dc77410968              # double 0.26122199674514102
+	.quad	0x3f84b93b2934ec80              # double 0.010118925280599322
+	.quad	0x3fe85e9b97096330              # double 0.76154880046224172
+	.quad	0x3fe497c2997577af              # double 0.64352540943558789
+	.quad	0x3fdc2bf6d1ddfea6              # double 0.44018335814323917
+	.quad	0x3fe6f82acc05b92c              # double 0.71779384468189766
+	.quad	0x3fddbc4fdaaf0f1e              # double 0.46461864810793141
+	.quad	0x3feef2efef87b3ca              # double 0.9671554258653654
+	.quad	0x3fda4996da1d8e06              # double 0.41074153232895616
+	.quad	0x3fdad1cbef5cfd54              # double 0.41905496955219701
+	.quad	0x3fe7e7c927887a02              # double 0.74704416009245755
+	.quad	0x3fb28d3a66ed6f98              # double 0.07246747029188183
+	.quad	0x3fe98a9d44cd7651              # double 0.7981706947136421
+	.quad	0x3fdbe44ec091d2c2              # double 0.43580979161860622
+	.quad	0x3fafef7fe981f710              # double 0.062374112371783252
+	.quad	0x3fd7c67799225364              # double 0.37148847536564333
+	.quad	0x3fc5075036728394              # double 0.16428568514404829
+	.quad	0x3fd50f37d720fbba              # double 0.3290538407199467
+	.quad	0x3fe06772305e82ff              # double 0.51262769171816547
+	.quad	0x3fe553a46e84d255              # double 0.66646024308881613
+	.quad	0x3fefaafa7fb256ad              # double 0.98962140026806866
+	.quad	0x3fe35c539626360c              # double 0.60502032590892574
+	.quad	0x3febebd1373197e4              # double 0.87253628520988657
+	.quad	0x3fefc2d8c90954ec              # double 0.99253501191074411
+	.quad	0x3fd3b73126a5941a              # double 0.30805615209675496
+	.quad	0x3fe04ec17f979b89              # double 0.50961375160555733
+	.quad	0x3fce316d5fb40e20              # double 0.23588339970602679
+	.quad	0x3fe6ff3ca3a310eb              # double 0.71865684471461344
+	.quad	0x3fca223bea0ff590              # double 0.20416973999810439
+	.quad	0x3fe16b48405a253e              # double 0.54434597557807485
+	.quad	0x3fc83017ec041950              # double 0.18896769546717929
+	.quad	0x3fc93156884a6f6c              # double 0.19681817679235836
+	.quad	0x3fd3e48a8283275a              # double 0.31082403893798516
+	.quad	0x3fe9045dd301392f              # double 0.78178302013274059
+	.quad	0x3fd39f42ffa62702              # double 0.30659556356168605
+	.quad	0x3fb23c31ea36df10              # double 0.0712310025036198
+	.quad	0x3fec512e34c0f5f3              # double 0.88490972808329926
+	.quad	0x3fdb5dc362e7633a              # double 0.42759785326557032
+	.quad	0x3fe82da35377ded0              # double 0.75557104399100616
+	.quad	0x3fc0b5032f73ffbc              # double 0.13052406136557504
+	.quad	0x3f61965f13d72200              # double 0.0021468979818772826
+	.quad	0x3fe961360c94a9c4              # double 0.79311659295245151
+	.quad	0x3fe5945ff2561310              # double 0.67436215716642955
+	.quad	0x3fd472a859aa7058              # double 0.3194981456415511
+	.quad	0x3fecb71ce734dc4f              # double 0.8973526492835705
+	.quad	0x3fe6fa7c4c5e9a07              # double 0.71807684818196627
+	.quad	0x3fd8aa029c7864c4              # double 0.38537659912396927
+	.quad	0x3fe215b23c4bb12e              # double 0.56514846588610168
+	.quad	0x3fe7cb830fd03ed2              # double 0.74359276856008649
+	.quad	0x3fe02ddcb7956398              # double 0.50559841018831531
+	.quad	0x3fed5d372d5afd7a              # double 0.91762884958727331
+	.quad	0x3fefe466d6fb08f3              # double 0.99663106907271836
+	.quad	0x3fe57f9b499b4308              # double 0.67182697654979595
+	.quad	0x3fc4c90c4099bec0              # double 0.16238549379658274
+	.quad	0x3febc1d8da880e13              # double 0.86741297418524466
+	.quad	0x3fe34ac34a189d8b              # double 0.60287632438569128
+	.quad	0x3fde739528fa612c              # double 0.47580460550081471
+	.quad	0x3fefd20a411ac628              # double 0.99438965526332356
+	.quad	0x3fefa8c2c4a24cb5              # double 0.98935068516802593
+	.quad	0x3fc33ee3e1d6b884              # double 0.15035675551684247
+	.quad	0x3feace39ee80e882              # double 0.83767410834049394
+	.quad	0x3fb8cd0880e75328              # double 0.096878558607681797
+	.quad	0x3faa0fa56c08f230              # double 0.050900620878085667
+	.quad	0x3fe888d334df4e39              # double 0.76670227362269039
+	.quad	0x3fd7f8cb90507626              # double 0.37456025212472566
+	.quad	0x3fea0dc5334c305c              # double 0.81418094653191586
+	.quad	0x3fd2f44a3a166aa0              # double 0.29616027519811361
+	.quad	0x3fea07bcbe95568a              # double 0.81344449256239781
+	.quad	0x3fe33d76e51d45b1              # double 0.60125298260589066
+	.quad	0x3fb7f2446cfe50f8              # double 0.093540455445978554
+	.quad	0x3fa51deb2d379200              # double 0.041243886251127293
+	.quad	0x3fef72ece0cd4eef              # double 0.9827789679206641
+	.quad	0x3fdc0b7762ddeae8              # double 0.43819985060660693
+	.quad	0x3fc4be72d0b0dd9c              # double 0.16206202688202331
+	.quad	0x3fe913b2d75bff98              # double 0.7836546140897438
+	.quad	0x3fe09e6610663d4f              # double 0.51933577731134928
+	.quad	0x3fc496f82759988c              # double 0.16085721894632277
+	.quad	0x3feeb2db5bdd2bac              # double 0.95933311407258292
+	.quad	0x3fcc4daff6695dfc              # double 0.22112082988563475
+	.quad	0x3f9cdeb5655a1d60              # double 0.02819331580260831
+	.quad	0x3fe79d209a4c798b              # double 0.73793058525534272
+	.quad	0x3fdf78d2018d092e              # double 0.49174928809601937
+	.quad	0x3fdffd2b76108576              # double 0.49982725648631943
+	.quad	0x3fd4e9380f501614              # double 0.32673455710787036
+	.quad	0x3fe7ba2939cd48e3              # double 0.74147473611290271
+	.quad	0x3fe0196aae30b011              # double 0.50310262700577557
+	.quad	0x3f968cf44946a4e0              # double 0.022022072765740641
+	.quad	0x3fd36699b791ce4c              # double 0.30313723494257228
+	.quad	0x3fbf8a10a7827028              # double 0.12320045556629167
+	.quad	0x3fe49b05f3bd56d3              # double 0.64392373662368596
+	.quad	0x3fece196c0485a87              # double 0.90253770404054101
+	.quad	0x3feb81fa017a3e0e              # double 0.85961628235412646
+	.quad	0x3fc25ca1b8da8c84              # double 0.14345189596233265
+	.quad	0x3fce9bcc4a23dd3c              # double 0.23912957782861521
+	.quad	0x3fef2cb9013c7a66              # double 0.97420931092694896
+	.quad	0x3fe5e7abca95da36              # double 0.68453015868619249
+	.quad	0x3fcd9e63a0510000              # double 0.23139615371655964
+	.quad	0x3fdeb4d7819ceb1a              # double 0.47978770883098465
+	.quad	0x3fd25340e6db9c34              # double 0.2863313917609418
+	.quad	0x3fe6953b4b8c9891              # double 0.70571675067619044
+	.quad	0x3fe2a34b877ba640              # double 0.58243347608112828
+	.quad	0x3fd1681355c0ea8e              # double 0.27197726606724693
+	.quad	0x3f9155ca08d094a0              # double 0.0169288223152263
+	.quad	0x3fd5e1db1e57cefe              # double 0.34191015208419617
+	.quad	0x3fb20335f105b0b0              # double 0.07036149153072091
+	.quad	0x3fda8b7fe6d75836              # double 0.41476438086590706
+	.quad	0x3fe590ce9c77b2dd              # double 0.67392664489815568
+	.quad	0x3fc9adaa344ffa60              # double 0.20061233095471476
+	.quad	0x3fd8a284fdec5f4e              # double 0.38491940304947014
+	.quad	0x3fea0da527745530              # double 0.81416566568319659
+	.quad	0x3fc57bea7c6b67ec              # double 0.16784411502049978
+	.quad	0x3fda7103c0bb804e              # double 0.41314786740804699
+	.quad	0x3fea8f23faa58e18              # double 0.82997321085389597
+	.quad	0x3fd3c298530af5d8              # double 0.30875213727617057
+	.quad	0x3fd06f6e7674a314              # double 0.256801238707838
+	.quad	0x3fe2c4763323a0fe              # double 0.58648214328880477
+	.quad	0x3fecde50833c1192              # double 0.90213800079122763
+	.quad	0x3fe01fdbb30c21cb              # double 0.50388894052690014
+	.quad	0x3fdc0c02955dbc36              # double 0.43823303782022849
+	.quad	0x3fdd737477f27052              # double 0.4601718112332992
+	.quad	0x3fdba7affdc0df78              # double 0.43210983067137176
+	.quad	0x3fe6be1aee7855b7              # double 0.71070620132620987
+	.quad	0x3fea8866e4c5fd56              # double 0.82915062601379463
+	.quad	0x3fe3e9f98093eed9              # double 0.62231135475982591
+	.quad	0x3fe0eb28e3ee17bd              # double 0.5287060214766296
+	.quad	0x3fedea8ace0b1bbd              # double 0.93488064043855668
+	.quad	0x3fdeb924622a565e              # double 0.48005017839873243
+	.quad	0x3fe8b777ef25dc4d              # double 0.77239605625698859
+	.quad	0x3fc021baab15f268              # double 0.12602933267398275
+	.quad	0x3fedc861ec71dc10              # double 0.93071075611703868
+	.quad	0x3fcd3929271e1404              # double 0.22830690774949869
+	.quad	0x3fd22954615583f6              # double 0.28377255921628775
+	.quad	0x3fe95a38cf933716              # double 0.79226341764453667
+	.quad	0x3feda9422aeb15a2              # double 0.92691143400650255
+	.quad	0x3fb50bcc1cbbef58              # double 0.082211262717405531
+	.quad	0x3fcd88cec5193248              # double 0.23073753951975307
+	.quad	0x3febe21eddb5339f              # double 0.87135260870273956
+	.quad	0x3fc265104f520570              # double 0.14370921967569528
+	.quad	0x3feb87c3f7bf8efa              # double 0.86032293690047301
+	.quad	0x3fe92360765d5c82              # double 0.7855684577761084
+	.quad	0x3fd041470cff0410              # double 0.25398422497897943
+	.quad	0x3fcb452c5681e00c              # double 0.21304849838247752
+	.quad	0x3fb5aa9e5b186fd0              # double 0.084634682884313194
+	.quad	0x3fe496991ce79200              # double 0.64338355679916504
+	.quad	0x3fe80f08f93d5ae4              # double 0.75183533362982446
+	.quad	0x3fcf3c185642d7c4              # double 0.24402145587890633
+	.quad	0x3fe85b45c5505b86              # double 0.76114166772718828
+	.quad	0x3febea4c6ac600b3              # double 0.87235089163006874
+	.quad	0x3fda3c85d35f6b18              # double 0.40994401590221363
+	.quad	0x3fe1e8009fa89306              # double 0.55957060988711826
+	.quad	0x3fe90ed7f9ed642d              # double 0.78306196988990495
+	.quad	0x3fe9eecc23477b23              # double 0.81040007486794641
+	.quad	0x3fedc763d60f1e3d              # double 0.93058959778222283
+	.quad	0x3fc718d920108fbc              # double 0.18044580522211884
+	.quad	0x3fef50974e7ec8a7              # double 0.97858777361968385
+	.quad	0x3fe7fc808adc02c1              # double 0.74957301255206954
+	.quad	0x3fb47f8acdf98118              # double 0.080071139609121267
+	.quad	0x3fcf8ca414406ee4              # double 0.24647952069141532
+	.quad	0x3fd7874ca444d218              # double 0.36763301889303213
+	.quad	0x3fe5cb53d2283ef4              # double 0.68107024236993974
+	.quad	0x3fe6270d75bc9183              # double 0.69226716037205482
+	.quad	0x3feef7d59a8c2321              # double 0.96775322136918273
+	.quad	0x3fec1a82fb77adc6              # double 0.87823628535027676
+	.quad	0x3fe25ed0ed6e00ec              # double 0.57407423375118816
+	.quad	0x3fe56d8a28226067              # double 0.66962154234626048
+	.quad	0x3fd01562e639fa4e              # double 0.25130531771711595
+	.quad	0x3febe20e99a525be              # double 0.87134485253152838
+	.quad	0x3fed602f4ea8cce7              # double 0.91799130786094174
+	.quad	0x3fe4e4487f3241f5              # double 0.65286660044699707
+	.quad	0x3fbe9ab32173e948              # double 0.11954803053587171
+	.quad	0x3fe62242cd5aef25              # double 0.69168224438133008
+	.quad	0x3fe1f0da1cba807d              # double 0.56065087901153243
+	.quad	0x3fe0394b8c59cdcf              # double 0.50699403202309579
+	.quad	0x3fddd617e0409726              # double 0.46619221591605464
+	.quad	0x3fd4b7ece8150ec2              # double 0.32372591652186256
+	.quad	0x3fca22d94024e0e4              # double 0.20418849594148647
+	.quad	0x3feaa9b8ae869288              # double 0.83321794592900833
+	.quad	0x3fc6d80ef40b6020              # double 0.17846857944709971
+	.quad	0x3fc6e69aa649d250              # double 0.1789124786333951
+	.quad	0x3fe851813b19f6cb              # double 0.75994931739088523
+	.quad	0x3fe24f752962ef8c              # double 0.57219942172331306
+	.quad	0x3fe25578ff103ccd              # double 0.57293367211414081
+	.quad	0x3fd6a7b4f257e20a              # double 0.3539860121377677
+	.quad	0x3fe90204e42fabfe              # double 0.78149647300358516
+	.quad	0x3fef1f593f0aecce              # double 0.97257673562071445
+	.quad	0x3fae178f8e76a180              # double 0.058773504391242959
+	.quad	0x3fef4cacd910a50d              # double 0.97810976405631466
+	.quad	0x3fe2b127645ebda4              # double 0.58412522891551477
+	.quad	0x3fda0df564685ff6              # double 0.40710196309510083
+	.quad	0x3fc628c9a2b457ac              # double 0.17311973995736929
+	.quad	0x3fe8ff1ebd83f2b5              # double 0.78114258780222789
+	.quad	0x3fd07f095a437da6              # double 0.25775369467552378
+	.quad	0x3fd90cb33bc883f2              # double 0.3914001544781619
+	.quad	0x3fede7b8684cf113              # double 0.93453617449952942
+	.quad	0x3fcef5ac4d293dd4              # double 0.24187234656936474
+	.quad	0x3fefac567c38c42c              # double 0.98978733312663313
+	.quad	0x3fe1523c01ef5da9              # double 0.54128837945875319
+	.quad	0x3fde29ec917fb916              # double 0.47130884369734483
+	.quad	0x3fe07d17cae9491d              # double 0.51527013426883495
+	.quad	0x3fec44e49feaf95a              # double 0.88340979799231012
+	.quad	0x3fe1ec1bc7796b81              # double 0.5600718399031025
+	.quad	0x3fd85668b0233770              # double 0.38027398301061677
+	.quad	0x3fe41d0e6e69b90c              # double 0.62854692044291616
+	.quad	0x3fe5cd4574d79ae4              # double 0.68130753346198647
+	.quad	0x3fe28d194e842959              # double 0.57972398123937829
+	.quad	0x3fe1dbfb09809379              # double 0.55810310226352933
+	.quad	0x3fe504ba2f712b02              # double 0.65682706132915336
+	.quad	0x3fe08e93a4af5525              # double 0.51740438618677287
+	.quad	0x3fa753dff9693ea0              # double 0.045561789699261057
+	.quad	0x3fc0d94b9f8fbfb8              # double 0.13163132945146372
+	.quad	0x3f9ac8b5674b6e60              # double 0.026156267575841219
+	.quad	0x3fde1d6be331a2ea              # double 0.47054574191001441
+	.quad	0x3fe026f51085e81b              # double 0.50475552775538135
+	.quad	0x3fba99ebcc1cb1c0              # double 0.10391114934163337
+	.quad	0x3fd39bdbffc3a512              # double 0.30638790108658143
+	.quad	0x3fedcb27ad2124e1              # double 0.9310491925654355
+	.quad	0x3fd05420ad19325c              # double 0.25513474373000178
+	.quad	0x3fe40ce1412a9022              # double 0.62657225349221712
+	.quad	0x3fe1a15757235282              # double 0.55094496745239518
+	.quad	0x3fc36ee002a4521c              # double 0.15182113770482963
+	.quad	0x3fee15d63648415d              # double 0.94016562082292021
+	.quad	0x3fb9513fd5d3c240              # double 0.098896016792203945
+	.quad	0x3fa13dc8b87e8230              # double 0.033674500008832431
+	.quad	0x3fc99f3f7f8d7494              # double 0.20017236450340603
+	.quad	0x3feab9dea5da7657              # double 0.8351891745875929
+	.quad	0x3fdf232715ca115a              # double 0.48652054908622733
+	.quad	0x3fea1b2089e7a3d1              # double 0.8158114140943501
+	.quad	0x3fec7091be340d7e              # double 0.88874137066925107
+	.quad	0x3fe328d7f2855224              # double 0.59873578421917673
+	.quad	0x3fed25482dd4c8ce              # double 0.91080101920513257
+	.quad	0x3fe4cac15cd598be              # double 0.6497504056140071
+	.quad	0x3fdfcd170584f3f0              # double 0.49689269579886197
+	.quad	0x3fca3fd6392424d8              # double 0.20507314481827765
+	.quad	0x3feb74f31fe162a2              # double 0.85802608706133676
+	.quad	0x3fb4368d33901408              # double 0.078957390869689559
+	.quad	0x3fe34300a7b381bd              # double 0.60192902330532372
+	.quad	0x3fe9287729fd2bdc              # double 0.78618963433234112
+	.quad	0x3fe5d9e4979d039d              # double 0.68284825908641589
+	.quad	0x3fd1c3f1da68da44              # double 0.27758451775608628
+	.quad	0x3fdedc1da12c88d0              # double 0.48218479861874375
+	.quad	0x3fd724929b879ef8              # double 0.36160721958593411
+	.quad	0x3fd3071aff961ec2              # double 0.29730868301019708
+	.quad	0x3fedd49b516f7fac              # double 0.93220296769503852
+	.quad	0x3fd678d9056bfb3a              # double 0.35112596063111179
+	.quad	0x3fe8ee482c3547f6              # double 0.7790871489944482
+	.quad	0x3fd81aff0afb5834              # double 0.37664772102778277
+	.quad	0x3fe6f6aaa5583bde              # double 0.71761066717032995
+	.quad	0x3fefc8124c3ed2d3              # double 0.99317278758698035
+	.quad	0x3feb6979faa0f0a2              # double 0.8566255469409223
+	.quad	0x3fe057c599df8974              # double 0.51071434071881905
+	.quad	0x3fd9dd2fd05aa8ba              # double 0.40412516924937913
+	.quad	0x3fefd8d271698a06              # double 0.99521753455002293
+	.quad	0x3f6f4001db1e9900              # double 0.0038147007225745044
+	.quad	0x3fe33ed7575a15e1              # double 0.60142104206959968
+	.quad	0x3fedb765007a0f6a              # double 0.92863702862858344
+	.quad	0x3fea1ee4e9dd18e0              # double 0.8162712638520837
+	.quad	0x3fef14734fcdb84b              # double 0.97124639116896938
+	.quad	0x3fee5d2daaa6fc19              # double 0.94887431459926852
+	.quad	0x3fe998dd3ab8de9c              # double 0.79991017789048468
+	.quad	0x3fd8f68277e318bc              # double 0.39004575450634227
+	.quad	0x3fd42a2ba33117c8              # double 0.31507388054557994
+	.quad	0x3fe73c3e5d2c15e9              # double 0.72610395620057233
+	.quad	0x3fd43d139ee41922              # double 0.31622782246303605
+	.quad	0x3fdd84e02fe33a1e              # double 0.46123509098552684
+	.quad	0x3feb803537e852ed              # double 0.85940037650524703
+	.quad	0x3fe538cd5d1f8ccb              # double 0.66318386257298678
+	.quad	0x3fec0a8f0002143e              # double 0.87628889085375028
+	.quad	0x3fbe04aaf9cfe2a0              # double 0.11725872610976262
+	.quad	0x3fd3d46ae1956428              # double 0.3098399355854462
+	.quad	0x3f650dfba1e61a00              # double 0.0025701441474581532
+	.quad	0x3feb9bebb04d00da              # double 0.86278328355549694
+	.quad	0x3fd666eb1ec0c308              # double 0.3500316429445296
+	.quad	0x3fe30d88c0e588fe              # double 0.59540212321397212
+	.quad	0x3fef75cd06c1ba1b              # double 0.98312999076535179
+	.quad	0x3fd7b8fe042d63b4              # double 0.37066603095950801
+	.quad	0x3fbe0a6529458610              # double 0.11734611756903512
+	.quad	0x3fe53df66f4786e6              # double 0.66381379827745657
+	.quad	0x3fd1aa3555c41296              # double 0.27601369262291919
+	.quad	0x3fa8873198499050              # double 0.047906446304097572
+	.quad	0x3fe0a4c6985db6aa              # double 0.52011422881124258
+	.quad	0x3fed19de8e6ccf29              # double 0.90940788094892355
+	.quad	0x3fdafb206b3e3898              # double 0.42157755349115567
+	.quad	0x3fddedcc9833960a              # double 0.46763911117008716
+	.quad	0x3fd101633cf706ba              # double 0.26570969537361189
+	.quad	0x3fe988a5335da5e3              # double 0.79793033630738497
+	.quad	0x3fcb09dda90cc588              # double 0.21123858217610469
+	.quad	0x3fdd24a842c8a1d8              # double 0.45536238214347469
+	.quad	0x3fee5c0e6c7da830              # double 0.94873734655016584
+	.quad	0x3fdbeaffc1c569e8              # double 0.43621820376361464
+	.quad	0x3feb44c9e334c171              # double 0.85214704872309543
+	.quad	0x3fad2b4818e4d0d0              # double 0.056970837630076709
+	.quad	0x3fce393123220524              # double 0.23612035956834021
+	.quad	0x3fbeba078920b510              # double 0.1200260839256837
+	.quad	0x3fd7165c1a9ce55e              # double 0.36073973273194848
+	.quad	0x3fcbf68a895fd5e4              # double 0.21846133907062815
+	.quad	0x3feb3acef4419efc              # double 0.8509287615424621
+	.quad	0x3fe293a84cb84e43              # double 0.58052458748211
+	.quad	0x3feebed8b2653f57              # double 0.96079668848868038
+	.quad	0x3fef6e8c86cbf520              # double 0.9822447426555847
+	.quad	0x3fe5884fc1f7f0af              # double 0.67288959393001402
+	.quad	0x3fe7646aab990aab              # double 0.73100789561461477
+	.quad	0x3feb8ae7a7d5511f              # double 0.86070616512236942
+	.quad	0x3fe7a0f7cc2cca1d              # double 0.73839940908357315
+	.quad	0x3febd0654a43479c              # double 0.86918892387824397
+	.quad	0x3fc45575cf6f99ac              # double 0.15885803822238864
+	.quad	0x3fe27e050421502c              # double 0.57788325125375684
+	.quad	0x3fefbe8054a58461              # double 0.99200455219773797
+	.quad	0x3fc07fa11603e6a0              # double 0.12889493536913665
+	.quad	0x3fefa2692c4c810f              # double 0.98857554103963873
+	.quad	0x3fdb6c302d36ef20              # double 0.42847828307616176
+	.quad	0x3feaaa4890ac7f32              # double 0.83328655487637193
+	.quad	0x3fe21d94e4ea32a7              # double 0.5661110373490218
+	.quad	0x3fb6c05ff2303fc0              # double 0.088872906330151658
+	.quad	0x3fda9e07450b6538              # double 0.41589528792026753
+	.quad	0x3fe42d91321ae7e3              # double 0.63056239877846243
+	.quad	0x3fe69bc703801f63              # double 0.70651579555213251
+	.quad	0x3fb012a5ee26c2b8              # double 0.062784548418458708
+	.quad	0x3fc28018851eeaec              # double 0.14453417301213933
+	.quad	0x3feda62df5259ee4              # double 0.92653558616890707
+	.quad	0x3fee206ed1bcba20              # double 0.94145909275340855
+	.quad	0x3fd40a3ce83a5ad8              # double 0.31312487295637714
+	.quad	0x3fdb9f1f294029e8              # double 0.43158701923735387
+	.quad	0x3fc0c9237fec30a8              # double 0.13113826509686999
+	.quad	0x3fc980f6045aa190              # double 0.19924807751273166
+	.quad	0x3feac762fc857b01              # double 0.83683919258677986
+	.quad	0x3fd82292e9170552              # double 0.37711022150695783
+	.quad	0x3fc7b52b7111664c              # double 0.18521636029145083
+	.quad	0x3fdc688a09b9c762              # double 0.44388056707167867
+	.quad	0x3fedc9e85b96ae79              # double 0.93089692963026416
+	.quad	0x3febe86ffa9ca0d8              # double 0.8721237082254687
+	.quad	0x3fe348f931357f04              # double 0.60265788661124065
+	.quad	0x3fee480399acd9e0              # double 0.94629077925383953
+	.quad	0x3fddbed4a8446334              # double 0.46477238113725439
+	.quad	0x3fe6a40ef43a9f34              # double 0.70752666188216162
+	.quad	0x3fa936c9d0f70860              # double 0.049246126898211839
+	.quad	0x3fb81412262b4338              # double 0.094056257551767497
+	.quad	0x3fc860430b90ce0c              # double 0.19043767990807259
+	.quad	0x3fd5452fe637a818              # double 0.33234784586113753
+	.quad	0x3fd49af995f15282              # double 0.32195891993368531
+	.quad	0x3fd087483ade2074              # double 0.25825696705624712
+	.quad	0x3fde353752523292              # double 0.47199805297058461
+	.quad	0x3fe2201a099d0f93              # double 0.56641866567268762
+	.quad	0x3fef88a5b47f3926              # double 0.98543057683290125
+	.quad	0x3fc2bbf0049e6a44              # double 0.14636039948966773
+	.quad	0x3fcfb781d216df54              # double 0.24778769262570199
+	.quad	0x3fecc1c0672c3c0c              # double 0.89865131522117414
+	.quad	0x3fcdcc54a8c3b3f8              # double 0.23279817810490022
+	.quad	0x3fb30cd122e62910              # double 0.074414320965079606
+	.quad	0x3fefcd1c886f41be              # double 0.99378801963216978
+	.quad	0x3fe853cd96aa7c90              # double 0.7602298681921571
+	.quad	0x3fc6822fa5677e88              # double 0.17584796501522626
+	.quad	0x3fd25bc9f49045d4              # double 0.28685234912071889
+	.quad	0x3fed978439d0cd27              # double 0.92474566738238628
+	.quad	0x3fd7037c4a729966              # double 0.35958773870733862
+	.quad	0x3fe9e81a3c683500              # double 0.80958282278302818
+	.quad	0x3fee3f9c7beb75d7              # double 0.94526504710273229
+	.quad	0x3fd86a5e04589038              # double 0.38149214195641745
+	.quad	0x3febf17899ad39cf              # double 0.87322645201657589
+	.quad	0x3fdb783354d18a60              # double 0.42921145709093445
+	.quad	0x3fdd91d8f1b34738              # double 0.46202682117028671
+	.quad	0x3fec03b158e3e130              # double 0.87545077668531768
+	.quad	0x3fc6d6bf6452f598              # double 0.17842857741008511
+	.quad	0x3fe6bcbcc25ed755              # double 0.71053922617896126
+	.quad	0x3fea0ac115a72fb4              # double 0.81381277302852206
+	.quad	0x3fc95464c4d615ac              # double 0.19788798915048511
+	.quad	0x3fa88aa787104ae0              # double 0.047932849156628654
+	.quad	0x3fe4e60f1ab6e130              # double 0.65308337419177143
+	.quad	0x3fea190e9e368c02              # double 0.81555872822752939
+	.quad	0x3fde7f86e5fa9cb6              # double 0.47653362711794089
+	.quad	0x3fd763d99bac17ac              # double 0.36546936228148286
+	.quad	0x3fce360d9ece999c              # double 0.23602457288980083
+	.quad	0x3fea35927d358b62              # double 0.81903957800782856
+	.quad	0x3fea036dbd5875ea              # double 0.81291853887131293
+	.quad	0x3fe2f4d23605d77b              # double 0.59238539267856483
+	.quad	0x3fe86c99fd410252              # double 0.76325702155743103
+	.quad	0x3fe93760d0578e3c              # double 0.78801003162192939
+	.quad	0x3fde2da19a102198              # double 0.4715351109048469
+	.quad	0x3fe4d0832c97bc3b              # double 0.65045317372813061
+	.quad	0x3fe92a46beaf036b              # double 0.7864106869020423
+	.quad	0x3fe740d3b14067b3              # double 0.72666344279718087
+	.quad	0x3fd6d4f8d500a620              # double 0.35674877930668636
+	.quad	0x3fd46ba1705b4be4              # double 0.31906925175024825
+	.quad	0x3fefb1823757223d              # double 0.99041853722253103
+	.quad	0x3fd24807641e8f56              # double 0.28564629342348746
+	.quad	0x3fdb9fc16e35ca80              # double 0.43162570727069038
+	.quad	0x3fb072224ce55578              # double 0.064241546414754214
+	.quad	0x3fec3a913c97b53d              # double 0.88214933237546911
+	.quad	0x3fd78714b8a2999e              # double 0.36761968642022136
+	.quad	0x3fee5de39829656e              # double 0.94896106452067186
+	.quad	0x3fe21875bf9f76b7              # double 0.56548583437298461
+	.quad	0x3fe8aa36e084ab2f              # double 0.77077812052934813
+	.quad	0x3fe541b2f7236a47              # double 0.66426990765769112
+	.quad	0x3fce9c3e21412c6c              # double 0.23914314864882458
+	.quad	0x3fd3906d2c484cc2              # double 0.30569009136634062
+	.quad	0x3feee0b542eaa4ab              # double 0.96493018216746884
+	.quad	0x3fe10daeb226c588              # double 0.53292021556096447
+	.quad	0x3fd901bb88fb3526              # double 0.39073074700430011
+	.quad	0x3fe7f6f3a1300eab              # double 0.74889546853997524
+	.quad	0x3fc7b644d00e0304              # double 0.18524990233347449
+	.quad	0x3fda58cb556889c2              # double 0.41166957226428391
+	.quad	0x3fdc1a4cab3fc3ce              # double 0.43910519336264719
+	.quad	0x3feb7576676bf050              # double 0.8580886859849759
+	.quad	0x3fe5701de9c5788f              # double 0.66993613871069779
+	.quad	0x3fd757529bc06ec2              # double 0.36470475397230129
+	.quad	0x3fec75d0e269b355              # double 0.88938183041828245
+	.quad	0x3fb05dde9c0c1e78              # double 0.06393233594655523
+	.quad	0x3fd88d34c8d1ab5e              # double 0.38361854182465105
+	.quad	0x3fe7ce816ac3ef00              # double 0.74395819523439854
+	.quad	0x3fcc1a161b35fe5c              # double 0.21954609230668864
+	.quad	0x3fd9b2dd7b1e2396              # double 0.40154206298080319
+	.quad	0x3fc74c404a519830              # double 0.18201449993938601
+	.quad	0x3fdecbb0e7df868e              # double 0.48118231433736802
+	.quad	0x3fc8ce6f01e9854c              # double 0.19379985421532309
+	.quad	0x3fe762c426e2bde1              # double 0.73080642313828659
+	.quad	0x3fd0611c7705e0f6              # double 0.255927196725238
+	.quad	0x3fe91b83544b2d42              # double 0.78460852111440027
+	.quad	0x3fe6cd07e0b0b955              # double 0.71252817044095684
+	.quad	0x3fe5e70892a72194              # double 0.68445233004699668
+	.quad	0x3fd77d0e70c7357e              # double 0.36700783742420373
+	.quad	0x3fc728a4e9dad9b4              # double 0.18092786234565283
+	.quad	0x3fe62fbb9dea0a4e              # double 0.69332676737423937
+	.quad	0x3fde2da872f8c372              # double 0.47153674342830876
+	.quad	0x3fe1562758802e82              # double 0.54176680836958746
+	.quad	0x3fe83ca17ae92379              # double 0.75740121847148523
+	.quad	0x3fe5c8a549e67287              # double 0.68074287828092472
+	.quad	0x3fe88b28e73d3753              # double 0.76698727764026342
+	.quad	0x3fe7cb0c887438fd              # double 0.74353624964876952
+	.quad	0x3fec26fe96e34a73              # double 0.87976006956371433
+	.quad	0x3fc3742d730b4da8              # double 0.15198295705213849
+	.quad	0x3fe5e382e7843a1a              # double 0.68402238100117363
+	.quad	0x3fed43783cd5ccb8              # double 0.91448604471079076
+	.quad	0x3fd28e30db02e7f6              # double 0.28992864024951304
+	.quad	0x3fd7157a7d0608fe              # double 0.36068594178517788
+	.quad	0x3fef24c719bb7143              # double 0.97323946977443431
+	.quad	0x3fc187d799104e34              # double 0.13695807431996487
+	.quad	0x3fd2e7a9b9b8d620              # double 0.29538958680072547
+	.quad	0x3fd6f4dcf218dbf4              # double 0.35869525568290261
+	.quad	0x3fe81abe7f608c6d              # double 0.75326466444347562
+	.quad	0x3feaedb39f16b210              # double 0.841516314239529
+	.quad	0x3f9102a8512b3700              # double 0.016611700014258268
+	.quad	0x3fe8c27880fbe1a0              # double 0.77373910133524148
+	.quad	0x3fa1bc1fc5d0ada0              # double 0.034638398072583287
+	.quad	0x3fd931f90edb6c9e              # double 0.39367510271922324
+	.quad	0x3fc3929cd54acc14              # double 0.1529117623773294
+	.quad	0x3fc01710b9c6a174              # double 0.12570389815415306
+	.quad	0x3feeeb3a2fed7854              # double 0.96621426926481968
+	.quad	0x3fd3f0afe1f851e4              # double 0.31156537120230454
+	.quad	0x3fee794fcd59997d              # double 0.95230856044217627
+	.quad	0x3fe5048d3c6072ec              # double 0.6568056277497738
+	.quad	0x3fe42878331db61e              # double 0.62994012817006584
+	.quad	0x3fee0808aeeeced2              # double 0.93848070303507769
+	.quad	0x3fe1e822d500e2b4              # double 0.55958692171323898
+	.quad	0x3fed899344ba1553              # double 0.92304385588856019
+	.quad	0x3fa975bf0bdf0630              # double 0.04972645778572049
+	.quad	0x3fe10be7cf72105c              # double 0.53270330921851494
+	.quad	0x3fd8e7aff94aca98              # double 0.38914107651650331
+	.quad	0x3fd11b7a942804f0              # double 0.26730217426673075
+	.quad	0x3fe1dc8e60888feb              # double 0.5581733594340198
+	.quad	0x3fe7e72ba8610cc9              # double 0.74696905981581907
+	.quad	0x3fef25bee027a42d              # double 0.97335761814350052
+	.quad	0x3fe9d758c444e979              # double 0.80753744443727193
+	.quad	0x3fec30731ade6780              # double 0.88091426132017148
+	.quad	0x3fd18324a01a35a0              # double 0.2736293376445591
+	.quad	0x3fe3d44af0c2721e              # double 0.61966464064932203
+	.quad	0x3fe81315d6a886dd              # double 0.75232974935007813
+	.quad	0x3f9535ec5b9c48c0              # double 0.020713513461551925
+	.quad	0x3fde4c59114ce582              # double 0.4734099072407717
+	.quad	0x3fe320d84b40eed4              # double 0.59775938699700726
+	.quad	0x3fe3f7e182143007              # double 0.62400889783884927
+	.quad	0x3fd4efe871053dd6              # double 0.32714282071262113
+	.quad	0x3fe18190fe32746f              # double 0.54706620834225628
+	.quad	0x3fb896c57c784c28              # double 0.096050589454805491
+	.quad	0x3fdb98f71151c3a2              # double 0.43121124926897825
+	.quad	0x3fb57f6ee19a6148              # double 0.083975725249165412
+	.quad	0x3fe1149e49ee22f8              # double 0.53376688422676377
+	.quad	0x3fc1abef61c21b14              # double 0.13805954240179885
+	.quad	0x3fed39f66350ca02              # double 0.91332549474310576
+	.quad	0x3fe21ae8c7b8d26c              # double 0.56578482635684457
+	.quad	0x3fcb933b9047a0cc              # double 0.21543068451797465
+	.quad	0x3feb8a6766acad9a              # double 0.86064500859849891
+	.quad	0x3fedc637431930ab              # double 0.93044627289920834
+	.quad	0x3fc922ad0d02ff40              # double 0.19637072692239066
+	.quad	0x3fec48f4c98ec153              # double 0.88390578619695714
+	.quad	0x3fde2cbb1988d932              # double 0.47148015493020801
+	.quad	0x3fbdd2decc2815c0              # double 0.1164988754681735
+	.quad	0x3fe93fd2f0e10840              # double 0.78904101416288341
+	.quad	0x3fec792ff66d37f2              # double 0.8897933781643117
+	.quad	0x3fade9cc17d87260              # double 0.05842435637552934
+	.quad	0x3fee84673fda33df              # double 0.95366251441157235
+	.quad	0x3fca98c380fddf98              # double 0.20778697775290023
+	.quad	0x3f7d76093ebf0d80              # double 0.0071926461350274584
+	.quad	0x3fe805ef5aafb2eb              # double 0.75072448455975171
+	.quad	0x3f969acb23730300              # double 0.02207486537804737
+	.quad	0x3fdef6dcac4d474a              # double 0.48381726099352262
+	.quad	0x3fe0b9ad3456bf5d              # double 0.52266559812958813
+	.quad	0x3fead592a8d4c0a7              # double 0.83857090925996125
+	.quad	0x3fedb3769c835851              # double 0.9281571442504718
+	.quad	0x3fd164a0dcd8dc02              # double 0.27176686827755259
+	.quad	0x3fd00f8e66850548              # double 0.25094947826081127
+	.quad	0x3fea5abe18d530e8              # double 0.82357697343971115
+	.quad	0x3fe854febeb3451f              # double 0.7603753780951229
+	.quad	0x3fe13e3098bac262              # double 0.53884153203950924
+	.quad	0x3fee92b6dcc2bc3c              # double 0.95540946118661151
+	.quad	0x3feff697856a668f              # double 0.99885154779185991
+	.quad	0x3fdf4f043d78b5fc              # double 0.48919778826788707
+	.quad	0x3fb4548ee36c3440              # double 0.079415255091775272
+	.quad	0x3fe4cbd3713fe02b              # double 0.64988109702153929
+	.quad	0x3fc352f5f3311768              # double 0.15096926092717955
+	.quad	0x3fd9081de8783a58              # double 0.39112041189301783
+	.quad	0x3fec9914bc82d2f2              # double 0.89368664568482203
+	.quad	0x3fe10f421704ccc7              # double 0.53311256881570379
+	.quad	0x3fb71854fbf072d0              # double 0.090215026386839314
+	.quad	0x3fd4c10fb8be4f5e              # double 0.3242835334906341
+	.quad	0x3fcca9e9a494f41c              # double 0.22393532310698638
+	.quad	0x3fea8c6179741eef              # double 0.82963632317929903
+	.quad	0x3fdbde2babe8202a              # double 0.43543521678702979
+	.quad	0x3fe8bbdd974dbce7              # double 0.77293281127449809
+	.quad	0x3fc75223eb818e00              # double 0.1821942233974454
+	.quad	0x3feee065ae2c16bb              # double 0.96489223497402265
+	.quad	0x3fceb07aee049944              # double 0.23976074811907655
+	.quad	0x3fef2f9272f75713              # double 0.97455713705378099
+	.quad	0x3fef214a965c6774              # double 0.97281388633130783
+	.quad	0x3fd7df086a6b59be              # double 0.37298784630311477
+	.quad	0x3fd72a90e840b442              # double 0.3619730251401202
+	.quad	0x3fe62150a31c058f              # double 0.69156677110020037
+	.quad	0x3fb9f202a5b651c0              # double 0.10134903474528922
+	.quad	0x3fccc081039814bc              # double 0.22462475467196963
+	.quad	0x3fa381b10adc07a0              # double 0.038098843169805052
+	.quad	0x3fcf185ee7bf9730              # double 0.24293123546447637
+	.quad	0x3fe1e0b5d3dbd3ab              # double 0.55868045214321194
+	.quad	0x3fc8eb61a738a2b8              # double 0.194683272028916
+	.quad	0x3fcbb7399eefac24              # double 0.21652908573682439
+	.quad	0x3fe943804dd045cd              # double 0.78948989103280953
+	.quad	0x3fe17bc3c06405b3              # double 0.546357990038976
+	.quad	0x3fd0b1a93fe7a5a2              # double 0.26084357491216725
+	.quad	0x3fde4c572ca38cc0              # double 0.47340945586456584
+	.quad	0x3feddfb3eeb517f7              # double 0.93355747816599333
+	.quad	0x3fb43c92aaef9638              # double 0.079049269420999546
+	.quad	0x3fddb50acf03ad00              # double 0.46417494026418638
+	.quad	0x3fd248dfaee1830e              # double 0.28569786146367526
+	.quad	0x3fe7faa7d2a5b6db              # double 0.74934760229163133
+	.quad	0x3fc59b317bed8e40              # double 0.16879862357301256
+	.quad	0x3fe246a46905f2b6              # double 0.57112331878996403
+	.quad	0x3fe5bb17b41f615b              # double 0.67908845119658723
+	.quad	0x3fb4c852eafb5848              # double 0.081181700104339005
+	.quad	0x3fd93ad96949bb4a              # double 0.39421687395126936
+	.quad	0x3fe745defcc6228d              # double 0.7272791802398203
+	.quad	0x3fe2bd8f9edc303e              # double 0.58563977267613843
+	.quad	0x3fde9ead08bd843e              # double 0.47843480924172244
+	.quad	0x3fda4b922de60568              # double 0.41086248857762664
+	.quad	0x3fddadd5c00da8b8              # double 0.46373504405222432
+	.quad	0x3fe4bc7bb5f58474              # double 0.64800820864560515
+	.quad	0x3fe4765d3d8da2ce              # double 0.6394487573826042
+	.quad	0x3fcb1ebcb33fb31c              # double 0.21187552215942496
+	.quad	0x3fbc063714d57420              # double 0.10946983584058545
+	.quad	0x3fcfd0f309c9bcfc              # double 0.24856412866527211
+	.quad	0x3feec290c47ac3b6              # double 0.96125067114745977
+	.quad	0x3fe07101ae1471d3              # double 0.5137947463986684
+	.quad	0x3fe59aad4db5dbf1              # double 0.67513146570024507
+	.quad	0x3feadd80aa3f50c8              # double 0.83953889132910664
+	.quad	0x3fde4e0807d2721e              # double 0.47351265682098809
+	.quad	0x3fc89fab7eb0cfa4              # double 0.19237273870532789
+	.quad	0x3fcec728400cab74              # double 0.24045279624382554
+	.quad	0x3fc3b3363a1a4784              # double 0.15390661084216728
+	.quad	0x3fec0a44fb29f175              # double 0.87625359588086715
+	.quad	0x3fd0851df5b2a2c4              # double 0.25812481874394799
+	.quad	0x3fd59bf14f269f22              # double 0.33764298181130148
+	.quad	0x3fab590643da4a00              # double 0.053413577826308511
+	.quad	0x3fe8aede7c8e1dea              # double 0.77134632422615579
+	.quad	0x3fd2f7835e289258              # double 0.29635700411953314
+	.quad	0x3fcd07d5cf113fc0              # double 0.22680161104881158
+	.quad	0x3fedeed525cbe3b9              # double 0.93540437109105945
+	.quad	0x3fecb0ef11283715              # double 0.89659837103838191
+	.quad	0x3fbe82637d73ded8              # double 0.11917707264717181
+	.quad	0x3fb0be8a30de7ac8              # double 0.06540740674106893
+	.quad	0x3feb230bb21e42c6              # double 0.84802803791725334
+	.quad	0x3f9c02ac1037c620              # double 0.027353943338260689
+	.quad	0x3fe246546825e5b4              # double 0.57108517018712357
+	.quad	0x3fec33d6f8b4d57d              # double 0.88132809234109255
+	.quad	0x3fc338fd0caff800              # double 0.15017665023327709
+	.quad	0x3fe03b9750e9d285              # double 0.50727430156128206
+	.quad	0x3fe2b0d16dbdba24              # double 0.58408423837483214
+	.quad	0x3fd9cfb80bac6a84              # double 0.40330315723409904
+	.quad	0x3f91c0a7b9dcaca0              # double 0.017336483687512172
+	.quad	0x3fa8a54f054e8320              # double 0.048136205098904705
+	.quad	0x3fefc7c557082ae3              # double 0.99313609121722057
+	.quad	0x3fe05ac5b943390a              # double 0.51108061012362893
+	.quad	0x3fe438a70359fa71              # double 0.63191557554803357
+	.quad	0x3fe74ec29d2c7eeb              # double 0.7283642835427292
+	.quad	0x3f61d795e3bbeb00              # double 0.0021779944926242356
+	.quad	0x3fe51c84da9ba014              # double 0.65973131844384847
+	.quad	0x3fe5045ea03ffc28              # double 0.65678340243164701
+	.quad	0x3fe02cbef9421c16              # double 0.50546215708971221
+	.quad	0x3fd589f258869412              # double 0.33654459614837251
+	.quad	0x3fbdb841cdaa9f40              # double 0.11609278937487222
+	.quad	0x3fc9c8b817e8cfdc              # double 0.20143796126796942
+	.quad	0x3fed8b728123e36b              # double 0.92327237341588153
+	.quad	0x3fbf80e6423debe0              # double 0.12306059949143799
+	.quad	0x3fb65f20011fba38              # double 0.087388992571256874
+	.quad	0x3fc26fd9592c18c4              # double 0.14403836111177359
+	.quad	0x3fede26701ca0d45              # double 0.93388700818506065
+	.quad	0x3fefafa95e3896e1              # double 0.99019306566762221
+	.quad	0x3fc3f703ab751308              # double 0.15597577926578077
+	.quad	0x3fd6fbfef6683af4              # double 0.35913061202238272
+	.quad	0x3fb10cb996108b00              # double 0.066600417267675738
+	.quad	0x3fe5c3910b4dd85d              # double 0.68012287338093425
+	.quad	0x3fc30373d9116ecc              # double 0.14854286288288276
+	.quad	0x3fef2e8dac04656c              # double 0.97443278882125872
+	.quad	0x3fed622a00113cd7              # double 0.91823291791106498
+	.quad	0x3fe8a2f184385ef4              # double 0.769890554659439
+	.quad	0x3fc0444718db00a8              # double 0.12708367074629234
+	.quad	0x3fd457de21824fe6              # double 0.31786301872602818
+	.quad	0x3fecb7ec375efe34              # double 0.89745150389348404
+	.quad	0x3fed2a79a3e615ea              # double 0.91143495570639499
+	.quad	0x3fc2054bee7c1980              # double 0.14078663964046356
+	.quad	0x3fe0d6a7d9214285              # double 0.52620308311641451
+	.quad	0x3fe77450f00ab593              # double 0.73294875033541229
+	.quad	0x3fb47f007badd0c8              # double 0.080062895007190993
+	.quad	0x3fe5f6c3dbf9cf87              # double 0.68637268985774902
+	.quad	0x3fe674d632e6377f              # double 0.70176229420916048
+	.quad	0x3fe15f75231ef0ff              # double 0.54290253505271824
+	.quad	0x3fe55d416e038fdb              # double 0.66763373839466611
+	.quad	0x3fe8e71040802500              # double 0.77820599172369498
+	.quad	0x3fe3d37227c70f09              # double 0.61956126946503887
+	.quad	0x3fc50d13ff9dffd0              # double 0.16446161252315372
+	.quad	0x3fc829db326e607c              # double 0.18877735102137538
+	.quad	0x3fdbff98229f057c              # double 0.43747523671125754
+	.quad	0x3fe842cf7454931e              # double 0.75815556259894712
+	.quad	0x3fea6dde8218a524              # double 0.82591176423480705
+	.quad	0x3fbb3444589f3578              # double 0.10626628078099098
+	.quad	0x3fe806f627902450              # double 0.75084979750784875
+	.quad	0x3fe9b1a39a2203f0              # double 0.80293445686413456
+	.quad	0x3fedba1f599d5ae2              # double 0.92897002699723097
+	.quad	0x3fc3e2c10d09d6e8              # double 0.15535748612062794
+	.quad	0x3f8d774cde154840              # double 0.014387703444899924
+	.quad	0x3fcd8d67733edb78              # double 0.23087781073783353
+	.quad	0x3fe47f128e255c7d              # double 0.64051177752379795
+	.quad	0x3fe386d99510977b              # double 0.61021117319317797
+	.quad	0x3fd08d9faac12f66              # double 0.25864402461296832
+	.quad	0x3febaed04342ec87              # double 0.86508954178806696
+	.quad	0x3fd64d8c34c1a56a              # double 0.34848313476557868
+	.quad	0x3fdf15212afd0098              # double 0.48566464613032556
+	.quad	0x3fd4fdea5719a4a6              # double 0.32799776559711302
+	.quad	0x3fe813f9dea9f41a              # double 0.75243848313369033
+	.quad	0x3fcdfa815e5d553c              # double 0.2342073164715347
+	.quad	0x3fd47b75916d66ec              # double 0.3200353546322805
+	.quad	0x3fba2cf9a8b30560              # double 0.10224876755366585
+	.quad	0x3fe44aa4283613e8              # double 0.63411147931821876
+	.quad	0x3feb96e1d3e8aba0              # double 0.86216822994662223
+	.quad	0x3f7f1f4bd7854e80              # double 0.0075982058118203577
+	.quad	0x3fe217f71a3ee311              # double 0.56542544485191304
+	.quad	0x3fb8174f1432e0c0              # double 0.094105665618260836
+	.quad	0x3fe4a60bb284572a              # double 0.64526924959748055
+	.quad	0x3fccd28d03f484ac              # double 0.22517550175783663
+	.quad	0x3fda072f60f1d670              # double 0.40668854205373517
+	.quad	0x3fefe2af64b30989              # double 0.99642152469486788
+	.quad	0x3fe77e8534009288              # double 0.73419437557875344
+	.quad	0x3fe5860826c11587              # double 0.67261130875765296
+	.quad	0x3fce5dc52c1387bc              # double 0.23723663952028839
+	.quad	0x3feb5411cff52768              # double 0.85401239983296495
+	.quad	0x3fd69df60d0b43f0              # double 0.35339118264988567
+	.quad	0x3fd25ddada1b5b0a              # double 0.28697844790933458
+	.quad	0x3fb4743c1c4592b0              # double 0.079898602392470818
+	.quad	0x3fd24d43a92aac14              # double 0.2859658386248054
+	.quad	0x3fe62bb013bd5b14              # double 0.69283298354534617
+	.quad	0x3fe5d1dc5928ea2b              # double 0.68186776556041673
+	.quad	0x3fdb5487c9ce82e0              # double 0.42703432758029969
+	.quad	0x3fec517e811831f4              # double 0.88494801725170058
+	.quad	0x3fe529233aa645de              # double 0.66127168135625047
+	.quad	0x3fdf995c91ea703c              # double 0.49373544931018265
+	.quad	0x3fec01966fe0d2e6              # double 0.87519380427565063
+	.quad	0x3f9de8a74649d5e0              # double 0.029207814850868874
+	.quad	0x3fe991a40fb51ff2              # double 0.79902842586397882
+	.quad	0x3fc0f0c2fb7775b0              # double 0.13234746245045192
+	.quad	0x3fce6047650f6580              # double 0.23731319841935417
+	.quad	0x3fe891f1dcb1a239              # double 0.76781552414201493
+	.quad	0x3fdab2ae5e3f39e8              # double 0.41715583041960125
+	.quad	0x3fe454fdf31b5d0f              # double 0.63537499887289239
+	.quad	0x3fd41cb83ba2c350              # double 0.31425290893371471
+	.quad	0x3fe0e4120eee8dd6              # double 0.52784064213158888
+	.quad	0x3fe0d20d1f7aed3f              # double 0.52564102314446604
+	.quad	0x3fe1fc169a38571b              # double 0.56202249642476276
+	.quad	0x3fb5af92ecf8fc08              # double 0.08471029553855669
+	.quad	0x3fb8754d57b40bd0              # double 0.095539888297977215
+	.quad	0x3fec43e4e58c1700              # double 0.88328785737459725
+	.quad	0x3fede286504f021c              # double 0.93390193639067176
+	.quad	0x3fc33adf4e9bedd0              # double 0.15023413980803335
+	.quad	0x3f982fb031af75c0              # double 0.023619416267924853
+	.quad	0x3fbfd5ad9c963568              # double 0.12435422013205299
+	.quad	0x3fd2d62713ee9976              # double 0.29432084032523365
+	.quad	0x3fefd57df3687d73              # double 0.99481103459031172
+	.quad	0x3fd80cedef97b142              # double 0.37578915021619619
+	.quad	0x3feb92792912944c              # double 0.86163003942477578
+	.quad	0x3fe14327f1bc9289              # double 0.5394477578561957
+	.quad	0x3fd27eb805955802              # double 0.28898430390597707
+	.quad	0x3fd54de6e83c13f0              # double 0.33287975958984273
+	.quad	0x3fd11b945ccec166              # double 0.26730832160230589
+	.quad	0x3fa5003435696b00              # double 0.041017180938714759
+	.quad	0x3fe0b995795abe3c              # double 0.52265428258937829
+	.quad	0x3faf3c5ba4aedc60              # double 0.061007369854842564
+	.quad	0x3fe98ecea4ff81fe              # double 0.79868252016245811
+	.quad	0x3fe6f50cc8129b22              # double 0.71741332127280466
+	.quad	0x3f9a45c423b87580              # double 0.025656761818131368
+	.quad	0x3fe7237c6f21b10d              # double 0.72308179574386744
+	.quad	0x3fde2fffe18bdb48              # double 0.47167965913779542
+	.quad	0x3fdf61c7dbcb651a              # double 0.49034306015308149
+	.quad	0x3fded75858fd970e              # double 0.48189362230765276
+	.quad	0x3fddb537d77c05fe              # double 0.46418567698864865
+	.quad	0x3fd7c5f1fa1a62c8              # double 0.37145661758544835
+	.quad	0x3fc40f26d23d5de8              # double 0.15671239152537386
+	.quad	0x3fd6a43d8a8f4874              # double 0.35377443820210108
+	.quad	0x3fec2dd575663965              # double 0.88059494905045865
+	.quad	0x3fd270881dbe1022              # double 0.28811839012655771
+	.quad	0x3fd3135e88e4117e              # double 0.29805720680476344
+	.quad	0x3fe4d9e749302dc2              # double 0.6515995435196873
+	.quad	0x3fd524637f2d5880              # double 0.33034598750726474
+	.quad	0x3fdd797c7e0cb1ae              # double 0.46053993520288372
+	.quad	0x3fe0652f91ff7d79              # double 0.51235178485141752
+	.quad	0x3fdd54d48074cbb8              # double 0.45830261749795964
+	.quad	0x3fe8bebd0c3f6801              # double 0.77328350441098348
+	.quad	0x3fed21ea4fd520e7              # double 0.91039004890720043
+	.quad	0x3fe8cd74ff9ea22d              # double 0.77508020330157523
+	.quad	0x3fe2bf1eba048e0b              # double 0.58583008128738479
+	.quad	0x3febdb97f098dbf8              # double 0.87055584899542193
+	.quad	0x3fe75daffa2ab304              # double 0.730186451537151
+	.quad	0x3fe980b13e570fc4              # double 0.7969595162944576
+	.quad	0x3fa686823f364a30              # double 0.043994970527951316
+	.quad	0x3fe6e5bcda0f319f              # double 0.7155441531154344
+	.quad	0x3fd5e7d4b10b32aa              # double 0.34227483071735298
+	.quad	0x3fdde9f604f9dc80              # double 0.4674048470109895
+	.quad	0x3fe2bb56372d5e9b              # double 0.58536825920869562
+	.quad	0x3fe3d8ecafb1237b              # double 0.62023004832108997
+	.quad	0x3fd60386add13ca4              # double 0.34396521543835434
+	.quad	0x3fe8d40dbfe0fbd3              # double 0.77588546253525192
+	.quad	0x3fa447e1d89efb50              # double 0.039610917752261998
+	.quad	0x3fc902b55c7ed874              # double 0.19539515510922778
+	.quad	0x3fd686a534418796              # double 0.35196809867022105
+	.quad	0x3fe059772d39152b              # double 0.5109210856686891
+	.quad	0x3fccc77aec847530              # double 0.22483765171720327
+	.quad	0x3fe0733679532cd8              # double 0.51406406112928504
+	.quad	0x3fca32906fc64a6c              # double 0.2046680970930369
+	.quad	0x3fdc5c6c54844b0c              # double 0.44314106229391892
+	.quad	0x3fdb5224ab65dcc0              # double 0.42688862550808082
+	.quad	0x3fb8192b0748ed00              # double 0.094134034422427959
+	.quad	0x3fda75ca20e9eed6              # double 0.41343930448759403
+	.quad	0x3fed66ed1b2f69f7              # double 0.91881423291789488
+	.quad	0x3fe3f494b5229f1b              # double 0.62360606554009068
+	.quad	0x3fd7c66829d80646              # double 0.37148479543984469
+	.quad	0x3fedcaf8d489c165              # double 0.93102685462330881
+	.quad	0x3fe7adef7e37bfc9              # double 0.73998236324222788
+	.quad	0x3fd3f84936d7f1c0              # double 0.31202917438329436
+	.quad	0x3fcf109b04daac2c              # double 0.24269426095028857
+	.quad	0x3f9bcd4205980800              # double 0.027150184241698128
+	.quad	0x3fea8d9eb61b8af2              # double 0.82978759353531317
+	.quad	0x3feece1e96a228d4              # double 0.96266107006638401
+	.quad	0x3fb44186fc665d20              # double 0.079124867077883909
+	.quad	0x3fcce8c55a1252c8              # double 0.22585360429788737
+	.quad	0x3fee8e8b13c9d239              # double 0.95490030159869044
+	.quad	0x3fd947f3fe0b3834              # double 0.39501666840522209
+	.quad	0x3fec1545da911eb8              # double 0.87759678543894548
+	.quad	0x3feb2d59cc108aa3              # double 0.84928598266954614
+	.quad	0x3f780ea4fc156f00              # double 0.0058733410563396315
+	.quad	0x3fb586d319d15a80              # double 0.084088510325594612
+	.quad	0x3fe49cb06b6e864b              # double 0.64412709219704689
+	.quad	0x3fd70cf5bb3a7714              # double 0.36016600879689631
+	.quad	0x3fe0c68d6508780d              # double 0.52423734410308642
+	.quad	0x3fe77224137c0302              # double 0.73268321805525738
+	.quad	0x3fccbc21e92dbdf0              # double 0.22449134717633923
+	.quad	0x3fcf60f42ec467e8              # double 0.24514629634432983
+	.quad	0x3fdb89e5d28e92d0              # double 0.43029161035728425
+	.quad	0x3fbdd5078261e160              # double 0.11653181965983128
+	.quad	0x3fe017f5ad33e567              # double 0.50292476490646443
+	.quad	0x3fe495125a348ac8              # double 0.64319722765170528
+	.quad	0x3fe1d9eb138f6c1f              # double 0.55785135097847049
+	.quad	0x3feb529ee37eddff              # double 0.85383552963952514
+	.quad	0x3feade1288728681              # double 0.83960844659686995
+	.quad	0x3fddeb7dc8760d96              # double 0.46749825073512719
+	.quad	0x3fdeeefef1722658              # double 0.48333715037060676
+	.quad	0x3fd39b5b61cf8584              # double 0.30635723640269696
+	.quad	0x3fefe83a7254cb27              # double 0.99709818201367717
+	.quad	0x3feb9fb08a9be5ca              # double 0.86324336120667877
+	.quad	0x3fe0f3f19c0a3626              # double 0.5297782943395688
+	.quad	0x3fe005e5223649ec              # double 0.50071961099666629
+	.quad	0x3fe7eb894755cb61              # double 0.7475019830002162
+	.quad	0x3fc405c1e0fb823c              # double 0.15642570004912837
+	.quad	0x3fdddf1366853abe              # double 0.4667404652763415
+	.quad	0x3fe0b0d477c6b9f8              # double 0.52158568757823698
+	.quad	0x3fdf53eaa46a7e74              # double 0.48949686104058476
+	.quad	0x3fef951281f39b06              # double 0.98694730168503564
+	.quad	0x3fe8efdd16c3ea2e              # double 0.7792802281031237
+	.quad	0x3fe21fd14b7401e9              # double 0.56638397919601602
+	.quad	0x3fcba30ef552f648              # double 0.21591364840235117
+	.quad	0x3fea375d4c389cf1              # double 0.8192583550161584
+	.quad	0x3fef186f1d07cdda              # double 0.97173267049805223
+	.quad	0x3fe7e42a2b89130c              # double 0.74660213950173349
+	.quad	0x3fe328ef7fa36234              # double 0.59874701432551669
+	.quad	0x3fd185a2bd34ade8              # double 0.27378147580267731
+	.quad	0x3faf9901308d4210              # double 0.061714207817775812
+	.quad	0x3fec5323a8a687b1              # double 0.88514883937408773
+	.quad	0x3fee40e9b91a30f0              # double 0.94542394783777972
+	.quad	0x3fa5257054eb4200              # double 0.041301260343633572
+	.quad	0x3fecd1c47c327c80              # double 0.9006063867308427
+	.quad	0x3fe2dcc1f3649f74              # double 0.58944795167643216
+	.quad	0x3fcd88290fe770b0              # double 0.23071778561177814
+	.quad	0x3fece278b99f3f85              # double 0.90264545683201958
+	.quad	0x3fef595ae2092dbb              # double 0.97965759418132536
+	.quad	0x3feb915a96d119e4              # double 0.86149339157492166
+	.quad	0x3fedbb138cdcaeb1              # double 0.92908647071950246
+	.quad	0x3fd0b375de768002              # double 0.26095339512721705
+	.quad	0x3fd421ae71222644              # double 0.31455575035269967
+	.quad	0x3fd52e8e59543666              # double 0.33096655581980483
+	.quad	0x3f9b440e0fb59da0              # double 0.026626796444728762
+	.quad	0x3fd43f0a6403b7aa              # double 0.31634769217532244
+	.quad	0x3feb29127b31ab11              # double 0.84876369534808493
+	.quad	0x3fdeec168fa9db36              # double 0.483159675880802
+	.quad	0x3fe9b8efa9cbebd9              # double 0.80382521785156336
+	.quad	0x3fe4132e0992e0e2              # double 0.62734128827926505
+	.quad	0x3fe8d99557cda696              # double 0.77656047009550622
+	.quad	0x3fc1c0161436e00c              # double 0.13867450701741324
+	.quad	0x3fc9779efb8a1ba4              # double 0.19896304399682407
+	.quad	0x3fead249dd3fde2a              # double 0.83816998684682642
+	.quad	0x3fe38aa085534fd7              # double 0.61067224540829101
+	.quad	0x3fdbad98d0be393a              # double 0.43247051606239817
+	.quad	0x3fdbbe12781e7944              # double 0.43347608309149543
+	.quad	0x3fdbbc40b0e381fa              # double 0.4333650329045039
+	.quad	0x3fdc939bf2dcbafa              # double 0.44650934903158623
+	.quad	0x3fef2a22373221e5              # double 0.97389326839862333
+	.quad	0x3feb92387515e736              # double 0.86159918659470836
+	.quad	0x3fc6f8adea2465b0              # double 0.17946409161303967
+	.quad	0x3fed990a157a31ee              # double 0.92493156618871608
+	.quad	0x3fdfba42722e31ac              # double 0.49574338102754711
+	.quad	0x3febb3b78bae9dce              # double 0.86568810731562862
+	.quad	0x3fdb8a748fd4bf7a              # double 0.4303256420707765
+	.quad	0x3fde37c83f737c22              # double 0.47215467640302411
+	.quad	0x3feb6830815c2572              # double 0.85646844163527036
+	.quad	0x3fc72ce672bcffe8              # double 0.18105774500327176
+	.quad	0x3fe6bec56d80695d              # double 0.71078750025780446
+	.quad	0x3fd861437e9f8172              # double 0.38093650212797237
+	.quad	0x3fe1137ad0a8c0c3              # double 0.53362789872883132
+	.quad	0x3fb86eed3d5e3808              # double 0.095442607386047595
+	.quad	0x3fcb0b7efe017b5c              # double 0.21128833201052089
+	.quad	0x3fdad46eec9a4dca              # double 0.41921589952218297
+	.quad	0x3f9ab3885df56640              # double 0.02607548783757907
+	.quad	0x3feb7294a770cd59              # double 0.85773689940689757
+	.quad	0x3fec02855e8c1664              # double 0.87530773607495548
+	.quad	0x3fe225148e504edd              # double 0.56702640338559329
+	.quad	0x3fd1bf11c1ba6f68              # double 0.27728694838309886
+	.quad	0x3fdca8af3a143f80              # double 0.44779568359171407
+	.quad	0x3fbe52c81e733528              # double 0.11845064872178013
+	.quad	0x3fe19d23f9b51299              # double 0.55043219347915617
+	.quad	0x3fe52c07c06cff93              # double 0.66162479003104335
+	.quad	0x3fea5d755b87eb1c              # double 0.82390849949965483
+	.quad	0x3fbfbba06951b318              # double 0.12395670481937449
+	.quad	0x3fe84ef9d2015b7d              # double 0.75964060799275013
+	.quad	0x3fefba3521be3332              # double 0.9914804133455617
+	.quad	0x3fd3e9bb05065074              # double 0.31114078036012605
+	.quad	0x3fa2bae753041d20              # double 0.036582211383626495
+	.quad	0x3fedb0ca9ddb832e              # double 0.92783099013840853
+	.quad	0x3fdbe0bc0779af8e              # double 0.43559170465481933
+	.quad	0x3fed3af1a9b05b05              # double 0.91344531195031264
+	.quad	0x3fe08a761c73d5c3              # double 0.51690202290654275
+	.quad	0x3faf24b815f9d900              # double 0.060827019388783654
+	.quad	0x3fd3fae400148b5a              # double 0.31218814857327504
+	.quad	0x3fda529fcb56006c              # double 0.41129298073793197
+	.quad	0x3fec95f9f47305a0              # double 0.89330766433720398
+	.quad	0x3fe532a4bb09e1e6              # double 0.66243206530549226
+	.quad	0x3fa9effb3bacdcb0              # double 0.050659037623000613
+	.quad	0x3feebc5232cc9756              # double 0.9604884140178267
+	.quad	0x3f81b5b2d0783480              # double 0.0086473436231477852
+	.quad	0x3fd0232ada37da28              # double 0.25214644728058255
+	.quad	0x3fe74fc7227cdd9c              # double 0.72848850952043476
+	.quad	0x3fc0921d21adcfac              # double 0.12945903915863022
+	.quad	0x3fbdd65327d2f380              # double 0.11655158731714543
+	.quad	0x3fed6ac41bbd0e42              # double 0.91928296487498806
+	.quad	0x3fe1e60a894d7146              # double 0.55933119599243564
+	.quad	0x3f8013c0b3ce5480              # double 0.0078501753685407127
+	.quad	0x3fbacb833efe7e00              # double 0.10466785705511228
+	.quad	0x3fd59006bb3440e0              # double 0.33691566735889289
+	.quad	0x3fcc6ca7ab248c60              # double 0.22206588608341615
+	.quad	0x3fc242ed37464ae8              # double 0.14266743849710584
+	.quad	0x3febca6c38f5d033              # double 0.86845980763474129
+	.quad	0x3fd7958750535b96              # double 0.36850149959848844
+	.quad	0x3fcbdea071200fd0              # double 0.21773152850812361
+	.quad	0x3fe0c41a54f8840b              # double 0.52393833728649619
+	.quad	0x3fe45b4dabd3259d              # double 0.63614543494729825
+	.quad	0x3fc4ce87e2908d34              # double 0.16255281985022807
+	.quad	0x3fe77247bb08b42b              # double 0.73270021944120367
+	.quad	0x3fe54e4980390a8f              # double 0.66580653232115761
+	.quad	0x3fe24e12cb94b23a              # double 0.57203044664272018
+	.quad	0x3f84658a4f7226c0              # double 0.009959297704216552
+	.quad	0x3fee113bfebc269c              # double 0.93960380318567926
+	.quad	0x3fde4877e3d27e08              # double 0.47317311523690408
+	.quad	0x3fdf4196a437b270              # double 0.48837820088264206
+	.quad	0x3fda4721ad89135a              # double 0.41059152552434386
+	.quad	0x3fe93ac8c60b3604              # double 0.78842581444195092
+	.quad	0x3feb258a0ed8529b              # double 0.84833243274131875
+	.quad	0x3fe79601d5873cec              # double 0.73706142143956077
+	.quad	0x3f8a334595e6f600              # double 0.012793105733062582
+	.quad	0x3fc99d9584408050              # double 0.20012158353438503
+	.quad	0x3febea4b03cac53d              # double 0.87235022297514997
+	.quad	0x3fb9dab9e3428720              # double 0.10099374578797127
+	.quad	0x3fc0dad169d3767c              # double 0.13167779605184993
+	.quad	0x3feb0761f36c0c53              # double 0.84465119880077066
+	.quad	0x3fe46435f98120e6              # double 0.63723276835756049
+	.quad	0x3fdf9a5a8f70884a              # double 0.49379600532313772
+	.quad	0x3fefafb9988b7036              # double 0.9902008036983776
+	.quad	0x3fe40c5d5066b8ef              # double 0.62650933936472863
+	.quad	0x3fdbf2066bb57fac              # double 0.43664703863577858
+	.quad	0x3fd8b85ba5ded272              # double 0.38625231931954496
+	.quad	0x3fdd5ceadf164a8c              # double 0.45879623208853881
+	.quad	0x3fd7a886da5577ca              # double 0.36966105767885138
+	.quad	0x3fe9cb584e5cf896              # double 0.80607238107019685
+	.quad	0x3fe0999dba3459d7              # double 0.51875196807923885
+	.quad	0x3fefd9146d6f2a99              # double 0.99524899839282732
+	.quad	0x3fd2614a091e5d60              # double 0.28718806162347299
+	.quad	0x3fa7f5d7352d7110              # double 0.046797490350146131
+	.quad	0x3fe3269fd4687d6b              # double 0.59846488462419012
+	.quad	0x3fce38a7b2ef2a84              # double 0.23610397564910468
+	.quad	0x3fdae0eaeb0bada8              # double 0.41997788385080037
+	.quad	0x3fe020e96ca0a1b3              # double 0.50401755539228643
+	.quad	0x3fdc6539eb4d60f0              # double 0.44367835978256576
+	.quad	0x3fea86127ca089ff              # double 0.82886623707992146
+	.quad	0x3fcc19ac09454db4              # double 0.2195334477679417
+	.quad	0x3fc6b4014e98b8ec              # double 0.1773683198711703
+	.quad	0x3fc686eef9599ad0              # double 0.17599284339231369
+	.quad	0x3fb0167fbc1491e8              # double 0.062843306940130739
+	.quad	0x3fd52099284e3d2c              # double 0.33011464058013718
+	.quad	0x3fd92f4c87e0c534              # double 0.39351189870201897
+	.quad	0x3fbfb203d0f54cb0              # double 0.12381004191893186
+	.quad	0x3fd6dc8c790827b0              # double 0.35721122569577357
+	.quad	0x3fe2aefeefcab241              # double 0.58386179766018398
+	.quad	0x3fe03760b205ea30              # double 0.50675997514855986
+	.quad	0x3fc353196c727654              # double 0.15097348971623836
+	.quad	0x3feb9ad185f63276              # double 0.86264873661418906
+	.quad	0x3feea75a383f63ed              # double 0.95792876230109202
+	.quad	0x3fc1600be63e2ff4              # double 0.13574360601739921
+	.quad	0x3fde92d514c5aa2e              # double 0.47771193531540035
+	.quad	0x3fddfe75c7e48a36              # double 0.46865601082587049
+	.quad	0x3fde4b77a31e5912              # double 0.47335616044564788
+	.quad	0x3fecd3df052d9db1              # double 0.90086318026890499
+	.quad	0x3fdfde0d50bbbea6              # double 0.4979279793178456
+	.quad	0x3fe508c44da13f1c              # double 0.65732016717990716
+	.quad	0x3fefe23765c8f223              # double 0.9963643062579347
+	.quad	0x3fe6c49ec8e82440              # double 0.71150149573907839
+	.quad	0x3fe85386a181f43a              # double 0.76019603294810811
+	.quad	0x3fe8797e999f58b2              # double 0.76483087543853956
+	.quad	0x3fe1cfb9a3d7adaa              # double 0.55660707474219362
+	.quad	0x3fd17dc9e437fe6e              # double 0.27330252921090092
+	.quad	0x3fe58437bd2e0727              # double 0.67238985966853171
+	.quad	0x3fe30ab6b4d28783              # double 0.5950578242957224
+	.quad	0x3fe928773f0517fa              # double 0.78618967350553182
+	.quad	0x3fe849be040cbc49              # double 0.75900173941580207
+	.quad	0x3fcb6f7f4be85308              # double 0.21434012609884001
+	.quad	0x3fbb4ceb9ea56be0              # double 0.10664246199796379
+	.quad	0x3fd9df06ffbabd12              # double 0.40423750852183205
+	.quad	0x3fd7dd055bfcb4d6              # double 0.37286504729384029
+	.quad	0x3fb23f56dea8cc78              # double 0.071278981552312604
+	.quad	0x3fe07e8774559417              # double 0.5154454490808601
+	.quad	0x3f7de91fa55f2a00              # double 0.0073024021311973719
+	.quad	0x3feb872b25b65920              # double 0.86025006642993062
+	.quad	0x3fcb85bbd1b9d994              # double 0.21501872768903907
+	.quad	0x3fe5ccc7b32b683b              # double 0.68124756807379272
+	.quad	0x3feb42b206cd9747              # double 0.85189153031090192
+	.quad	0x3fe09a58d8150b3c              # double 0.51884119227938852
+	.quad	0x3feee4587bfbeb09              # double 0.96537422385822069
+	.quad	0x3febaa50db4be610              # double 0.86454050856917952
+	.quad	0x3feb7a2939d70171              # double 0.85866223618363169
+	.quad	0x3fe92cca0074cb8f              # double 0.7867174157057536
+	.quad	0x3fba747067efc3b8              # double 0.10333921945108571
+	.quad	0x3fef2a23ee119cff              # double 0.973894085863236
+	.quad	0x3fe624bee3b12f37              # double 0.69198555441969389
+	.quad	0x3fed050d4f50acc7              # double 0.90686669818151067
+	.quad	0x3fcbc0ee4e4bf7b0              # double 0.21682528327067763
+	.quad	0x3fe601c4712280bb              # double 0.68771574112545097
+	.quad	0x3fef0a50c2c5db05              # double 0.97000921289040376
+	.quad	0x3fc521f565146508              # double 0.16509883342295262
+	.quad	0x3febc5586fec92d9              # double 0.8678400217073331
+	.quad	0x3fe7d496ae2f6baa              # double 0.74470075626901644
+	.quad	0x3fee15566d606b5d              # double 0.94010468828797011
+	.quad	0x3fe5630f25cdbc7e              # double 0.66834218390967215
+	.quad	0x3fed92ca21fa8d51              # double 0.92416865002125281
+	.quad	0x3fc0907689b0bacc              # double 0.12940866206323276
+	.quad	0x3fbe6a0cab57f7b8              # double 0.11880568679040848
+	.quad	0x3fbf61ae8e8f3a50              # double 0.12258425693946973
+	.quad	0x3fe51a40b5577e83              # double 0.659454683478501
+	.quad	0x3fb1867ada24b538              # double 0.068458250291503542
+	.quad	0x3fdb3f15a1ee15d8              # double 0.42572537244299502
+	.quad	0x3f74f91fc6873500              # double 0.0051203957777492537
+	.quad	0x3fe0d960cf658c55              # double 0.52653542048609359
+	.quad	0x3fedf5e75877d0d2              # double 0.93626754073059204
+	.quad	0x3fe34b8933556b6a              # double 0.60297069574458573
+	.quad	0x3fd036f21e16992c              # double 0.25335362375553205
+	.quad	0x3feea2b5744c37d3              # double 0.95736191477203147
+	.quad	0x3fe8ea65bb843396              # double 0.77861296295451399
+	.quad	0x3fdc1168e027c052              # double 0.43856260194934749
+	.quad	0x3fac0bceb3f19b60              # double 0.054777583566468335
+	.quad	0x3fe5f1814798fd2d              # double 0.68573059066685504
+	.quad	0x3fbedc3611b29b38              # double 0.12054765636513032
+	.quad	0x3fe18c944bfb5161              # double 0.54841055717637854
+	.quad	0x3fdf02f0f100b694              # double 0.48455451522281945
+	.quad	0x3fdec63c0c7cc036              # double 0.48084927768195784
+	.quad	0x3febc36de3097e4b              # double 0.8676061090772661
+	.quad	0x3fec647f4c343c35              # double 0.88726773151018412
+	.quad	0x3fccfe06431e5ddc              # double 0.22650221135403015
+	.quad	0x3fe9ab67d592d718              # double 0.80217353547661485
+	.quad	0x3fc9477725e12128              # double 0.19749345159130738
+	.quad	0x3fca6f9c2659f8ac              # double 0.20653106567983082
+	.quad	0x3fe539dbf3629abe              # double 0.66331288849035963
+	.quad	0x3fd242adf984a5f6              # double 0.2853197991085773
+	.quad	0x3fc8dc9f242df8d0              # double 0.19423283831196736
+	.quad	0x3fe4b1a24acf763d              # double 0.64668383227735371
+	.quad	0x3fe2dc9d394a00e0              # double 0.58943043889305713
+	.quad	0x3fd98dfc12cb7626              # double 0.39929105601717862
+	.quad	0x3fea0c2844bd87d7              # double 0.81398404527521506
+	.quad	0x3fda7cd35798af6c              # double 0.41386874727572009
+	.quad	0x3fd931bb35919ac0              # double 0.3936603568203445
+	.quad	0x3fc119f6a592a11c              # double 0.1336048420391841
+	.quad	0x3fd7d5f47fc5a5ec              # double 0.37243378141155747
+	.quad	0x3fefe62ef1796ee7              # double 0.99684855616530121
+	.quad	0x3fe5167204865b7d              # double 0.65898991473919433
+	.quad	0x3fcc7cdf5e4f8a5c              # double 0.2225608072759141
+	.quad	0x3fea5ddfd9f9eba0              # double 0.82395927976118699
+	.quad	0x3fe439c5ae47695e              # double 0.63205226935250969
+	.quad	0x3fd053f3ced8afbe              # double 0.25512404632422292
+	.quad	0x3fdefb6a65e56696              # double 0.48409519148626978
+	.quad	0x3fdd01f26bea911e              # double 0.45324383295725734
+	.quad	0x3fe03cd15fc842b0              # double 0.50742405612444053
+	.quad	0x3fe150aedb468c32              # double 0.54109900309811665
+	.quad	0x3fdd783ceb5d34ea              # double 0.46046374306463511
+	.quad	0x3fec871f013108e7              # double 0.89149427635882439
+	.quad	0x3fda79400439b1c0              # double 0.41365051663049357
+	.quad	0x3fe60582e0e91748              # double 0.68817275932153965
+	.quad	0x3fe42d6aeef20ed9              # double 0.63054415387201879
+	.quad	0x3fcf3be0baf6d954              # double 0.24401482705224942
+	.quad	0x3fee763db15ed83e              # double 0.95193371431992779
+	.quad	0x3fed85f12bd60d3c              # double 0.92260035096879944
+	.quad	0x3fe09222fc83d842              # double 0.51783894843425338
+	.quad	0x3fc6e1b25160006c              # double 0.17876271222485529
+	.quad	0x3fe729551ce38fc7              # double 0.72379546778074022
+	.quad	0x3fe0685a8b3f56a7              # double 0.51273848721276216
+	.quad	0x3fd05a0b4873cb38              # double 0.25549585414335096
+	.quad	0x3fd10342c6c6324a              # double 0.26582402621787493
+	.quad	0x3fa0f6b90c1cd2b0              # double 0.033132345894420268
+	.quad	0x3fd9197a02aa48c0              # double 0.39217996845503578
+	.quad	0x3fbc8ea7988d7f50              # double 0.11155173754150138
+	.quad	0x3fe6dcdab2360030              # double 0.71445975119423188
+	.quad	0x3fcc2a1262207f90              # double 0.22003392974238212
+	.quad	0x3fe2cdea26536e70              # double 0.58763606534507851
+	.quad	0x3fef0369e238ba85              # double 0.96916670020966988
+	.quad	0x3fd5d67ffbae2d9e              # double 0.3412170369926687
+	.quad	0x3fe262725c50713d              # double 0.57451742200968392
+	.quad	0x3fed6436ea14e48c              # double 0.91848321646752273
+	.quad	0x3fe65641636e3e43              # double 0.6980292264942779
+	.quad	0x3fe4a2f72a7c4791              # double 0.64489324853842522
+	.quad	0x3fe0994f243943f4              # double 0.51871449541988435
+	.quad	0x3fe2c953fc3d0899              # double 0.58707618012728624
+	.quad	0x3fec05dbd05599d8              # double 0.87571516695316642
+	.quad	0x3fe7e64a4d049911              # double 0.74686160128183776
+	.quad	0x3fe91ffae2cb966c              # double 0.78515381141614914
+	.quad	0x3fdb599146bf4b46              # double 0.4273417654887236
+	.quad	0x3feb5f471333861a              # double 0.85538057089087549
+	.quad	0x3fd71aa0c5b64a44              # double 0.36100024516887097
+	.quad	0x3fd776cd95d39226              # double 0.36662616378296986
+	.quad	0x3fe9ed4153a6d9d4              # double 0.8102118142913306
+	.quad	0x3fd6ee736c0fcac4              # double 0.35830388596438589
+	.quad	0x3fcb5a8806eddc50              # double 0.21370029772126253
+	.quad	0x3fe1c34a7ef8f5ea              # double 0.55508923339192262
+	.quad	0x3fd4396ed85a7818              # double 0.31600543144475202
+	.quad	0x3fe7f4847b69a98b              # double 0.74859832862903042
+	.quad	0x3fde4ec3cb292560              # double 0.47355742301859571
+	.quad	0x3fed99e6db4a1f23              # double 0.92503683881748022
+	.quad	0x3fe10e2e8f705c98              # double 0.53298118606007261
+	.quad	0x3fb8a27f48fb4470              # double 0.096229510610344126
+	.quad	0x3fd8e9f2f501c906              # double 0.38927911688291805
+	.quad	0x3fe2e190acb9df44              # double 0.59003480659064467
+	.quad	0x3fc4b1f6d18d81c8              # double 0.1616810343939632
+	.quad	0x3fc01cec887e7ce4              # double 0.12588268913984912
+	.quad	0x3fd7f9620ee99434              # double 0.37459613281527315
+	.quad	0x3fd6304e5250b1a8              # double 0.34669836081118399
+	.quad	0x3fe4c94500d6d3f2              # double 0.64956903613949479
+	.quad	0x3fe9f199b28ebaf5              # double 0.81074223398704126
+	.quad	0x3fdf027308ff364e              # double 0.48452449682813359
+	.quad	0x3fc8c40c1ef3e5c0              # double 0.19348289023746013
+	.quad	0x3fe0bceec3458f2b              # double 0.5230630697155666
+	.quad	0x3fcefc089059ca50              # double 0.24206645058036935
+	.quad	0x3febc0bcacfb7bcd              # double 0.86727746759049185
+	.quad	0x3fd81949d9db116c              # double 0.37654348635648804
+	.quad	0x3fd92768f9d0043e              # double 0.39303039928205752
+	.quad	0x3fe8cd6e3fb0a997              # double 0.77507698478193532
+	.quad	0x3fb765005ea1ced0              # double 0.091384909728556396
+	.quad	0x3fd824b4c219db48              # double 0.3772403617398834
+	.quad	0x3feec9eaf6bf8005              # double 0.96214817231157268
+	.quad	0x3fedce036c189790              # double 0.93139811623108137
+	.quad	0x3fdb75105648f5cc              # double 0.4290200083376845
+	.quad	0x3fd92a51c05f356e              # double 0.39320796762770882
+	.quad	0x3fecd1ce2038e927              # double 0.90061098378581483
+	.quad	0x3fea4c71fa505592              # double 0.82183169259467292
+	.quad	0x3fe71ac194ca45c8              # double 0.72201613483974203
+	.quad	0x3fdca466444fa79c              # double 0.44753414793978563
+	.quad	0x3fc0a8996be935ec              # double 0.13014524239626668
+	.quad	0x3fd54af38b8e024a              # double 0.33269966724768507
+	.quad	0x3fc736b1da190b48              # double 0.18135665082271601
+	.quad	0x3fe89d0bbe9b4031              # double 0.76917063930341645
+	.quad	0x3fe5c3a1897f8318              # double 0.68013073783012867
+	.quad	0x3fc0df8279d919d4              # double 0.13182097386943659
+	.quad	0x3fd2815e7ae1677c              # double 0.28914606094405548
+	.quad	0x3fec77602dfc0f93              # double 0.88957222920770318
+	.quad	0x3fc52a74407767b8              # double 0.16535809657835698
+	.quad	0x3fef6720d52540f9              # double 0.98133889799103635
+	.quad	0x3fe84c26f459ac7f              # double 0.75929591869989099
+	.quad	0x3fc66dc77ea80160              # double 0.1752251976431678
+	.quad	0x3feaf416205ffbe1              # double 0.84229570697050005
+	.quad	0x3fe6fec11c176b93              # double 0.71859794127100185
+	.quad	0x3fe1ba250d54bc48              # double 0.55397274593077217
+	.quad	0x3fd4ab6e144f8b20              # double 0.32296325667828008
+	.quad	0x3fdc27032d8c7e2c              # double 0.43988112877011321
+	.quad	0x3fecce79571e13ea              # double 0.90020434394011528
+	.quad	0x3fef4a4b032a0c2f              # double 0.97781897180573718
+	.quad	0x3f6b053de05f2a00              # double 0.0032983978771643496
+	.quad	0x3fe8700b0abfe233              # double 0.7636771402313286
+	.quad	0x3fe4307bd13760f7              # double 0.63091841566622875
+	.quad	0x3fd192dd5f1645f2              # double 0.27458891187515555
+	.quad	0x3fcc1767227c4978              # double 0.21946419891225921
+	.quad	0x3fe8f886cf8a6152              # double 0.78033772025359327
+	.quad	0x3fc3c6a49121cfe8              # double 0.1544995983746269
+	.quad	0x3fe5f25f325e5bfe              # double 0.68583640897384135
+	.quad	0x3f5506919aae8200              # double 0.0012833043972265701
+	.quad	0x3fefa82b3c9ef72a              # double 0.98927842941313782
+	.quad	0x3fdf1b26f9ae3f84              # double 0.48603224165798786
+	.quad	0x3fd3cac1fd1cd674              # double 0.30925035207778895
+	.quad	0x3fdb934f3587a83a              # double 0.43086605289011326
+	.quad	0x3fb446a49bef1848              # double 0.079202926702323428
+	.quad	0x3fef713fa5940aae              # double 0.98257429446706168
+	.quad	0x3fbe721df9a8b040              # double 0.11892878861607503
+	.quad	0x3fd75830d354f66c              # double 0.3647577346599522
+	.quad	0x3fdb55da114d86fe              # double 0.42711497964602063
+	.quad	0x3fe685d5cf84ad7d              # double 0.7038373044101004
+	.quad	0x3fe28e85186e822e              # double 0.57989744922457986
+	.quad	0x3fdfdb409744ef20              # double 0.497757098888302
+	.quad	0x3fce999c3baf4f4c              # double 0.23906281389519746
+	.quad	0x3fe3d37cd8f0536d              # double 0.61956636782507035
+	.quad	0x3fd8a88cea866248              # double 0.3852875032694425
+	.quad	0x3fe6afcf35440e34              # double 0.70896110919460975
+	.quad	0x3fe02bda7e0de519              # double 0.50535320873237588
+	.quad	0x3fc793298f563794              # double 0.18417853831163866
+	.quad	0x3fe2eed05dcd45ea              # double 0.59165209122346352
+	.quad	0x3fea31509b09d982              # double 0.81851988106681994
+	.quad	0x3fe8f436831c70dd              # double 0.7798111496699921
+	.quad	0x3fd87ee95ca81540              # double 0.38274606750958995
+	.quad	0x3fc1cdc3837cf380              # double 0.1390919105560009
+	.quad	0x3fee9e019eca2229              # double 0.95678788198080611
+	.quad	0x3fe684d9fc24f845              # double 0.7037172245688984
+	.quad	0x3fe66e6d990b5923              # double 0.70097999469252092
+	.quad	0x3fe4efe62b52a317              # double 0.65428455792889195
+	.quad	0x3fe2e520a5bd13a5              # double 0.59046966906372644
+	.quad	0x3fd090e0df32a398              # double 0.25884267613087664
+	.quad	0x3fedc6e12fbf721f              # double 0.93052729917286914
+	.quad	0x3fc615976d35f620              # double 0.17253392059858275
+	.quad	0x3fe6015b4dd74143              # double 0.68766560748375871
+	.quad	0x3fe4227ef1e0a39b              # double 0.62921092263887901
+	.quad	0x3fe2e8947849e7da              # double 0.59089110845456649
+	.quad	0x3fe362d09fcfc9d8              # double 0.60581237042634495
+	.quad	0x3fec717667971813              # double 0.88885040504897217
+	.quad	0x3fd920a604c60fb4              # double 0.39261770692996412
+	.quad	0x3fe0944cd4fc9a25              # double 0.51810304259271744
+	.quad	0x3fbd6bd302ac5a30              # double 0.11492651763214989
+	.quad	0x3fc7dd37edec5514              # double 0.1864385520681614
+	.quad	0x3fd0717860547b5e              # double 0.25692567260005272
+	.quad	0x3f40c65f0e921000              # double 5.1192895365703706E-4
+	.quad	0x3fdd559dc5812e3e              # double 0.45835060393867255
+	.quad	0x3fe98b0e22dc878c              # double 0.79822451409221306
+	.quad	0x3fea21b9a6620619              # double 0.8166168450990795
+	.quad	0x3fdc4c650c224960              # double 0.44216276345209415
+	.quad	0x3fe66f88b7a555f4              # double 0.70111499660805388
+	.quad	0x3fe2e19410d3348f              # double 0.59003642355095731
+	.quad	0x3fa07de3e7a7c320              # double 0.032210466411817018
+	.quad	0x3febc8347c485098              # double 0.86818908952638463
+	.quad	0x3fd504b1bc00c86e              # double 0.32841151580499328
+	.quad	0x3fd398ef83a845d2              # double 0.30620944840583519
+	.quad	0x3f402fe1e8d38c00              # double 4.9398928390720354E-4
+	.quad	0x3fb27078754acbb0              # double 0.072028664241584606
+	.quad	0x3fe71bd52609a91b              # double 0.72214753560300282
+	.quad	0x3fec31e416839097              # double 0.88109020612002353
+	.quad	0x3fc79e6a1e8a42d8              # double 0.18452192774977649
+	.quad	0x3fe8b9d7935b4a7b              # double 0.77268580227457961
+	.quad	0x3fd7546199885074              # double 0.36452522271543519
+	.quad	0x3fe08f2991bd0340              # double 0.51747587646978133
+	.quad	0x3fef208346ebf0a7              # double 0.97271884776957484
+	.quad	0x3fd5f4e319c84db4              # double 0.34307172315422041
+	.quad	0x3fd6bd118e88a1e0              # double 0.35528983039196582
+	.quad	0x3f9e767f64a870c0              # double 0.02974890758388038
+	.quad	0x3fd2c664f9c30dd8              # double 0.29335903540433383
+	.quad	0x3fe9a2f083e93778              # double 0.80114007724635794
+	.quad	0x3fd2b2e4e32aa926              # double 0.29216882881395845
+	.quad	0x3fe8bc36b1e2b826              # double 0.77297529929433462
+	.quad	0x3fdbaa09f50c3cb2              # double 0.43225335054826097
+	.quad	0x3fc3e5950588b7bc              # double 0.15544379015176257
+	.quad	0x3fcb467b205f15e0              # double 0.21308840828548536
+	.quad	0x3fec3b063da468bf              # double 0.88220512427803743
+	.quad	0x3fd5715e78a61530              # double 0.33504449636560008
+	.quad	0x3fe7f60076527e6f              # double 0.74877951726734959
+	.quad	0x3febdd669370df5b              # double 0.87077645108272905
+	.quad	0x3fe3eecefd068687              # double 0.62290143412629184
+	.quad	0x3fe8ee0586da8254              # double 0.77905536974510392
+	.quad	0x3fd10e7bbb20cfae              # double 0.26650899194941757
+	.quad	0x3fde49a8bdbcaf9a              # double 0.47324579743394113
+	.quad	0x3fed03ec7c934664              # double 0.90672897654640083
+	.quad	0x3fd1f917dc26a154              # double 0.28082844256507156
+	.quad	0x3fc9ad5dc65be7cc              # double 0.20060321984766316
+	.quad	0x3fede4ac9efd6d48              # double 0.93416434338306775
+	.quad	0x3fad2f682742a5f0              # double 0.057002310555002711
+	.quad	0x3fb73a6b42b65378              # double 0.090735152995263024
+	.quad	0x3f823afcd01606c0              # double 0.0089015723231143928
+	.quad	0x3fcbda6c48484068              # double 0.21760324029355904
+	.quad	0x3fe5c142c06747a7              # double 0.67984139994427017
+	.quad	0x3fd0c2c0782dadf6              # double 0.26188670860457763
+	.quad	0x3fd1fe2f4ebb6bfa              # double 0.28113920868571507
+	.quad	0x3fe7b3f3ad951d54              # double 0.74071678068950542
+	.quad	0x3fc4f8e1c5c3eb88              # double 0.16384527355679901
+	.quad	0x3fcf4a93e6340430              # double 0.24446343174352725
+	.quad	0x3fde52be4460a19e              # double 0.47380024602400705
+	.quad	0x3fecf149e1d0438e              # double 0.90445417503552661
+	.quad	0x3fc803eee6a0fecc              # double 0.18762003194023291
+	.quad	0x3fedf7f805df9b9e              # double 0.93651963374292158
+	.quad	0x3fb278f28c7078f0              # double 0.072158011710118819
+	.quad	0x3fe691d5bfa69108              # double 0.70530211860435177
+	.quad	0x3fc6147ce9014f38              # double 0.17250024201586611
+	.quad	0x3fc945abf9374ddc              # double 0.19743871372939636
+	.quad	0x3fd97e8f5cf91ad0              # double 0.39834961013222614
+	.quad	0x3fcf729b5325f728              # double 0.24568502006507598
+	.quad	0x3f82820efd907580              # double 0.0090371295100861726
+	.quad	0x3fe3b44605825b20              # double 0.61575604511276438
+	.quad	0x3f93233abeea1c20              # double 0.018689077284332112
+	.quad	0x3fb810ca2d81e878              # double 0.094006191358774305
+	.quad	0x3fcd07dd5fa9c0f4              # double 0.22680251284646824
+	.quad	0x3fdd41ae24a1d7b2              # double 0.45713380410540616
+	.quad	0x3fe3fe378c95a57c              # double 0.6247823472778431
+	.quad	0x3fe1e4b63b6edbf8              # double 0.559168926315464
+	.quad	0x3fee85cda92d6721              # double 0.95383341829731105
+	.quad	0x3fd990c5aa40601a              # double 0.39946118951911702
+	.quad	0x3fed621a88bc8058              # double 0.91822554308238136
+	.quad	0x3fd85426786f859e              # double 0.38013612519542928
+	.quad	0x3fd622e16bfab60a              # double 0.34587894005639497
+	.quad	0x3fe9a1ec616f0143              # double 0.80101603536608257
+	.quad	0x3fea1b770d1f2aa1              # double 0.81585266650047938
+	.quad	0x3fdebcedef90a2c8              # double 0.48028133769052461
+	.quad	0x3fef7f1f863e4e7c              # double 0.98426796168719432
+	.quad	0x3f91f28cbd5bbf80              # double 0.017526816422957392
+	.quad	0x3fe8b6a1cbd1fd1e              # double 0.77229394730230516
+	.quad	0x3fee336495e19e63              # double 0.94377354882903963
+	.quad	0x3fd9a8c58c357846              # double 0.40092600528976552
+	.quad	0x3fbb2ec19606ba00              # double 0.10618219292403097
+	.quad	0x3fe8784c50386766              # double 0.76468482654602776
+	.quad	0x3fe25df58efd4cd0              # double 0.57396963050487138
+	.quad	0x3fd2d9a60169ae44              # double 0.29453420770616767
+	.quad	0x3fecc7264f734b67              # double 0.8993102599873567
+	.quad	0x3fe46923cb895813              # double 0.63783445122931182
+	.quad	0x3fcee67bd4a884d4              # double 0.24140880473809168
+	.quad	0x3fcb3bc9e8bbbd28              # double 0.21276210655148842
+	.quad	0x3fee32170081527c              # double 0.94361448382058155
+	.quad	0x3fed2b63425947c4              # double 0.91154635390034188
+	.quad	0x3fe7c8755a9f4065              # double 0.74322002124428066
+	.quad	0x3fd55d24eb7bb56e              # double 0.33381007191095236
+	.quad	0x3fd8ff2a0e0bb886              # double 0.39057399150522831
+	.quad	0x3fd2a7558ce5b73a              # double 0.29146326789383503
+	.quad	0x3fe48ef2f4a17e4d              # double 0.64244983462772043
+	.quad	0x3feb3f7cb0c4cf24              # double 0.85149988675263843
+	.quad	0x3fe1705a21e995db              # double 0.54496485351108548
+	.quad	0x3fde74cdf5dfff20              # double 0.47587918292264142
+	.quad	0x3fdae5fe604220e0              # double 0.42028769874788274
+	.quad	0x3fcf83132d831888              # double 0.24618758890409631
+	.quad	0x3fe3e120b1e131b2              # double 0.6212314104282568
+	.quad	0x3fcae109ddd3b32c              # double 0.20999263125795531
+	.quad	0x3fdcd104cf0a732a              # double 0.45025749415235572
+	.quad	0x3fd75fe9f55dfc1c              # double 0.36522911988862616
+	.quad	0x3fcdf41d1bd370ec              # double 0.23401225908936085
+	.quad	0x3fb3ebe744f7d6a0              # double 0.077818350160522076
+	.quad	0x3fe0c45f8f1c5215              # double 0.52397134734434536
+	.quad	0x3fc2c561dfc18ea8              # double 0.14664863038625708
+	.quad	0x3fb223a2d9e474b0              # double 0.070856264301670135
+	.quad	0x3fb2a34280efa118              # double 0.072803646544006617
+	.quad	0x3fe04bfae9794fd9              # double 0.50927491760603083
+	.quad	0x3feae11de1647922              # double 0.83998006841628503
+	.quad	0x3fde94e7b75d4e4a              # double 0.4778384485882482
+	.quad	0x3fe27d68c2ebe2c2              # double 0.57780874319640696
+	.quad	0x3fe2648aef52db95              # double 0.57477328055289212
+	.quad	0x3fd3a1f7651dec0a              # double 0.30676064371772382
+	.quad	0x3fe41b91a0051c4e              # double 0.62836533788584759
+	.quad	0x3fc1e15ba8c7ead8              # double 0.13968988171821795
+	.quad	0x3fed28d3293b8ed6              # double 0.91123350194217312
+	.quad	0x3fe0b4a7eb54818c              # double 0.52205272639189237
+	.quad	0x3fe88fdcb783ba31              # double 0.76756130068480932
+	.quad	0x3fb97580bbe9d7c0              # double 0.099449201466852877
+	.quad	0x3feadf7cc4aa0cfd              # double 0.83978117381084838
+	.quad	0x3fbe7c20df997930              # double 0.11908154925319958
+	.quad	0x3fd31136bd0674ba              # double 0.29792564830297474
+	.quad	0x3fecb3f148436ce2              # double 0.89696563829366149
+	.quad	0x3fc9945cc86c3c34              # double 0.19984016214627476
+	.quad	0x3fec292039fcbcbe              # double 0.8800202496112417
+	.quad	0x3fc4ea8ab1d6e798              # double 0.16340764697616517
+	.quad	0x3fdfd8093aaea064              # double 0.49756079416920884
+	.quad	0x3fdbbe62284968e6              # double 0.43349508222821809
+	.quad	0x3fd80ca2da676250              # double 0.37577124908924464
+	.quad	0x3fdf4ac25cc4ecd8              # double 0.48893794116493217
+	.quad	0x3fd7a88e35cbb12e              # double 0.36966281178935645
+	.quad	0x3feb6d6d269ed3c0              # double 0.85710771124887941
+	.quad	0x3fe77eacee374105              # double 0.73421331907778209
+	.quad	0x3fcb71fd518c532c              # double 0.21441618425219511
+	.quad	0x3fca47a3df078848              # double 0.20531128301724011
+	.quad	0x3fed207ab7760097              # double 0.91021476585594285
+	.quad	0x3fd4e34d9de647d8              # double 0.32637348575474112
+	.quad	0x3fdaeefe5afa9aa0              # double 0.42083701023731557
+	.quad	0x3f7d667572df9700              # double 0.0071777904358663047
+	.quad	0x3fec230ff7c4ec24              # double 0.87928007500102411
+	.quad	0x3fead94492d6af8c              # double 0.83902195624749387
+	.quad	0x3feed92b175cf6ff              # double 0.96400980532754931
+	.quad	0x3fef2a7e0462a9df              # double 0.97393704277538606
+	.quad	0x3fdf1b7a64920e64              # double 0.48605212994900726
+	.quad	0x3febbb14c46436f2              # double 0.86658705098827071
+	.quad	0x3fed8a3889226681              # double 0.92312266143854071
+	.quad	0x3fe53a5f5fa6ec53              # double 0.66337555582084418
+	.quad	0x3fdeefdbf46e1b22              # double 0.4833898436558447
+	.quad	0x3feac09da84ebb51              # double 0.83601267693107151
+	.quad	0x3fe634f27b9a27ff              # double 0.69396328106927274
+	.quad	0x3fc398fa14f811f0              # double 0.15310598396185027
+	.quad	0x3fdcfda2715fa334              # double 0.45298062392844263
+	.quad	0x3fea54367b2f4041              # double 0.82277988490569254
+	.quad	0x3fdbabdd86c43560              # double 0.43236482773575879
+	.quad	0x3fe83d332b4e287a              # double 0.75747068841998488
+	.quad	0x3fd238e80acd4efa              # double 0.28472329192048529
+	.quad	0x3fdbaba6a6dfbc44              # double 0.43235174461637293
+	.quad	0x3fd05c1cc5cce0f6              # double 0.25562209431110661
+	.quad	0x3fec2199ad68410d              # double 0.87910159939386434
+	.quad	0x3fc0f822b61f3694              # double 0.13257249729797549
+	.quad	0x3fcbaaa87551c250              # double 0.21614557007298396
+	.quad	0x3fd4086ec1d64be4              # double 0.31301468781856401
+	.quad	0x3fdb7507b6b90140              # double 0.42901795238505613
+	.quad	0x3fe7ecc756680616              # double 0.74765364528883782
+	.quad	0x3fcb0031e2ed93c4              # double 0.21094344692678935
+	.quad	0x3fea315cbeed012c              # double 0.8185256699580683
+	.quad	0x3fea615cad308673              # double 0.82438501192173275
+	.quad	0x3fe61eda20d70133              # double 0.69126612104449803
+	.quad	0x3febd19955d19eb7              # double 0.86933581124772885
+	.quad	0x3fe8550aa703f1df              # double 0.76038105602452422
+	.quad	0x3fe6fc85db862084              # double 0.71832554698723117
+	.quad	0x3fef8de6b414a5fd              # double 0.9860719220352504
+	.quad	0x3fd7a541716d505a              # double 0.36946140362602409
+	.quad	0x3fe842d9395eb36d              # double 0.75816022114814319
+	.quad	0x3fea58de0eae5a64              # double 0.82334807269473886
+	.quad	0x3fe6a7f555ec1c7e              # double 0.70800272733403324
+	.quad	0x3fe9d8f8f9ab2899              # double 0.80773590815921914
+	.quad	0x3fc71f0761d16e58              # double 0.18063442493699955
+	.quad	0x3fedf8d043105a4b              # double 0.93662274454511285
+	.quad	0x3f9ed5fe42a8ca20              # double 0.030113194292605283
+	.quad	0x3fb03f7e9878bb90              # double 0.063468849396242755
+	.quad	0x3fd8b761ea5a2ec2              # double 0.38619277845348787
+	.quad	0x3fea87f7518c3734              # double 0.82909742286003629
+	.quad	0x3f9f575685cb4700              # double 0.030606605449810864
+	.quad	0x3fd1a7f9088f5e50              # double 0.27587724529209812
+	.quad	0x3fe81bd8850fbf6a              # double 0.7533991431100564
+	.quad	0x3fe289198f609276              # double 0.57923582080236602
+	.quad	0x3fa63563dfc481f0              # double 0.043376084390050695
+	.quad	0x3fe3fe36053e5963              # double 0.62478161834841861
+	.quad	0x3fdcacc0f2029a28              # double 0.44804404863171721
+	.quad	0x3fd9b339fc604942              # double 0.40156411787133461
+	.quad	0x3fe4add1ab15f13a              # double 0.64621814170053615
+	.quad	0x3fea64d3983c873e              # double 0.82480792745284481
+	.quad	0x3fda2020e9874fae              # double 0.40821097188495059
+	.quad	0x3fe7d80a275d3db5              # double 0.74512202919316073
+	.quad	0x3fb21231ed73f6f0              # double 0.070590134117050729
+	.quad	0x3fb03d82a0f43850              # double 0.063438572211653055
+	.quad	0x3fe8a4f0303e264e              # double 0.77013406202713397
+	.quad	0x3fcc0cde0f6df230              # double 0.21914268258469027
+	.quad	0x3fe55f72dee5afcd              # double 0.66790145430194914
+	.quad	0x3fee2e06b94ecca2              # double 0.94311844056064253
+	.quad	0x3fdbe31c66167178              # double 0.43573675126551548
+	.quad	0x3fe0c6f8d32b6584              # double 0.52428857082411229
+	.quad	0x3fe461fd696131d8              # double 0.63696165639845059
+	.quad	0x3fe1eedeb0e98ccc              # double 0.56040892174896717
+	.quad	0x3fe8a9abbee3c48c              # double 0.77071177752635966
+	.quad	0x3fd4f1f0930aae5c              # double 0.32726683005851043
+	.quad	0x3fb110933cab7978              # double 0.066659166633575739
+	.quad	0x3fe8e2e78c8bb9e4              # double 0.77769830179550725
+	.quad	0x3fe830fcc8e46a5a              # double 0.75597991215483806
+	.quad	0x3fe580968f9ea12a              # double 0.67194679308616867
+	.quad	0x3fee2cfff46e1ec6              # double 0.94299314251198818
+	.quad	0x3fe35b58d550d646              # double 0.60490075743900529
+	.quad	0x3fb58ba47f2344f8              # double 0.084162026442999749
+	.quad	0x3fe5ebb9811e492a              # double 0.68502497881335001
+	.quad	0x3febfdbce9c93b14              # double 0.87472386990870854
+	.quad	0x3fe85ae5ebc6ee15              # double 0.76109596300324489
+	.quad	0x3fe00a0906549ea5              # double 0.50122500645098411
+	.quad	0x3fc2649505b57118              # double 0.14369452265499016
+	.quad	0x3fd11ab811e50534              # double 0.26725579974670954
+	.quad	0x3fc4cacab6e293a8              # double 0.16243871622023431
+	.quad	0x3fea36fae5b5d0ba              # double 0.81921143403317065
+	.quad	0x3fd81ffe76c20a3a              # double 0.37695275876481882
+	.quad	0x3febf3ea7fb171ad              # double 0.87352490367952884
+	.quad	0x3fda468705a3c59e              # double 0.41055465269809044
+	.quad	0x3fec393a2e7ad613              # double 0.88198575094310383
+	.quad	0x3fe4980deaca526f              # double 0.6435613237141079
+	.quad	0x3fd588d680ed1220              # double 0.33647692289767583
+	.quad	0x3fd2821658d590c8              # double 0.28918989825457375
+	.quad	0x3fb270be0615a748              # double 0.072032810674184877
+	.quad	0x3fdf48fca47a6116              # double 0.48882976591404892
+	.quad	0x3fd15c5a3a274708              # double 0.27126174620671906
+	.quad	0x3fecea5545905f1f              # double 0.90360511385640396
+	.quad	0x3fa7bda5e169a280              # double 0.046368774191084761
+	.quad	0x3fd46c02f0fcd7d2              # double 0.31909249814941376
+	.quad	0x3feed50235487372              # double 0.96350202948415942
+	.quad	0x3fdada4f837f31b8              # double 0.41957462159623615
+	.quad	0x3fd42479d84de2f4              # double 0.31472631572209697
+	.quad	0x3fe4d96ae2c6f62f              # double 0.65154022495670982
+	.quad	0x3feab787bd31ac2e              # double 0.83490359260520619
+	.quad	0x3fec7029dc334d5e              # double 0.8886918354786919
+	.quad	0x3fe4a2fbf68d7873              # double 0.64489553599174909
+	.quad	0x3fdd34117363362a              # double 0.45630298870387043
+	.quad	0x3f24309b93ce0000              # double 1.5403651368828264E-4
+	.quad	0x3fe72ab7050d8479              # double 0.72396422373652947
+	.quad	0x3fbe520effb60460              # double 0.11843961470550957
+	.quad	0x3fdd5d9956f026f6              # double 0.45883782854126254
+	.quad	0x3fddef12266bde50              # double 0.46771672966085465
+	.quad	0x3fecf18861626a89              # double 0.90448397655866686
+	.quad	0x3feaad5d882d869e              # double 0.83366276356919733
+	.quad	0x3fcd3318ee092ef8              # double 0.22812186835141524
+	.quad	0x3fb9049e9fd3f678              # double 0.097726739902975868
+	.quad	0x3fdc64d9b59dc4bc              # double 0.44365542160000948
+	.quad	0x3fc8fa22ecd53b38              # double 0.19513355793102405
+	.quad	0x3fd5724db6826a3a              # double 0.33510153601824622
+	.quad	0x3fb5e36e84ba4ec0              # double 0.085501582531203546
+	.quad	0x3fb9fb652d0900a8              # double 0.10149223660937656
+	.quad	0x3fcf626af8e8d55c              # double 0.24519097474846319
+	.quad	0x3fac08b786f71cf0              # double 0.054754004693274072
+	.quad	0x3fdc2a766d73a450              # double 0.4400917118896972
+	.quad	0x3fe3b6b548e1b473              # double 0.61605324015330465
+	.quad	0x3fbf02ab86269200              # double 0.12113449120676734
+	.quad	0x3fcc24bd2ffd6f14              # double 0.21987118571529918
+	.quad	0x3fac4eca4ed57aa0              # double 0.055288622020033928
+	.quad	0x3fe86f1b72baf355              # double 0.76356289299256253
+	.quad	0x3fe04b5fbc9b2fc0              # double 0.50920092427394792
+	.quad	0x3fd7d999998be8b2              # double 0.37265624995019231
+	.quad	0x3fe3d6da64fd62c0              # double 0.61997718548362712
+	.quad	0x3fd08c43b558c544              # double 0.25856106481213126
+	.quad	0x3fee12c2dae8f86a              # double 0.93979017978541646
+	.quad	0x3fdfbdba349e529c              # double 0.49595503939171137
+	.quad	0x3fc6a5cf4cddd8d8              # double 0.17693511250735727
+	.quad	0x3fd6a99a59feb4f0              # double 0.35410174168175867
+	.quad	0x3fed3e332e12a994              # double 0.91384276388753216
+	.quad	0x3fe4724346c8e754              # double 0.63894809556152632
+	.quad	0x3feb24cef3331c34              # double 0.84824321269923652
+	.quad	0x3fc9006940f72c00              # double 0.19532504722732824
+	.quad	0x3fc8c591605fdd78              # double 0.19352929311547107
+	.quad	0x3fed5def6d3d32ca              # double 0.91771670661690874
+	.quad	0x3fa765eb25547880              # double 0.045699451739197094
+	.quad	0x3fe982c087325369              # double 0.79721094518263869
+	.quad	0x3fe50abe3ffcfcba              # double 0.65756142137242723
+	.quad	0x3fd3078a43b55a1e              # double 0.29733521091603332
+	.quad	0x3fe893c0a20eb1db              # double 0.76803619052730754
+	.quad	0x3fe73fb97a61d51a              # double 0.72652887251630038
+	.quad	0x3fe9091654b431cc              # double 0.78235928100326068
+	.quad	0x3fdcc6f689724a68              # double 0.44964373991493867
+	.quad	0x3fea46bc8f362a6d              # double 0.82113483401310605
+	.quad	0x3fe3cb846bb6f752              # double 0.61859341657666733
+	.quad	0x3fc2ebda1d3f640c              # double 0.14782263210398161
+	.quad	0x3fcd78fb680e058c              # double 0.23025457936095639
+	.quad	0x3fe912282dc8f8a7              # double 0.78346642439261849
+	.quad	0x3fc57a7c44c48d80              # double 0.16780045850564917
+	.quad	0x3fe31849e7d3070c              # double 0.59671492841900564
+	.quad	0x3fc7225e3c465698              # double 0.18073633139708956
+	.quad	0x3fefc9cc4c773fb9              # double 0.99338355002145484
+	.quad	0x3fedd3718f0c663b              # double 0.93206098498485035
+	.quad	0x3fa4946526902d70              # double 0.040194664914532718
+	.quad	0x3fe52eb9a9e8d908              # double 0.66195376573048836
+	.quad	0x3fe32ce4157c7929              # double 0.59922985264328077
+	.quad	0x3fe795e55388e5ce              # double 0.73704782786733758
+	.quad	0x3fe46f7e340b5c05              # double 0.63860998310963224
+	.quad	0x3fef49784331b41e              # double 0.97771847843035053
+	.quad	0x3fed3d3883b627fc              # double 0.91372323727523463
+	.quad	0x3fad98ed2da20350              # double 0.057807361431520321
+	.quad	0x3fd25c94343b0b10              # double 0.28690056896827887
+	.quad	0x3fd15786ac8face2              # double 0.27096716739352023
+	.quad	0x3fa9eae616fb5a00              # double 0.050620260529900207
+	.quad	0x3fcc093e2b5356dc              # double 0.2190320693541058
+	.quad	0x3fbb759bb4daca58              # double 0.10726330914875726
+	.quad	0x3fe9e83956ea1bdf              # double 0.80959765410886664
+	.quad	0x3fedfc31197bcece              # double 0.93703513123770121
+	.quad	0x3fe5b3577f24f6b8              # double 0.67814230759514427
+	.quad	0x3feccf9d38e6bc00              # double 0.90034352410827978
+	.quad	0x3fe7e27e545f4aae              # double 0.74639812926246463
+	.quad	0x3fe69e3aaa233548              # double 0.70681508283602401
+	.quad	0x3fe36e8cfb31d2bb              # double 0.60724495946359214
+	.quad	0x3fe97a6997abf8eb              # double 0.79619292853729229
+	.quad	0x3fcf81c802e9b45c              # double 0.24614811079246379
+	.quad	0x3fcda006403399b0              # double 0.23144605765192017
+	.quad	0x3fe450eabab716a9              # double 0.63487755267916157
+	.quad	0x3fc232da430b9ee8              # double 0.1421768977518163
+	.quad	0x3fdfcb58fad0f30a              # double 0.49678635114450798
+	.quad	0x3f87c3a797074900              # double 0.011603650375864749
+	.quad	0x3fd4b62ab3b37922              # double 0.32361857937748273
+	.quad	0x3fe04c43a54fc1e7              # double 0.50930959975636092
+	.quad	0x3fec8d140f417da5              # double 0.89222147922184958
+	.quad	0x3fe331c0f3b2b4fe              # double 0.59982345196991083
+	.quad	0x3fbd3e49dbc80dd0              # double 0.11423169723280258
+	.quad	0x3fd413dd97d1b2d2              # double 0.31371249986731897
+	.quad	0x3fda17e2ff6a3858              # double 0.40770792906630993
+	.quad	0x3faf5eb2ad7ac120              # double 0.061269363094995422
+	.quad	0x3feaddae9ed497ed              # double 0.83956080457278193
+	.quad	0x3fe4da8e4c980a3f              # double 0.65167918166873295
+	.quad	0x3fecd0faff41e08e              # double 0.90051030974338331
+	.quad	0x3fe8b3df6534dd08              # double 0.77195710913557125
+	.quad	0x3fda6af301721eec              # double 0.41277766362371326
+	.quad	0x3fc205ce4b49d088              # double 0.14080218006313694
+	.quad	0x3fd409a72dc94154              # double 0.31308917495063793
+	.quad	0x3fe5573b8bbbedf6              # double 0.66689851085487706
+	.quad	0x3fea71dc7385cb43              # double 0.82639906466497626
+	.quad	0x3fbead3d016af9e8              # double 0.11983090672126873
+	.quad	0x3fc6dcebc49b72a0              # double 0.17861697292291456
+	.quad	0x3fea554704922cd4              # double 0.82290984051487692
+	.quad	0x3fe6da4709d7d51d              # double 0.7141452018974267
+	.quad	0x3fe3a46d7ed62183              # double 0.61382174275154033
+	.quad	0x3fd02c933c4079a2              # double 0.25272065052004156
+	.quad	0x3fd4cdeb4497cac4              # double 0.32506829927949021
+	.quad	0x3fdd871049b4f9b6              # double 0.46136862943594836
+	.quad	0x3fee128c58d87ccd              # double 0.93976418831507547
+	.quad	0x3fedd17d5a3bc04d              # double 0.93182246803008584
+	.quad	0x3fe1229ab6cfef66              # double 0.53547416406170778
+	.quad	0x3fe75098e4b8e8ca              # double 0.72858853027653336
+	.quad	0x3fdc28ae9df7af7c              # double 0.43998303820148243
+	.quad	0x3feec279143fcb70              # double 0.96123937563821293
+	.quad	0x3fe4d52be59ec036              # double 0.65102190826110617
+	.quad	0x3fe825050a9361b4              # double 0.75451900544708516
+	.quad	0x3fba5aad848bb330              # double 0.10294613347987247
+	.quad	0x3fe4d019d44e937e              # double 0.65040294138144339
+	.quad	0x3fe9d6eeb21e9787              # double 0.8074868658920743
+	.quad	0x3fe73fc5336c986f              # double 0.72653446239270447
+	.quad	0x3fd3fc5f8d3cc042              # double 0.31227864067750855
+	.quad	0x3fe5affe9fb9891c              # double 0.67773371883621136
+	.quad	0x3fc5fcd5ad5a1928              # double 0.17177840198946481
+	.quad	0x3fdcc387363a240e              # double 0.44943409247986288
+	.quad	0x3fecfa0f9488e2d3              # double 0.9055250073498321
+	.quad	0x3fec2916895a2616              # double 0.88001562906828457
+	.quad	0x3fe3b4e323f38531              # double 0.61583096524933556
+	.quad	0x3fec55ebd229f79d              # double 0.88548842475551093
+	.quad	0x3fdea9bd38b055a2              # double 0.47911005531326556
+	.quad	0x3fd59c6222d34bbc              # double 0.33766988182940927
+	.quad	0x3fadc422477aa320              # double 0.058137007928342976
+	.quad	0x3fd4fcca3ff75fc8              # double 0.32792907950124262
+	.quad	0x3fe4034830d01c34              # double 0.62540063413405855
+	.quad	0x3fba527e13d70858              # double 0.10282123550771993
+	.quad	0x3fe2ad9d8b850200              # double 0.58369328737177284
+	.quad	0x3fd3db0f144e047e              # double 0.3102452944077142
+	.quad	0x3feeca500d00f566              # double 0.96219637431901783
+	.quad	0x3fe8abd738a1843a              # double 0.77097664890982931
+	.quad	0x3fe25d8b1cfd8019              # double 0.57391887342601244
+	.quad	0x3febc008c760aa2e              # double 0.86719168606697905
+	.quad	0x3fb7bcb5796e21f0              # double 0.092723219057127215
+	.quad	0x3fd81da1f7886c14              # double 0.37680863545546228
+	.quad	0x3fd4e1e8db2c4a72              # double 0.3262884273873744
+	.quad	0x3fefe24af93e3c3f              # double 0.99637364082617085
+	.quad	0x3fd87e6ae0935c4c              # double 0.38271591120923598
+	.quad	0x3fe3e36073d0374d              # double 0.62150595302385059
+	.quad	0x3fdc122ab8e79910              # double 0.43860881859872425
+	.quad	0x3feadf851cb415f4              # double 0.8397851524939015
+	.quad	0x3fc8988c523a3370              # double 0.19215539946562954
+	.quad	0x3fe3aa853c37e037              # double 0.61456548463230021
+	.quad	0x3fddfe84a80e988c              # double 0.46865955745523347
+	.quad	0x3fd2d13e8dc8f6a6              # double 0.29402126165573816
+	.quad	0x3fea648d144e1e36              # double 0.82477430311059297
+	.quad	0x3fd5ecc3aceb3b20              # double 0.34257594954117288
+	.quad	0x3fdc4715d06c373a              # double 0.44183869699269318
+	.quad	0x3fe4907358d0e99e              # double 0.64263312670600548
+	.quad	0x3fc2ff3a0e6038dc              # double 0.14841390325495396
+	.quad	0x3fd0952cd48af718              # double 0.25910492664466878
+	.quad	0x3fa82f6554be2a20              # double 0.047236601442893766
+	.quad	0x3fcc64e565a195e8              # double 0.22182910406551959
+	.quad	0x3fd7c1feeddb3464              # double 0.37121556499625386
+	.quad	0x3fe81b2b580eb268              # double 0.75331656645500988
+	.quad	0x3fefa7da4b411ab4              # double 0.98923983286007066
+	.quad	0x3fec983e68ab3575              # double 0.89358444636461221
+	.quad	0x3fe6fb8983f2fc46              # double 0.71820522090264016
+	.quad	0x3fd2184a2b03f168              # double 0.28273252678606875
+	.quad	0x3fe3a545ff29e3d2              # double 0.61392497860571837
+	.quad	0x3fe19c0e3bce0f86              # double 0.55029975586556712
+	.quad	0x3f8a78257ed9b640              # double 0.012924473699253203
+	.quad	0x3fd838e447186d16              # double 0.37847239439879965
+	.quad	0x3fee96668cc2539f              # double 0.95585944644937004
+	.quad	0x3fee72862012a8b2              # double 0.95147997154460584
+	.quad	0x3fce124180bd79b8              # double 0.23493212495936944
+	.quad	0x3febfefd77c9bc18              # double 0.87487672229861158
+	.quad	0x3fe7830e296f193e              # double 0.73474796383451468
+	.quad	0x3fd48f41873ae80c              # double 0.32124365049423953
+	.quad	0x3fef067a0e4d27f9              # double 0.96954062264671769
+	.quad	0x3f94f3b4a22b14a0              # double 0.020460913083998222
+	.quad	0x3fd7f37472dadd8a              # double 0.37423430649092693
+	.quad	0x3faa3eb334f8d060              # double 0.051259613243389124
+	.quad	0x3f9db32c2ee28e20              # double 0.029003801690704489
+	.quad	0x3fe8dc38c5eb5bcd              # double 0.77688254028441295
+	.quad	0x3fdafcf947d74848              # double 0.42169029250829171
+	.quad	0x3fe53936da16eab6              # double 0.66323416324242745
+	.quad	0x3fcb74acb2b7f79c              # double 0.21449812628264631
+	.quad	0x3fe9391d30b9bfa8              # double 0.78822192684855441
+	.quad	0x3fd199fb6c32a574              # double 0.27502332273669272
+	.quad	0x3fd7b65cf5e66328              # double 0.37050556195895235
+	.quad	0x3fe29819f9884159              # double 0.58106707321898476
+	.quad	0x3fca6f3cb2aa1080              # double 0.20651968692630263
+	.quad	0x3fe1e3dc00efbc09              # double 0.55906486685660284
+	.quad	0x3fe96ff5df8dc41c              # double 0.79491704619261183
+	.quad	0x3fd86c2225cf6e3c              # double 0.38159993832025285
+	.quad	0x3fed00c521887d6c              # double 0.90634399938055087
+	.quad	0x3fbeded843ed2af8              # double 0.12058784159050251
+	.quad	0x3fc2a6fd0221db64              # double 0.14572107891191444
+	.quad	0x3faa9e9a15dbfec0              # double 0.05199128643834916
+	.quad	0x3fd2ca62e9fd037c              # double 0.29360268450186999
+	.quad	0x3fcc699cbc21e4dc              # double 0.22197302995826973
+	.quad	0x3fc75e63b9851744              # double 0.18256804045284458
+	.quad	0x3fe642cc684be083              # double 0.69565410967244679
+	.quad	0x3fe4ab079cf63dbc              # double 0.64587765366189087
+	.quad	0x3fe0156bb1067990              # double 0.50261482787372991
+	.quad	0x3fbb2cd6f7eeddd0              # double 0.10615294983914869
+	.quad	0x3fe8e6486f2417cd              # double 0.77811071116661312
+	.quad	0x3fefda29a1d37b20              # double 0.99538117987308183
+	.quad	0x3fec4d28dd58b5b9              # double 0.88441889983885524
+	.quad	0x3fe1062f5d95725e              # double 0.53200500753480262
+	.quad	0x3fe36e757df41999              # double 0.60723375892921461
+	.quad	0x3fe7b7f142f7ff07              # double 0.74120390968161665
+	.quad	0x3fe53018aecd50c6              # double 0.66212114468591987
+	.quad	0x3f848134c757e5c0              # double 0.010012066205478898
+	.quad	0x3fcd6aaee991ffe0              # double 0.22981821446228334
+	.quad	0x3fc98cbc60754158              # double 0.19960741720070518
+	.quad	0x3fcb4762dbc28ce8              # double 0.21311603289095804
+	.quad	0x3fd5dbf119f992e6              # double 0.34154918228732212
+	.quad	0x3fceb08320931afc              # double 0.23976172533567552
+	.quad	0x3fbfdaea0c74eaa8              # double 0.12443411640280522
+	.quad	0x3fe23db5c57dd78b              # double 0.57003296444484997
+	.quad	0x3fe8c0896922e3a2              # double 0.77350302252226677
+	.quad	0x3f8833f6c28befc0              # double 0.01181786328515233
+	.quad	0x3fee1cc801fb6d9e              # double 0.94101333987366664
+	.quad	0x3fd7df7fc957f22a              # double 0.37301630651907891
+	.quad	0x3fe4442506bdabcf              # double 0.63331843678076349
+	.quad	0x3fe36976ef815924              # double 0.6066240957104907
+	.quad	0x3fe71559fbcfa64f              # double 0.72135638410436254
+	.quad	0x3fe3d1336882b7d0              # double 0.61928720867376263
+	.quad	0x3feef5e524735b17              # double 0.96751649016627794
+	.quad	0x3fbc9cf3e11b4580              # double 0.11176990743412851
+	.quad	0x3fe45c02c4a3d708              # double 0.6362317886948583
+	.quad	0x3fef0c0e5869f40a              # double 0.97022168415389953
+	.quad	0x3fe0d4a0fb36631e              # double 0.52595566811496375
+	.quad	0x3fb385511a5d7580              # double 0.076253003060136492
+	.quad	0x3feee8d3d750636a              # double 0.96592132619399007
+	.quad	0x3fe727ed6d81e317              # double 0.72362395656736822
+	.quad	0x3fe386578b70a928              # double 0.61014916643515438
+	.quad	0x3f8d50e779533e40              # double 0.014314468755770027
+	.quad	0x3fe4713b54b65a36              # double 0.63882223649381475
+	.quad	0x3fe1bfba5836ad92              # double 0.55465428570953379
+	.quad	0x3fe25c158ca032cd              # double 0.57374074426624022
+	.quad	0x3fe4b7419a2910b1              # double 0.64737014874892485
+	.quad	0x3fed8c2f56ffd6f0              # double 0.92336241714539646
+	.quad	0x3fddd5f2b78b9986              # double 0.46618335651728449
+	.quad	0x3fe9cf8a419e37cc              # double 0.80658448043845387
+	.quad	0x3fdc5db4132aeb94              # double 0.44321920272676008
+	.quad	0x3fe37c1c2f002718              # double 0.60890015773586281
+	.quad	0x3febb8e2cee76650              # double 0.86631908808630875
+	.quad	0x3fe296177849f5ac              # double 0.5808217381851839
+	.quad	0x3fb59124a410fa60              # double 0.084245958380941399
+	.quad	0x3fbb4fa6dc304058              # double 0.10668413997359616
+	.quad	0x3fdf293b5bdb6ff8              # double 0.48689159365107981
+	.quad	0x3fe9979b9747930c              # double 0.79975680872721133
+	.quad	0x3fc82f8ad3f06288              # double 0.18895087574562219
+	.quad	0x3f96d41dceb9a440              # double 0.022293534986975283
+	.quad	0x3fe22d2cdbbba479              # double 0.56801455418202729
+	.quad	0x3fe950117d121821              # double 0.79102396419398613
+	.quad	0x3fd2202d22984aaa              # double 0.28321388605506093
+	.quad	0x3feb31c2d5c54928              # double 0.84982434990005107
+	.quad	0x3feaf6ed25f3fa16              # double 0.84264237797453023
+	.quad	0x3fd7b1d3431e72e2              # double 0.37022859148582488
+	.quad	0x3fd7c6be20f97c04              # double 0.37150529117747078
+	.quad	0x3fefb209bc07d259              # double 0.99048315739362202
+	.quad	0x3fe6256e01ecc186              # double 0.69206905723517376
+	.quad	0x3fd583b07c635f88              # double 0.33616268298418861
+	.quad	0x3fed57105cdf50aa              # double 0.91687791957021614
+	.quad	0x3fdff12d3bdd6800              # double 0.49909525724581272
+	.quad	0x3fde8d712257661a              # double 0.47738293031361112
+	.quad	0x3fd692463c101d3c              # double 0.35267787805101469
+	.quad	0x3fe804c113c69d5a              # double 0.75058034765690285
+	.quad	0x3fe62fa63b638dd7              # double 0.69331657027617666
+	.quad	0x3fd960fdaac457ae              # double 0.39654485393964023
+	.quad	0x3f84dcacaedb9740              # double 0.010186528288112506
+	.quad	0x3feaceb8d1e79670              # double 0.83773461338996746
+	.quad	0x3faca9068ac710c0              # double 0.055977062645554465
+	.quad	0x3fe491ccf63e1c5f              # double 0.64279792875539588
+	.quad	0x3fcb39262be218d8              # double 0.21268155234083141
+	.quad	0x3f96ea8b92307840              # double 0.022379093930901428
+	.quad	0x3fd6aa4b0b55f4c2              # double 0.35414386851318735
+	.quad	0x3fd537b99516f046              # double 0.33152617988139743
+	.quad	0x3fe1d5896bbc5753              # double 0.55731650392656673
+	.quad	0x3faadf6213d6a1b0              # double 0.052485527917557007
+	.quad	0x3fe6c8538eeae91e              # double 0.71195390618894172
+	.quad	0x3fed271d0081ab57              # double 0.91102457140855619
+	.quad	0x3fe34a4f64425a75              # double 0.60282106000779712
+	.quad	0x3fde68a61f7fc22a              # double 0.47513726306991322
+	.quad	0x3fd6a85b97e2c41a              # double 0.35402574379537699
+	.quad	0x3fdf7917a4a3995a              # double 0.49176589086564138
+	.quad	0x3fd8402581817b5a              # double 0.37891519209909108
+	.quad	0x3fed2c0f0f0f18ba              # double 0.91162827435689242
+	.quad	0x3fc9336397ca2fd8              # double 0.19688076888667072
+	.quad	0x3fee69fac4212ed2              # double 0.95043695742193735
+	.quad	0x3fe4b087a01abd9c              # double 0.64654904623414522
+	.quad	0x3fd2a734966f676e              # double 0.29145540896353495
+	.quad	0x3fd9d2175867e472              # double 0.40344794877416412
+	.quad	0x3fe32c98030d8881              # double 0.59919357868444945
+	.quad	0x3fed1d111cdc850a              # double 0.9097981990527455
+	.quad	0x3fd5f7e9db9f2cfc              # double 0.3432564396614024
+	.quad	0x3fe80249f90665cb              # double 0.75027941358273986
+	.quad	0x3fc3def9203ea82c              # double 0.15524210047198161
+	.quad	0x3feaf917e6e25dfe              # double 0.84290690512256083
+	.quad	0x3fd70385c7d0694c              # double 0.35959000123115881
+	.quad	0x3fd2cc8c2e521166              # double 0.29373459361547416
+	.quad	0x3fe90025245c96c3              # double 0.78126771070375189
+	.quad	0x3fdab88df4588d4e              # double 0.41751431333451172
+	.quad	0x3fe3b04044bd7c02              # double 0.61526502061667565
+	.quad	0x3fdf3c30a771cb44              # double 0.48804870941164702
+	.quad	0x3fcd23af9d986830              # double 0.22765155024609518
+	.quad	0x3fc5c0dd747aa638              # double 0.16994827449279781
+	.quad	0x3fe213ac4f554206              # double 0.56490149969801062
+	.quad	0x3fe098618f2d92b5              # double 0.5186012073941898
+	.quad	0x3fcb5ab5666bd3f4              # double 0.21370570660624788
+	.quad	0x3fed0c1b26aa27fd              # double 0.90772779037183648
+	.quad	0x3fe9850fa23aaf7b              # double 0.79749280629538022
+	.quad	0x3fd9344d5bce2b4a              # double 0.39381727185598392
+	.quad	0x3fe1e55f7f872f7e              # double 0.55924963863206734
+	.quad	0x3fec9b4479d124f6              # double 0.8939535502660465
+	.quad	0x3fdd1656835067bc              # double 0.45448839973107247
+	.quad	0x3fecca7f22f4eb6f              # double 0.89971882655605195
+	.quad	0x3fa68cc7ecadaa90              # double 0.044042823449520374
+	.quad	0x3fd87c5df8a7653e              # double 0.38259076387983615
+	.quad	0x3febccc3e5741bd0              # double 0.86874575438639035
+	.quad	0x3fe9004c48c89021              # double 0.78128637519376209
+	.quad	0x3fe60e2a6adc6fa1              # double 0.68922921057991371
+	.quad	0x3fe0631d5200129c              # double 0.51209894195251904
+	.quad	0x3fbd61e64719c438              # double 0.11477507816177102
+	.quad	0x3fddecbc6fcac3a0              # double 0.46757422368232859
+	.quad	0x3fb4ef43dc35cfa0              # double 0.081775895368819906
+	.quad	0x3fcbd8dbd64d3a90              # double 0.2175555035014054
+	.quad	0x3fb6b9b28e748410              # double 0.088771018771254484
+	.quad	0x3fe3baa4f076a967              # double 0.61653372731715883
+	.quad	0x3fe11b28fa2ec247              # double 0.53456543792533118
+	.quad	0x3fd21ac79522c980              # double 0.2828844982533596
+	.quad	0x3fd2b72438f307bc              # double 0.2924280697008006
+	.quad	0x3fe411b6252ab35a              # double 0.62716204890385119
+	.quad	0x3fb9041e76c52eb0              # double 0.097719100948945536
+	.quad	0x3fb541ce96fddef0              # double 0.083035385001376971
+	.quad	0x3fd00078d1b1bac6              # double 0.25002880552248674
+	.quad	0x3fd7d46ffd301998              # double 0.37234115338687834
+	.quad	0x3feb9e89b2a1ba00              # double 0.86310276879322601
+	.quad	0x3fd573c6d27ff3b2              # double 0.33519144589063921
+	.quad	0x3fd2ff4050a7b710              # double 0.2968292987487624
+	.quad	0x3fa660e5a649a750              # double 0.043708015965263969
+	.quad	0x3fe5c658d4b165eb              # double 0.68046227971643469
+	.quad	0x3fbe8af356941a00              # double 0.11930771697743836
+	.quad	0x3fdc5db3b1fa5eac              # double 0.44321911221184496
+	.quad	0x3fd0c1203a8559a2              # double 0.26178746905261552
+	.quad	0x3fe52844ac1aac60              # double 0.66116555799579757
+	.quad	0x3fc4947e803870f0              # double 0.16078168164029405
+	.quad	0x3fe84019454b9178              # double 0.75782455000130167
+	.quad	0x3fcb39526b683128              # double 0.21268682713015008
+	.quad	0x3fe4e32d564b11c7              # double 0.65273157934330406
+	.quad	0x3fd00d1aacd01cb0              # double 0.25079981685889674
+	.quad	0x3fe44e6d4d1eed43              # double 0.63457360327394274
+	.quad	0x3fdd863286718804              # double 0.46131575707670458
+	.quad	0x3fec281ca63e4bf6              # double 0.87989647359279277
+	.quad	0x3fed3c67bf588a2d              # double 0.91362368938672989
+	.quad	0x3fa6e1fe3ed82950              # double 0.044692940875466491
+	.quad	0x3fecd98bb2afeb8b              # double 0.90155587100831391
+	.quad	0x3fdcf87eb6fff610              # double 0.45266692992285673
+	.quad	0x3fc58dc7c854c7e4              # double 0.16838929445071849
+	.quad	0x3fb8e2ae915feba8              # double 0.097208891383998464
+	.quad	0x3f90fd0a0140e420              # double 0.016590267492777255
+	.quad	0x3fe073c8ade24869              # double 0.51413377725317588
+	.quad	0x3fe4f2065c6d6a14              # double 0.65454404880739725
+	.quad	0x3fd2de80641220e2              # double 0.29483041546383337
+	.quad	0x3fd699ed36420568              # double 0.35314493464109953
+	.quad	0x3fb9129c371fcaf0              # double 0.097940219362310676
+	.quad	0x3fe6993633cd4ac8              # double 0.7062026035076423
+	.quad	0x3fe4cfd8172e47a5              # double 0.65037159469124062
+	.quad	0x3fde5e83307e58f4              # double 0.47451858268449532
+	.quad	0x3fe36d05a732fcb7              # double 0.60705835968101141
+	.quad	0x3fe6401677bad35f              # double 0.69532321343158887
+	.quad	0x3fb7216b98d74cb0              # double 0.090353703322125111
+	.quad	0x3feea14661b6544a              # double 0.95718688091677362
+	.quad	0x3fd3d625e48fb020              # double 0.30994555778920763
+	.quad	0x3fee0bcad1eed2df              # double 0.93893948557396445
+	.quad	0x3fe01411d5640a7a              # double 0.50244990995299976
+	.quad	0x3fd6ff8559065908              # double 0.35934575742557273
+	.quad	0x3fe6526abccc422d              # double 0.69756066202723377
+	.quad	0x3fece15043d4aa13              # double 0.90250409362971806
+	.quad	0x3fdf4469c92a8294              # double 0.4885506119262939
+	.quad	0x3fecd5555dcd9196              # double 0.90104168244265526
+	.quad	0x3fd11ba06e6ffc9a              # double 0.26731119904429479
+	.quad	0x3fa38287b6746150              # double 0.038105240843096966
+	.quad	0x3fe911cde087c428              # double 0.78342336515027444
+	.quad	0x3fe103651edac73a              # double 0.53166442896165411
+	.quad	0x3fe1e8998d74a48b              # double 0.5596435320668588
+	.quad	0x3fd67bee2c35a60c              # double 0.351314109013942
+	.quad	0x3fd63bfbd16d3006              # double 0.34741111232574473
+	.quad	0x3fe1a4bdf50c3e1c              # double 0.5513601099100387
+	.quad	0x3fbaa34768dd6398              # double 0.10405393896270565
+	.quad	0x3fe65d7f77be894a              # double 0.69891332042269849
+	.quad	0x3fe6f2df1046dc3f              # double 0.71714738062917849
+	.quad	0x3fbe2c7f06332888              # double 0.11786645795214856
+	.quad	0x3fd00d83be422622              # double 0.25082486705704998
+	.quad	0x3febb4ac5bf8b139              # double 0.86580484355139398
+	.quad	0x3fe471b0d1be3e8d              # double 0.63887825932938969
+	.quad	0x3fdae96245ea788e              # double 0.42049462154125983
+	.quad	0x3fe1f8fbdfad7ed3              # double 0.56164354025892249
+	.quad	0x3fd3290fdf4c6872              # double 0.29938122564784131
+	.quad	0x3fc56a117c275fe8              # double 0.16729944765279403
+	.quad	0x3fed9a4113b867e3              # double 0.92507985927226988
+	.quad	0x3fd0d4ceaa56dfc2              # double 0.26298872599317857
+	.quad	0x3fe939d8ef826169              # double 0.78831145075950559
+	.quad	0x3fe2d5d996ebb832              # double 0.58860473133768765
+	.quad	0x3fee05392928e9da              # double 0.93813760794665346
+	.quad	0x3fed0d9da330b216              # double 0.90791208146180469
+	.quad	0x3fbd3440df742a50              # double 0.11407857375540087
+	.quad	0x3feb58612145973b              # double 0.85453850267797493
+	.quad	0x3fe1e271530b5992              # double 0.55889192790600561
+	.quad	0x3fe00b0512a78a4c              # double 0.50134519236991926
+	.quad	0x3fdbfec13b8ce2b8              # double 0.4374239999338374
+	.quad	0x3fe6d2613520692a              # double 0.7131811177853582
+	.quad	0x3fe4ab243093b0a9              # double 0.64589128005674923
+	.quad	0x3fd975ef4e034c84              # double 0.39782316797681738
+	.quad	0x3fdc28e9940b95ac              # double 0.43999709565681644
+	.quad	0x3fd4c005adcc9762              # double 0.32422010395599987
+	.quad	0x3fe01346830f2ee7              # double 0.50235295865556118
+	.quad	0x3fc618db34298cfc              # double 0.17263355299937888
+	.quad	0x3fdb88d436411b86              # double 0.43022637651704831
+	.quad	0x3fb53f1b446e8108              # double 0.082994178969333032
+	.quad	0x3fdedb6e78462cba              # double 0.48214303727645424
+	.quad	0x3fc4a09c7c800fa8              # double 0.16115146712411144
+	.quad	0x3fd24800219676c6              # double 0.28564456253102966
+	.quad	0x3fdf38bd248ab406              # double 0.48783806389366224
+	.quad	0x3fe5eca793581300              # double 0.68513850000508114
+	.quad	0x3fdc9ebeb5de86de              # double 0.44718902359646318
+	.quad	0x3fe225f5a7059c35              # double 0.56713373776881915
+	.quad	0x3fa865f222ba82d0              # double 0.047652785052610391
+	.quad	0x3fd07d0a25ca8196              # double 0.25763181391268952
+	.quad	0x3f769f0720a13780              # double 0.0055227545181660842
+	.quad	0x3fcebdc6c62426b8              # double 0.24016651797164967
+	.quad	0x3febcafd9af57c59              # double 0.86852913155952216
+	.quad	0x3fdf18a3bce26a16              # double 0.48587888189072836
+	.quad	0x3fe03bc9103b1a89              # double 0.50729802293865689
+	.quad	0x3fdc9e6766909f48              # double 0.44716820732218254
+	.quad	0x3fd84f2ea0e0e3da              # double 0.37983289442814583
+	.quad	0x3fea3c704e45959e              # double 0.81987777030433384
+	.quad	0x3fecd67b5470c157              # double 0.90118185512805382
+	.quad	0x3fe845dd171a471c              # double 0.75852827560649727
+	.quad	0x3fd6599780934e06              # double 0.34921824985687555
+	.quad	0x3fe4fce922afcd16              # double 0.65587288641691788
+	.quad	0x3fd5f48f477f3d24              # double 0.34305173856860649
+	.quad	0x3fe192284c3af308              # double 0.54909148110127237
+	.quad	0x3fedd71e3088eb21              # double 0.93250951270542626
+	.quad	0x3fb81c7c93b3ee80              # double 0.094184671459453639
+	.quad	0x3fcd755d5ad51e54              # double 0.23014418540172932
+	.quad	0x3fbdc52ce01d4360              # double 0.11628990623036151
+	.quad	0x3fe6aab62026bdf0              # double 0.70833879737432248
+	.quad	0x3feb6d367bd3b845              # double 0.85708164391486064
+	.quad	0x3fe6c5f88c9f9891              # double 0.71166636910926873
+	.quad	0x3fe101dfce2cac05              # double 0.53147878902871126
+	.quad	0x3fe0e3573d30c818              # double 0.52775155974655075
+	.quad	0x3fe40c555f89e110              # double 0.6265055528629393
+	.quad	0x3fedf518e8acfdaa              # double 0.93616910404664577
+	.quad	0x3fe727c7d40d66e4              # double 0.72360602776026584
+	.quad	0x3fe2185ae8b42222              # double 0.56547303628855539
+	.quad	0x3fe4007dee392a49              # double 0.62506004837025231
+	.quad	0x3fe13d616fb3ec12              # double 0.5387427503295632
+	.quad	0x3fe5576b385dd1b3              # double 0.66692124375418016
+	.quad	0x3fe4b99a677c98ee              # double 0.64765663349387892
+	.quad	0x3fef9af879e3c51c              # double 0.98766731077754199
+	.quad	0x3fcffe5a183c6e18              # double 0.24994970496560209
+	.quad	0x3fe341b6be4e25c7              # double 0.60177170914646971
+	.quad	0x3fdd2d3d6423b53a              # double 0.4558862188267373
+	.quad	0x3fe876f49049c3da              # double 0.76452091389921439
+	.quad	0x3feb79219d4f511f              # double 0.85853653645111538
+	.quad	0x3fec893d5f59862b              # double 0.89175289748181308
+	.quad	0x3fde0dc39564c066              # double 0.46959008778777045
+	.quad	0x3fdc592c3a53e456              # double 0.44294267364563689
+	.quad	0x3fd35ef4d8e3326e              # double 0.30267068081301474
+	.quad	0x3fc59959108cd2f4              # double 0.16874230678663305
+	.quad	0x3fd5bf200b241e2e              # double 0.33979035461422569
+	.quad	0x3fd981b3f512831e              # double 0.39854144032328687
+	.quad	0x3fea07e8db1ba9e8              # double 0.81346552652877069
+	.quad	0x3fe55846944a7b75              # double 0.66702584231448603
+	.quad	0x3feb2e5108323e20              # double 0.84940387345153922
+	.quad	0x3fc7b9876d5150ac              # double 0.18534939611220602
+	.quad	0x3fec8a8954e2f534              # double 0.89191118792920187
+	.quad	0x3fe92cc6c6109404              # double 0.78671587643168594
+	.quad	0x3feb8be6f13e63cf              # double 0.86082789533531379
+	.quad	0x3fcc324accb72da8              # double 0.22028479572177884
+	.quad	0x3fe612bedaf71d1a              # double 0.68978827253968977
+	.quad	0x3fdd891d85e61d9c              # double 0.46149385524810227
+	.quad	0x3fcb79c165609740              # double 0.214653181553496
+	.quad	0x3fbb2076bacc6800              # double 0.10596410809048962
+	.quad	0x3fd0718d799f93f8              # double 0.25693070294647624
+	.quad	0x3fe9c636ca718274              # double 0.80544604816175402
+	.quad	0x3fe658631c68a34b              # double 0.69828944729406695
+	.quad	0x3fe923b3ef46a294              # double 0.7856082604749468
+	.quad	0x3fbb3e3ccab25140              # double 0.10641841839453026
+	.quad	0x3feaa68457a9d8dd              # double 0.83282677766581126
+	.quad	0x3fd45faa9dd9d072              # double 0.31833901801224507
+	.quad	0x3fe712d7950ad7eb              # double 0.72105006322703724
+	.quad	0x3fdcd52d14545c12              # double 0.45051123605065968
+	.quad	0x3fc6b58673ff0f58              # double 0.17741470970042417
+	.quad	0x3fe6598a2e4cd947              # double 0.69843014758115707
+	.quad	0x3fe9b49c00660565              # double 0.80329704358898069
+	.quad	0x3fd4ad477cffeaba              # double 0.32307612616538572
+	.quad	0x3fe5f03c2ba6c133              # double 0.68557556653653362
+	.quad	0x3fc083935874184c              # double 0.12901536768930766
+	.quad	0x3fe8d1aa2334ec28              # double 0.77559382320703651
+	.quad	0x3fee3f773afce490              # double 0.94524728318278228
+	.quad	0x3feadb8c8fc4d8a0              # double 0.83930042343014932
+	.quad	0x3fea990c2d9db20d              # double 0.83118256482481601
+	.quad	0x3fdf4426abe5284a              # double 0.48853461062083581
+	.quad	0x3fecd8a8d8be9bfa              # double 0.90144769986079543
+	.quad	0x3fe65911ccce1544              # double 0.69837274552325157
+	.quad	0x3fa5d7d79492fd50              # double 0.042662369619842821
+	.quad	0x3fe1a571e63de189              # double 0.55144591302000479
+	.quad	0x3fe7685b07c3d3f2              # double 0.73148871914474811
+	.quad	0x3fd0a812b82502fa              # double 0.26025836928242507
+	.quad	0x3fdc8cae72059d7c              # double 0.44608651289896506
+	.quad	0x3fc24f48c8266db8              # double 0.14304456494288131
+	.quad	0x3fe1b507ed36ead1              # double 0.55334850626908338
+	.quad	0x3fe4500065bcd810              # double 0.63476581450118097
+	.quad	0x3fe38d8d09583207              # double 0.61102916550731912
+	.quad	0x3fe032b60c652ee7              # double 0.50619032307573952
+	.quad	0x3fe90b259f036686              # double 0.78261071259767401
+	.quad	0x3fc8e99d6d3366cc              # double 0.19462936241216366
+	.quad	0x3feeddc5cc7234fa              # double 0.96457185679324131
+	.quad	0x3fe021c87027bf7a              # double 0.50412389664960178
+	.quad	0x3fe1494b74054acc              # double 0.54019711170470819
+	.quad	0x3fd715dc5a75a1f6              # double 0.36070927461562918
+	.quad	0x3fd00361677374fc              # double 0.25020632841717805
+	.quad	0x3fd5fb2719f9bb70              # double 0.3434541467349197
+	.quad	0x3fefea6a4c0f85f7              # double 0.99736513953774774
+	.quad	0x3fcb97dfc0b25628              # double 0.21557232769980428
+	.quad	0x3fccd78a5cad4a64              # double 0.22532777333488518
+	.quad	0x3fd413d2edc8f844              # double 0.31370995732493534
+	.quad	0x3fef008d5b70c77d              # double 0.96881740436059227
+	.quad	0x3fdb263295918474              # double 0.42420639616290789
+	.quad	0x3fc0785eda50da18              # double 0.12867341670944721
+	.quad	0x3fe73a9b17b77f37              # double 0.72590403206047582
+	.quad	0x3fee8e7751f470c7              # double 0.95489088064962224
+	.quad	0x3fe4e0a5a41df24e              # double 0.65242273382279747
+	.quad	0x3feaf55495288b75              # double 0.84244755871291821
+	.quad	0x3fdc9516f127e022              # double 0.44659970808379701
+	.quad	0x3fe4fc3551ce5196              # double 0.65578714349480793
+	.quad	0x3fefa40cc6139977              # double 0.98877562224224291
+	.quad	0x3fbdbc146ebe4fc0              # double 0.11615112022110363
+	.quad	0x3fe2447f345bdcf0              # double 0.57086143709503112
+	.quad	0x3fb2c98a10dd72f8              # double 0.073387745969238583
+	.quad	0x3fe3f12b89646793              # double 0.6231897052232277
+	.quad	0x3fd018279ba345b0              # double 0.25147428702356489
+	.quad	0x3fecc80a2ad57062              # double 0.89941891065565138
+	.quad	0x3fd36ef914c64c50              # double 0.30364825276155205
+	.quad	0x3fe66a9d7cf46ee7              # double 0.70051454930532209
+	.quad	0x3fea073a20db3190              # double 0.81338220994216393
+	.quad	0x3fb95189dc203f78              # double 0.098900429002467649
+	.quad	0x3fe83f4bd34f534d              # double 0.75772658606965992
+	.quad	0x3fc20a35c0f8bbfc              # double 0.14093658373300844
+	.quad	0x3fdb2fa8b209d82c              # double 0.42478387247627114
+	.quad	0x3fee07cedd00b348              # double 0.9384531322917633
+	.quad	0x3fead7b14cffe4ff              # double 0.83882966078741095
+	.quad	0x3fec3f8d7cab4d11              # double 0.88275789594118426
+	.quad	0x3fc4393ceb72d4bc              # double 0.15799676414977692
+	.quad	0x3fd391f52fde3008              # double 0.30578355478860475
+	.quad	0x3fea6678942d7c38              # double 0.82500866833641506
+	.quad	0x3feac3ada9f7226d              # double 0.83638652035103933
+	.quad	0x3feea670f1c150cf              # double 0.95781752794075625
+	.quad	0x3fea0bfcdb64ff0c              # double 0.81396334505549949
+	.quad	0x3fdfa6840177bb4e              # double 0.49453830855684522
+	.quad	0x3fe876fcce2e9c2a              # double 0.76452484388290043
+	.quad	0x3fe48c7762c87e09              # double 0.64214677136982445
+	.quad	0x3fcb30e00de8a2ac              # double 0.2124290531076175
+	.quad	0x3fba3af5fbbaed98              # double 0.10246217151409664
+	.quad	0x3fd409f8114b12ee              # double 0.31310846031946837
+	.quad	0x3fd8f0a46e1ac108              # double 0.38968764068978645
+	.quad	0x3fd2ec9237a59288              # double 0.29568915781263927
+	.quad	0x3fea17be4d6f4dd6              # double 0.81539836048107861
+	.quad	0x3fd531d585585f8c              # double 0.33116663000100099
+	.quad	0x3fd2702c933e0514              # double 0.28809656504752579
+	.quad	0x3fcc38f8e1a5c978              # double 0.22048865335416301
+	.quad	0x3feade8fd2c7ad4e              # double 0.83966818969694557
+	.quad	0x3fdf9963b588a07e              # double 0.49373715141201291
+	.quad	0x3fe5ae10a9992dad              # double 0.67749817967108117
+	.quad	0x3fe9fce5307e148c              # double 0.81212100478355031
+	.quad	0x3feb48b5b7d374cb              # double 0.85262571242824359
+	.quad	0x3fee9a28906fbbd2              # double 0.95631817064519908
+	.quad	0x3fb02e2b542ad880              # double 0.063204486893342349
+	.quad	0x3fe836ab7a4bdd08              # double 0.75667356382373985
+	.quad	0x3fc102872958d0f4              # double 0.1328896476640079
+	.quad	0x3fec0333ce2c95fe              # double 0.87539091366187427
+	.quad	0x3fe80c6ec78403c3              # double 0.75151766746432036
+	.quad	0x3fe99c7650eb6db3              # double 0.80034938625924779
+	.quad	0x3fd5d3e98a06bcb0              # double 0.34105909804470524
+	.quad	0x3fd3789e475b7ae4              # double 0.3042369553422033
+	.quad	0x3fed50882177a2c2              # double 0.91608053719127036
+	.quad	0x3fcfa2c18d2b88e4              # double 0.24715442078656402
+	.quad	0x3fe676ef40b1380f              # double 0.70201838145453788
+	.quad	0x3fbaf8a36eca70e8              # double 0.10535642104008824
+	.quad	0x3fd459e20c72afb8              # double 0.31798602309822455
+	.quad	0x3fec97c92e39d6b8              # double 0.89352854755880795
+	.quad	0x3fe336803d0eeba1              # double 0.60040294576116449
+	.quad	0x3fc4e5ef2cfe0ae0              # double 0.16326703736202486
+	.quad	0x3fe55171899b541d              # double 0.66619183422392647
+	.quad	0x3fe58041822f8813              # double 0.67190623690499007
+	.quad	0x3fe767242c927c2c              # double 0.73134049134740087
+	.quad	0x3fe0cc4873c9dc45              # double 0.5249368916983107
+	.quad	0x3fdd54200cd8f3d4              # double 0.45825959448467057
+	.quad	0x3fe26443dd77ef2c              # double 0.57473939185681422
+	.quad	0x3fe52bdf9c464eff              # double 0.66160564920798481
+	.quad	0x3fd9b073f9a96a56              # double 0.4013948381522473
+	.quad	0x3fe486da3f28eb7c              # double 0.64146149001986386
+	.quad	0x3fe51db89c9dac06              # double 0.6598780688194672
+	.quad	0x3fe496bbbdc0e459              # double 0.64340006886699108
+	.quad	0x3fd63875c35f6dfc              # double 0.34719604567882789
+	.quad	0x3fa01a2f7a715dc0              # double 0.031449779221186969
+	.quad	0x3fd4d216c070c75c              # double 0.32532280724546125
+	.quad	0x3fd19f8034a44a96              # double 0.27536015644833733
+	.quad	0x3fc219db97c7713c              # double 0.14141411696517447
+	.quad	0x3fe89ef1c6dd786b              # double 0.76940239754527562
+	.quad	0x3fd587dc090aae1e              # double 0.33641720660190966
+	.quad	0x3feb8f3e15ffe317              # double 0.8612356595686802
+	.quad	0x3fc562c9527393fc              # double 0.16707722211791054
+	.quad	0x3fe26b1ec17ec992              # double 0.57557618896525953
+	.quad	0x3fe91e26c8170193              # double 0.78493060188343333
+	.quad	0x3fda42e19cfbd450              # double 0.41033211069526931
+	.quad	0x3fad50789df7f540              # double 0.057254571231150297
+	.quad	0x3fceecb2fc76f510              # double 0.24159848525406646
+	.quad	0x3fee078de8798fd7              # double 0.93842215924496031
+	.quad	0x3fe1de579844fad3              # double 0.55839137783172033
+	.quad	0x3fe95d46a125639f              # double 0.79263621782148508
+	.quad	0x3f950d1ef0617220              # double 0.02055786459128417
+	.quad	0x3fedd088526f38d9              # double 0.93170562839966486
+	.quad	0x3fcc08637e697408              # double 0.21900600120980607
+	.quad	0x3fe1bf93874337a9              # double 0.55463577669592212
+	.quad	0x3f79eb9884d9fd80              # double 0.0063281972667249553
+	.quad	0x3fdf4edeaf927958              # double 0.48918883462638041
+	.quad	0x3fc62c1cbf4d4ab8              # double 0.17322120037950639
+	.quad	0x3fea251cf1bb3471              # double 0.8170304032625052
+	.quad	0x3fe33df26e3418a5              # double 0.60131188892480181
+	.quad	0x3fc6e1da6f547300              # double 0.1787674945452622
+	.quad	0x3fe49b97d1949b6f              # double 0.64399329122248428
+	.quad	0x3fd5438eef7eb6b0              # double 0.33224843395405923
+	.quad	0x3fe7da5ad93abf0a              # double 0.74540464809067086
+	.quad	0x3fef49e469a86393              # double 0.97777004848750193
+	.quad	0x3fd8da31fbbe2c44              # double 0.38831758102668723
+	.quad	0x3fe29dd69783a4ca              # double 0.58176736443160704
+	.quad	0x3fef840dac21cff0              # double 0.98486980075403885
+	.quad	0x3fefd3b4a427ab4d              # double 0.99459297238841204
+	.quad	0x3fc0b044c6bf0d34              # double 0.13037929253014513
+	.quad	0x3fd6df3c44189826              # double 0.35737520837790482
+	.quad	0x3fe4554c347fa1f9              # double 0.63541231397272135
+	.quad	0x3fefb381f84eb986              # double 0.9906625604397028
+	.quad	0x3fe2139ab4cab6f9              # double 0.56489310561093398
+	.quad	0x3fd1155bc100311c              # double 0.26692861411790303
+	.quad	0x3fe4e2a0b8472f60              # double 0.65266452781495943
+	.quad	0x3fcd20e6d24ebac4              # double 0.22756657856867524
+	.quad	0x3fe097f778c2ccd1              # double 0.51855062090035109
+	.quad	0x3fe0a531da89893e              # double 0.52016537364060134
+	.quad	0x3fd500dccb2763e6              # double 0.32817764128918581
+	.quad	0x3fd8a0d545a87904              # double 0.38481647303150646
+	.quad	0x3fdadc13571babb6              # double 0.41968234545373251
+	.quad	0x3fa095a1c10c4dd0              # double 0.032391600432812973
+	.quad	0x3fed87d01ffd8817              # double 0.92282873390309106
+	.quad	0x3fca44bd05f81268              # double 0.20522272864777169
+	.quad	0x3fcf04da307a4420              # double 0.24233558051176463
+	.quad	0x3fe9e49f1d6cf906              # double 0.80915790316774472
+	.quad	0x3fc160c495c8ed50              # double 0.13576562226976785
+	.quad	0x3fd3f254e7fd2112              # double 0.31166575102953786
+	.quad	0x3fc612642cdaa580              # double 0.17243625822201736
+	.quad	0x3fdca041885357a0              # double 0.44728124917070922
+	.quad	0x3fcf8d7cff845728              # double 0.24650537945188344
+	.quad	0x3fd1369f4f9345ba              # double 0.2689588811018343
+	.quad	0x3fe433d3cf9cee51              # double 0.6313265852872495
+	.quad	0x3fe77470f2896ef5              # double 0.73296401377180465
+	.quad	0x3fbb88c2cc22b490              # double 0.10755555614260204
+	.quad	0x3fe0cbfe5c72baae              # double 0.52490156227380225
+	.quad	0x3fdb479ecc572418              # double 0.42624635653607035
+	.quad	0x3fc1d85002c0a57c              # double 0.13941383489990844
+	.quad	0x3fe0ea064224d5b8              # double 0.52856743735053779
+	.quad	0x3fac9354a6027af0              # double 0.055811543717245615
+	.quad	0x3fe782dc7c8316de              # double 0.73472427672160356
+	.quad	0x3fe7c85d7165e652              # double 0.74320861957603257
+	.quad	0x3fe55fc9f8fcf4e4              # double 0.66794298773279737
+	.quad	0x3fbde5200b134038              # double 0.11677742262259094
+	.quad	0x3fed8b220fa10cd4              # double 0.92323401501234991
+	.quad	0x3fed1d8ebc65f4e4              # double 0.90985810085808482
+	.quad	0x3fe41a417e4fb035              # double 0.62820505781338076
+	.quad	0x3fe5306aece66cbc              # double 0.66216036099958542
+	.quad	0x3fe02eefcccb21c7              # double 0.5057295799134004
+	.quad	0x3fc6a4ec14e6e530              # double 0.17690802593805577
+	.quad	0x3fe29a12188f71e2              # double 0.58130745694102992
+	.quad	0x3fe36f3e28dd636e              # double 0.60732944470792716
+	.quad	0x3fd0491f913b3990              # double 0.25446309263943423
+	.quad	0x3fe9df92dbd1c7d3              # double 0.80854170735823983
+	.quad	0x3fdfcdb8399b77c6              # double 0.49693112970078024
+	.quad	0x3fbcb7f487ef1390              # double 0.11218193358133832
+	.quad	0x3fddc1640ba99eda              # double 0.46492863787578431
+	.quad	0x3fb98f135b07b738              # double 0.099839410518794192
+	.quad	0x3fbc0674fad5d4b0              # double 0.10947352527530785
+	.quad	0x3f801cdf4e06a980              # double 0.0078675695120480338
+	.quad	0x3fec935a8136c916              # double 0.89298749196157945
+	.quad	0x3fcf5214ecc43820              # double 0.24469243584502554
+	.quad	0x3fd70923720967da              # double 0.35993276726150969
+	.quad	0x3fe56999e61c76b3              # double 0.66914076751318985
+	.quad	0x3fd30cbd431cfafa              # double 0.29765254549049269
+	.quad	0x3fd82d01d8dc78a4              # double 0.37774702241757496
+	.quad	0x3fc27ff1a7ffd5ec              # double 0.14452954009145402
+	.quad	0x3fdcc93b6b9f3336              # double 0.44978223333309886
+	.quad	0x3fef1a367be84b26              # double 0.97194980812705434
+	.quad	0x3fdbd807368c2a8c              # double 0.4350603134813944
+	.quad	0x3fe57da7eb63323e              # double 0.67158885931127776
+	.quad	0x3fd014fc86a22b78              # double 0.25128090999412889
+	.quad	0x3fd4f45fc49efa38              # double 0.32741541100759575
+	.quad	0x3fe5bb07efc22811              # double 0.67908093288247262
+	.quad	0x3fb729f593d3f2c0              # double 0.090483997908402891
+	.quad	0x3fbeac0cd74238e8              # double 0.11981277709330451
+	.quad	0x3fef6b43e421381d              # double 0.98184389645189507
+	.quad	0x3fa75c9df0f6b290              # double 0.045628486313352146
+	.quad	0x3fcea88b6e478db4              # double 0.23951857456914427
+	.quad	0x3f7c1640f5f3fd80              # double 0.0068571603326285091
+	.quad	0x3feaecef15928b31              # double 0.84142259801260455
+	.quad	0x3fe7955aee99947d              # double 0.7369818363337256
+	.quad	0x3fd50e26d4997d44              # double 0.32898875009228257
+	.quad	0x3fe64c55373b9cd4              # double 0.6968179777876693
+	.quad	0x3fdd592adfce0230              # double 0.45856735092096113
+	.quad	0x3fd3ae67653bd87c              # double 0.30751976858244467
+	.quad	0x3fe9fa1aa2ef6d28              # double 0.81178027938168373
+	.quad	0x3fee508d76d71325              # double 0.94733308039630926
+	.quad	0x3feec3302d54da50              # double 0.96132668355751072
+	.quad	0x3fe91230494eca4a              # double 0.78347029035496374
+	.quad	0x3fc9b73fec27aef0              # double 0.2009048369503641
+	.quad	0x3fd964e112eb5dfc              # double 0.39678217742536481
+	.quad	0x3fbe77c5c2866e08              # double 0.11901508330486632
+	.quad	0x3fd38e3b961390f8              # double 0.30555619865323491
+	.quad	0x3fdda229eca61a74              # double 0.46302269087065118
+	.quad	0x3feeae70596ed259              # double 0.9587938067184708
+	.quad	0x3fcf2d4f90527d54              # double 0.24357027575477253
+	.quad	0x3fed2c3ddd6e3356              # double 0.91165059326304276
+	.quad	0x3fe6ceeba621ae8e              # double 0.71275885055134025
+	.quad	0x3fee01764798139f              # double 0.93767847045147679
+	.quad	0x3fe3d5fe712a1567              # double 0.61987230398578397
+	.quad	0x3fe6c5ceb7ca69bd              # double 0.71164642235390085
+	.quad	0x3fe2e19dc6943346              # double 0.59004105362837644
+	.quad	0x3fca601903bdf0a4              # double 0.20605766947472148
+	.quad	0x3fe2615c4e32b38f              # double 0.57438483498627757
+	.quad	0x3fe01f7c4483aa70              # double 0.50384343511298191
+	.quad	0x3fe06002bf5fa9e8              # double 0.51172006013558491
+	.quad	0x3fd310f1d1bc44a2              # double 0.29790921670889692
+	.quad	0x3fe560d874b47e7b              # double 0.66807196420627635
+	.quad	0x3fc453a2faa84a0c              # double 0.15880238761072041
+	.quad	0x3fe50fd2a30f2349              # double 0.65818149421202421
+	.quad	0x3fdad108b399e38e              # double 0.41900842227146817
+	.quad	0x3fe5b620a16c33e0              # double 0.67848235633720932
+	.quad	0x3feff0363a192bdc              # double 0.99807273242310712
+	.quad	0x3fdfdaf4a4c40030              # double 0.49773899164574953
+	.quad	0x3feb81807236e66e              # double 0.85955831820974793
+	.quad	0x3fe1f9d94b3af9ba              # double 0.56174912160331947
+	.quad	0x3fef707941f31804              # double 0.98247969513681754
+	.quad	0x3fd214e941799738              # double 0.2825263156322424
+	.quad	0x3fe2597807408dab              # double 0.57342149177968815
+	.quad	0x3fd0d8de33aa74b2              # double 0.26323657079212659
+	.quad	0x3fd558c65c1af766              # double 0.33354338640844217
+	.quad	0x3fe1564dd07173e6              # double 0.54178515159184992
+	.quad	0x3fe951635473a701              # double 0.79118505949483631
+	.quad	0x3fe96ed50f9248a2              # double 0.79477932969372866
+	.quad	0x3fd7b6b3997c9682              # double 0.37052621830876131
+	.quad	0x3fe3467d53886857              # double 0.60235468211181853
+	.quad	0x3fe6c61f316326dd              # double 0.71168479581794097
+	.quad	0x3fc4edc48992f428              # double 0.1635060950992806
+	.quad	0x3fd6279a9dca5102              # double 0.34616723450859876
+	.quad	0x3fc9933d0a40f0ac              # double 0.19980586052577587
+	.quad	0x3fc873d60aed81ec              # double 0.19103503736097538
+	.quad	0x3fd86bf64ec1b4dc              # double 0.38158948603706988
+	.quad	0x3fc611bd302b057c              # double 0.1724163518138474
+	.quad	0x3fe99ead1268e2f9              # double 0.80061963649413237
+	.quad	0x3fd790bd668a22f0              # double 0.36820921910889037
+	.quad	0x3fd83d3f07661ac4              # double 0.37873817179244562
+	.quad	0x3fdf4816eeaaf094              # double 0.48877499873538821
+	.quad	0x3fec5429258670d3              # double 0.88527352646954183
+	.quad	0x3f71cbb3416ea800              # double 0.0043446542903584628
+	.quad	0x3fd281ce396f76dc              # double 0.28917270287443642
+	.quad	0x3fe00f9a6570f222              # double 0.50190467655881243
+	.quad	0x3fea05a5057fef79              # double 0.8131890399376821
+	.quad	0x3fd29ced1581d59c              # double 0.29082800960835598
+	.quad	0x3fc85380b0db6fe0              # double 0.19004830012897767
+	.quad	0x3fe2179a9b4d306d              # double 0.56538133938148649
+	.quad	0x3fe0cb5851397f81              # double 0.52482238640003243
+	.quad	0x3fd683f7f7f4c9be              # double 0.35180472578499777
+	.quad	0x3fd397dafbdefac6              # double 0.30614351841715537
+	.quad	0x3fb00d9bb4aeacd8              # double 0.062707645046134686
+	.quad	0x3fe93cb6a1201b13              # double 0.78866130323226213
+	.quad	0x3fe5fe5f46b7ca52              # double 0.68730129062744028
+	.quad	0x3fd63fccbb912a7a              # double 0.34764402691931873
+	.quad	0x3f7432c769869480              # double 0.0049312390841907972
+	.quad	0x3fe0e687f2799811              # double 0.52814099653619639
+	.quad	0x3fdd42a472cbfe9e              # double 0.45719252787237419
+	.quad	0x3fea07dddf8b3c92              # double 0.81346028958241079
+	.quad	0x3fb2c083c099d140              # double 0.073250040551845252
+	.quad	0x3fb2b773bd8a51a8              # double 0.073111757063378691
+	.quad	0x3fd02f2efba6df50              # double 0.25287985396743284
+	.quad	0x3fe0e6c2bd10f737              # double 0.5281690304470662
+	.quad	0x3fec473bce788c4c              # double 0.88369551016183711
+	.quad	0x3fe907496eca376d              # double 0.78213950766233398
+	.quad	0x3fd72fa137200870              # double 0.36228208907426218
+	.quad	0x3fe6a9dcac199106              # double 0.70823510754829111
+	.quad	0x3fd852a6c04ec618              # double 0.38004463939714261
+	.quad	0x3fca81a2101041f4              # double 0.20708108696318528
+	.quad	0x3fe900e268eccf32              # double 0.78135796063586427
+	.quad	0x3fddc4768e404cb0              # double 0.46511615649906002
+	.quad	0x3fd9b9345bc4d1a6              # double 0.4019289871387407
+	.quad	0x3fad884a45815600              # double 0.05768043611957907
+	.quad	0x3feaf1515951b70d              # double 0.84195773549228792
+	.quad	0x3fe82c6c0f2b26de              # double 0.75542262041673403
+	.quad	0x3fc68194fb0445f8              # double 0.17582952744173475
+	.quad	0x3fe0667f948c286e              # double 0.51251200688535703
+	.quad	0x3fdd305add2d35be              # double 0.4560763511588809
+	.quad	0x3fb7bb7730e1bf08              # double 0.092704247888601654
+	.quad	0x3fcf78decc80e7e4              # double 0.24587616906666121
+	.quad	0x3fe4380417221a47              # double 0.63183788793760065
+	.quad	0x3fc00583d7ad65a8              # double 0.1251683047401404
+	.quad	0x3fecb32ea0958e87              # double 0.89687281955816978
+	.quad	0x3fcc9dc97d8f0a40              # double 0.22356527930067394
+	.quad	0x3fc816230512ffc4              # double 0.18817556140674985
+	.quad	0x3fecfa5843186cde              # double 0.90555966476986405
+	.quad	0x3fdea9e1650d0af8              # double 0.47911867969757749
+	.quad	0x3fd97826045ea8a0              # double 0.39795828272566247
+	.quad	0x3fe65f877151e069              # double 0.69916126377848997
+	.quad	0x3fe84b69b76d2215              # double 0.75920568299722169
+	.quad	0x3fcbd27eda2b23a0              # double 0.21736131336936371
+	.quad	0x3fd9d1f8d2c12e0e              # double 0.40344067174439224
+	.quad	0x3fd5e16bd25bd1dc              # double 0.34188361685599289
+	.quad	0x3fda04b72610efba              # double 0.4065378066768478
+	.quad	0x3feab06714b7c86d              # double 0.83403352781739459
+	.quad	0x3fe63a1778d82cdf              # double 0.69459127046993874
+	.quad	0x3fe740ea19f804b9              # double 0.72667412826571998
+	.quad	0x3fccc4af4c2f4d94              # double 0.22475234241447295
+	.quad	0x3fc56a698e5370b0              # double 0.16730994653233244
+	.quad	0x3fddbec494fb40cc              # double 0.46476854847879845
+	.quad	0x3fe95f1756ab2b06              # double 0.79285780837503306
+	.quad	0x3fdfd6f28b191478              # double 0.4974943502787208
+	.quad	0x3fd2a396c2f37652              # double 0.29123467481790499
+	.quad	0x3fe6f014669d7878              # double 0.71680660287871856
+	.quad	0x3fe06ee4ea15b252              # double 0.51353688926389851
+	.quad	0x3fe5fa8911d9d244              # double 0.68683293806550028
+	.quad	0x3fb05bd4977caf68              # double 0.063901221260207586
+	.quad	0x3fe6e4fa339252c8              # double 0.71545133659909599
+	.quad	0x3fde43457a876876              # double 0.47285592046467373
+	.quad	0x3fe9ca3365f4e5b9              # double 0.8059327117290912
+	.quad	0x3feae66d54f92a14              # double 0.84062830540034605
+	.quad	0x3fe1399f6bfad187              # double 0.53828402604862979
+	.quad	0x3fee6e9d257825e1              # double 0.95100266760089991
+	.quad	0x3fe92c9aed5c44cc              # double 0.78669496879060707
+	.quad	0x3fc56fda24522f44              # double 0.16747595571029639
+	.quad	0x3fe828ad5f856013              # double 0.75496548325009127
+	.quad	0x3fcecad572501078              # double 0.24056499559094724
+	.quad	0x3fe4ac3b200d1a0b              # double 0.64602428684230639
+	.quad	0x3fe289ed04275276              # double 0.57933665095568077
+	.quad	0x3fda178e09c6ec00              # double 0.40768767313755916
+	.quad	0x3fc4abb9b00cab4c              # double 0.16149064155737347
+	.quad	0x3fd1ded47e7b364e              # double 0.27922546722115704
+	.quad	0x3f9c8e8529357040              # double 0.027887421264822132
+	.quad	0x3fea6baabfb77df2              # double 0.82564294285469786
+	.quad	0x3fda01658647caea              # double 0.40633524049114433
+	.quad	0x3fea2a7aaf3b772e              # double 0.81768545365387069
+	.quad	0x3fd4338805602f4a              # double 0.31564522290203867
+	.quad	0x3fee6f106ce2665b              # double 0.95105763689498291
+	.quad	0x3fded76269550f98              # double 0.48189602171282209
+	.quad	0x3fd475d99f87195e              # double 0.31969299868469203
+	.quad	0x3fdd3b74f0019804              # double 0.45675395429714194
+	.quad	0x3fe70133a5343f68              # double 0.71889669672416989
+	.quad	0x3fd522a6e5b5a9a8              # double 0.33023998673038557
+	.quad	0x3fe1552b84587c75              # double 0.54164672707328398
+	.quad	0x3fe57bceca556632              # double 0.67136325376777095
+	.quad	0x3febd63afb9fd870              # double 0.86990117211713702
+	.quad	0x3fcbe218e6c2b6d4              # double 0.21783744113547832
+	.quad	0x3fd7c7e71fa6bcac              # double 0.37157610026310794
+	.quad	0x3fc74f4f46eababc              # double 0.18210783922900997
+	.quad	0x3fd37c92fcef952c              # double 0.30447840405243443
+	.quad	0x3fce492c992b7d48              # double 0.23660809973714891
+	.quad	0x3fe9e757f9a01925              # double 0.8094901919837737
+	.quad	0x3fe1ac6feeb2c396              # double 0.55229946728478541
+	.quad	0x3fe4417a90576679              # double 0.63299301330262303
+	.quad	0x3fea7ef75a3cfc20              # double 0.82799880623486288
+	.quad	0x3fe02ad521c026ed              # double 0.50522858230507739
+	.quad	0x3fe78bfc0eda3e58              # double 0.73583796406632995
+	.quad	0x3fee01f7c4498895              # double 0.93774021470405222
+	.quad	0x3fb6e6d44c77d308              # double 0.089459675473175904
+	.quad	0x3fc011a4dbe9a860              # double 0.12553845155645416
+	.quad	0x3fea2b2cac4a80b9              # double 0.81777032518950599
+	.quad	0x3fe8dc27c575823e              # double 0.77687443319525307
+	.quad	0x3fe56109beba00c3              # double 0.66809546710285195
+	.quad	0x3feaf9787faf009f              # double 0.84295296610072856
+	.quad	0x3fe68203f5ea67a0              # double 0.70337102919005545
+	.quad	0x3fd0560c1dd29d3a              # double 0.25525191223501376
+	.quad	0x3fe675911b0f1e99              # double 0.70185141835186748
+	.quad	0x3fef4a3bc439867a              # double 0.97781170201433487
+	.quad	0x3fe9b6652d28b513              # double 0.80351504154319497
+	.quad	0x3fe85c624d8a8208              # double 0.76127734322295826
+	.quad	0x3fc034b7e21cbd04              # double 0.12660883465421346
+	.quad	0x3fef4b0ffedfcab7              # double 0.977912900735041
+	.quad	0x3fe9184fa046b3cc              # double 0.78421765617314909
+	.quad	0x3fcdc510b1628020              # double 0.23257645284047701
+	.quad	0x3fee7ad9f54ba49b              # double 0.95249650868676683
+	.quad	0x3fe0ca43fa1a780e              # double 0.52469061706847397
+	.quad	0x3fcc689bdc994cb8              # double 0.22194240828921408
+	.quad	0x3fd7604bdc2cfa82              # double 0.36525246144803003
+	.quad	0x3fdef01bf4bf16f6              # double 0.4834051027395242
+	.quad	0x3fcb03ffc9756898              # double 0.21105954491469414
+	.quad	0x3fdec9756adb75c4              # double 0.4810460608985887
+	.quad	0x3fe57a26ec9da802              # double 0.67116113866836735
+	.quad	0x3fc8546ff0bc8580              # double 0.19007682089526767
+	.quad	0x3fd96d8711220144              # double 0.39731003449562174
+	.quad	0x3fcce30af6f3b82c              # double 0.22567879732327023
+	.quad	0x3fe03dc68f02db2a              # double 0.50754096919886149
+	.quad	0x3f9fdee831bbac00              # double 0.031123760257212751
+	.quad	0x3fd11184b6caf282              # double 0.26669423914771795
+	.quad	0x3fc0233d61707874              # double 0.12607543237476515
+	.quad	0x3fdf343b88587166              # double 0.48756302180279076
+	.quad	0x3fed95f23f81223c              # double 0.92455398944100108
+	.quad	0x3fd49675d58b091e              # double 0.32168336728877189
+	.quad	0x3fc90b57f088c098              # double 0.19565867657502589
+	.quad	0x3fce2f6bb20818a8              # double 0.23582216446829318
+	.quad	0x3f975aec91c69100              # double 0.022807785413207604
+	.quad	0x3fcb50dbb1e87ca0              # double 0.21340509592935053
+	.quad	0x3fe469593081673b              # double 0.63785991166807976
+	.quad	0x3fe54515e3272957              # double 0.66468328824820844
+	.quad	0x3fc6dbc67c15290c              # double 0.17858201082919611
+	.quad	0x3fea7cbcc46b669e              # double 0.82772672999563546
+	.quad	0x3fe6b684a34ba512              # double 0.70978004354143054
+	.quad	0x3fe286653138abf9              # double 0.57890567410993221
+	.quad	0x3fe40e717ce11d1e              # double 0.62676309957979348
+	.quad	0x3fedd6db4909d98e              # double 0.93247761025740927
+	.quad	0x3fee683e637b0410              # double 0.95022506170073662
+	.quad	0x3feb312318d5d463              # double 0.84974818087233606
+	.quad	0x3fefe5ff7d1078c9              # double 0.99682592798833369
+	.quad	0x3fc13c646fd9c660              # double 0.13465552770098821
+	.quad	0x3fcf88f422e37668              # double 0.24636699393788608
+	.quad	0x3fe39d042313fba8              # double 0.61291701174910873
+	.quad	0x3fb6bffbb4dd7a88              # double 0.088866931587725628
+	.quad	0x3fe0c99bc4c6b7f3              # double 0.52461040909633849
+	.quad	0x3fcf5650ac39f270              # double 0.2448216286610605
+	.quad	0x3fe835b2125d9afd              # double 0.75655463778534193
+	.quad	0x3fecf575b8a51a96              # double 0.90496336043800585
+	.quad	0x3fe59724a4071f98              # double 0.67470008885082944
+	.quad	0x3fef6e0759850491              # double 0.98218123897835785
+	.quad	0x3fe3d15ddb6977ba              # double 0.61930744985487896
+	.quad	0x3feeae37e955ca75              # double 0.95876689503923151
+	.quad	0x3fe53a1fed0ee2fb              # double 0.66334530163211924
+	.quad	0x3fef17b2040a0e77              # double 0.97164250172541144
+	.quad	0x3fe31446857f6dd0              # double 0.59622503351004674
+	.quad	0x3fd84882dc5cedfc              # double 0.37942573089432563
+	.quad	0x3fe3a0b864152178              # double 0.61336917445537065
+	.quad	0x3fe4694b7bf694d1              # double 0.63785337649883378
+	.quad	0x3fd7e417cd82e200              # double 0.37329669064959603
+	.quad	0x3fe93908d16b3ed9              # double 0.78821221258291552
+	.quad	0x3fe06e8a8aa5cfe9              # double 0.51349379615430479
+	.quad	0x3f8df837befc9180              # double 0.014633594051311816
+	.quad	0x3fe02ce48b3b608c              # double 0.50548007196177158
+	.quad	0x3fe1fc8e2c9ef7b1              # double 0.56207951273949253
+	.quad	0x3fe81197cbfdabc4              # double 0.75214757768605311
+	.quad	0x3fe288e378429abb              # double 0.57921002853694092
+	.quad	0x3fe1df4702c6b0dd              # double 0.55850554029668908
+	.quad	0x3fdd93c48cbd60c6              # double 0.46214402908436758
+	.quad	0x3fefa61e42b790ca              # double 0.98902810125994134
+	.quad	0x3fb65aae737b7138              # double 0.08732118911161002
+	.quad	0x3fef350ca9dc0c47              # double 0.97522576499648827
+	.quad	0x3fe79e5923e103a1              # double 0.7380796147118539
+	.quad	0x3fe8bbb5f0736e9b              # double 0.7729139038378493
+	.quad	0x3fe0a18eee76b985              # double 0.51972147536234614
+	.quad	0x3fef97fccd7d4453              # double 0.98730316290505937
+	.quad	0x3fe62181afe3c759              # double 0.6915901599261175
+	.quad	0x3febdca94c402709              # double 0.8706861962575384
+	.quad	0x3fd3f93d0f10c6ea              # double 0.31208731147044821
+	.quad	0x3fcbf84073a657a4              # double 0.21851354262315426
+	.quad	0x3fcb2ef4436019f0              # double 0.21237042703451392
+	.quad	0x3feb320881ff730e              # double 0.84985757246212912
+	.quad	0x3fbcd1e17f8c0458              # double 0.1125775276559734
+	.quad	0x3fe373f51b75f14c              # double 0.60790496219082391
+	.quad	0x3fda1e1256d4c8a2              # double 0.40808542708976792
+	.quad	0x3fdd8c78ceb9d4b4              # double 0.46169872463299133
+	.quad	0x3fe8ae0f22199c39              # double 0.77124745044864718
+	.quad	0x3fc5a921375d9a18              # double 0.16922393039131189
+	.quad	0x3fb0e0532d0eadc0              # double 0.065922926426245532
+	.quad	0x3fbe38da6e05e720              # double 0.11805501161680043
+	.quad	0x3fe756f1bd2834d5              # double 0.72936331696260004
+	.quad	0x3fb32d5bc1f53888              # double 0.074910864689828327
+	.quad	0x3fe980d024d1cde4              # double 0.79697425071065852
+	.quad	0x3fcb192f96b54fbc              # double 0.21170611246873061
+	.quad	0x3fe7987330805879              # double 0.73735961411399764
+	.quad	0x3fe58e12bd083ff5              # double 0.67359291954380629
+	.quad	0x3fe687e1e2405822              # double 0.7040872019740656
+	.quad	0x3fefd7a541a04c49              # double 0.99507391755685958
+	.quad	0x3fb1159b7d668030              # double 0.066735952487307015
+	.quad	0x3fdcca13be129e9e              # double 0.44983380853452981
+	.quad	0x3fbc8dbb939d86b8              # double 0.1115376696957594
+	.quad	0x3fdf7e88dd58fcee              # double 0.49209806076028328
+	.quad	0x3fe6024689207ba3              # double 0.68777777464480427
+	.quad	0x3fee8f752bdc0599              # double 0.95501192632962095
+	.quad	0x3feaeadbfa830a03              # double 0.84116934707736879
+	.quad	0x3fea55a5bd570d9e              # double 0.82295500736693206
+	.quad	0x3fec8165d285b026              # double 0.89079562299366866
+	.quad	0x3fe6f86f161b8a8f              # double 0.71782640760314276
+	.quad	0x3fd193cc8e049a06              # double 0.27464593762343303
+	.quad	0x3fe1953ca55e6196              # double 0.54946739481515539
+	.quad	0x3febb3bcb11e2320              # double 0.86569056123071064
+	.quad	0x3fd45b503a551e3e              # double 0.31807332703144542
+	.quad	0x3fdba3ed9cda8a3e              # double 0.43188038175336263
+	.quad	0x3fe3d2d3c53adfe1              # double 0.61948574563484382
+	.quad	0x3fea249629596cc8              # double 0.81696613384283356
+	.quad	0x3fd65b0f60f61464              # double 0.34930786579963624
+	.quad	0x3fe473e665ac6631              # double 0.63914794786541596
+	.quad	0x3fd3867d1aa204c4              # double 0.30508353806369493
+	.quad	0x3fd269bf5d0a3334              # double 0.28770431600496527
+	.quad	0x3fe5cc424fe32831              # double 0.68118396380419288
+	.quad	0x3fe65b67f27db40c              # double 0.69865796433953298
+	.quad	0x3fd20792da59d4b8              # double 0.28171225856142312
+	.quad	0x3fcc2e973639cad4              # double 0.22017183444730526
+	.quad	0x3fe85b3173ad73bb              # double 0.76113197892447404
+	.quad	0x3feaad61ae41acf0              # double 0.83366474184495409
+	.quad	0x3fa0e37604184680              # double 0.032985389709335955
+	.quad	0x3fe2225cab3c815c              # double 0.56669457859610928
+	.quad	0x3fc1375b60eef2e0              # double 0.13450185998035291
+	.quad	0x3fd92317f230c6ee              # double 0.39276693965358234
+	.quad	0x3fee13adbca5dcc4              # double 0.93990218014996473
+	.quad	0x3fddf0e096ec6764              # double 0.46782698382013721
+	.quad	0x3fd6b784b6f741a0              # double 0.35495107524641334
+	.quad	0x3fd67f05ff2d3aac              # double 0.35150289458844486
+	.quad	0x3fe8cef6cd8090fe              # double 0.77526416909361706
+	.quad	0x3fd7a20b4f768e74              # double 0.36926539192265939
+	.quad	0x3fd638bf25185b18              # double 0.34721354124614967
+	.quad	0x3fc28be7447bb9b8              # double 0.14489451259528408
+	.quad	0x3fafaa3105c22960              # double 0.061845333054480589
+	.quad	0x3fea84e897729ae2              # double 0.82872418956398186
+	.quad	0x3fd95bac24b38788              # double 0.39622024139509238
+	.quad	0x3fee056738ad5025              # double 0.93815957135894179
+	.quad	0x3fe808433a8c7385              # double 0.75100861964493559
+	.quad	0x3fe34f44a9a136fe              # double 0.60342629557428018
+	.quad	0x3fe3bcc9a74aaa7a              # double 0.61679537462380485
+	.quad	0x3fc62ca509ebc3d0              # double 0.17323744759008131
+	.quad	0x3fecd1fe2b1eb154              # double 0.9006338922677437
+	.quad	0x3f9986c6a7a37840              # double 0.024928192121358217
+	.quad	0x3fe8e4467c172945              # double 0.7778656409875927
+	.quad	0x3fcf625013a83554              # double 0.24518776855294766
+	.quad	0x3fbbd2d294dd0b60              # double 0.10868564733850183
+	.quad	0x3fef29ad89beb7c7              # double 0.97383763221090979
+	.quad	0x3fdd58b337f7c3c4              # double 0.45853882279976355
+	.quad	0x3fed837f8726ea0d              # double 0.92230202099682546
+	.quad	0x3fe6e4b00871755b              # double 0.7154159703165236
+	.quad	0x3fd5ce7624144110              # double 0.34072640918113084
+	.quad	0x3feaf4b411fa39b1              # double 0.84237102042407319
+	.quad	0x3fe1da5cdc8c6b90              # double 0.55790560794717869
+	.quad	0x3fc7cdc510b111f4              # double 0.18596709551833579
+	.quad	0x3f958747988b0100              # double 0.021023863492474426
+	.quad	0x3febbbe869708694              # double 0.86668797105467598
+	.quad	0x3fc74a5299c48254              # double 0.18195564754661808
+	.quad	0x3fdc6cf527679e0c              # double 0.44415024612541809
+	.quad	0x3fec41bc4facb7d0              # double 0.88302436410389795
+	.quad	0x3fe84176b2b4da25              # double 0.75799116996387694
+	.quad	0x3fe6294d69d5182f              # double 0.69254179640188862
+	.quad	0x3fcbe5f8c6bdb650              # double 0.21795568184045289
+	.quad	0x3fe1975a87b2af27              # double 0.54972578528893201
+	.quad	0x3fd6217238830da0              # double 0.3457913925051006
+	.quad	0x3fe855a0873a0732              # double 0.76045252238711769
+	.quad	0x3fecf99eb825ad3c              # double 0.9054711910843376
+	.quad	0x3fd7a48d2f27b990              # double 0.3694184265613325
+	.quad	0x3fdb08bea65c7036              # double 0.42240873571586535
+	.quad	0x3fe8c4fa43b7d9a4              # double 0.77404511667446174
+	.quad	0x3feb6a8947def5d6              # double 0.85675491368572909
+	.quad	0x3fe10b5995e0a632              # double 0.53263549111324537
+	.quad	0x3fe0d2df548fa106              # double 0.52574125781851033
+	.quad	0x3fe5345bf65a0fcb              # double 0.66264150729738824
+	.quad	0x3fe5ad74919a3bfa              # double 0.67742374837860031
+	.quad	0x3fe59e187619c755              # double 0.67554877344648878
+	.quad	0x3fde8eecb21ea106              # double 0.4774734248590139
+	.quad	0x3fdf574fc13b451c              # double 0.48970407362237878
+	.quad	0x3fc73b3ba6ab4a08              # double 0.1814951480688054
+	.quad	0x3fe5715458481013              # double 0.670084164070888
+	.quad	0x3fc09470b0cec6b8              # double 0.12953003533544005
+	.quad	0x3fe1a8bd72ca1066              # double 0.55184814853465691
+	.quad	0x3fe23b0eb5a1b6d5              # double 0.56970916247311243
+	.quad	0x3fee6ce912176905              # double 0.95079473050580587
+	.quad	0x3fdb8c907d0f0506              # double 0.43045437062035352
+	.quad	0x3fce26c21c7b7e14              # double 0.23555780783407043
+	.quad	0x3fde1a5ed1d35cf8              # double 0.47035952082428834
+	.quad	0x3fea5ec3c2129d37              # double 0.82406795410944411
+	.quad	0x3feab94e3572b055              # double 0.83512030066550358
+	.quad	0x3fd3f71eb099eee0              # double 0.31195800062390155
+	.quad	0x3fed8ad27b3d0e20              # double 0.92319606847781088
+	.quad	0x3fe008526eb1e58b              # double 0.50101586933230757
+	.quad	0x3fee70505fe9ef43              # double 0.95121020062604378
+	.quad	0x3fed0a7c87e99e47              # double 0.90753008408950897
+	.quad	0x3fda49865e754660              # double 0.41073760246681523
+	.quad	0x3fc79042fe3e8220              # double 0.18409001745477926
+	.quad	0x3fcb783ad50fa0e0              # double 0.21460662272807607
+	.quad	0x3fe3a114802aeaa3              # double 0.61341309578650216
+	.quad	0x3fd7c7a31ed77316              # double 0.37155988704562171
+	.quad	0x3fc0c5475d537890              # double 0.13102047020851559
+	.quad	0x3fe1851514b3d530              # double 0.54749540370418082
+	.quad	0x3fc1b02f23e06304              # double 0.13818921329291112
+	.quad	0x3fcefb3ad9275c60              # double 0.24204192736826524
+	.quad	0x3fdc34c7ba617f3a              # double 0.44072144700293203
+	.quad	0x3fe972879f8d20d0              # double 0.79523068582877876
+	.quad	0x3fe9b00b611912c8              # double 0.80273980106775245
+	.quad	0x3fe1f7678280d973              # double 0.56145072449616718
+	.quad	0x3fe00e3e12617174              # double 0.5017385825154137
+	.quad	0x3fdbcd0b3522f3c6              # double 0.43438987912287208
+	.quad	0x3f7f65b4476b9900              # double 0.0076653520725129543
+	.quad	0x3fc357c8d05d71d0              # double 0.15111646818230762
+	.quad	0x3fd1b1de727710a6              # double 0.27648125818474012
+	.quad	0x3fe4c2acd2e968f1              # double 0.64876404946997301
+	.quad	0x3fea098a8162e14a              # double 0.81366467734100323
+	.quad	0x3fbe073e53a99bc8              # double 0.11729802649061505
+	.quad	0x3fca0c478d96f308              # double 0.20349974072987487
+	.quad	0x3f5efa7f8c8b5000              # double 0.0018907781215391495
+	.quad	0x3fe32e55967e5e48              # double 0.59940604584966994
+	.quad	0x3feb7dec448b56c8              # double 0.85912145030553067
+	.quad	0x3fe0940b151bf39b              # double 0.51807169077766291
+	.quad	0x3fe743a8f11863ae              # double 0.72700926865501514
+	.quad	0x3fbc9f4c0de52f48              # double 0.11180568064918106
+	.quad	0x3fd3a18ef9e0d8ea              # double 0.30673574831179329
+	.quad	0x3fc89adffb3fbe44              # double 0.19222640769975119
+	.quad	0x3fc380e77e7f47f8              # double 0.15237134625073145
+	.quad	0x3fd13e40153cee0e              # double 0.26942445825599826
+	.quad	0x3fd0c7ee41f32324              # double 0.26220280113607175
+	.quad	0x3fef0100fd18c5b9              # double 0.96887254174196535
+	.quad	0x3fe998a24da57b4a              # double 0.79988207974734249
+	.quad	0x3fd8a33e977c0bc2              # double 0.38496365350163952
+	.quad	0x3fefd96d47eaea02              # double 0.99529136701977472
+	.quad	0x3f98ad44bbeea260              # double 0.02409846684500605
+	.quad	0x3fa062db479671d0              # double 0.032004215706567529
+	.quad	0x3fc82d5e85de1b68              # double 0.18888455902580437
+	.quad	0x3fb3f3de1f9d1398              # double 0.077939875333937869
+	.quad	0x3fe61be2a1ead2c5              # double 0.69090396522968744
+	.quad	0x3fc696bc09e0ee3c              # double 0.17647505266528352
+	.quad	0x3fe0d3cd06765936              # double 0.52585459959190106
+	.quad	0x3fb1a55f481de060              # double 0.068929629427544992
+	.quad	0x3fe45a00e81b4a76              # double 0.63598676045724178
+	.quad	0x3fd408dc00f50ffe              # double 0.31304073422893441
+	.quad	0x3fcbb83c89061d6c              # double 0.2165599507390924
+	.quad	0x3fbd5435322ac9a8              # double 0.11456615900787048
+	.quad	0x3febda944ab83947              # double 0.87043203920055923
+	.quad	0x3fc117cad17973f8              # double 0.13353858211749503
+	.quad	0x3fccf3df62b77874              # double 0.22619240112448191
+	.quad	0x3feda3b866dc9475              # double 0.92623539056934467
+	.quad	0x3fe053d1c2d08446              # double 0.51023185777388202
+	.quad	0x3fee62189894a00e              # double 0.94947461892025031
+	.quad	0x3fc5205c84d14fe8              # double 0.16505009160266515
+	.quad	0x3fe8c3b995454cd4              # double 0.77389220385011947
+	.quad	0x3fd751a5334ad8c4              # double 0.36435823449154392
+	.quad	0x3fd19b48ac9d1cb0              # double 0.27510277611549849
+	.quad	0x3fed622b78772fff              # double 0.91823361900742373
+	.quad	0x3fbcffba322ffb00              # double 0.11327708936003589
+	.quad	0x3fe6735e388d42c9              # double 0.70158301396630762
+	.quad	0x3fa6e3eaa9ca9ea0              # double 0.044707616068362599
+	.quad	0x3fd498c9005015ce              # double 0.32182526617574758
+	.quad	0x3fce7b0e860647ac              # double 0.23813039344946441
+	.quad	0x3fed3a4b4da593d5              # double 0.91336598554027637
+	.quad	0x3fd355ee619fe5b0              # double 0.3021198228230686
+	.quad	0x3fe15e0a928f1b45              # double 0.5427296507340108
+	.quad	0x3f96cd0ddda09fc0              # double 0.022266594554963381
+	.quad	0x3fe57ae4c8bdf9df              # double 0.67125167090835791
+	.quad	0x3fe8105075421f3e              # double 0.75199149038323987
+	.quad	0x3fc8109e325f5764              # double 0.18800713977423833
+	.quad	0x3fcdd2030a5fcda8              # double 0.23297155386499679
+	.quad	0x3fdf5ef06ad25996              # double 0.49016962463192593
+	.quad	0x3fcbcf07ba6eb6b0              # double 0.2172555599512882
+	.quad	0x3fdee969b86a35f0              # double 0.48299639710680164
+	.quad	0x3fd2dfb140192a26              # double 0.29490309962844419
+	.quad	0x3fe16d79d09a0c34              # double 0.54461374990967792
+	.quad	0x3fd70d74aad3e1c2              # double 0.36019627268208521
+	.quad	0x3fc66ed54d8b4cb4              # double 0.17525736128172797
+	.quad	0x3feffea30cb47a67              # double 0.99983360749668015
+	.quad	0x3fd526961fb328c8              # double 0.33048012824714279
+	.quad	0x3fec73b2be050702              # double 0.88912331689081747
+	.quad	0x3fed780457983a3e              # double 0.9209005080063617
+	.quad	0x3fce18230cc98c54              # double 0.23511160015468369
+	.quad	0x3fefc6b8b7d0cb98              # double 0.99300800229535735
+	.quad	0x3fe18713e67536d8              # double 0.54773898135473598
+	.quad	0x3fb9e59909c80d48              # double 0.10115963448338505
+	.quad	0x3fc2401db5a8dfe8              # double 0.14258166666127114
+	.quad	0x3fefa9dd805afc75              # double 0.98948550290505343
+	.quad	0x3fda6730b870339a              # double 0.41254823695708753
+	.quad	0x3fcaa4195f322880              # double 0.2081329073737983
+	.quad	0x3fdd85780e898090              # double 0.46127129954948831
+	.quad	0x3fcd162e3a8c8bc4              # double 0.22723939761007561
+	.quad	0x3fdca324357a86ae              # double 0.44745736334344144
+	.quad	0x3fd6cfec270b39c2              # double 0.35644058049083693
+	.quad	0x3fe13fe6dd3fdcd2              # double 0.53905051434312612
+	.quad	0x3fe54ad6299efae0              # double 0.66538532380203819
+	.quad	0x3fb01e3ed4e27148              # double 0.062961508725895787
+	.quad	0x3fe8bc5883e21505              # double 0.77299142607140026
+	.quad	0x3fef363b7e28b933              # double 0.97537016525692477
+	.quad	0x3fc3ed3fcdb72bc4              # double 0.15567777199461663
+	.quad	0x3fda5870047bdce8              # double 0.41164780080676033
+	.quad	0x3fa068ecfbfc6160              # double 0.03205051971434858
+	.quad	0x3fe029fa4ec94fa4              # double 0.50512423885310342
+	.quad	0x3fc113b023e4156c              # double 0.13341333153236279
+	.quad	0x3fda8905df086810              # double 0.41461321621466229
+	.quad	0x3fd87e4f60ff4adc              # double 0.3827093550909646
+	.quad	0x3fd1ef74fe21ccca              # double 0.28024029557782326
+	.quad	0x3fee9a2693430abf              # double 0.95631722223364324
+	.quad	0x3fe266e7f54c44a6              # double 0.57506177816153037
+	.quad	0x3fc7d6e5ed782550              # double 0.18624567122632607
+	.quad	0x3fde642fed51df28              # double 0.47486494231951548
+	.quad	0x3feeff33245348fb              # double 0.96865231604377244
+	.quad	0x3fef806b82085414              # double 0.98442626378039443
+	.quad	0x3f9e5fd10bcad000              # double 0.029662386269322383
+	.quad	0x3fe3cd6940e10c80              # double 0.61882460281084661
+	.quad	0x3fc8f80ccc050ffc              # double 0.19506988489058574
+	.quad	0x3fe0847ca6176983              # double 0.51617271842705781
+	.quad	0x3f94b17613c51740              # double 0.020208210903795321
+	.quad	0x3fe417a0ce864841              # double 0.62788429581474514
+	.quad	0x3fdf1afc90cc6072              # double 0.48602213039840259
+	.quad	0x3fc7a253eeed9310              # double 0.18464135328681452
+	.quad	0x3fe1d030c796c335              # double 0.55666388494692021
+	.quad	0x3fe519666fef0a28              # double 0.65935060369549081
+	.quad	0x3f84653eeb2199c0              # double 0.0099587359911311734
+	.quad	0x3fc155ba2539d908              # double 0.13542868440317357
+	.quad	0x3f79cb7ca41a5500              # double 0.0062975758352383782
+	.quad	0x3fceab8857fc5280              # double 0.23960975929425743
+	.quad	0x3fc395b9c1261560              # double 0.15300676280109382
+	.quad	0x3fedfcaec13036db              # double 0.9370950482568462
+	.quad	0x3fea6e81c2c028b4              # double 0.82598960911970786
+	.quad	0x3fef31159d5b1f22              # double 0.97474175199110769
+	.quad	0x3fe19a59d9c69bed              # double 0.55009167227114875
+	.quad	0x3fd297d1915f1fea              # double 0.29051627346461706
+	.quad	0x3feec69470c19d84              # double 0.96174070379940745
+	.quad	0x3fea1ecf3184ddbd              # double 0.81626090690308895
+	.quad	0x3fde87e4de655bd8              # double 0.47704431265213776
+	.quad	0x3fc7c6c1c9faa4e8              # double 0.18575308191547113
+	.quad	0x3fd23b76e2ad98ec              # double 0.28487941872152933
+	.quad	0x3fefd8c1d777ee01              # double 0.99520961841284372
+	.quad	0x3fc04df87db136a8              # double 0.12737947594944399
+	.quad	0x3fe7a35fb666f8a1              # double 0.73869310021816059
+	.quad	0x3fe1f996f4b82881              # double 0.56171748921157427
+	.quad	0x3fe6dfc29420cb9c              # double 0.71481446200629106
+	.quad	0x3fe2e65cf5891edd              # double 0.59062049823929963
+	.quad	0x3fe39cdc4d8b414f              # double 0.61289801736169547
+	.quad	0x3fe230dbfae8fb5e              # double 0.56846426969410024
+	.quad	0x3fd641dadbb22618              # double 0.34776946501423955
+	.quad	0x3fe17e9f0580a7a9              # double 0.54670668673246781
+	.quad	0x3fefa41057ca3b07              # double 0.98877732416608032
+	.quad	0x3fd8e2d6330bc57a              # double 0.38884501442870312
+	.quad	0x3fd4f9a27b9560f4              # double 0.32773649281217776
+	.quad	0x3fbef85603d9d270              # double 0.12097680658355059
+	.quad	0x3f9c99316f58f280              # double 0.027928135319813752
+	.quad	0x3fe7e778352ecb03              # double 0.74700556170714127
+	.quad	0x3fd9105c28560868              # double 0.39162353457516597
+	.quad	0x3fe660d23ed11ea5              # double 0.69931900280876802
+	.quad	0x3fde2876624f7892              # double 0.47121963120106003
+	.quad	0x3fbff2c0f583cf30              # double 0.12479787820830945
+	.quad	0x3fdc2a7a341fde76              # double 0.44009261217386297
+	.quad	0x3fee59bd8cab3bd1              # double 0.94845464205161012
+	.quad	0x3fc3566a0afe87d8              # double 0.15107465302304379
+	.quad	0x3fe475b4a5d9809b              # double 0.63936836616996418
+	.quad	0x3fc70b011afc04c0              # double 0.1800233251342771
+	.quad	0x3fd03403a4df9612              # double 0.25317469693104144
+	.quad	0x3fe43f41aa43726d              # double 0.63272174124319991
+	.quad	0x3fe6b6b41b03470f              # double 0.70980267787874307
+	.quad	0x3fd3f09899355dc2              # double 0.31155981981052261
+	.quad	0x3fec55ed64dd2837              # double 0.88548917484263867
+	.quad	0x3fa42dd45255b450              # double 0.039412150431282655
+	.quad	0x3fdf8956e4ccdfde              # double 0.49275753349092877
+	.quad	0x3fe01bc398b6ef1a              # double 0.50338916613643225
+	.quad	0x3fe7d1187b174db2              # double 0.74427436867920549
+	.quad	0x3fef388024f65082              # double 0.97564704150364912
+	.quad	0x3fe11d4ea8b8944b              # double 0.53482754662821586
+	.quad	0x3fcb1fc956efb5d8              # double 0.21190754647197596
+	.quad	0x3fe1a379535869c1              # double 0.55120531347647994
+	.quad	0x3fe7f7d32ff1055f              # double 0.74900206912586131
+	.quad	0x3fdadb2cf5397fc2              # double 0.41962741801944159
+	.quad	0x3fedca20cff7fcc9              # double 0.93092384928595451
+	.quad	0x3f9725a433340d00              # double 0.0226045280696896
+	.quad	0x3fe7c975f02a50d4              # double 0.74334237010273307
+	.quad	0x3fdcde39a3c5f27a              # double 0.45106354707221608
+	.quad	0x3fd5a55a8ace5178              # double 0.33821738772646581
+	.quad	0x3fe52e074d3bd2aa              # double 0.66186871609405284
+	.quad	0x3fd7a8d3a1777454              # double 0.36967936294769754
+	.quad	0x3fe588eb0683f026              # double 0.67296363136802451
+	.quad	0x3fe1cb798ab9cec0              # double 0.55608822913060152
+	.quad	0x3fd51262f3b26518              # double 0.32924722479363444
+	.quad	0x3fbe94ab788d6e38              # double 0.11945602124381416
+	.quad	0x3fec89441218c03c              # double 0.89175609144695711
+	.quad	0x3fe9681ce10bb509              # double 0.79395908312076913
+	.quad	0x3fdd59cdc8893122              # double 0.45860619147858206
+	.quad	0x3fe3d9785b8f478b              # double 0.62029664881468827
+	.quad	0x3fe7cd19e59f3993              # double 0.74378676269570787
+	.quad	0x3fdd352292fa71c2              # double 0.45636810639714664
+	.quad	0x3fe622b9bfc4166a              # double 0.69173896269121582
+	.quad	0x3fd6ab06a2ee7208              # double 0.35418859397194113
+	.quad	0x3fd2549312052c72              # double 0.28641201743875577
+	.quad	0x3fe28f16bb3321b5              # double 0.57996689379165522
+	.quad	0x3fe59332b89b6c5d              # double 0.67421852165297091
+	.quad	0x3febfc3d3e4cdef5              # double 0.87454092185995924
+	.quad	0x3fe2096b44c520ca              # double 0.56364978248259345
+	.quad	0x3fd996d0dc57f4ca              # double 0.39983006971290236
+	.quad	0x3fd8d3598a66292e              # double 0.38789976611646437
+	.quad	0x3fdd6e654b584760              # double 0.45986301763433879
+	.quad	0x3fd0fdba749d13e4              # double 0.26548634899182688
+	.quad	0x3fe612f8ec2b094e              # double 0.68981596113762023
+	.quad	0x3fef150433902a7c              # double 0.97131547995498079
+	.quad	0x3fe1cfd0c6180b6b              # double 0.5566181057950933
+	.quad	0x3feee854fb83acc5              # double 0.96586083530328237
+	.quad	0x3fe40978cb42465c              # double 0.62615623187066261
+	.quad	0x3fc6808ee123dc00              # double 0.17579828255813368
+	.quad	0x3fe64ca67524059d              # double 0.69685671690983819
+	.quad	0x3fd87ed581acc1e8              # double 0.38274133361394869
+	.quad	0x3fc9ae14c2224b18              # double 0.20062503318020997
+	.quad	0x3fe636e4db9a28c5              # double 0.69420092478801421
+	.quad	0x3fe53e84e708cca1              # double 0.66388173221493585
+	.quad	0x3fe2ed98865b8892              # double 0.59150339357099058
+	.quad	0x3feba8312d9143cd              # double 0.86428126239672454
+	.quad	0x3fc6339bdb4d831c              # double 0.17344997604507106
+	.quad	0x3feb169d76060092              # double 0.84651063014463745
+	.quad	0x3fe9379e91f7744c              # double 0.78803947934250961
+	.quad	0x3fb40aedce1ebb20              # double 0.078291762182499003
+	.quad	0x3fd872a613d42e60              # double 0.38199760376367031
+	.quad	0x3feebae8afc084ec              # double 0.96031603170936596
+	.quad	0x3fc83ff514f9f498              # double 0.18945182346570699
+	.quad	0x3fe090903f21a706              # double 0.51764690714227934
+	.quad	0x3fc5c7d0f52b2390              # double 0.17016040774458618
+	.quad	0x3fe7097f80903c44              # double 0.71990943059962165
+	.quad	0x3febe3d9710cf9f9              # double 0.87156364517414808
+	.quad	0x3fc8bf5fba792974              # double 0.19334026913777402
+	.quad	0x3fda25c3949b3274              # double 0.40855493080451954
+	.quad	0x3fdcba7e74a4d964              # double 0.44888268843660328
+	.quad	0x3fda7313227830f4              # double 0.41327360502397359
+	.quad	0x3fd390bfe7f3ee16              # double 0.30570981647153539
+	.quad	0x3fe29606e1c70650              # double 0.58081382844120277
+	.quad	0x3fee99c772cfec7c              # double 0.95627186226137395
+	.quad	0x3fe6fa61eb7ff348              # double 0.71806426998191686
+	.quad	0x3fdd8a38f1d704e0              # double 0.46156142823390489
+	.quad	0x3faa5fdefe209b90              # double 0.051512688180358812
+	.quad	0x3fedd2c4de825e67              # double 0.93197864016378851
+	.quad	0x3fd4b1781038822c              # double 0.32333184799248005
+	.quad	0x3fe5ef09e7cf41d0              # double 0.68542952800094703
+	.quad	0x3fe6d847abdbc181              # double 0.71390136304948737
+	.quad	0x3fec202f92ef594d              # double 0.87892893503411929
+	.quad	0x3f9b6db37e9d1260              # double 0.026785664179686086
+	.quad	0x3fe322eedee605f2              # double 0.5980142930495147
+	.quad	0x3fe58cdbaa8d7067              # double 0.67344458876642654
+	.quad	0x3fc0ef2f0fd87f00              # double 0.1322993113872073
+	.quad	0x3feb294ee65c85f2              # double 0.84879250519241922
+	.quad	0x3fd4808c75a44704              # double 0.32034598816345317
+	.quad	0x3fe6bf3f68abccfc              # double 0.71084566539357708
+	.quad	0x3fd160bb6cdd2fec              # double 0.27152906066180438
+	.quad	0x3fea005e16ef72f4              # double 0.81254486541328541
+	.quad	0x3fdb9e8472865004              # double 0.43155013259934116
+	.quad	0x3fe917cb64ef4c59              # double 0.78415460313625396
+	.quad	0x3fd447df24f6e6ac              # double 0.31688669786272317
+	.quad	0x3f650e7791bc9200              # double 0.0025703749978609469
+	.quad	0x3fefde356f3e3ce4              # double 0.99587508895083631
+	.quad	0x3fe8d6e62fed6d3d              # double 0.77623280869321543
+	.quad	0x3fd23b8e5e1ad048              # double 0.28488501729885174
+	.quad	0x3fb1862f485de160              # double 0.068453746001869487
+	.quad	0x3fcfef77f9a64ee4              # double 0.24949550332950488
+	.quad	0x3fc823cfe19d2968              # double 0.1885928966169772
+	.quad	0x3fe592ade86137f0              # double 0.67415519129440149
+	.quad	0x3fed0f29c67884a7              # double 0.908100974691611
+	.quad	0x3fda3c877880144c              # double 0.40994440810783739
+	.quad	0x3feb3adca89eefcb              # double 0.85093529638060639
+	.quad	0x3fc47e4e4214d578              # double 0.1601045439398765
+	.quad	0x3fbc823db505f190              # double 0.11136232060920848
+	.quad	0x3fe0bb4751291847              # double 0.52286115504899378
+	.quad	0x3fcc01337138a66c              # double 0.21878664997466346
+	.quad	0x3fe3c93c17115d98              # double 0.61831478600918199
+	.quad	0x3fe8e7a07ca5f3ea              # double 0.77827476830827647
+	.quad	0x3fe0e1d0f66b91ee              # double 0.527565461434788
+	.quad	0x3fa169dd7a6eec50              # double 0.034010811992140177
+	.quad	0x3fee56c1faefd1ca              # double 0.94809054385273694
+	.quad	0x3fd9ea35efe727ec              # double 0.40492008617422814
+	.quad	0x3fd4b2d33b86faf8              # double 0.32341461957177797
+	.quad	0x3fe17a78b2ab1a03              # double 0.54620013137974899
+	.quad	0x3fdc3ad54acea6d6              # double 0.44109089188951367
+	.quad	0x3fea94ebf80501db              # double 0.83067892495460727
+	.quad	0x3fe35e5c411d8bc1              # double 0.6052685996804642
+	.quad	0x3fe3a466d9744c7e              # double 0.61381857368031922
+	.quad	0x3fe8de9dcf2f166e              # double 0.77717485871899128
+	.quad	0x3fe86cf03b0c40b4              # double 0.76329814465318301
+	.quad	0x3febc01097486461              # double 0.86719541118067067
+	.quad	0x3fe0ce9f8b076e9e              # double 0.52522256044490567
+	.quad	0x3fc7c9662fa52fdc              # double 0.185833714737213
+	.quad	0x3fd8b8f9ba144184              # double 0.38629000827588578
+	.quad	0x3fe1673191890b04              # double 0.54384687828891787
+	.quad	0x3fe9fb3a974bcfa8              # double 0.81191758680369208
+	.quad	0x3f9024c1169be1e0              # double 0.01576520634168499
+	.quad	0x3fd9aed4a3de5586              # double 0.40129581454069585
+	.quad	0x3faeef6056705d30              # double 0.060420046378732883
+	.quad	0x3feff78ed7e9a971              # double 0.99896948023278586
+	.quad	0x3fd060844bae2fe2              # double 0.25589091673532327
+	.quad	0x3fef77fa89b8bc6b              # double 0.98339583300356758
+	.quad	0x3fb775f64a8f1d08              # double 0.091643708422555759
+	.quad	0x3fd5d7f42ada38ca              # double 0.34130577263648532
+	.quad	0x3fd0118e861c7690              # double 0.2510715779952557
+	.quad	0x3fed7893baf4aac5              # double 0.92096888079444084
+	.quad	0x3fe8680599fd63ab              # double 0.76269798351414886
+	.quad	0x3fef20ed440a38d8              # double 0.97276938714073946
+	.quad	0x3feb2f9004ea6965              # double 0.84955597839443142
+	.quad	0x3fc79e815d5a9658              # double 0.18452469881337907
+	.quad	0x3feb2792addcccb0              # double 0.84858068425673672
+	.quad	0x3fdc039844153e44              # double 0.43771940849999091
+	.quad	0x3fe4393c1eec0371              # double 0.63198667563857047
+	.quad	0x3feffb2363c8c634              # double 0.99940652360073167
+	.quad	0x3fc60d5d41ebc324              # double 0.17228284567638597
+	.quad	0x3fef2ff623156e70              # double 0.97460467197693212
+	.quad	0x3fe6ce4f6ac7ddce              # double 0.7126843534051035
+	.quad	0x3febd77720f1cc07              # double 0.87005192217327554
+	.quad	0x3fee1836db60287c              # double 0.94045584532547321
+	.quad	0x3fd9fbcf5880ab9c              # double 0.40599425928911059
+	.quad	0x3fe028f53a717a8e              # double 0.50499974646284485
+	.quad	0x3fecaf0d89e3e6e9              # double 0.89636876041114733
+	.quad	0x3fe8df1cd2dc9d96              # double 0.77723542388860056
+	.quad	0x3fe48832fbaa2408              # double 0.64162587311977948
+	.quad	0x3fc88225f34e1efc              # double 0.19147180919775753
+	.quad	0x3fb1b6678e6329d0              # double 0.069189522039926787
+	.quad	0x3fd4693204c7c422              # double 0.31892061678724037
+	.quad	0x3f84f3ef7dd8ab80              # double 0.010230895069147428
+	.quad	0x3fce297828f24544              # double 0.23564054488501018
+	.quad	0x3fd88474aad27882              # double 0.38308445627070153
+	.quad	0x3fdb3a800bf4604e              # double 0.42544556777420872
+	.quad	0x3fe23f73f9a77823              # double 0.57024573097783493
+	.quad	0x3fe9c6485f4374a9              # double 0.80545443159248464
+	.quad	0x3fee853d4b553753              # double 0.95376457894756539
+	.quad	0x3fd8798f6a524d9a              # double 0.38241944678267148
+	.quad	0x3fdde929828167b0              # double 0.46735608811070062
+	.quad	0x3fcd23d12af5c4a4              # double 0.2276555499807148
+	.quad	0x3fca0ab3a1265b74              # double 0.20345158928531826
+	.quad	0x3fd8088e5d1c15b2              # double 0.37552222340340358
+	.quad	0x3fd0c17ad45c2776              # double 0.26180906999854103
+	.quad	0x3fab3d3d58a32910              # double 0.05320159632681698
+	.quad	0x3fd90b0f836c4d90              # double 0.39130008539469774
+	.quad	0x3fd86b239b633ce4              # double 0.38153925108504283
+	.quad	0x3fde9e9632e5bf6a              # double 0.47842936487631127
+	.quad	0x3fe612f91d38a6e3              # double 0.68981605250629874
+	.quad	0x3fec9a069846461c              # double 0.89380197278132156
+	.quad	0x3fc6f049befae574              # double 0.17920800996015951
+	.quad	0x3fdf7191a11062da              # double 0.49130669335276667
+	.quad	0x3fee6d81ff6b153f              # double 0.95086765180955257
+	.quad	0x3fded4186c2537f4              # double 0.48169527588913685
+	.quad	0x3fc3383daee6cc84              # double 0.15015383758654732
+	.quad	0x3fc51889759b3d40              # double 0.16481130831241764
+	.quad	0x3fc6ae9120eabdd4              # double 0.17720235926888839
+	.quad	0x3fe8fddc9892b3ee              # double 0.78098897742677109
+	.quad	0x3fb61ce6953fa5b8              # double 0.086378489911701162
+	.quad	0x3fe2579cd4a8a3a5              # double 0.57319489989196326
+	.quad	0x3fe5a279eb4915a5              # double 0.67608352617451273
+	.quad	0x3fa0535f6a7201b0              # double 0.03188608335858889
+	.quad	0x3fdcde133ad00ace              # double 0.45105438941406539
+	.quad	0x3fc7ae7e4e3731e0              # double 0.18501261538621261
+	.quad	0x3fb0607827e26298              # double 0.063972005593664227
+	.quad	0x3fe5b8967ceac9a8              # double 0.67878269575003447
+	.quad	0x3feb75464bf5aa45              # double 0.85806574664940938
+	.quad	0x3fd0dc3ee6a9e9b0              # double 0.26344273114923578
+	.quad	0x3fee1218621a0b4a              # double 0.93970889244551725
+	.quad	0x3fb125bb70a67658              # double 0.066981997492314149
+	.quad	0x3fe72f0e92f05380              # double 0.72449425410250967
+	.quad	0x3fe2095952deb143              # double 0.56364122567678299
+	.quad	0x3fe8f407a4cc2c4e              # double 0.77978880106946646
+	.quad	0x3fe5a7e29280b6cc              # double 0.67674378026796367
+	.quad	0x3fe7037c1193fc23              # double 0.71917537148681665
+	.quad	0x3fe7a8de1f2668f5              # double 0.73936372837059017
+	.quad	0x3fc90c90802229d0              # double 0.19569593674198282
+	.quad	0x3fea2c458f6434d6              # double 0.8179042626012698
+	.quad	0x3fd4e402588a0420              # double 0.32641657492064446
+	.quad	0x3fd093e80e1a29de              # double 0.25902749421280002
+	.quad	0x3fe4f04a577ec1ed              # double 0.65433232392211738
+	.quad	0x3fd99bec31e61784              # double 0.40014176247529343
+	.quad	0x3fd89048497511aa              # double 0.3838062970501378
+	.quad	0x3fc0f068ba271f98              # double 0.13233670320027779
+	.quad	0x3fe812b61c16d5c7              # double 0.75228410230800413
+	.quad	0x3feefc5206006cc3              # double 0.96830083057593474
+	.quad	0x3fdf6e060df9cea6              # double 0.49109031071496145
+	.quad	0x3fd1820977b3991a              # double 0.2735618275604722
+	.quad	0x3fbace0bf038ce68              # double 0.10470652212898701
+	.quad	0x3fbe160e9ab34d70              # double 0.11752406384339564
+	.quad	0x3fe0b74fc8159cf1              # double 0.52237691000928355
+	.quad	0x3fe2da641927f024              # double 0.5891590586975366
+	.quad	0x3fee0208e336ba8d              # double 0.9377483785409183
+	.quad	0x3feb60156811eb67              # double 0.8554789574257996
+	.quad	0x3fc70d058847bf48              # double 0.18008488802251521
+	.quad	0x3fd5c4a6818e17a0              # double 0.34012758876667171
+	.quad	0x3fc9d8afbf3c3698              # double 0.20192524755150454
+	.quad	0x3feeb1d7a691d3a6              # double 0.95920927556163771
+	.quad	0x3fe8c69a2ecdbad5              # double 0.77424344197592154
+	.quad	0x3fe1754bd624fb37              # double 0.5455683882245016
+	.quad	0x3fd7fc582939afb4              # double 0.37477687860404818
+	.quad	0x3fed7cc7d27bc0ad              # double 0.92148200140038272
+	.quad	0x3fd51bd1cdbeb49e              # double 0.32982297031669272
+	.quad	0x3fdd1d26da94a536              # double 0.45490428300634578
+	.quad	0x3fe146f04f44c10f              # double 0.53990951044218771
+	.quad	0x3fa418c7842c75f0              # double 0.039251551517946015
+	.quad	0x3fd18ae52d5f3bb8              # double 0.27410249167308676
+	.quad	0x3fed866cc1542c7e              # double 0.92265928039104472
+	.quad	0x3fed6d9852f7dec0              # double 0.91962829785094157
+	.quad	0x3fc44369b3b965b8              # double 0.15830727840038405
+	.quad	0x3fda920ab47818c0              # double 0.41516368507326362
+	.quad	0x3fd3b451783c3102              # double 0.30788075200759135
+	.quad	0x3fdea62e2cc12f9e              # double 0.47889284487313855
+	.quad	0x3fd247a607c46aa4              # double 0.28562308081169818
+	.quad	0x3f9f5f6e13ea55e0              # double 0.030637474027192968
+	.quad	0x3fe0a34f5a571aff              # double 0.51993529934483707
+	.quad	0x3fe6903af6149e69              # double 0.70510623991590393
+	.quad	0x3fe935ac4b581a0b              # double 0.78780188289312159
+	.quad	0x3feb1ac488417067              # double 0.84701754200388002
+	.quad	0x3fe7b273c644f36d              # double 0.7405337212036166
+	.quad	0x3fe5303d910c53d8              # double 0.6621387322398915
+	.quad	0x3fefda9fd7303733              # double 0.9954375460526762
+	.quad	0x3fdad9de9017b696              # double 0.41954769202752951
+	.quad	0x3fe672f76dc6ae3c              # double 0.70153399887698908
+	.quad	0x3fdd42ac6ca24354              # double 0.45719442948125288
+	.quad	0x3fd14a2652b0a5b6              # double 0.27015073847959614
+	.quad	0x3fd7fe2a3845c99a              # double 0.37488799567577191
+	.quad	0x3fed5930d806da9e              # double 0.9171375483773152
+	.quad	0x3f959c8b84b3b120              # double 0.021104984259111892
+	.quad	0x3feac301234f3c21              # double 0.83630425354374804
+	.quad	0x3fe992496904c34f              # double 0.79910727034994433
+	.quad	0x3fe40e25a2443641              # double 0.6267269295946748
+	.quad	0x3fe43bf8d554a0b2              # double 0.63232080141189884
+	.quad	0x3fdf670d643da400              # double 0.49066481389178307
+	.quad	0x3fe133c34457d434              # double 0.53756869648225925
+	.quad	0x3fd6b3b6b1332b62              # double 0.35471885018039562
+	.quad	0x3fda52dfe286c6fe              # double 0.41130826112485852
+	.quad	0x3fbddbc26d31b810              # double 0.11663451352953325
+	.quad	0x3fe0e9931709e4dc              # double 0.52851252078758248
+	.quad	0x3fe64c95a6dfd963              # double 0.69684870331438409
+	.quad	0x3fd04875672c7f08              # double 0.25442252231185636
+	.quad	0x3fdeabe828c554e4              # double 0.47924236279989274
+	.quad	0x3fad3b0c1216a290              # double 0.057091119010981406
+	.quad	0x3fea65e160fe4291              # double 0.82493657058701519
+	.quad	0x3fe013148be44140              # double 0.50232913324911266
+	.quad	0x3fbd840c76339e20              # double 0.11529615293294926
+	.quad	0x3fe5a70877733607              # double 0.67663977937780906
+	.quad	0x3fe023f5ee9dbf27              # double 0.5043897304985635
+	.quad	0x3fea888aacf59ef7              # double 0.82916768818992537
+	.quad	0x3fda752f5b0d992c              # double 0.41340240375429249
+	.quad	0x3fecb1ef13136b23              # double 0.89672044492485659
+	.quad	0x3fea0ddcd7618626              # double 0.81419221941559239
+	.quad	0x3feb5f5e80230348              # double 0.85539174105370197
+	.quad	0x3feba8da4b613417              # double 0.86436190340612284
+	.quad	0x3fe3f2292d340cdb              # double 0.62331065014623321
+	.quad	0x3fec5741e1e34f18              # double 0.88565153235183214
+	.quad	0x3fe422e151b29ee2              # double 0.62925783115948897
+	.quad	0x3f816c03f7a22d40              # double 0.0085068044611690263
+	.quad	0x3fd293f86a596060              # double 0.29028139482170978
+	.quad	0x3fec811ec0c3c3aa              # double 0.89076173447948759
+	.quad	0x3fd7fa11e6f91ff6              # double 0.3746380572888478
+	.quad	0x3fefe8b4bca7b51c              # double 0.99715649458599697
+	.quad	0x3fdd21203663ddbe              # double 0.45514684020551133
+	.quad	0x3fdffffbaa6bfce8              # double 0.49999896662479992
+	.quad	0x3fdd37030cf41b7c              # double 0.45648266091341561
+	.quad	0x3f7f947fbdce4480              # double 0.0077099790477329621
+	.quad	0x3feeffa5756cff86              # double 0.96870682654115181
+	.quad	0x3fe478c35f50c246              # double 0.63974159828473698
+	.quad	0x3fe4d01ab7c28de7              # double 0.65040336504574447
+	.quad	0x3fedf626cdd424ff              # double 0.93629780007282182
+	.quad	0x3fe12e6035f2da3b              # double 0.53691111122936463
+	.quad	0x3fcf3f4d2b7298c0              # double 0.24411930676905591
+	.quad	0x3fe70747b7983307              # double 0.71963868959719057
+	.quad	0x3fd690651d1a69a6              # double 0.35256316988093273
+	.quad	0x3fddc1a1aff8a504              # double 0.46494333443349967
+	.quad	0x3fe5c3ff3c46cc3b              # double 0.68017541668667236
+	.quad	0x3feab404dc0413d7              # double 0.83447497341023336
+	.quad	0x3fdc2104d2957bdc              # double 0.43951530995212607
+	.quad	0x3fe602199022a90b              # double 0.68775633002704362
+	.quad	0x3fe8d8b944bafc21              # double 0.77645553039463178
+	.quad	0x3fd6c657a899d56a              # double 0.35585586037571793
+	.quad	0x3feb48ce38ae99b0              # double 0.85263739653310289
+	.quad	0x3fd8d0e84d931c84              # double 0.38775069785737792
+	.quad	0x3fc4441db915504c              # double 0.15832873856800445
+	.quad	0x3fe75362f40d12d0              # double 0.72892902055954245
+	.quad	0x3fe301c44e8d8e33              # double 0.59396567671178102
+	.quad	0x3fdb051f11f4eee2              # double 0.42218758348074747
+	.quad	0x3fdb176b7784f556              # double 0.42330443069279988
+	.quad	0x3fc37c8e4d5084c4              # double 0.15223864340899784
+	.quad	0x3fe302eae8257b67              # double 0.59410615292641189
+	.quad	0x3fd1fdfaa6f2230a              # double 0.28112665465646158
+	.quad	0x3fd1d5f96f3db4fa              # double 0.27868495810874061
+	.quad	0x3fe79e9981b7cbe2              # double 0.73811030707872427
+	.quad	0x3f9e3c1a125490c0              # double 0.029526145333094389
+	.quad	0x3fe5699c81feaf0f              # double 0.66914201154347264
+	.quad	0x3fe83628389d4dbb              # double 0.75661097581399106
+	.quad	0x3fef066ab952ccb4              # double 0.96953331180556867
+	.quad	0x3fed5e9760ad72f4              # double 0.91779679186183082
+	.quad	0x3fe6816d532a4b1d              # double 0.70329920047001659
+	.quad	0x3fc46ac5c3525ea4              # double 0.15950843846507212
+	.quad	0x3fd005af4bde3a30              # double 0.25034696969024406
+	.quad	0x3fe616a86b7f9f93              # double 0.69026585574919108
+	.quad	0x3fc095f3f2138d50              # double 0.12957619972358225
+	.quad	0x3fe1b1ed966596e6              # double 0.55296973585492704
+	.quad	0x3fc1740eeaf3dfac              # double 0.13635431740089865
+	.quad	0x3fcbdf352be68068              # double 0.21774925845693649
+	.quad	0x3fd1f4be76252c14              # double 0.28056298768632471
+	.quad	0x3fd3351b3e6e4d24              # double 0.30011635872615927
+	.quad	0x3f5b2d7a1cc6b400              # double 0.0016587917808508212
+	.quad	0x3fe22de3cf434a33              # double 0.56810179215455603
+	.quad	0x3fe1fb9dc891d7d3              # double 0.56196488546151568
+	.quad	0x3fd849f21a81dc74              # double 0.37951328838921161
+	.quad	0x3fd07d191444b838              # double 0.2576353738721795
+	.quad	0x3fe249d713858631              # double 0.57151368916328782
+	.quad	0x3fd77cd18ef9847c              # double 0.36699332201357726
+	.quad	0x3fd2be0b52054ce2              # double 0.2928493786796037
+	.quad	0x3fea3e3234493eb7              # double 0.82009229862338529
+	.quad	0x3f98fed4472bffc0              # double 0.02440959629438999
+	.quad	0x3fcc85212cc56b10              # double 0.22281279264537845
+	.quad	0x3facee9c9409e2a0              # double 0.056507962294692904
+	.quad	0x3fe2b4da99583c3a              # double 0.58457689237719213
+	.quad	0x3fe9302775f9e28f              # double 0.78712819139680501
+	.quad	0x3fc2e0b51f19db70              # double 0.14748252886394253
+	.quad	0x3fec89c7e281a466              # double 0.89181894530805716
+	.quad	0x3fcd6929f049c67c              # double 0.22977184517690208
+	.quad	0x3fb79d30aa6f06c0              # double 0.092242280587949033
+	.quad	0x3fdee36095cdb1ba              # double 0.48262800816771867
+	.quad	0x3fde39f68f53e6f0              # double 0.47228778836107121
+	.quad	0x3fedb60c20534b88              # double 0.92847257913159442
+	.quad	0x3fe497d2436f736f              # double 0.64353287859885977
+	.quad	0x3fe060e05ece280b              # double 0.51182573811206689
+	.quad	0x3feba90c53d69ba0              # double 0.86438576101942388
+	.quad	0x3feea8c4400be42f              # double 0.95810139187881826
+	.quad	0x3fd37d785fe78b7c              # double 0.30453309407874207
+	.quad	0x3fef2f9c9acfe114              # double 0.974561979644053
+	.quad	0x3fd8edf5b03cf1b6              # double 0.38952390871761666
+	.quad	0x3fd065e3b7875296              # double 0.25621884272303797
+	.quad	0x3fc9e007a45856f8              # double 0.20214934849416699
+	.quad	0x3fe33a1e9b81db4e              # double 0.60084467289457577
+	.quad	0x3fd0d6e922972d06              # double 0.26311710718137282
+	.quad	0x3fdaf6b02e001792              # double 0.42130665294859526
+	.quad	0x3fbf99cf81f5ac30              # double 0.12344071314662197
+	.quad	0x3fc47b0cbb0487dc              # double 0.16000517970775163
+	.quad	0x3fedfb1d7bf28beb              # double 0.9369037075851997
+	.quad	0x3fd65b46f4590040              # double 0.34932111608577898
+	.quad	0x3fe291df18354960              # double 0.58030657508997407
+	.quad	0x3fd3042fc5cb7222              # double 0.2971305305088966
+	.quad	0x3fe22adf4b414b12              # double 0.56773342798473636
+	.quad	0x3fef14cdd560a196              # double 0.97128955531393291
+	.quad	0x3fd246585a604a14              # double 0.28554352594179133
+	.quad	0x3fc2042651d9aa04              # double 0.14075163837999594
+	.quad	0x3febc5e628867f3b              # double 0.86790759959328712
+	.quad	0x3fe0c8a66c9081af              # double 0.52449341968536156
+	.quad	0x3fefbc4634aacee1              # double 0.99173269545141462
+	.quad	0x3fe7d9eaba25d1b1              # double 0.74535118443468751
+	.quad	0x3fe09573c32a15a7              # double 0.51824367635770308
+	.quad	0x3fee42c88600ca88              # double 0.9456522576568469
+	.quad	0x3fd89aaf7ea90052              # double 0.38444125527531015
+	.quad	0x3fec2e26caf0d83d              # double 0.88063373219370755
+	.quad	0x3fe590477d25afd1              # double 0.67386221354308351
+	.quad	0x3fe0f13c510fcaa2              # double 0.52944770653114781
+	.quad	0x3fefd67d25bc6e01              # double 0.99493272180865244
+	.quad	0x3fe3b7b43a0e191a              # double 0.61617480601197205
+	.quad	0x3fe3a6d3328fe0ba              # double 0.61411437869448737
+	.quad	0x3fc265c36f5dc04c              # double 0.14373057306102266
+	.quad	0x3fe2617f655735cf              # double 0.57440156739328951
+	.quad	0x3feb0fab53c55d88              # double 0.84566274987712209
+	.quad	0x3fddbed7a807fbe6              # double 0.46477309617324492
+	.quad	0x3fee7d2ff5695625              # double 0.95278165752342103
+	.quad	0x3fdcb3bb576ebad4              # double 0.44846995867093864
+	.quad	0x3feabdb38780de3c              # double 0.83565689530855236
+	.quad	0x3fd28afc14ae1b6c              # double 0.28973295230428309
+	.quad	0x3fe80249f23e461b              # double 0.75027940095077683
+	.quad	0x3fe000dfe93a5699              # double 0.50010676910706586
+	.quad	0x3fd39c437934e61a              # double 0.30641257130227617
+	.quad	0x3fac407d87b807e0              # double 0.05517952234005441
+	.quad	0x3fd3de70b6b695e6              # double 0.31045167773331028
+	.quad	0x3fd9cb29681d877c              # double 0.40302500884546766
+	.quad	0x3fd92dfb7c1c4832              # double 0.39343154068149311
+	.quad	0x3fc3969cb9c8385c              # double 0.15303381987945641
+	.quad	0x3fc2ff23087da6b8              # double 0.14841115870085786
+	.quad	0x3fed6c74fcdb3a83              # double 0.91948937784202689
+	.quad	0x3feb809f7b602e0d              # double 0.85945104691330843
+	.quad	0x3fdd4f5088230cc2              # double 0.45796597761745883
+	.quad	0x3fcf5535a4003160              # double 0.24478788860177314
+	.quad	0x3fe645e7c664c6da              # double 0.69603337048303193
+	.quad	0x3fec822276a21174              # double 0.89088557405970769
+	.quad	0x3fa0f704b7e98ed0              # double 0.033134601068722014
+	.quad	0x3fdad0a2a62b195a              # double 0.4189840910661552
+	.quad	0x3fc353100b9ae69c              # double 0.15097237173704492
+	.quad	0x3fd6eee5a09527b4              # double 0.35833111459634925
+	.quad	0x3fef0eb3a07065a5              # double 0.9705446370673384
+	.quad	0x3fc967b986e5b710              # double 0.1984779270819037
+	.quad	0x3fd5f2ebbadbd880              # double 0.34295171020438175
+	.quad	0x3fef82feb6a7473b              # double 0.98474059748171016
+	.quad	0x3fefd83e91117877              # double 0.99514702161447032
+	.quad	0x3feb68298ae3d6e4              # double 0.85646512152626685
+	.quad	0x3fcc153569e24a20              # double 0.21939723653902465
+	.quad	0x3fc23240c3b0f81c              # double 0.14215859942663733
+	.quad	0x3fec55dab22cc546              # double 0.88548025893957383
+	.quad	0x3fe80c303b1ba03a              # double 0.75148784203066232
+	.quad	0x3fe27a2a9ce83553              # double 0.57741289754782554
+	.quad	0x3fddeea140f54252              # double 0.4676898130756274
+	.quad	0x3fd139a1f8d4be12              # double 0.26914262103943642
+	.quad	0x3fdcc28ca8eae25e              # double 0.44937435623027067
+	.quad	0x3fef091d5b006cdc              # double 0.96986263059389044
+	.quad	0x3fe2f12dbbeab819              # double 0.5919407530070685
+	.quad	0x3fed72b4038268a1              # double 0.92025185285026023
+	.quad	0x3fe54dfd58dcca4f              # double 0.66577021938275915
+	.quad	0x3fe6f3b459f2425a              # double 0.71724908416406241
+	.quad	0x3fed38fb6c53ffcb              # double 0.91320582540355966
+	.quad	0x3fc69a515aac5550              # double 0.17658440520669183
+	.quad	0x3fb883378a9095a8              # double 0.095752211884777894
+	.quad	0x3fdbb955af1ba1ac              # double 0.43318693256744711
+	.quad	0x3fe9205fdf23abe2              # double 0.7852019651594413
+	.quad	0x3fa1e242a5fb1bb0              # double 0.034929354440058957
+	.quad	0x3fd30d2a85eed5ee              # double 0.29767859534635377
+	.quad	0x3fe07fcd75486e66              # double 0.51560089976142076
+	.quad	0x3fd77c461e4bd9fc              # double 0.3669600768911605
+	.quad	0x3fee449bf4f8ebcc              # double 0.94587514730607713
+	.quad	0x3feb0f8213ee362f              # double 0.84564308064154214
+	.quad	0x3fed058747c62e08              # double 0.90692485826861091
+	.quad	0x3fe222bf3a26d96b              # double 0.56674157483830123
+	.quad	0x3fdcbfd1f07ca2cc              # double 0.44920776829762299
+	.quad	0x3fb2818beb7d4770              # double 0.072289223663828173
+	.quad	0x3fe1e39e1c0509b7              # double 0.55903535339921617
+	.quad	0x3fdf5940dd5848c4              # double 0.48982259383877769
+	.quad	0x3fe86b55079f39f4              # double 0.76310206879298769
+	.quad	0x3fdd09881e4f3ab2              # double 0.45370676956091949
+	.quad	0x3fe83e25800bd937              # double 0.75758624085464177
+	.quad	0x3fe546998a15ac0f              # double 0.66486813516292098
+	.quad	0x3fe4fb506a00661d              # double 0.6556779928534443
+	.quad	0x3fea7bb73dc6c6ff              # double 0.82760202470510069
+	.quad	0x3fcf3b7b49f46fb4              # double 0.24400273428989083
+	.quad	0x3fea728be4de0acb              # double 0.8264827222886536
+	.quad	0x3fd692d61be1584a              # double 0.35271218035393714
+	.quad	0x3f92945479fdb880              # double 0.018143958993669163
+	.quad	0x3fdce8ccc9ec52ae              # double 0.45170898169571216
+	.quad	0x3fe741c5a4fdf010              # double 0.72677881455411075
+	.quad	0x3f9725a91d7c0600              # double 0.022604601311291717
+	.quad	0x3fee115c1aa009ce              # double 0.93961911392426045
+	.quad	0x3fe15c2fc6832f54              # double 0.54250324985467069
+	.quad	0x3fcb8a3dda9b82e0              # double 0.21515629934494651
+	.quad	0x3feb356806054b65              # double 0.85026932884134665
+	.quad	0x3feb848cd5f5ba0f              # double 0.85993043698346294
+	.quad	0x3fe28e0951c7d528              # double 0.57983842823765475
+	.quad	0x3fd2de7d85765264              # double 0.29482973130624246
+	.quad	0x3feec53628aef2c5              # double 0.96157367654776548
+	.quad	0x3fdf5784490e93e2              # double 0.4897165978857726
+	.quad	0x3fd50e2eb8be87ec              # double 0.32899063149863994
+	.quad	0x3fd31509463e3718              # double 0.29815894946737975
+	.quad	0x3fe67c445305c097              # double 0.70266929831815872
+	.quad	0x3fa7797a5c247760              # double 0.045848678348405114
+	.quad	0x3fe049b8a6f00ef5              # double 0.50899918179535908
+	.quad	0x3f82ed0cd11961c0              # double 0.0092411996185298717
+	.quad	0x3feb2902e8aca75d              # double 0.84875626987671249
+	.quad	0x3fea63806e3d3545              # double 0.82464620143006384
+	.quad	0x3fed428a63a36df0              # double 0.91437262974380751
+	.quad	0x3fc1043c4653fd3c              # double 0.13294175561893862
+	.quad	0x3fdcb9a3cf6a4422              # double 0.44883055930501048
+	.quad	0x3fd1a089ba6ae49a              # double 0.27542346196021017
+	.quad	0x3fe18e97d5f4d409              # double 0.54865638531066552
+	.quad	0x3fe3ba77d6cf0b6d              # double 0.61651222185933607
+	.quad	0x3fc939109a6ae1dc              # double 0.19705398120801376
+	.quad	0x3fed8c9093ed7ebc              # double 0.92340878383762214
+	.quad	0x3fce401d7ff9ed5c              # double 0.23633164166299536
+	.quad	0x3fe35b162383860e              # double 0.6048689550045212
+	.quad	0x3fd675d424a93c78              # double 0.35094169216330995
+	.quad	0x3fd1fbe30205e56a              # double 0.28099894712030127
+	.quad	0x3fe259e05bf69e0d              # double 0.57347124063102373
+	.quad	0x3fcada321fb00fe8              # double 0.2097838072514826
+	.quad	0x3fd8190388ae7862              # double 0.37652672145657651
+	.quad	0x3fed24dd96b01dd0              # double 0.91075019294015114
+	.quad	0x3fe25dba8702f808              # double 0.57394148225262231
+	.quad	0x3fe5c776b725d7be              # double 0.68059860011157247
+	.quad	0x3fe3c2c26c915524              # double 0.61752434925680122
+	.quad	0x3fd1959aef80e1f2              # double 0.27475617779739914
+	.quad	0x3fe1935dcc84f5f2              # double 0.54923906274023993
+	.quad	0x3fe2b1696c4b27f9              # double 0.58415671492662036
+	.quad	0x3fe2eb537987764e              # double 0.59122632728731062
+	.quad	0x3fdd8a63dd56c972              # double 0.46157166113984893
+	.quad	0x3fe18484dfccbd08              # double 0.54742664061441904
+	.quad	0x3fc91e4e823358a8              # double 0.19623738629770071
+	.quad	0x3fdd3135e0966350              # double 0.45612856800430723
+	.quad	0x3fed14f1fd4733a7              # double 0.90880679577241075
+	.quad	0x3fbd2c13c48a4888              # double 0.11395381496757484
+	.quad	0x3fc44855aed3bc78              # double 0.15845747982482172
+	.quad	0x3fd272b01d683612              # double 0.28824999686989472
+	.quad	0x3fed13a5c2d57c42              # double 0.90864837697507306
+	.quad	0x3fdda008249474f2              # double 0.46289256641632825
+	.quad	0x3fcf448383715b5c              # double 0.24427837293725474
+	.quad	0x3fe2a38176e4fd9b              # double 0.58245919438916205
+	.quad	0x3fd42c31571fcc6a              # double 0.31519731052612221
+	.quad	0x3fde5e608e1bd2f8              # double 0.47451032522012282
+	.quad	0x3f98d5a291972620              # double 0.024252452980169648
+	.quad	0x3fde067186fc06fc              # double 0.46914327795103339
+	.quad	0x3fd4eb07056a13b4              # double 0.32684493569132234
+	.quad	0x3fd942f9688dce34              # double 0.39471278391212938
+	.quad	0x3fc35c4fbada1c3c              # double 0.15125462173111426
+	.quad	0x3fd51a3a9b59f4b2              # double 0.3297258870223444
+	.quad	0x3fdc9b749cdb099a              # double 0.44698825185710123
+	.quad	0x3fcf660cbe4921b8              # double 0.24530181208889501
+	.quad	0x3fd0e44b7488df9c              # double 0.26393400554979407
+	.quad	0x3fd894c2e331f980              # double 0.38407966792137671
+	.quad	0x3fee3af14e8fbe94              # double 0.94469514221232708
+	.quad	0x3f96cc5824d24ca0              # double 0.02226388668766488
+	.quad	0x3fd888031604c5e2              # double 0.38330151701219795
+	.quad	0x3fe06508461ff80f              # double 0.51233304687753101
+	.quad	0x3fde6d0902577448              # double 0.47540497997926368
+	.quad	0x3fdeaaabafe03140              # double 0.47916690993658406
+	.quad	0x3fef604bbea5f503              # double 0.98050486789694024
+	.quad	0x3fee8735efa255e1              # double 0.95400521091022139
+	.quad	0x3fd7fdc5e47e078c              # double 0.3748640757913726
+	.quad	0x3fe16ce877ab6c3c              # double 0.54454444287274084
+	.quad	0x3fe7e5d65f384325              # double 0.74680632207500663
+	.quad	0x3fc4f4721642949c              # double 0.16370988928716634
+	.quad	0x3fe4505cde2cc890              # double 0.63480990785162028
+	.quad	0x3fcdcbbd832f2adc              # double 0.23278016000252577
+	.quad	0x3fe9736f9c0d53bf              # double 0.79534130553167148
+	.quad	0x3fa3d49959c34f70              # double 0.038731376845730803
+	.quad	0x3feca6acd714d6db              # double 0.89534608848654373
+	.quad	0x3fe8f98ac0cf4453              # double 0.7804616704762658
+	.quad	0x3fe0408bcd7af009              # double 0.50787916310173487
+	.quad	0x3f93cf4012b62760              # double 0.019345284597455659
+	.quad	0x3fe947706cfb288a              # double 0.78997060094231242
+	.quad	0x3fd81a80df6aa856              # double 0.37661763971357709
+	.quad	0x3fe4b3029a27088a              # double 0.64685182674317443
+	.quad	0x3fb1dbb0b450d9b8              # double 0.069758457205216895
+	.quad	0x3feba197b2f8fab7              # double 0.86347565608578847
+	.quad	0x3fba4f462718d0e8              # double 0.10277212576403694
+	.quad	0x3fbf92cf40c2a648              # double 0.12333388644278742
+	.quad	0x3fd69a1e7e096e02              # double 0.35315668400082256
+	.quad	0x3fed3d2a925794de              # double 0.91371658880657569
+	.quad	0x3fd13d64f857020a              # double 0.26937221767369179
+	.quad	0x3fe6cb58be048ab9              # double 0.71232258904304679
+	.quad	0x3fc35f137c4c4764              # double 0.15133899277912655
+	.quad	0x3fe16df9095454bb              # double 0.54467441389228755
+	.quad	0x3fce98d4dc652a44              # double 0.23903904687388622
+	.quad	0x3f7341da2123c100              # double 0.0047014733010970478
+	.quad	0x3fe66288fa45bb06              # double 0.69952820664715953
+	.quad	0x3fd89eae859b4472              # double 0.38468516395102548
+	.quad	0x3fe70101b8e89b18              # double 0.71887289156879586
+	.quad	0x3fd39894c0e8d84a              # double 0.30618780936072609
+	.quad	0x3fdfe6de4ab4370e              # double 0.49846608443554963
+	.quad	0x3fd622177fa72252              # double 0.34583079782581649
+	.quad	0x3fe1400e9ab80def              # double 0.53906946390674004
+	.quad	0x3fe3705c199da1bd              # double 0.60746579173160564
+	.quad	0x3fcf8a8c1ea1f678              # double 0.24641562934623429
+	.quad	0x3fe41735e12600a9              # double 0.62783330892854849
+	.quad	0x3fefcc81b7d584b5              # double 0.99371419816102124
+	.quad	0x3fcb5b551b247df0              # double 0.21372474503822003
+	.quad	0x3fdc8cb951bc35e6              # double 0.44608910543396829
+	.quad	0x3feae3bccbdca2b6              # double 0.84029998604554268
+	.quad	0x3fbdb09d9f8853a8              # double 0.11597619194829056
+	.quad	0x3fed88d9e3bc3de4              # double 0.92295546035341802
+	.quad	0x3fd0c476063dd768              # double 0.26199102983024725
+	.quad	0x3f5c80ee5fce8a00              # double 0.0017397239564408418
+	.quad	0x3fd87cbcc19a8d04              # double 0.38261336237538068
+	.quad	0x3fdaa6e711a82664              # double 0.41643692707348223
+	.quad	0x3fc7f542f625bf40              # double 0.18717228907507355
+	.quad	0x3fd109def60ba3d2              # double 0.2662274744785097
+	.quad	0x3fe28a11aa7bac87              # double 0.57935412690621113
+	.quad	0x3fa9dd44044007f0              # double 0.050516248244107831
+	.quad	0x3fedec1482399aa5              # double 0.93506837305615831
+	.quad	0x3fef280b082cbbaf              # double 0.97363807293537785
+	.quad	0x3fe6bc84232d4c7d              # double 0.71051222677705506
+	.quad	0x3fedbe24382ed2c3              # double 0.92946063016150793
+	.quad	0x3fe03bab61f6e72b              # double 0.50728387006458797
+	.quad	0x3fc3041e9841fd98              # double 0.1485632174917384
+	.quad	0x3fe00bbe16736e07              # double 0.50143341431561417
+	.quad	0x3fa8c56f84ae26b0              # double 0.048381314226458527
+	.quad	0x3fd5887e300dcb2c              # double 0.33645586674463135
+	.quad	0x3fd121a9defb532a              # double 0.26767966056404424
+	.quad	0x3fedc5f0611a7c56              # double 0.93041247334975696
+	.quad	0x3fecdf89df5dac80              # double 0.90228742242960891
+	.quad	0x3fe79ce31252a740              # double 0.73790124491390685
+	.quad	0x3fb08e8ae09cfdd8              # double 0.06467502578470119
+	.quad	0x3fecc51f502a0c1d              # double 0.89906278283195074
+	.quad	0x3fd84d09a641e658              # double 0.3797020076377513
+	.quad	0x3fe971f07e5aebb1              # double 0.79515862158529249
+	.quad	0x3fee808f009fdd65              # double 0.95319318887679272
+	.quad	0x3fe1213d2769a2da              # double 0.53530748079091528
+	.quad	0x3fe885730a6a9f3e              # double 0.76629020723792229
+	.quad	0x3fd50eca66e268da              # double 0.32902774855905437
+	.quad	0x3fbe2c8397f2c600              # double 0.11786673030544392
+	.quad	0x3fe26cd4d9f95bf4              # double 0.57578508923586336
+	.quad	0x3fe776e8c2747889              # double 0.73326528529629897
+	.quad	0x3fec2a4a453110c6              # double 0.88016236795422098
+	.quad	0x3fe4fcd9f0392932              # double 0.65586563986406632
+	.quad	0x3fe9a8ca07581cf8              # double 0.80185414728558069
+	.quad	0x3fe0265d764ebd46              # double 0.50468323809574467
+	.quad	0x3fd3e2af8d3a06f0              # double 0.31071080009142715
+	.quad	0x3fb848340a17bfa8              # double 0.094851734603934035
+	.quad	0x3fcb7fd66244e1bc              # double 0.21483878896994024
+	.quad	0x3fe5697f20f9951f              # double 0.66912800255218829
+	.quad	0x3fee3f3eca029923              # double 0.94522036986453306
+	.quad	0x3fd78242e78a576e              # double 0.36732552157751897
+	.quad	0x3fecc8eaacbfd774              # double 0.89952596416581664
+	.quad	0x3fbf19b2d23285f0              # double 0.12148587829371826
+	.quad	0x3fe87a046123d146              # double 0.76489466641081871
+	.quad	0x3fd00f924264b6e0              # double 0.25095039828998544
+	.quad	0x3fd70ff7eb6ccd7a              # double 0.36034963598941483
+	.quad	0x3fe7f37fb8b40014              # double 0.74847398829297384
+	.quad	0x3f80f88ecc9e27c0              # double 0.0082865863985438492
+	.quad	0x3fee6c1022e07b7b              # double 0.95069128810779036
+	.quad	0x3fd3b58694c04c2a              # double 0.30795444990616494
+	.quad	0x3fdd122695b6e226              # double 0.45423283215089538
+	.quad	0x3fcf8dddba20c744              # double 0.24651691044123869
+	.quad	0x3fe0dcbb284fe014              # double 0.52694471238555929
+	.quad	0x3fe56f5cb8a57796              # double 0.66984401763669399
+	.quad	0x3fea6a97c65dc1c3              # double 0.82551182502179932
+	.quad	0x3fe1bab4d74f19a5              # double 0.55404130985771316
+	.quad	0x3fdc0cec482dfe26              # double 0.43828875588221405
+	.quad	0x3fbfe7f2be563380              # double 0.12463299891369495
+	.quad	0x3fe673c4c2a5987b              # double 0.70163190857853353
+	.quad	0x3fe7b52d6858eefb              # double 0.74086637859679116
+	.quad	0x3fc85abdb68b7838              # double 0.19026919759102312
+	.quad	0x3f708747bd01f300              # double 0.004035263278748813
+	.quad	0x3fef37a444bc921a              # double 0.97554219651334795
+	.quad	0x3fe7f2dc74143cd9              # double 0.74839613601389054
+	.quad	0x3fcdb2f84eb92380              # double 0.23202422946840429
+	.quad	0x3fed438bb3ce0f66              # double 0.91449532621525687
+	.quad	0x3fea299f2c7b2158              # double 0.81758078277293134
+	.quad	0x3fefc0c61e42f543              # double 0.99228197012386265
+	.quad	0x3fcebaa372af0d24              # double 0.24007075404925005
+	.quad	0x3f8a8da35cc3ca00              # double 0.012965465801674902
+	.quad	0x3feb7caebbd7cfac              # double 0.85897003830040352
+	.quad	0x3fef8e402ecf1c48              # double 0.98611458914172889
+	.quad	0x3fcae83f5b4731d4              # double 0.21021263081492114
+	.quad	0x3fe4b712f7aa27da              # double 0.64734791156774496
+	.quad	0x3fcf70b048116a30              # double 0.24562648314425095
+	.quad	0x3fe9aece0da76193              # double 0.80258848826183493
+	.quad	0x3fe1d9848eb74d83              # double 0.55780246614669726
+	.quad	0x3fdca663a6a4cd7c              # double 0.44765559457592707
+	.quad	0x3fe5817c3c8cc937              # double 0.67205631090317908
+	.quad	0x3fd3b67fd251cf32              # double 0.30801387347240727
+	.quad	0x3feb10c088a0e456              # double 0.84579493222475821
+	.quad	0x3fee6cd4c679a610              # double 0.95078505291638926
+	.quad	0x3fe741b36873e77a              # double 0.72677011872222796
+	.quad	0x3fe71c36bfc21381              # double 0.72219407513385658
+	.quad	0x3fea31ba6da1de6a              # double 0.81857034122999761
+	.quad	0x3feb3b8330bb13a7              # double 0.8510147048733544
+	.quad	0x3fed4c10d6cd370a              # double 0.9155353732437288
+	.quad	0x3fef15101e6eeac3              # double 0.97132116264341339
+	.quad	0x3fe895a57e20f584              # double 0.76826738962670093
+	.quad	0x3fe216f59bff2f20              # double 0.56530266254546646
+	.quad	0x3fe76d4b22783a68              # double 0.73209149105407523
+	.quad	0x3fb860e3dff83808              # double 0.095228426151351298
+	.quad	0x3fedb5b35e9ba26c              # double 0.92843025663485212
+	.quad	0x3fe3f5e2dcb81145              # double 0.62376540288145377
+	.quad	0x3fb8fd09994d0f50              # double 0.09761104576778945
+	.quad	0x3fefeb889df5adfe              # double 0.99750166751385883
+	.quad	0x3fe255c8a393ce3d              # double 0.57297164868072736
+	.quad	0x3fdfdbabe66e8f44              # double 0.49778268340218212
+	.quad	0x3fe2c49be93a21d2              # double 0.58650012542880803
+	.quad	0x3fc4f1fe2fa384c0              # double 0.16363503767118992
+	.quad	0x3fd32e0e5d36ed44              # double 0.29968604186042946
+	.quad	0x3fdf3f27d843ee50              # double 0.48822971458114228
+	.quad	0x3fd9a355dc00c8ca              # double 0.40059420094179343
+	.quad	0x3fd95a387f3b2696              # double 0.39613163399608575
+	.quad	0x3fe4a1247c6c1c52              # double 0.64467071820480215
+	.quad	0x3fea1d2e21b91c1a              # double 0.81606203638591812
+	.quad	0x3feac4dcf6c171e0              # double 0.83653114504300774
+	.quad	0x3fc0b9ff6b8e4384              # double 0.13067620040649441
+	.quad	0x3fbdec24cf7ce080              # double 0.11688451829548008
+	.quad	0x3fe6a3ca9e3f8155              # double 0.70749407680345178
+	.quad	0x3fee50315bd15844              # double 0.94728916104464433
+	.quad	0x3fe31034179984b7              # double 0.59572796449005849
+	.quad	0x3fc77b046fe162d8              # double 0.18344169104491104
+	.quad	0x3fe7f76fbf75290f              # double 0.74895465272973805
+	.quad	0x3fedfca5a9a97bb1              # double 0.93709071290128609
+	.quad	0x3fd873a5de83385a              # double 0.38205858926528935
+	.quad	0x3fe0235505a6b229              # double 0.50431300262204559
+	.quad	0x3feb18f0c86ac29b              # double 0.84679450172378112
+	.quad	0x3fdaeb62f18ed1d2              # double 0.42061685170781715
+	.quad	0x3fed18bff3cd200f              # double 0.90927121751247053
+	.quad	0x3fde83aa499d4f82              # double 0.47678620518603776
+	.quad	0x3fe02c780b39178a              # double 0.50542833511347962
+	.quad	0x3fd1266ecb68c6be              # double 0.26797075142085791
+	.quad	0x3feceb08dc070cfe              # double 0.90369074796799942
+	.quad	0x3fa1a85e7cac2dc0              # double 0.034487679213352163
+	.quad	0x3fe8ce9b1aee767d              # double 0.77522044429834092
+	.quad	0x3fe424d66f757bcb              # double 0.62949678201027248
+	.quad	0x3fd3f2006fe0710c              # double 0.31164561200581953
+	.quad	0x3fce2c01eaa8ddd0              # double 0.23571800191869707
+	.quad	0x3fd4fdffec219faa              # double 0.32800291118337077
+	.quad	0x3fe8646746c3ac3b              # double 0.76225627728616219
+	.quad	0x3feccdf83595a39b              # double 0.90014276948669492
+	.quad	0x3fd02a44165a7b38              # double 0.25257970984414468
+	.quad	0x3fecaaf8f7980163              # double 0.89587066991957121
+	.quad	0x3fe3294a6455428b              # double 0.59879035564706962
+	.quad	0x3fda3148fac2aa9a              # double 0.40925812233278125
+	.quad	0x3fde7208d476a8ac              # double 0.4757101130331971
+	.quad	0x3fe03603565c34de              # double 0.50659338824484812
+	.quad	0x3fb1d82679da0550              # double 0.069704441784798066
+	.quad	0x3fc03f88d5a8e954              # double 0.12693891937835622
+	.quad	0x3fe70448036e3629              # double 0.71927261991522073
+	.quad	0x3fd376388792f822              # double 0.30409062614114835
+	.quad	0x3fb7cc69a9d5eca8              # double 0.092962840999393337
+	.quad	0x3fcf5e193d0ee240              # double 0.24505916100840075
+	.quad	0x3fe25ccaa233ecd4              # double 0.57382709198227611
+	.quad	0x3fe6eccc2ff057d5              # double 0.71640595782332162
+	.quad	0x3fbc213011e11eb8              # double 0.1098814052248781
+	.quad	0x3fd30366f0d36e56              # double 0.29708264845041776
+	.quad	0x3fdfde77871a17ec              # double 0.49795330232188806
+	.quad	0x3fe8a88e988e13c8              # double 0.77057580753227573
+	.quad	0x3fe492fc524dbf62              # double 0.64294258189145759
+	.quad	0x3fe1b844d0906e5d              # double 0.55374375090782346
+	.quad	0x3fb122eac2fbe398              # double 0.066939041713239056
+	.quad	0x3fe00fd65b28d1be              # double 0.50193326763706358
+	.quad	0x3fe98f480954f24d              # double 0.79874040434476401
+	.quad	0x3fe38fa30978d439              # double 0.6112837967872401
+	.quad	0x3fa7ceb7105c26d0              # double 0.046498986002985299
+	.quad	0x3fd26d704ac79e5a              # double 0.28792960455618799
+	.quad	0x3fc6f449574dcaec              # double 0.17933003199467323
+	.quad	0x3fea311058e8380f              # double 0.81848924030941983
+	.quad	0x3fd385f0b0cfe5c6              # double 0.3050500609093344
+	.quad	0x3fc96e13228ee3b0              # double 0.19867171466264955
+	.quad	0x3fd5bdb3032a5f02              # double 0.33970332440502216
+	.quad	0x3fec18b04bb349a4              # double 0.87801375184271934
+	.quad	0x3fd4cd7899cb6f28              # double 0.32504096049318543
+	.quad	0x3fe2f294ae6abd3e              # double 0.59211191240130012
+	.quad	0x3fd4215b83998874              # double 0.31453597880875539
+	.quad	0x3f8008e7987289c0              # double 0.0078294843099840916
+	.quad	0x3fcfa29d898f141c              # double 0.2471501275705642
+	.quad	0x3fecff985840d38d              # double 0.90620057331999393
+	.quad	0x3fddd46f175c511a              # double 0.46609093934354606
+	.quad	0x3fb951c76ff7e518              # double 0.098904099308033344
+	.quad	0x3fa5b35fb4320060              # double 0.042384138819216544
+	.quad	0x3fd7a340c95035de              # double 0.3693391767454538
+	.quad	0x3feb2df19def868b              # double 0.84935837599569319
+	.quad	0x3fc9eab215efb380              # double 0.20247484274969096
+	.quad	0x3f9c239a79010460              # double 0.027479566226478958
+	.quad	0x3fdfce33c48d6aa2              # double 0.49696058458872916
+	.quad	0x3fd74a7e5e099a92              # double 0.3639217298827272
+	.quad	0x3fb4c509215e31b8              # double 0.081131525656195858
+	.quad	0x3fdf4d3e5989f6b4              # double 0.4890895723727724
+	.quad	0x3fe5fcc420a818d2              # double 0.6871052396607189
+	.quad	0x3fde1c52b743bedc              # double 0.47047870537697434
+	.quad	0x3faa9e7b618a0030              # double 0.051990371376632871
+	.quad	0x3fe4c9d322f12ddb              # double 0.64963681053762501
+	.quad	0x3fe49d329871439f              # double 0.64418916486657796
+	.quad	0x3fe7a6747aee7f36              # double 0.73906921396335323
+	.quad	0x3fa3c28297e8c290              # double 0.038593369525533494
+	.quad	0x3fd0a0c1fffdda26              # double 0.25981187819653184
+	.quad	0x3fe9a47a69eabab2              # double 0.80132790266892173
+	.quad	0x3fecac77970d3875              # double 0.89605311872743576
+	.quad	0x3fe378daf8567ee4              # double 0.60850285056582409
+	.quad	0x3fec0fb173f1f302              # double 0.8769156708291066
+	.quad	0x3fed928646378ea0              # double 0.92413629259359098
+	.quad	0x3fec65f15e985aeb              # double 0.88744419551480058
+	.quad	0x3fdee9d903926850              # double 0.48302293156451004
+	.quad	0x3fc5abc95a9ef1b0              # double 0.16930500912520818
+	.quad	0x3fdc6423cb2e8146              # double 0.44361204950293531
+	.quad	0x3fe1aca8ad866276              # double 0.55232652560796569
+	.quad	0x3fef2aa213912b96              # double 0.97395423719113938
+	.quad	0x3fd3df6da0771652              # double 0.31051197691372068
+	.quad	0x3fdb52058844b17c              # double 0.42688120181517042
+	.quad	0x3fc96e0c2b6fd578              # double 0.19867088433208457
+	.quad	0x3fe5198333971686              # double 0.65936431957443697
+	.quad	0x3f8915143ba53540              # double 0.012247236318808974
+	.quad	0x3fe97a0a1da455c2              # double 0.79614740170898579
+	.quad	0x3fd89200bcf48860              # double 0.38391130879074886
+	.quad	0x3fe229dc99a5c4ea              # double 0.56761007317814216
+	.quad	0x3fb635e0104e5828              # double 0.086759571057286267
+	.quad	0x3feae80e86bed7fe              # double 0.84082723920323565
+	.quad	0x3fc7a3af92cdacb8              # double 0.1846827952207144
+	.quad	0x3fcda72973d41578              # double 0.23166387706457292
+	.quad	0x3fd550f9a38e55fc              # double 0.33306733104959085
+	.quad	0x3fa139e4fe09b710              # double 0.033644824991695299
+	.quad	0x3fedc971de6261ea              # double 0.93084042963442681
+	.quad	0x3fde8f0d213a286c              # double 0.47748115773050048
+	.quad	0x3fdd62925a3a8f76              # double 0.45914133845712202
+	.quad	0x3fd089b97bff23ee              # double 0.25840603932425565
+	.quad	0x3fde8ac4ad0bb9b6              # double 0.47721974276546619
+	.quad	0x3fdfb4404f94a800              # double 0.49537666102935418
+	.quad	0x3fd90bbe1e489c72              # double 0.39134171445261423
+	.quad	0x3fd8d1ab99b6806a              # double 0.3877972603895673
+	.quad	0x3febcac92df36823              # double 0.86850413298384799
+	.quad	0x3fe8791546f7c42a              # double 0.76478065358071956
+	.quad	0x3fa571f0de3f30f0              # double 0.041884925012341756
+	.quad	0x3fc7438e5036a43c              # double 0.18174914280578658
+	.quad	0x3fbaaa68a3f22ed0              # double 0.10416273119534059
+	.quad	0x3fec4451b7578953              # double 0.88333974656078806
+	.quad	0x3fee231e1b24ea54              # double 0.9417868166122596
+	.quad	0x3fe8467dfba5fa93              # double 0.7586049952513626
+	.quad	0x3fc80295d4364a28              # double 0.18757889615933832
+	.quad	0x3fe993e3c6e27dec              # double 0.79930294842409699
+	.quad	0x3fdec7b250a35ebe              # double 0.48093850970097296
+	.quad	0x3fb82c6bad00a7c8              # double 0.094427804696038398
+	.quad	0x3fd4463c134f528a              # double 0.31678678403594829
+	.quad	0x3fd4f91576d81dce              # double 0.32770287137870191
+	.quad	0x3fee2028e1939322              # double 0.94142574365523424
+	.quad	0x3f94c5318c20e940              # double 0.020283483674782277
+	.quad	0x3fe5c1ef85ac167e              # double 0.67992378337721937
+	.quad	0x3fd5439b96eb9e96              # double 0.3322514509040756
+	.quad	0x3fe62da55a40f8f3              # double 0.6930720103044038
+	.quad	0x3fefaf747c31f00f              # double 0.99016784912919486
+	.quad	0x3fc10ee22f1be9a4              # double 0.13326670933004181
+	.quad	0x3fb6d4398934ed40              # double 0.089175792691936984
+	.quad	0x3fa357d76dde69e0              # double 0.037779552613944167
+	.quad	0x3f8b9b350bdeafc0              # double 0.013479628014316236
+	.quad	0x3fec670d981d8481              # double 0.88757972440738808
+	.quad	0x3fe87fc589cf96b2              # double 0.7655971233004577
+	.quad	0x3fe6e778b33c4f72              # double 0.71575579649878152
+	.quad	0x3fe9824328136787              # double 0.7971511633615912
+	.quad	0x3fbab21a2dfb7d18              # double 0.10428012487999572
+	.quad	0x3fd54a6ff31b8818              # double 0.33266829243632534
+	.quad	0x3fd8619e928bc65c              # double 0.38095821677334185
+	.quad	0x3feb81688922c74a              # double 0.85954691681238526
+	.quad	0x3fd0479e41c8e948              # double 0.25437122749612628
+	.quad	0x3fe28a6f52cea6f8              # double 0.57939878629005559
+	.quad	0x3fd89ae00ca14e90              # double 0.38445283158692067
+	.quad	0x3fe8f9982e69f285              # double 0.78046807351309211
+	.quad	0x3fed75527ed37e21              # double 0.92057156344157332
+	.quad	0x3fdcbc4aea37c16e              # double 0.44899247048217361
+	.quad	0x3fee660f3a6a7e31              # double 0.94995843324062978
+	.quad	0x3fd851c25caa47fc              # double 0.37999018716175192
+	.quad	0x3fdd2c9485cb1d9e              # double 0.45584595742954004
+	.quad	0x3f584ce6d8dee400              # double 0.0014831785551747689
+	.quad	0x3fdad646aa07a5e2              # double 0.41932837109069798
+	.quad	0x3fe023e110b3f5a2              # double 0.50437978040979581
+	.quad	0x3fd8f65339907a56              # double 0.39003449079055963
+	.quad	0x3fd66940f00491d0              # double 0.35017417372935444
+	.quad	0x3fd94fcde22e489e              # double 0.39549586379974666
+	.quad	0x3f8d0f1233c37240              # double 0.014188902096457956
+	.quad	0x3fbeb1387be77060              # double 0.1198916723728316
+	.quad	0x3fc36fb67e64ff38              # double 0.15184670611960782
+	.quad	0x3fea046d0da6ed3b              # double 0.81304028192918254
+	.quad	0x3fea30c208e06566              # double 0.81845189794254902
+	.quad	0x3fc81642d2a97134              # double 0.18817935262894425
+	.quad	0x3fdbe9931e6831ec              # double 0.4361312672561144
+	.quad	0x3fc86e39db54fd84              # double 0.19086383065767276
+	.quad	0x3fec4fbd644857d5              # double 0.8847338637012806
+	.quad	0x3fe50bd3cac430b6              # double 0.65769376375967314
+	.quad	0x3fe036dff01963ee              # double 0.50669857878085423
+	.quad	0x3fede291f5c4d692              # double 0.93390748979318716
+	.quad	0x3fce95d4f2b38b9c              # double 0.23894750452663238
+	.quad	0x3fb2ec5792e87880              # double 0.073918794027550305
+	.quad	0x3fe6917c8eed382c              # double 0.70525958934172683
+	.quad	0x3fd1fca93c1e9b64              # double 0.28104620810557024
+	.quad	0x3fd86f709e06bea4              # double 0.3818017523981132
+	.quad	0x3fec95f911bca643              # double 0.89330724205246559
+	.quad	0x3feafdae27199b46              # double 0.84346683155750024
+	.quad	0x3fe74dc4c995f5c1              # double 0.72824324962828524
+	.quad	0x3fd71b273d02a296              # double 0.36103230436359846
+	.quad	0x3fa1c5516dcdda90              # double 0.034708542493651184
+	.quad	0x3fe4a89e7415207b              # double 0.64558336899155166
+	.quad	0x3fd433a192fa86ae              # double 0.31565131524448986
+	.quad	0x3fe06912af135285              # double 0.51282629198483731
+	.quad	0x3fe64d400f2dbdb3              # double 0.69692995991311191
+	.quad	0x3fda3ff699d2f6d8              # double 0.41015400907404631
+	.quad	0x3fd1d55f46e525ee              # double 0.27864820407248103
+	.quad	0x3fec8ff512535e57              # double 0.89257291392545823
+	.quad	0x3fe60b1bd1677020              # double 0.68885603808621809
+	.quad	0x3fc05747fc6d718c              # double 0.12766361070215415
+	.quad	0x3fe49d109146f5a3              # double 0.64417293905687634
+	.quad	0x3fb03aa99c8616b8              # double 0.063395119394125454
+	.quad	0x3fe2ede9a4ba20e4              # double 0.59154207394842873
+	.quad	0x3fd07a254574c686              # double 0.25745517523601114
+	.quad	0x3fea035b39088891              # double 0.8129097093517591
+	.quad	0x3fd17d7d75fb6bf2              # double 0.2732843067330456
+	.quad	0x3fd8d523e06e4798              # double 0.38800904194897035
+	.quad	0x3fef58953940effe              # double 0.97956334287982805
+	.quad	0x3fe505a38bbd80c5              # double 0.65693833630577869
+	.quad	0x3fd985e5f572b8c4              # double 0.3987975022272503
+	.quad	0x3fea92973a97627b              # double 0.83039437717077591
+	.quad	0x3fdcc320875569a6              # double 0.44940961090255838
+	.quad	0x3fe0155816ac7ca2              # double 0.50260548046562215
+	.quad	0x3fd452fff6d195c6              # double 0.31756590941799023
+	.quad	0x3fd03c865084a5fa              # double 0.25369413245297745
+	.quad	0x3fe465bfeeb29d28              # double 0.63742062206884942
+	.quad	0x3fdbe7ad5f94725c              # double 0.43601545652362517
+	.quad	0x3fee0c22c1f69211              # double 0.93898141749792974
+	.quad	0x3f9d5d7cd4f251e0              # double 0.028676939484812425
+	.quad	0x3fe3857dbe5f80b3              # double 0.61004531080472757
+	.quad	0x3fbf67c122d75be0              # double 0.1226769170819888
+	.quad	0x3fd6bd457cd9459e              # double 0.35530221168763798
+	.quad	0x3fa1096db21f99b0              # double 0.033275058740218966
+	.quad	0x3fe6af8bd59c8d7e              # double 0.70892898293497786
+	.quad	0x3fd8c68267494d3c              # double 0.38711605154567841
+	.quad	0x3fd21c954b5123bc              # double 0.28299457888766333
+	.quad	0x3fdd3b304b5164e0              # double 0.45673758845584977
+	.quad	0x3fd98339787f0fe0              # double 0.39863430754871665
+	.quad	0x3fbe06a3529e1e58              # double 0.11728878752739413
+	.quad	0x3fe7080a1c82c04d              # double 0.71973138397698622
+	.quad	0x3fe08a8498c6b429              # double 0.51690893019770556
+	.quad	0x3fa303b7f4cc6e80              # double 0.037137745506893971
+	.quad	0x3fe50b8d7219ffba              # double 0.65766022000752078
+	.quad	0x3fe637e77efd1045              # double 0.69432425310561341
+	.quad	0x3fe284f0bda494c1              # double 0.57872807540538684
+	.quad	0x3fb04f188a018118              # double 0.063706906979409061
+	.quad	0x3fe088c86212a34a              # double 0.51669711260647344
+	.quad	0x3fe7a653ea285df2              # double 0.73905368551180417
+	.quad	0x3fca47da05d20be0              # double 0.20531773838237566
+	.quad	0x3fdec3f69a9ca1c6              # double 0.48071065043270911
+	.quad	0x3fd1cafbb8371122              # double 0.27801411618954053
+	.quad	0x3fee40219aa4b5b8              # double 0.94532852367199549
+	.quad	0x3fece7ba80c423f8              # double 0.90328717374461487
+	.quad	0x3fccd7ac0e116540              # double 0.225331789845578
+	.quad	0x3fbb5022197f2a70              # double 0.10669148561934505
+	.quad	0x3fe46c5294af08d4              # double 0.63822297134199824
+	.quad	0x3fda0b48dd95ac9a              # double 0.40693875922324596
+	.quad	0x3faf5a48c1883630              # double 0.061235688805123423
+	.quad	0x3fe143220e1ab0f5              # double 0.53944494967211531
+	.quad	0x3fcc8f240dd24d5c              # double 0.22311831164243301
+	.quad	0x3fdda35e67e5b4f4              # double 0.46309623857707938
+	.quad	0x3fc0b9949c755cc8              # double 0.13066346778462035
+	.quad	0x3feb5d4974c65b61              # double 0.85513756568512289
+	.quad	0x3fed01ff1ca0398e              # double 0.906493717107695
+	.quad	0x3fc3e3b6ef1a2d00              # double 0.15538679766573438
+	.quad	0x3fe3eceded2c2d8f              # double 0.6226720459248315
+	.quad	0x3fe4cb708bfc372c              # double 0.64983393994200389
+	.quad	0x3fc9a557d785ce6c              # double 0.200358371959385
+	.quad	0x3fd4c95752b3f2da              # double 0.32478888584573229
+	.quad	0x3fdd1f69a03a2d76              # double 0.45504227301781641
+	.quad	0x3fd94c695997e5e8              # double 0.39528878926611677
+	.quad	0x3fc323e63b56af34              # double 0.14953306100266561
+	.quad	0x3fabcae15c754520              # double 0.05428222898138757
+	.quad	0x3fb9b5f871325b48              # double 0.10043289912787856
+	.quad	0x3fe92bf6277b9128              # double 0.78661639892064716
+	.quad	0x3fd162282e1b307a              # double 0.27161602499541682
+	.quad	0x3fd0809f4463b0bc              # double 0.25785047224668367
+	.quad	0x3fed654c8dbddcf3              # double 0.91861560520092522
+	.quad	0x3fd8a71a7fca4f54              # double 0.38519918899077266
+	.quad	0x3fd5ef56e0f4e292              # double 0.34273311584869603
+	.quad	0x3fe69d0319cb3aca              # double 0.70666651761879362
+	.quad	0x3feefae27cfcbae7              # double 0.96812557612960581
+	.quad	0x3fca0d005eb613bc              # double 0.2035217726189823
+	.quad	0x3fe842b7d00ad3ed              # double 0.75814428933392508
+	.quad	0x3feccf7423728211              # double 0.90032393382358766
+	.quad	0x3fe031bb33bdce69              # double 0.50607071023700911
+	.quad	0x3fe24154022cf98d              # double 0.57047462868631416
+	.quad	0x3fc5d25f4d84becc              # double 0.17048255238613874
+	.quad	0x3fcfd8f522b00a9c              # double 0.24880851930364123
+	.quad	0x3fe34222e6cf6995              # double 0.60182328300588728
+	.quad	0x3fe7242312457308              # double 0.72316125458346026
+	.quad	0x3fdc20de075c2eea              # double 0.43950606077917931
+	.quad	0x3fe98b6369ad5bef              # double 0.79826517715525636
+	.quad	0x3fc6e1fdb36717b8              # double 0.17877169856927622
+	.quad	0x3fda573c92fcb746              # double 0.41157450060096712
+	.quad	0x3fd09b065cec5ba0              # double 0.25946196627176654
+	.quad	0x3fefcad1c45ec5b0              # double 0.99350822785907233
+	.quad	0x3fe2f1693c75ebf4              # double 0.59196912583081351
+	.quad	0x3fd23278dc9e75b2              # double 0.28433057350943181
+	.quad	0x3fe913c4a4567148              # double 0.78366310212326429
+	.quad	0x3fdaf31d597e661e              # double 0.42108854045508959
+	.quad	0x3fe91adb890f4684              # double 0.78452851075617546
+	.quad	0x3fdaf9001c4a2ac0              # double 0.42144778025310003
+	.quad	0x3fc1bca70fa90f04              # double 0.13856971993129019
+	.quad	0x3fc868f0334dfc20              # double 0.19070246224507148
+	.quad	0x3fe1a219d5e2643e              # double 0.55103770994458734
+	.quad	0x3fd8ba0649ca3c44              # double 0.3863540382962507
+	.quad	0x3fed21abfa5d8cdf              # double 0.9103603258085079
+	.quad	0x3fd86110adbbeb64              # double 0.38092438665596817
+	.quad	0x3fe1f5f12a951646              # double 0.56127222363347395
+	.quad	0x3fb82b60a8641588              # double 0.094411889182160036
+	.quad	0x3fe6119758afc6e7              # double 0.68964736291510753
+	.quad	0x3fe2fd0e40725dfe              # double 0.59339058482413498
+	.quad	0x3fd9e9f56403a8dc              # double 0.40490469710370092
+	.quad	0x3fea5b9feae25761              # double 0.8236846530514691
+	.quad	0x3fd7484505dcb3b8              # double 0.36378598759148018
+	.quad	0x3fdedcff7b6bd17a              # double 0.48223864605758815
+	.quad	0x3fc6c08de2e4eae4              # double 0.17775128916567617
+	.quad	0x3fe5dd524f0be666              # double 0.6832667869450233
+	.quad	0x3fd709a1cc522818              # double 0.3599628920861746
+	.quad	0x3fe7a744d2f989a7              # double 0.73916856008536491
+	.quad	0x3febe68970596f5f              # double 0.87189170783265613
+	.quad	0x3fe8e90ef906a39d              # double 0.77844952237966292
+	.quad	0x3fde540888e469e6              # double 0.47387898796446704
+	.quad	0x3fe12c08750d48f7              # double 0.53662512647340932
+	.quad	0x3fe0266c01a958a8              # double 0.50469017338288769
+	.quad	0x3fed18d384d45ecf              # double 0.90928054755473819
+	.quad	0x3fe21f5d0ba2d6cb              # double 0.56632854721711945
+	.quad	0x3fbf4538fe48fe48              # double 0.12215000351079042
+	.quad	0x3fcfa7b6dc797da4              # double 0.2473057343040469
+	.quad	0x3fe8c2d438cd8cfd              # double 0.77378283590624586
+	.quad	0x3fd3bafad77459d2              # double 0.3082873443649109
+	.quad	0x3fd3a201abf0f29a              # double 0.30676309386380185
+	.quad	0x3fd08fa6160de9ae              # double 0.25876762536759201
+	.quad	0x3fd6d6a85df220ea              # double 0.35685166525264711
+	.quad	0x3fe4a4d82fcca1fe              # double 0.64512261710939334
+	.quad	0x3fee2ff019510bf6              # double 0.94335179276129
+	.quad	0x3fe8906e1d3e218d              # double 0.76763063155617461
+	.quad	0x3fe4ecfbf68df7b8              # double 0.65392873912036631
+	.quad	0x3fd977ce15e34008              # double 0.39793731820555012
+	.quad	0x3fdd6e962e6c2334              # double 0.45987467320860564
+	.quad	0x3fefc1ffc3f95a1b              # double 0.99243152881792029
+	.quad	0x3fce3faabecb9d08              # double 0.23631796184711384
+	.quad	0x3fead576badc407d              # double 0.83855759140170927
+	.quad	0x3fd89e627a007b02              # double 0.3846670333313541
+	.quad	0x3fe8fcb3e831bc41              # double 0.7808475050968654
+	.quad	0x3fd04d1855b9ebd8              # double 0.2547055089159449
+	.quad	0x3fef8c62bd48c884              # double 0.98588692636100505
+	.quad	0x3fe9d10b123122a7              # double 0.80676797440635972
+	.quad	0x3fef4ad12c828f0e              # double 0.97788294499739137
+	.quad	0x3fc4dc67eaa0472c              # double 0.16297625500060897
+	.quad	0x3fda20b9d0f71f54              # double 0.40824742705125527
+	.quad	0x3fe98689940b023d              # double 0.79767302431725506
+	.quad	0x3fe50b414da10619              # double 0.65762391244806218
+	.quad	0x3feddddc7e58efa8              # double 0.9333326785776892
+	.quad	0x3fe244187c0dc00a              # double 0.57081245640984091
+	.quad	0x3feb4107fb8aff8c              # double 0.8516883767078851
+	.quad	0x3fce1775fd2c0c3c              # double 0.23509096967618059
+	.quad	0x3fe6a2d7b41b94c3              # double 0.70737824609081945
+	.quad	0x3fd562e66971cd4e              # double 0.33416137978857285
+	.quad	0x3fed292e8dd4a677              # double 0.91127708150197761
+	.quad	0x3fe4ea53c8267970              # double 0.65360440341809856
+	.quad	0x3fe5572f06011045              # double 0.66689253971754481
+	.quad	0x3fedab93dcc44487              # double 0.92719452970972405
+	.quad	0x3fd9522685257c38              # double 0.39563906672077875
+	.quad	0x3fd5e19f56871468              # double 0.34189589929548569
+	.quad	0x3fd8f85372710cf6              # double 0.39015661407411473
+	.quad	0x3fcddea3647831f0              # double 0.23335688024270906
+	.quad	0x3feba0263460ed2e              # double 0.86329946737479246
+	.quad	0x3fdb72b7ac9abbce              # double 0.42887679916287602
+	.quad	0x3fb07a5da30ccc58              # double 0.064367153460623938
+	.quad	0x3fd56a6031dcc58a              # double 0.33461766118406244
+	.quad	0x3fe9dd999ab23398              # double 0.8083007832916449
+	.quad	0x3fe7aab8c3d64c2c              # double 0.73959005593713334
+	.quad	0x3fef23b4fd4d4ee7              # double 0.97310876343769059
+	.quad	0x3fe249326669485d              # double 0.57143516542624762
+	.quad	0x3fb8659ca5b6be40              # double 0.095300474603157603
+	.quad	0x3fe09c091b338e98              # double 0.51904731095096945
+	.quad	0x3fb9bf12b7a1e5c8              # double 0.10057179434979624
+	.quad	0x3feea0e1ec6aa2cb              # double 0.95713897872072928
+	.quad	0x3fd9cfb057da01d0              # double 0.403301320831841
+	.quad	0x3fca833b7b6552d0              # double 0.20712989354310318
+	.quad	0x3fead1c50fb1c634              # double 0.83810666146582102
+	.quad	0x3fdb39f25022f36c              # double 0.42541177583534906
+	.quad	0x3fb26cfc8f383d40              # double 0.071975502935164748
+	.quad	0x3fe090df69b8ae7f              # double 0.51768465660775564
+	.quad	0x3fe6fbcfb0efd107              # double 0.7182386832996891
+	.quad	0x3fde138efde0b9c8              # double 0.46994375984914116
+	.quad	0x3fd52e834446d920              # double 0.33096391360904143
+	.quad	0x3fdaa40bc328b154              # double 0.4162625699853113
+	.quad	0x3fc8137daca6da88              # double 0.18809481554281526
+	.quad	0x3fe202a507d493f3              # double 0.56282283334132754
+	.quad	0x3fe0f78c38fdc737              # double 0.5302182305442561
+	.quad	0x3fe6e02b61e4b550              # double 0.71486443633845376
+	.quad	0x3fe90b824a33e61e              # double 0.78265490048142161
+	.quad	0x3fd2216b2b5d219a              # double 0.28328971132989411
+	.quad	0x3fe9d67c95cc3f19              # double 0.80743245370283312
+	.quad	0x3fde6931e372628c              # double 0.47517058574298043
+	.quad	0x3fbfe34e1138cac0              # double 0.12456214828925294
+	.quad	0x3fe08e798197f108              # double 0.51739192305788695
+	.quad	0x3fe6465a21c714bc              # double 0.69608790013503308
+	.quad	0x3fd6a5abbb04a39c              # double 0.35386174453247476
+	.quad	0x3fd17585aa1209e8              # double 0.27279798134273259
+	.quad	0x3fb4c58fecf668a8              # double 0.081139560081654793
+	.quad	0x3fd6f8d913be17d2              # double 0.35893847396834844
+	.quad	0x3fe93b921b538184              # double 0.78852181756160222
+	.quad	0x3fee60fabd73d180              # double 0.94933831217217346
+	.quad	0x3fb097cef3fb9b10              # double 0.064816412511941701
+	.quad	0x3fcbf6abb9f5b124              # double 0.2184652956015124
+	.quad	0x3fe03cb218c27d98              # double 0.5074091418827491
+	.quad	0x3fdbdb15f8894342              # double 0.43524693747626853
+	.quad	0x3fb0435bc52d5638              # double 0.063527808798732432
+	.quad	0x3febb95e4fb374f3              # double 0.86637797896005819
+	.quad	0x3fbaedb3b1ed2090              # double 0.10518954366591715
+	.quad	0x3fb3670654210ad8              # double 0.075790782489132069
+	.quad	0x3fcd4191f96deeb0              # double 0.22856354407473622
+	.quad	0x3fe92d15b48338fc              # double 0.78675351387371916
+	.quad	0x3fcf04cb8f89907c              # double 0.24233383663807107
+	.quad	0x3fea16027984fc66              # double 0.81518672689697946
+	.quad	0x3fe398d66a52512d              # double 0.61240692869117697
+	.quad	0x3fee59750cad2c73              # double 0.94842007137175555
+	.quad	0x3fdcb55a6b987706              # double 0.44856892115954883
+	.quad	0x3fdc846712306f0c              # double 0.44558121467865486
+	.quad	0x3febf69e3f35c18a              # double 0.87385475488376696
+	.quad	0x3fc6e3fde32591a8              # double 0.17883275595808112
+	.quad	0x3fc5ebccbe817d84              # double 0.17125853826562942
+	.quad	0x3f9ec1e487a76fe0              # double 0.030036516933122814
+	.quad	0x3fee3bb05309f46d              # double 0.94478622644932175
+	.quad	0x3fa5461b21c198b0              # double 0.041550491209635054
+	.quad	0x3fe1035bf19adef2              # double 0.53166005314321141
+	.quad	0x3fe4e91c81160aa0              # double 0.65345597469452699
+	.quad	0x3fecf42d646cbf67              # double 0.90480680097787747
+	.quad	0x3fe7936668194ad8              # double 0.73674316722675837
+	.quad	0x3fee6aaa28806e20              # double 0.95052059088215301
+	.quad	0x3fd7a76201a62f62              # double 0.36959123765040236
+	.quad	0x3fe79f930f026345              # double 0.73822930270680642
+	.quad	0x3fe931d97029742a              # double 0.78733512789370264
+	.quad	0x3fc5f8bfee73d720              # double 0.17165373938740291
+	.quad	0x3fe1f8b78da56a20              # double 0.56161096253646647
+	.quad	0x3fe4ec5f974d10e6              # double 0.65385417510017585
+	.quad	0x3fd6b036e099bd94              # double 0.35450527127883302
+	.quad	0x3fdc51b4f0df78a2              # double 0.44248698733088976
+	.quad	0x3fe30e0355e6efeb              # double 0.59546057489160142
+	.quad	0x3fdb524f2e0823b0              # double 0.42689876075069844
+	.quad	0x3fecb7ee056f390a              # double 0.89745236455363053
+	.quad	0x3fc4608c9b75c858              # double 0.15919644919228193
+	.quad	0x3fe09f1569c2c16b              # double 0.51941939026259598
+	.quad	0x3fec988f3dd03933              # double 0.89362299035000203
+	.quad	0x3fd0e532a632c1f4              # double 0.26398912649440764
+	.quad	0x3fec6685d8c4fc08              # double 0.8875149949816441
+	.quad	0x3fed7f841a60d7f4              # double 0.92181592132578638
+	.quad	0x3fe7be832fea0b9b              # double 0.74200591428995055
+	.quad	0x3fda9e504886011a              # double 0.41591269571655831
+	.quad	0x3fc71e1b0a8a5444              # double 0.18060625090280003
+	.quad	0x3feb6f177f6deaa0              # double 0.85731100929782044
+	.quad	0x3fe67b7d552218ff              # double 0.70257441165520607
+	.quad	0x3fe042abe79b7810              # double 0.50813861118126802
+	.quad	0x3fd17a5f215fba92              # double 0.27309396990941892
+	.quad	0x3fe7df54473bf28b              # double 0.74601186669276964
+	.quad	0x3fea887d04252185              # double 0.8291611748655191
+	.quad	0x3fed137f4a5b968e              # double 0.908630032758724
+	.quad	0x3fd012edf364211a              # double 0.25115536469140098
+	.quad	0x3fc191a57c661404              # double 0.13725727628857964
+	.quad	0x3fe5bc1ba739df47              # double 0.67921240483608691
+	.quad	0x3fd64c87220b2078              # double 0.34842089008862542
+	.quad	0x3fe597c8ce52b0af              # double 0.67477836892569154
+	.quad	0x3fdfb46e1f4b34a2              # double 0.49538758331329735
+	.quad	0x3fe2e114652caf84              # double 0.58997554550795472
+	.quad	0x3fe8cf9f6f37d88c              # double 0.77534457895559816
+	.quad	0x3fc5dff2fadf912c              # double 0.17089688539193426
+	.quad	0x3fe1ebf0c09df8e7              # double 0.56005132313273698
+	.quad	0x3fd0fa4a9d4dc48a              # double 0.26527657853791509
+	.quad	0x3febb533db892112              # double 0.86586945417460215
+	.quad	0x3fdcf89aa202f31c              # double 0.45267358609616948
+	.quad	0x3feb00af251036fe              # double 0.84383351553853436
+	.quad	0x3feacaae5dfac037              # double 0.8372413478409787
+	.quad	0x3fef98f91a5f0daf              # double 0.98742346907277134
+	.quad	0x3fa68c1efbcf2340              # double 0.044037788618487728
+	.quad	0x3fc6a0f3394a2e54              # double 0.17678680703498861
+	.quad	0x3fd2d0d94800648e              # double 0.29399711638831938
+	.quad	0x3feb6f3c8ae27271              # double 0.85732867360964182
+	.quad	0x3fe6fe0503a02eb9              # double 0.71850825031420762
+	.quad	0x3fe015f02a4cdfd5              # double 0.50267799627089949
+	.quad	0x3fe05d21137e9092              # double 0.51136831099985813
+	.quad	0x3fc38cf78c322ad8              # double 0.15273947091585316
+	.quad	0x3fe8ff49d76a4e00              # double 0.78116314004222431
+	.quad	0x3fece3e9685eaae1              # double 0.90282125839925353
+	.quad	0x3fd6613c15a39e76              # double 0.34968473542401257
+	.quad	0x3feab004f83ecddb              # double 0.83398674474158996
+	.quad	0x3fdb43faf9f061b6              # double 0.42602419288734994
+	.quad	0x3fd35b51d38533c6              # double 0.3024487081173074
+	.quad	0x3feec7fd50715c30              # double 0.96191278182494067
+	.quad	0x3fefb221a81283c5              # double 0.99049456431031812
+	.quad	0x3fdbce51af41140e              # double 0.4344677173106114
+	.quad	0x3fd2582e4f563550              # double 0.28663213489274586
+	.quad	0x3fee7c44dbe2382c              # double 0.95266955324200841
+	.quad	0x3fef28d002ee024c              # double 0.97373200008593974
+	.quad	0x3fe05c914ed9c2aa              # double 0.51129975700867658
+	.quad	0x3fe640b6730be5aa              # double 0.69539949865354811
+	.quad	0x3fe02e2186363fb7              # double 0.5056312199903833
+	.quad	0x3fd706820e88f03a              # double 0.35977221888947819
+	.quad	0x3fee218a4c765aa5              # double 0.94159426626250264
+	.quad	0x3fc08f73ceac8d18              # double 0.12937781898026723
+	.quad	0x3fe3f5c1326d6241              # double 0.62374935006216259
+	.quad	0x3fa31fd25dafa070              # double 0.037352155624660877
+	.quad	0x3fee778c537ff130              # double 0.9520932799200974
+	.quad	0x3fd2a166eab5e57c              # double 0.29110119744253615
+	.quad	0x3f8434812c196bc0              # double 0.0098657695372618148
+	.quad	0x3fc1eef8dc098ed4              # double 0.14010534996042756
+	.quad	0x3fef7616436d8bc5              # double 0.98316491288675733
+	.quad	0x3fc7d794e0556318              # double 0.18626652673517508
+	.quad	0x3fedeaaabb5940a7              # double 0.9348958644059352
+	.quad	0x3fa4d6d29c821d40              # double 0.040701467137348235
+	.quad	0x3feff79af506b670              # double 0.99897525650676577
+	.quad	0x3fc2c74168bad5d4              # double 0.14670579541932105
+	.quad	0x3fc2a67545e041bc              # double 0.14570489799417696
+	.quad	0x3fbea378aa5a37f0              # double 0.11968187483782322
+	.quad	0x3fe9aa0c35b0ef3c              # double 0.80200777517845933
+	.quad	0x3fcca43615877184              # double 0.22376133013939292
+	.quad	0x3feb63d1f7c59e22              # double 0.85593508141477437
+	.quad	0x3fdb145ca7c22f12              # double 0.4231177938715841
+	.quad	0x3fe12f22a4d542e3              # double 0.53700382417636339
+	.quad	0x3fd05a53cbb35cd6              # double 0.25551314251556556
+	.quad	0x3fb8d01fc60c3d80              # double 0.096925721980587908
+	.quad	0x3fe3818b512f29c9              # double 0.60956350189490494
+	.quad	0x3fdde2d5aa800692              # double 0.46696988726044097
+	.quad	0x3fe3c524fc6b7261              # double 0.61781548786855123
+	.quad	0x3fbc7d1893be83e0              # double 0.11128381354366423
+	.quad	0x3fbf43cc0ffb2028              # double 0.12212825193557875
+	.quad	0x3fe550510d7dc81c              # double 0.66605427393938355
+	.quad	0x3feaab006e1ed128              # double 0.83337422855268972
+	.quad	0x3fd4daf75d172ba0              # double 0.32586464014883099
+	.quad	0x3fc3a2676f95ad54              # double 0.15339367817373761
+	.quad	0x3fed5b9df0f03baf              # double 0.91743371065409984
+	.quad	0x3fdd522590db299a              # double 0.45813883920768605
+	.quad	0x3fc5b53e0d6241d4              # double 0.16959357884890258
+	.quad	0x3fed0f1d5f42e286              # double 0.90809506040302845
+	.quad	0x3fecbed3b7f44122              # double 0.89829431465662801
+	.quad	0x3fc8c1b26346bff8              # double 0.19341115806082576
+	.quad	0x3fa0e8792818c5d0              # double 0.033023630280137106
+	.quad	0x3f8bc12788c5b480              # double 0.0135520065893735
+	.quad	0x3f9006494f6c79a0              # double 0.015648980591430495
+	.quad	0x3faba800679d4bb0              # double 0.05401612534355793
+	.quad	0x3fe128d10dc82a4d              # double 0.53623249713684518
+	.quad	0x3f8e9aba0e7e1100              # double 0.01494355541922987
+	.quad	0x3feead4bb88b6d27              # double 0.95865427059053309
+	.quad	0x3fdc15fb12511e0a              # double 0.438841598403514
+	.quad	0x3fd4734f8516aee8              # double 0.31953800198492255
+	.quad	0x3fedc38c8c8c7c31              # double 0.93012072993213313
+	.quad	0x3fe91e119f59123f              # double 0.78492051241534699
+	.quad	0x3fe74ca7b97da2d3              # double 0.72810732105889497
+	.quad	0x3fd6dd8a7536d60e              # double 0.3572717804594
+	.quad	0x3fca668ae45a949c              # double 0.20625435018624649
+	.quad	0x3fbb450def5852e8              # double 0.10652243703254849
+	.quad	0x3fe9af9ac560e448              # double 0.80268610525593775
+	.quad	0x3fe6749a1e0b9b44              # double 0.70173364513616621
+	.quad	0x3f99ed638c272fe0              # double 0.025319629124893939
+	.quad	0x3fd2eca4babcf5ee              # double 0.29569357143540642
+	.quad	0x3fe120b65115eead              # double 0.53524318539662874
+	.quad	0x3fc0ec91a7241268              # double 0.13221951161553425
+	.quad	0x3f8ec492e45862c0              # double 0.015023372262520041
+	.quad	0x3fdb15232f292c06              # double 0.4231651268534623
+	.quad	0x3febaad4e283dd1e              # double 0.86460346451977776
+	.quad	0x3fefdeb1ea079922              # double 0.99593444546625087
+	.quad	0x3fed80eea119e194              # double 0.92198878731783162
+	.quad	0x3fd631b368c37c5e              # double 0.34678349715063017
+	.quad	0x3fd44d7eb5717a80              # double 0.31722991675443524
+	.quad	0x3febdc636bdfca80              # double 0.87065287655998702
+	.quad	0x3fc81d9e1c929238              # double 0.18840385813850147
+	.quad	0x3fd25ff4b17fb80e              # double 0.28710667928578537
+	.quad	0x3fe0071a7ae9f605              # double 0.50086711889861191
+	.quad	0x3fe98e02f1679481              # double 0.79858538770044174
+	.quad	0x3fd3dbe6aa7706b2              # double 0.31029669424979567
+	.quad	0x3fc98d1cfeb39818              # double 0.19961893498037919
+	.quad	0x3fd6f7fcd3d6ca2a              # double 0.35888596236614723
+	.quad	0x3fed5474c3e11389              # double 0.91655958421380135
+	.quad	0x3fc42b9c070e8474              # double 0.15758085579458092
+	.quad	0x3fd549c28282f34e              # double 0.33262694115892522
+	.quad	0x3fe08f25ab0f9dc3              # double 0.51747401628829726
+	.quad	0x3f71393b995f4900              # double 0.0042049720850221295
+	.quad	0x3fec040a1710f0a9              # double 0.87549309258567576
+	.quad	0x3fe6fc4806f65c49              # double 0.71829606399377
+	.quad	0x3fcccc136c458404              # double 0.22497790133186879
+	.quad	0x3fe94e1307042ea1              # double 0.79078055734995101
+	.quad	0x3fe5262f6c597397              # double 0.66091128503795715
+	.quad	0x3fe613585bf8e76b              # double 0.68986146891914524
+	.quad	0x3fd2e0f85acd24c4              # double 0.29498108737295703
+	.quad	0x3fd3c38f9ca739ea              # double 0.30881109522024863
+	.quad	0x3fd372a2c33932ea              # double 0.30387181343830483
+	.quad	0x3fca6d768bed4b54              # double 0.20646554787034666
+	.quad	0x3fe64556abf26eb3              # double 0.69596417983435399
+	.quad	0x3fd352f78974538a              # double 0.30193890021592351
+	.quad	0x3fe1bc08235a9085              # double 0.55420309929878953
+	.quad	0x3fe2cffc7ed71a44              # double 0.58788895390973339
+	.quad	0x3fcf3c2cd11c5e3c              # double 0.24402389727105056
+	.quad	0x3fd2d5e1d592820a              # double 0.29430433136624912
+	.quad	0x3fe439208b73bdad              # double 0.63197352635136428
+	.quad	0x3f9b229e7c6a4d20              # double 0.026499248832419942
+	.quad	0x3fe339e560b23f0d              # double 0.60081738363257531
+	.quad	0x3fed24af1f474fe1              # double 0.91072803601354846
+	.quad	0x3fe5a051eeae8061              # double 0.67582031838902534
+	.quad	0x3fbe2d81f3ce37f0              # double 0.11788189127238957
+	.quad	0x3fe75ffc0c2e5923              # double 0.73046686534033645
+	.quad	0x3fd8a5a4b9d67edc              # double 0.3851100745032292
+	.quad	0x3fdba85ae551b922              # double 0.43215057749229591
+	.quad	0x3fe98d55ce05058b              # double 0.79850282896238534
+	.quad	0x3fc4830c2a5612c0              # double 0.16024925296018999
+	.quad	0x3fe3464d2889658c              # double 0.60233171384167994
+	.quad	0x3fccd953165a1910              # double 0.22538221923259316
+	.quad	0x3feeb18c0ae81870              # double 0.95917322282981665
+	.quad	0x3fe1ae207ceba079              # double 0.55250572584647195
+	.quad	0x3fe74ca574e7439f              # double 0.72810623963060894
+	.quad	0x3fb4693fb32dd230              # double 0.079730969662542561
+	.quad	0x3fc85ac962acb198              # double 0.19027058904738392
+	.quad	0x3fea1d55d0eb47c9              # double 0.8160809593630286
+	.quad	0x3fc44e79e87cadc0              # double 0.15864490367799355
+	.quad	0x3fb1104df875fc28              # double 0.06665503803195405
+	.quad	0x3fe5d6553598218e              # double 0.68241367786053941
+	.quad	0x3fd790e10b6215ba              # double 0.36821771728167685
+	.quad	0x3fe7eae1ac2fad8a              # double 0.74742206220746366
+	.quad	0x3fbe859043196d78              # double 0.11922551763693956
+	.quad	0x3fcf7ad3e59fea00              # double 0.24593590461866199
+	.quad	0x3f9f757d5ff9fa80              # double 0.030721625311793677
+	.quad	0x3fe1c4349f71d90f              # double 0.55520087377115768
+	.quad	0x3fd17faf1a0b0524              # double 0.27341821234957053
+	.quad	0x3fe0d9c2886c7946              # double 0.52658201833018192
+	.quad	0x3fe05e0b450a8f71              # double 0.51147998318309196
+	.quad	0x3fd2438e9450e60e              # double 0.28537334903703104
+	.quad	0x3feb4851788681be              # double 0.85257791080589818
+	.quad	0x3fe26fbed9425a5c              # double 0.57614080842433735
+	.quad	0x3fe9316038619783              # double 0.78727732669788997
+	.quad	0x3fde39b1df072ef4              # double 0.47227141170581821
+	.quad	0x3fe959c5f76c31c7              # double 0.79220865559323606
+	.quad	0x3fdcf9df198bbcb4              # double 0.4527509450408147
+	.quad	0x3fec349a5064471e              # double 0.88142123891359225
+	.quad	0x3fe9842dcf24fb41              # double 0.79738512475874057
+	.quad	0x3fda41738ff8fb14              # double 0.41024483737776163
+	.quad	0x3fd2fdb1a862a7e6              # double 0.29673425144085142
+	.quad	0x3fe99354aac10471              # double 0.79923470831285048
+	.quad	0x3fefa12198aa3361              # double 0.98841934029915645
+	.quad	0x3fe094f60bf77572              # double 0.51818373048051414
+	.quad	0x3fc7bf2bf8e63414              # double 0.18552159932406254
+	.quad	0x3fe1b3b9306cb106              # double 0.55318889100956947
+	.quad	0x3fc72c9bb575568c              # double 0.18104883537551009
+	.quad	0x3fdc1759414f35bc              # double 0.43892508867142133
+	.quad	0x3fe9fb8b0c62c80d              # double 0.81195595187296166
+	.quad	0x3fc00465718237bc              # double 0.12513416330733473
+	.quad	0x3fcec7cf8f8fe9a0              # double 0.24047274122115159
+	.quad	0x3fc4efa571b54750              # double 0.16356342365412013
+	.quad	0x3fd054bc2de931ca              # double 0.25517181857574356
+	.quad	0x3fd9606aa2ba1dca              # double 0.39650979892072924
+	.quad	0x3fe0f5368082b84a              # double 0.52993321513873437
+	.quad	0x3fe8026905b4a5d7              # double 0.7502942191542229
+	.quad	0x3fd51976f152f354              # double 0.32967923704909663
+	.quad	0x3fe27265f48ed10c              # double 0.57646463170252238
+	.quad	0x3fc1fb1c9c79082c              # double 0.14047582283279902
+	.quad	0x3fe5dd717e8ec967              # double 0.68328165739357594
+	.quad	0x3fdc48a5d53cb79a              # double 0.44193406890814801
+	.quad	0x3fb8d8afb15f9940              # double 0.09705637054830607
+	.quad	0x3faddbdad4b49220              # double 0.058317984070786588
+	.quad	0x3fcec5bec0c370b0              # double 0.24040970241811044
+	.quad	0x3fc4e241422528dc              # double 0.16315475206130869
+	.quad	0x3fc60f09633d4414              # double 0.17233388276739048
+	.quad	0x3fa41bec9d965740              # double 0.039275545345999863
+	.quad	0x3faf989789513ac0              # double 0.061711059105268529
+	.quad	0x3fc88f634f4cfac4              # double 0.19187585231880722
+	.quad	0x3fd5ad4cf6d5571c              # double 0.33870243172474246
+	.quad	0x3fe3d48c763c8ecf              # double 0.61969588368489237
+	.quad	0x3fe17db447a5aeb3              # double 0.54659475320428041
+	.quad	0x3fe95cd809ebff8b              # double 0.79258348405709123
+	.quad	0x3fe5a412ca108a8b              # double 0.67627849069352075
+	.quad	0x3fe7e516dd18d769              # double 0.74671500380530376
+	.quad	0x3fe2e41548768458              # double 0.59034217980309744
+	.quad	0x3fea91fd2c46e4eb              # double 0.83032091758573523
+	.quad	0x3fd598c9e8590af0              # double 0.33745048227517227
+	.quad	0x3f975d3a56243d40              # double 0.02281657362715106
+	.quad	0x3fce0fcd7e65e658              # double 0.23485726043490973
+	.quad	0x3fe556d5fcfbea19              # double 0.66685008440919369
+	.quad	0x3fe633a276b76230              # double 0.69380305468354742
+	.quad	0x3febb35f38607a0a              # double 0.86564599047761814
+	.quad	0x3fe74bcceda42745              # double 0.72800299085904696
+	.quad	0x3fe3304a94c1ceb4              # double 0.59964493803132379
+	.quad	0x3fe2dec6534a9dca              # double 0.5896941782747771
+	.quad	0x3fee3c5e0604d3d2              # double 0.94486905265386611
+	.quad	0x3fe30310c12cad8d              # double 0.5941242001476198
+	.quad	0x3fec75b19bf9f39c              # double 0.88936691726813732
+	.quad	0x3fc1b05546cec6d4              # double 0.1381937595120265
+	.quad	0x3fd12973ee87508c              # double 0.26815508168989122
+	.quad	0x3fe4dc41e76a8718              # double 0.65188689421140378
+	.quad	0x3fb24287b87deda8              # double 0.071327669660539272
+	.quad	0x3fe934f5269d929c              # double 0.78771455328076767
+	.quad	0x3fe324e3922e9a49              # double 0.598253045570183
+	.quad	0x3fd2fe276d89b772              # double 0.29676233002725561
+	.quad	0x3fe56f5c11ca5429              # double 0.66984370684315764
+	.quad	0x3fd4ef8336618474              # double 0.32711868582379755
+	.quad	0x3febd018930c6a41              # double 0.86915234299096522
+	.quad	0x3f9059380beaff40              # double 0.015965343215383898
+	.quad	0x3fdeac942dd2935e              # double 0.47928337550029265
+	.quad	0x3fed1e370e463d41              # double 0.90993836200679123
+	.quad	0x3fc1dfb5ddd82140              # double 0.13963960010756615
+	.quad	0x3fa2324e8ff92030              # double 0.035540061068389028
+	.quad	0x3fd4b11359016dfa              # double 0.32330783550216291
+	.quad	0x3fdbff5bf630047a              # double 0.4374608902144882
+	.quad	0x3fe3328d946d890c              # double 0.59992102613276321
+	.quad	0x3fbc89ada2d6ece8              # double 0.11147580361914644
+	.quad	0x3fcace096bf9e6d4              # double 0.20941274425768219
+	.quad	0x3fd7b23c47735038              # double 0.37025362947065643
+	.quad	0x3f9e90c5c82f9680              # double 0.029849138587357604
+	.quad	0x3fd4c0b1ace4551a              # double 0.32426111110665234
+	.quad	0x3fe024ac25472f15              # double 0.5044766166770126
+	.quad	0x3feb990cb2a918fc              # double 0.86243281263958193
+	.quad	0x3fec0f9caca97064              # double 0.87690576289197652
+	.quad	0x3fd90f4c07ead72c              # double 0.39155865452936456
+	.quad	0x3fe97774679577aa              # double 0.79583187323782068
+	.quad	0x3fc371f602587aa8              # double 0.15191531290561966
+	.quad	0x3fe5a066832389a4              # double 0.67583013165522177
+	.quad	0x3feea7b287298702              # double 0.95797087096090672
+	.quad	0x3fede7a296bb170b              # double 0.93452577056516029
+	.quad	0x3fb1cfa96e4cb400              # double 0.069574918202036429
+	.quad	0x3fea4af520643533              # double 0.82165008856251232
+	.quad	0x3fdeac8768968dd0              # double 0.47928033078843857
+	.quad	0x3fecf21863356ec2              # double 0.90455264450744033
+	.quad	0x3fade8d80e761650              # double 0.05841708351640007
+	.quad	0x3fcd7bee8857c038              # double 0.23034459740984103
+	.quad	0x3fd61c40285315e6              # double 0.34547428071922892
+	.quad	0x3fe65f7a7a82a509              # double 0.69915508201407406
+	.quad	0x3f8e45030c6f7a00              # double 0.014780067269325237
+	.quad	0x3fee2e499c6d722f              # double 0.94315033485651678
+	.quad	0x3fc4563a95a49f28              # double 0.15888149554052089
+	.quad	0x3fe17e07edcb8fbe              # double 0.54663464016311258
+	.quad	0x3fad380d1fd93aa0              # double 0.057068262231600331
+	.quad	0x3fcea4b99eef652c              # double 0.23940201054100763
+	.quad	0x3fed4fe6b64bcca1              # double 0.9160035667868166
+	.quad	0x3fc4679e83a84484              # double 0.15941220692232971
+	.quad	0x3fec9f351efb6045              # double 0.89443450976524075
+	.quad	0x3f8157554df79c00              # double 0.008467356149550298
+	.quad	0x3fae911ebe468410              # double 0.059700928427680933
+	.quad	0x3fe7d117f8090691              # double 0.74427412456880593
+	.quad	0x3fe73fe1930a94dd              # double 0.72654799193392317
+	.quad	0x3fe4b109747ad59b              # double 0.646610953807499
+	.quad	0x3fa67cb77710bc10              # double 0.043920262607905269
+	.quad	0x3fea344902def29a              # double 0.81888247070999687
+	.quad	0x3feb4ab134b24590              # double 0.85286770145664725
+	.quad	0x3fd509393cf2c532              # double 0.32868796302780645
+	.quad	0x3fee331dbb0fe7a8              # double 0.94373976264545422
+	.quad	0x3fe1987f96435a69              # double 0.54986552570592295
+	.quad	0x3fc221e1fdea578c              # double 0.14165902040684519
+	.quad	0x3fd6b15414d311cc              # double 0.35457326921121246
+	.quad	0x3fee36f0352c59a3              # double 0.94420633683585142
+	.quad	0x3fed08be0dd9aec9              # double 0.90731718735829603
+	.quad	0x3fe241e1b6209450              # double 0.5705421979115588
+	.quad	0x3fe337b1d2031273              # double 0.60054865854233552
+	.quad	0x3fe03e2445d9f430              # double 0.50758565562103364
+	.quad	0x3fd9a2d8a7fbd268              # double 0.40056435017257863
+	.quad	0x3fc88db2539ebb88              # double 0.1918242367077847
+	.quad	0x3fca7caa77842d00              # double 0.20692950092084317
+	.quad	0x3fef406c6330839c              # double 0.97661418316794224
+	.quad	0x3fd8d7b7348c27aa              # double 0.38816623813238016
+	.quad	0x3fe3b8d5216d6662              # double 0.61631256607797646
+	.quad	0x3fe6b9f501889dea              # double 0.71019983577292334
+	.quad	0x3fe12802b4db7d99              # double 0.53613410304744769
+	.quad	0x3fea473aef2c8ddd              # double 0.82119509423904058
+	.quad	0x3feb9d668003e768              # double 0.86296391489962065
+	.quad	0x3fb98c4593293090              # double 0.09979662745280593
+	.quad	0x3fd52e08d35c47a6              # double 0.33093472138090829
+	.quad	0x3fc0dfca0a147ae4              # double 0.13182950489223011
+	.quad	0x3fe183c255fe8fcd              # double 0.54733387752320939
+	.quad	0x3fdeb8c531d5d698              # double 0.48002748362282821
+	.quad	0x3fe7a6a6d633c833              # double 0.7390932258260875
+	.quad	0x3fe81325f15872cd              # double 0.75233742845338158
+	.quad	0x3fe80e7099fec4c9              # double 0.75176267697511279
+	.quad	0x3fe9ced78e3e8e19              # double 0.80649926931477289
+	.quad	0x3fe5479b2edf7e57              # double 0.66499098925482769
+	.quad	0x3fe451eab8ff0b52              # double 0.63499961978991792
+	.quad	0x3feb0d7f4f0a681c              # double 0.84539761960627712
+	.quad	0x3fce25dd85d7c3a4              # double 0.23553055796903977
+	.quad	0x3fd4b9ffed5e8cce              # double 0.32385252171134205
+	.quad	0x3fc29c3dd6d7e000              # double 0.14539311399835242
+	.quad	0x3fd384689d2efde8              # double 0.30495658254582603
+	.quad	0x3fd391779b7ca22c              # double 0.30575361427557612
+	.quad	0x3feba044753d5cd0              # double 0.86331389330271158
+	.quad	0x3fe6fead2ca758b1              # double 0.71858843537736139
+	.quad	0x3fec4192dd7aea21              # double 0.88300460107649681
+	.quad	0x3fd1547612196f04              # double 0.27078010337366742
+	.quad	0x3fefa39056f65902              # double 0.98871628746817941
+	.quad	0x3fbab799a1a40860              # double 0.10436401554400865
+	.quad	0x3fe4d6b8f042900a              # double 0.65121123243125223
+	.quad	0x3febcc7d038d3df2              # double 0.86871195501038145
+	.quad	0x3fe75205b8866c32              # double 0.72876249351555189
+	.quad	0x3fe62a1858ed0b40              # double 0.69263856285429171
+	.quad	0x3fe1e79edbfad9e0              # double 0.55952399220296556
+	.quad	0x3fe706e8dec388ac              # double 0.71959346302562244
+	.quad	0x3fe9c684bf5a51d5              # double 0.80548322080226831
+	.quad	0x3febef1218729709              # double 0.87293343329358308
+	.quad	0x3fe828eaca1ae72b              # double 0.75499476884508476
+	.quad	0x3fee14b916188b54              # double 0.94002966228104378
+	.quad	0x3fec60f724d226ab              # double 0.88683659736235165
+	.quad	0x3fac7ff9e80acd40              # double 0.055663880897010021
+	.quad	0x3fd1bbe9f5748088              # double 0.27709435434554353
+	.quad	0x3fb38d553ce1edf0              # double 0.076375319827938659
+	.quad	0x3fe5ac6b64f3ec80              # double 0.67729730336522209
+	.quad	0x3fb77cbc9f536cf8              # double 0.091747082612915309
+	.quad	0x3fe339019894bb41              # double 0.60070876885388469
+	.quad	0x3fd1701d561d6e50              # double 0.27246793183960438
+	.quad	0x3fe119460bb8fc8e              # double 0.5343351582486251
+	.quad	0x3fe9ec94e5608a51              # double 0.81012959289757636
+	.quad	0x3fdfd09228120672              # double 0.49710515893102702
+	.quad	0x3fc08b204fbfa6c4              # double 0.12924579519249424
+	.quad	0x3fd7d95e66c7ac28              # double 0.37264213597399243
+	.quad	0x3feaf2885116a016              # double 0.8421060165173937
+	.quad	0x3fee966c6e562855              # double 0.95586225080593101
+	.quad	0x3fe05aaa45988fe6              # double 0.51106752007444523
+	.quad	0x3fe548fe51fbe248              # double 0.66516033184513734
+	.quad	0x3fe33eeecff85471              # double 0.60143223399303569
+	.quad	0x3febae8e2c6621c7              # double 0.8650580279509591
+	.quad	0x3fec3a1ebe63435d              # double 0.88209473786455883
+	.quad	0x3fdca8762bd80a16              # double 0.44778208047515144
+	.quad	0x3fe0fdc02267e4a0              # double 0.53097540588273162
+	.quad	0x3fe1ab399a9979fc              # double 0.55215149111955908
+	.quad	0x3fe2c506e75f5a3d              # double 0.58655114355025939
+	.quad	0x3fd273b22d1b1b18              # double 0.28831152348395639
+	.quad	0x3fe965e634de6ec8              # double 0.79368887258484566
+	.quad	0x3febbb135ee26771              # double 0.86658638507945629
+	.quad	0x3fecf41feb5305d8              # double 0.90480037652758494
+	.quad	0x3fe76c2cd5c839c6              # double 0.73195497278521127
+	.quad	0x3fe0369936feab6e              # double 0.5066648553960087
+	.quad	0x3fed0599e14369c6              # double 0.90693372723335908
+	.quad	0x3fd0013f0c83e0d6              # double 0.25007606718237463
+	.quad	0x3fe69122ffa43701              # double 0.70521688394521231
+	.quad	0x3fd4e3151b54e5fc              # double 0.32636001271347914
+	.quad	0x3fdf345cc4c656e8              # double 0.48757094589505678
+	.quad	0x3fd568c6fcc483d0              # double 0.33452009853686793
+	.quad	0x3fdf7ca836f9a5e0              # double 0.49198346489592204
+	.quad	0x3fc57c3fbca92320              # double 0.1678542777247225
+	.quad	0x3fe5525b6af841c5              # double 0.66630335705308907
+	.quad	0x3fe4d1b1d5485f41              # double 0.65059749275949497
+	.quad	0x3fce0bd82b8f52dc              # double 0.23473646285005756
+	.quad	0x3fdc931152cb04ee              # double 0.4464762981916256
+	.quad	0x3fd352bda4e530b2              # double 0.30192509749464158
+	.quad	0x3f8694ff77ff0cc0              # double 0.011026378488060096
+	.quad	0x3fdcab79a98791e0              # double 0.44796601825353655
+	.quad	0x3fd176d40104ddaa              # double 0.27287769412529406
+	.quad	0x3fd09e923096f5a4              # double 0.25967840905271999
+	.quad	0x3fe9ec936b0e670c              # double 0.810128888220079
+	.quad	0x3fe21f2299b40d87              # double 0.56630067844564358
+	.quad	0x3fd32bbb72db976a              # double 0.29954420296268458
+	.quad	0x3fe1d6e4225163a5              # double 0.55748182966919002
+	.quad	0x3fdfd9e13c7c2f16              # double 0.49767332941768083
+	.quad	0x3fbe0ec3e9b96d60              # double 0.11741280037079127
+	.quad	0x3fea49fb0871a859              # double 0.82153083466733812
+	.quad	0x3fe8250647df56dc              # double 0.75451959645826205
+	.quad	0x3fec5e6b5d804804              # double 0.88652580511029599
+	.quad	0x3fef8b8453cdb8cc              # double 0.98578087203875375
+	.quad	0x3fc8a9e3bb289018              # double 0.19268461836429718
+	.quad	0x3fe29e39f8cc8776              # double 0.58181475251715997
+	.quad	0x3fe15c0cf4b971df              # double 0.54248664663060342
+	.quad	0x3fc62f22f88bb338              # double 0.17331349502583193
+	.quad	0x3fe38ff0d72968ab              # double 0.61132089637546494
+	.quad	0x3fe6be57c02f8297              # double 0.71073520218131392
+	.quad	0x3fe75f00d51b85e2              # double 0.73034707663117282
+	.quad	0x3fd6e2b4e6118e6a              # double 0.35758707492479991
+	.quad	0x3fec05edf4b87efe              # double 0.87572381779679609
+	.quad	0x3fd635d6123ff3a0              # double 0.34703590185363886
+	.quad	0x3fecbebf67f615db              # double 0.89828462891517391
+	.quad	0x3fedfaf1b0736e5b              # double 0.93688282454554483
+	.quad	0x3fedf4ad7610a8b0              # double 0.93611786899170646
+	.quad	0x3fe435696c7ef758              # double 0.63151999655358804
+	.quad	0x3f9a11ba31993840              # double 0.025458249356511198
+	.quad	0x3fe967de06a12f09              # double 0.79392911238525798
+	.quad	0x3fd69cea12ea531a              # double 0.35332729193878409
+	.quad	0x3fdccfc57b91d7a8              # double 0.45018136088708127
+	.quad	0x3fddaa976725e918              # double 0.4635370738320872
+	.quad	0x3fe5b0852779f980              # double 0.67779786787268392
+	.quad	0x3fe20580781a56ea              # double 0.56317161042781305
+	.quad	0x3febea74c45e77cb              # double 0.87237013200114555
+	.quad	0x3fe3e468fee0babb              # double 0.62163209706144273
+	.quad	0x3fd149ca6dc7dda2              # double 0.27012882920049652
+	.quad	0x3fe75e835ec58337              # double 0.73028725156846164
+	.quad	0x3fea6681c43da452              # double 0.82501304939536113
+	.quad	0x3fd3ee9fdd2a63ea              # double 0.31143948171808111
+	.quad	0x3feb539e752e4775              # double 0.85395739447470354
+	.quad	0x3fef51cc7682cfa1              # double 0.9787351908366767
+	.quad	0x3fcac5d059712f90              # double 0.20916180007258989
+	.quad	0x3fe32799698bb707              # double 0.59858389486700581
+	.quad	0x3feb215f140bf4a7              # double 0.84782365718242125
+	.quad	0x3fecf95984127672              # double 0.90543819232307343
+	.quad	0x3fee798e9e1006fe              # double 0.95233851310351247
+	.quad	0x3fab2f5765775550              # double 0.053095561157230464
+	.quad	0x3fd42e56e7d83b84              # double 0.31532833710746666
+	.quad	0x3fefa5d0292b61ba              # double 0.9889908603755011
+	.quad	0x3fee241ee678f703              # double 0.94190926565326583
+	.quad	0x3fcc56cd77667b48              # double 0.22139900522321398
+	.quad	0x3fedd3fbd59d2edc              # double 0.93212691995128293
+	.quad	0x3fd9c2d174f5805c              # double 0.40251575872207979
+	.quad	0x3fa0eec269433050              # double 0.033071589803143397
+	.quad	0x3fd26b35661623f6              # double 0.28779349297889156
+	.quad	0x3fe23e1fed7a6a57              # double 0.57008358366449385
+	.quad	0x3fd290503d9a2944              # double 0.29005819335784033
+	.quad	0x3feeda3a03e100bd              # double 0.96413899190522267
+	.quad	0x3fe3723e429de58b              # double 0.60769570361223779
+	.quad	0x3fd64132f9a323d2              # double 0.34772943857802574
+	.quad	0x3fe13419c2685c64              # double 0.53760993929143952
+	.quad	0x3fd897e131f872f2              # double 0.38426999931270622
+	.quad	0x3fe55c1f94cd1c86              # double 0.66749552786576838
+	.quad	0x3fa91aae5fba2b20              # double 0.049031686006023145
+	.quad	0x3fe8cdb184ba0fbe              # double 0.77510906146243719
+	.quad	0x3fe3df21369e1346              # double 0.62098751704670785
+	.quad	0x3fdc6cece65d267e              # double 0.44414827820273917
+	.quad	0x3fd857530f45ad8a              # double 0.38032986155914073
+	.quad	0x3fe296e8cb50b9bb              # double 0.58092155180002381
+	.quad	0x3fde99590218dd94              # double 0.47810960011289549
+	.quad	0x3feedec655952004              # double 0.96469418254218952
+	.quad	0x3fe485a0e542ee7b              # double 0.6413120725405429
+	.quad	0x3fd076dfad445d42              # double 0.25725547714815289
+	.quad	0x3fb678d755111c60              # double 0.087781389492293638
+	.quad	0x3fe75a6007c6168f              # double 0.72978211897198431
+	.quad	0x3fed706a168652ad              # double 0.91997246169429092
+	.quad	0x3fb2607284e07c40              # double 0.071784169617317595
+	.quad	0x3f849f73535527c0              # double 0.010069752674684795
+	.quad	0x3fc91cbb3dfe3f44              # double 0.19618931319245736
+	.quad	0x3fd0593598a2cfd0              # double 0.25544490724427948
+	.quad	0x3f84d59557a5c340              # double 0.010173002946176291
+	.quad	0x3fee8748ed00d5f2              # double 0.95401426591587168
+	.quad	0x3fbe9cd366b498e0              # double 0.11958047158677543
+	.quad	0x3fe0ec79d1e06dbf              # double 0.52886668197191244
+	.quad	0x3fd1b48519f3f330              # double 0.27664306196656963
+	.quad	0x3fcbc335269b64b8              # double 0.21689476380450912
+	.quad	0x3fa4540e93567b20              # double 0.039703803525517722
+	.quad	0x3fec2882cc3e89f9              # double 0.87994518176520764
+	.quad	0x3fdce7bc181cf488              # double 0.45164396624370129
+	.quad	0x3feb7964ad5bf234              # double 0.85856851443492709
+	.quad	0x3fe4e84b6de8498e              # double 0.65335628000529922
+	.quad	0x3fe3d1b2748fe899              # double 0.61934778944057023
+	.quad	0x3fe2a2e0179f76c6              # double 0.58238224614952894
+	.quad	0x3fd633d55cd6aa76              # double 0.34691366258872536
+	.quad	0x3fdce0965fd85b8e              # double 0.45120772704961432
+	.quad	0x3fc3dfb6f38f15e4              # double 0.15526472942853708
+	.quad	0x3fe41263a0899de5              # double 0.62724477152817981
+	.quad	0x3fd89697bd5707b4              # double 0.38419145097952456
+	.quad	0x3fe9dbbdfb31a0f4              # double 0.80807398854542933
+	.quad	0x3fec6ec74a2e780e              # double 0.88852276314332967
+	.quad	0x3fec629fd440886f              # double 0.8870391030834649
+	.quad	0x3fe6af4331ee2a5d              # double 0.70889434577959387
+	.quad	0x3fd12ad8bf49a0c6              # double 0.26824015312605487
+	.quad	0x3fdfb5dd8ba7c41e              # double 0.49547518385139877
+	.quad	0x3fdd8adb2b9f00f4              # double 0.46160010585664613
+	.quad	0x3fe844df79258501              # double 0.75840734158933298
+	.quad	0x3faa7f05fe6bf220              # double 0.051750361735660499
+	.quad	0x3fe093ca03d054c7              # double 0.51804066414720118
+	.quad	0x3fe31c273c42cba3              # double 0.59718667764387978
+	.quad	0x3fcae657ef5a1bc8              # double 0.21015452563389503
+	.quad	0x3fdf3c4404c1bd3a              # double 0.48805332626848819
+	.quad	0x3fea849923add5ce              # double 0.82868630379260266
+	.quad	0x3fec8c748bc4a02a              # double 0.89214541719866713
+	.quad	0x3fd19e178cbcc738              # double 0.27527416938675087
+	.quad	0x3fbfe1bcaa015688              # double 0.12453822279470661
+	.quad	0x3fd86be9b54bf816              # double 0.38158648209344059
+	.quad	0x3fe4889188c1bad3              # double 0.64167095861724943
+	.quad	0x3fe7eeecc2670422              # double 0.74791563004703598
+	.quad	0x3fd00dda7fbbfa50              # double 0.25084555124332031
+	.quad	0x3fb05879b1e95e90              # double 0.063850027022789968
+	.quad	0x3fed4380146f091c              # double 0.91448978415454318
+	.quad	0x3fedf412a65456bc              # double 0.936044049131588
+	.quad	0x3fd8923442136b90              # double 0.38392359211655336
+	.quad	0x3fee7c1a095b7e13              # double 0.95264913394561501
+	.quad	0x3fe0cfdb2f741f7c              # double 0.52537307041437442
+	.quad	0x3fe1da6e8709464b              # double 0.55791403173697895
+	.quad	0x3fdf4a48d0b38854              # double 0.48890896206842638
+	.quad	0x3fecbdedb2b412f8              # double 0.8981846323300422
+	.quad	0x3fef2a80dec7de0e              # double 0.97393840324269987
+	.quad	0x3fe213c9032d5dc3              # double 0.56491518612431724
+	.quad	0x3fbc63c1dd7841a0              # double 0.11089717537857391
+	.quad	0x3fee1d79e87a7e1a              # double 0.94109816938356805
+	.quad	0x3fea1652e83be13e              # double 0.81522508009133055
+	.quad	0x3feaac6ac094c2d7              # double 0.83354699719901759
+	.quad	0x3fd1c4892d252dfa              # double 0.27762059601511135
+	.quad	0x3fc4fd697b1f5be4              # double 0.16398352157440776
+	.quad	0x3fe893a6baf40f98              # double 0.76802383913353633
+	.quad	0x3fe79f8c9ac69d7a              # double 0.73822622518211678
+	.quad	0x3f88f60754c37240              # double 0.012188012384677482
+	.quad	0x3fe2aa7cce27e3e4              # double 0.58331146492775732
+	.quad	0x3feb3f7683c76717              # double 0.85149694192952807
+	.quad	0x3fd5a7b836fabaee              # double 0.33836179131587485
+	.quad	0x3fc6ee8fd4cb53dc              # double 0.17915532961219938
+	.quad	0x3fd5a98a000a3cf0              # double 0.33847284320741178
+	.quad	0x3fa12ab7a9ebdab0              # double 0.033529033176752931
+	.quad	0x3fda12cbb4a7f86a              # double 0.40739720003319368
+	.quad	0x3fe302c519fb7477              # double 0.59408812594087024
+	.quad	0x3fbbab26f4f22b58              # double 0.10808032493711772
+	.quad	0x3fd27621ca90a1b0              # double 0.28846020490393709
+	.quad	0x3fd87b5458af93fe              # double 0.38252743397453048
+	.quad	0x3fdbe8ad70637586              # double 0.43607650733414294
+	.quad	0x3fe62889fa162d91              # double 0.69244860501332728
+	.quad	0x3fe8b01b0099cead              # double 0.77149725072236708
+	.quad	0x3feec34a352a30e0              # double 0.96133909591437927
+	.quad	0x3fe506132c24842e              # double 0.65699156400308367
+	.quad	0x3fd7ce8fab3e193e              # double 0.37198249552638518
+	.quad	0x3fe6a8ec8485215d              # double 0.70812059290714624
+	.quad	0x3fdd338ca824f1fc              # double 0.4562713281664228
+	.quad	0x3fefba6520531e3b              # double 0.99150329888738697
+	.quad	0x3fd8c25fba5e631a              # double 0.38686364364689185
+	.quad	0x3fe033b679665786              # double 0.50631259642499127
+	.quad	0x3fbb78ea0c0061e8              # double 0.107313754968693
+	.quad	0x3fdbd372d883c96e              # double 0.43478079933188141
+	.quad	0x3fedf2281574b00a              # double 0.93581012907589067
+	.quad	0x3feae9004bf9502b              # double 0.84094252432487815
+	.quad	0x3fe8f8ebbc23c27a              # double 0.78038584466965166
+	.quad	0x3fc0583c8c63de4c              # double 0.12769276480661274
+	.quad	0x3fc98d5ef633addc              # double 0.19962679883552326
+	.quad	0x3fd2abffae299758              # double 0.29174797065785674
+	.quad	0x3fee205e34ac0af4              # double 0.94145117080219486
+	.quad	0x3fd171a90afac966              # double 0.27256227562170066
+	.quad	0x3fea12055dc02d13              # double 0.81469982443505484
+	.quad	0x3fb14bc0eb6f95a0              # double 0.06756215808817112
+	.quad	0x3fe84fe43730232a              # double 0.75975237635529891
+	.quad	0x3fb2c4994e09ae30              # double 0.07331236033649513
+	.quad	0x3feeb5998fee7df8              # double 0.95966795074121957
+	.quad	0x3fe526a46414bfea              # double 0.66096705958443391
+	.quad	0x3fccf82f3a61c7d0              # double 0.22632398939782528
+	.quad	0x3fb463283ac15340              # double 0.079638017982984088
+	.quad	0x3feb9d6ca93dc510              # double 0.86296685271205043
+	.quad	0x3fe8d508be9e7a27              # double 0.77600514631541706
+	.quad	0x3fc05608db47c8d4              # double 0.12762556750346354
+	.quad	0x3fe42fa2fb6ba927              # double 0.63081502061439643
+	.quad	0x3fe42d9ef0b29a66              # double 0.63056895266784063
+	.quad	0x3fe28d2a312b4289              # double 0.57973203280751406
+	.quad	0x3fe907d9b9fb322a              # double 0.7822083122678738
+	.quad	0x3fdb9a3d17aafd92              # double 0.43128897963830426
+	.quad	0x3f9f4044148b6540              # double 0.030518592599809269
+	.quad	0x3fe7425d01880447              # double 0.72685098933300984
+	.quad	0x3fe2150fa7810cc2              # double 0.5650709411205741
+	.quad	0x3fe20d97669215cf              # double 0.56415910752610354
+	.quad	0x3fb177e8cfae1a38              # double 0.068235922530313853
+	.quad	0x3fe5ab35850ba976              # double 0.67714954362354152
+	.quad	0x3fea07ee1ab9a065              # double 0.81346802921053707
+	.quad	0x3fe55d841882c084              # double 0.66766552722221251
+	.quad	0x3fda597014dcad08              # double 0.41170885121637513
+	.quad	0x3fe69e6d63d5514f              # double 0.70683927057920382
+	.quad	0x3fe50e0a7e831ce6              # double 0.65796398839384262
+	.quad	0x3fe8d7eb679073d7              # double 0.77635736682315837
+	.quad	0x3fdd0e19aaa9d574              # double 0.45398561159466699
+	.quad	0x3fc3854ffc00e508              # double 0.15250587277277128
+	.quad	0x3fb1707bb2b4d378              # double 0.068122607354622278
+	.quad	0x3fd41df858c996f6              # double 0.31432923002863278
+	.quad	0x3fdaba3a6fa9ba60              # double 0.41761647133436064
+	.quad	0x3fdaca1513e35716              # double 0.41858412687484881
+	.quad	0x3fe796207336812f              # double 0.73707602026482799
+	.quad	0x3fe8c1dace689099              # double 0.77366390527869833
+	.quad	0x3fd5c06cd7255140              # double 0.33986969957665636
+	.quad	0x3fefae7356f6f39a              # double 0.99004523263248534
+	.quad	0x3fd602597db319ec              # double 0.34389340663292844
+	.quad	0x3fe384b6c99a07fe              # double 0.60995044112519259
+	.quad	0x3fda4a350fac571a              # double 0.41077925234400114
+	.quad	0x3fd052b5c5a3d5e0              # double 0.25504822064189447
+	.quad	0x3fc26879c9790370              # double 0.14381334626707654
+	.quad	0x3fdc94cd897f78f0              # double 0.44658220698865048
+	.quad	0x3fcc55c79b411f0c              # double 0.22136778908520005
+	.quad	0x3fe94ff5e2d8b2e6              # double 0.79101080232575494
+	.quad	0x3fe365f25d0487ea              # double 0.60619466941375078
+	.quad	0x3fe9236fe0cea273              # double 0.78557580859803833
+	.quad	0x3fe17df21132866e              # double 0.5466242156873713
+	.quad	0x3feb9bf77b6f353e              # double 0.86278890713007406
+	.quad	0x3fcc83c8dfaab390              # double 0.22277174874525629
+	.quad	0x3fdb445006a57ebe              # double 0.42604447030133119
+	.quad	0x3fc5d3b1f717ec60              # double 0.17052292409047975
+	.quad	0x3fe1940a66db12a1              # double 0.54932136620535144
+	.quad	0x3fe13bce98e6aa6a              # double 0.53855066169246624
+	.quad	0x3fddcd2e4f22ca42              # double 0.4656482479869376
+	.quad	0x3fd64e91a29148c0              # double 0.34854546428426758
+	.quad	0x3fe247ea39c3bbf6              # double 0.57127867967744694
+	.quad	0x3fd66c3811e6a728              # double 0.35035516498702401
+	.quad	0x3feb3c87d677a821              # double 0.85113899124303682
+	.quad	0x3fe11a42bbc7c472              # double 0.53445564914558319
+	.quad	0x3fe68a77adc4c9f4              # double 0.70440277041626453
+	.quad	0x3fca63e77b1249b4              # double 0.20617383488986507
+	.quad	0x3fed362ceb06c660              # double 0.9128632154808649
+	.quad	0x3fd08f0c0a151eda              # double 0.25873089775676095
+	.quad	0x3fefbea8f2250a6d              # double 0.99202391904721098
+	.quad	0x3fec900e416d2a1a              # double 0.89258492258642552
+	.quad	0x3feb8364054ef108              # double 0.85978890454092127
+	.quad	0x3feb41056d4260e9              # double 0.85168715800957984
+	.quad	0x3fed274e7c152eeb              # double 0.91104816660796695
+	.quad	0x3fdb6adf598d695e              # double 0.42839797730780116
+	.quad	0x3fe17562507c6ae9              # double 0.54557910652087316
+	.quad	0x3fd355e031f53874              # double 0.30211644056988196
+	.quad	0x3febbb26b0bfafce              # double 0.86659559746976256
+	.quad	0x3fd08cf2e88912c2              # double 0.25860283573664955
+	.quad	0x3feba984b8a8b4a5              # double 0.86444316927158538
+	.quad	0x3fe13505f6b1c72b              # double 0.53772257025250292
+	.quad	0x3fea2ae142ebe9da              # double 0.81773436613667205
+	.quad	0x3fe73c49d473b2f3              # double 0.72610942358514163
+	.quad	0x3fb786d649728950              # double 0.091901200229164148
+	.quad	0x3fe10668c5373144              # double 0.53203238028212541
+	.quad	0x3fe3772f7b6295ab              # double 0.60829900835658657
+	.quad	0x3fd71ffecb2f3654              # double 0.3613278373930815
+	.quad	0x3fefd61b769b002a              # double 0.99488614239817719
+	.quad	0x3fe4a7c09501c6ba              # double 0.64547757246892634
+	.quad	0x3fd54e43e108c0f0              # double 0.33290192581172473
+	.quad	0x3fe32f36f3a6d0f0              # double 0.59951350773056156
+	.quad	0x3fd8c38f6f3e0d20              # double 0.38693605292810851
+	.quad	0x3fe33a529489aa17              # double 0.60086945544509518
+	.quad	0x3fdf7adbc540610c              # double 0.4918736864360802
+	.quad	0x3fe07f392cbbab8e              # double 0.5155301927273841
+	.quad	0x3fcddaa797471b30              # double 0.23323531042680079
+	.quad	0x3fe1c05325fdba0a              # double 0.55472714824810621
+	.quad	0x3fce2085fde23c3c              # double 0.23536753555933554
+	.quad	0x3fd31dc8f59c19f0              # double 0.29869293198899438
+	.quad	0x3fe26f0181ed73bf              # double 0.57605052353357411
+	.quad	0x3fbe0f531b188060              # double 0.11742133533016519
+	.quad	0x3fef34fb0d41e8ac              # double 0.9752173670706461
+	.quad	0x3fc75a02f13bdb10              # double 0.18243443278307625
+	.quad	0x3fe6b327b88bfa99              # double 0.7093695263318579
+	.quad	0x3fd6a9c2ca085870              # double 0.35411138276811638
+	.quad	0x3fb34c577bc897b0              # double 0.075383632393452471
+	.quad	0x3fd58ca4529d9b4c              # double 0.33670909946379335
+	.quad	0x3fe878ffcaec0c1d              # double 0.76477040894713222
+	.quad	0x3fe239f2dae1b1f7              # double 0.56957381010357622
+	.quad	0x3fe6398b1214efe3              # double 0.69452432185744006
+	.quad	0x3fef1bb5ae349014              # double 0.97213253044583547
+	.quad	0x3fedb9fe7fa9afd6              # double 0.92895436224125194
+	.quad	0x3fe31fe0dce0b860              # double 0.59764140262792509
+	.quad	0x3fcfe6e25158d2f8              # double 0.24923352214832284
+	.quad	0x3fd9ddb3789f43a4              # double 0.40415655879501799
+	.quad	0x3fd45732eaeae618              # double 0.31782219830674441
+	.quad	0x3fa1f48ed27e0ab0              # double 0.035068953699938787
+	.quad	0x3fe5d62536078711              # double 0.6823907904874621
+	.quad	0x3fed8e3c8b5ff74d              # double 0.92361285421041261
+	.quad	0x3fdc4d2bd0a4c018              # double 0.44221015334460523
+	.quad	0x3fd9e3d8caae5d02              # double 0.40453166764332604
+	.quad	0x3fec1ff8c1ca52b8              # double 0.87890279626534262
+	.quad	0x3fd1b6a8ae46165e              # double 0.27677361506389342
+	.quad	0x3fe408f1f8e11b4a              # double 0.62609194382899003
+	.quad	0x3fddf6105b37d0c8              # double 0.46814354808817571
+	.quad	0x3fd034fb1b267d6a              # double 0.25323369647408944
+	.quad	0x3fd15169ce5716ee              # double 0.27059407377633604
+	.quad	0x3fb63191e9992860              # double 0.086693877726391033
+	.quad	0x3fa8fe03207b46e0              # double 0.048812959399254785
+	.quad	0x3feab8c430a52bbc              # double 0.83505448819175098
+	.quad	0x3f6d270b5a0bbb00              # double 0.0035586568559361487
+	.quad	0x3fe8d8104dee2ef7              # double 0.77637496205122047
+	.quad	0x3fe5f5f3c2ec6054              # double 0.68627346106496612
+	.quad	0x3fdbdc21fa510a6a              # double 0.43531083531357828
+	.quad	0x3fe688640f09d555              # double 0.70414927422704443
+	.quad	0x3f9f13cfdc2aca40              # double 0.030349014103828731
+	.quad	0x3fdd70ca03b9ee68              # double 0.46000910152336028
+	.quad	0x3fe57dd1078e8fc7              # double 0.67160846210435288
+	.quad	0x3fea52a21aabc72b              # double 0.82258706292325223
+	.quad	0x3febf7ee8da31fc2              # double 0.87401511825100209
+	.quad	0x3fe49c83d2b6d560              # double 0.64410582690349472
+	.quad	0x3fed8862c4ec134a              # double 0.92289865933762738
+	.quad	0x3fe6a8fd6330f5be              # double 0.70812863705912554
+	.quad	0x3fef6ff68229260e              # double 0.98241734907168321
+	.quad	0x3fd8188d5256b526              # double 0.37649853745354489
+	.quad	0x3fd5ab9c88e4ba04              # double 0.3385993325090626
+	.quad	0x3fef4d4102d0c07c              # double 0.97818041372194342
+	.quad	0x3fe8bbfeac6cf365              # double 0.77294858624337037
+	.quad	0x3fb607de763573e8              # double 0.086057571277208589
+	.quad	0x3fd2957ec40ce57a              # double 0.29037446160835823
+	.quad	0x3fe1bc5ab667c873              # double 0.55424247385077618
+	.quad	0x3fa932aeab50de10              # double 0.049214800274452242
+	.quad	0x3fc74befd7cb31ec              # double 0.18200490986636397
+	.quad	0x3fb60f89b04bcdd0              # double 0.086174588719408307
+	.quad	0x3fea48ffb2c403e3              # double 0.82141098895237652
+	.quad	0x3fda49eddc2008c2              # double 0.41076227661700326
+	.quad	0x3fd90e948cefcf70              # double 0.39151490939479228
+	.quad	0x3fe21ac6be2627c2              # double 0.56576859606251895
+	.quad	0x3fd5189ecce78a98              # double 0.32962770471764591
+	.quad	0x3fe3790cba530856              # double 0.6085265769145376
+	.quad	0x3fec859d5a5be2cf              # double 0.89131038330295975
+	.quad	0x3fea6827857f8e98              # double 0.82521415780907414
+	.quad	0x3fe932ba1f3022ee              # double 0.78744226542866413
+	.quad	0x3fefc86b46315ea2              # double 0.99321521482029973
+	.quad	0x3fcedacfa5fbdb80              # double 0.2410525856464254
+	.quad	0x3fc50724d57d1ed0              # double 0.16428051399474564
+	.quad	0x3fbbb7c50c800830              # double 0.10827285342387039
+	.quad	0x3fe8c531059b5e50              # double 0.77407122702693165
+	.quad	0x3fc3ca271ba5d39c              # double 0.15460671281803406
+	.quad	0x3fee6d160906ae25              # double 0.95081617129239204
+	.quad	0x3fe23609d6de901a              # double 0.56909648863484397
+	.quad	0x3fc72e3d8d91be94              # double 0.18109864628376171
+	.quad	0x3fc51e3dae701a60              # double 0.16498538033939081
+	.quad	0x3fd09e5dae11d44c              # double 0.25966588973034699
+	.quad	0x3fe726b8e214c232              # double 0.72347683102095162
+	.quad	0x3f8572030632e600              # double 0.010471366526291881
+	.quad	0x3fb9885e143becc0              # double 0.099737052860223052
+	.quad	0x3fd2561c0b930354              # double 0.28650570993709334
+	.quad	0x3fe0c1f7589c7c90              # double 0.52367751414193897
+	.quad	0x3fe695a28ce18672              # double 0.70576598659336143
+	.quad	0x3fe92e94ad9e49bc              # double 0.78693612966372183
+	.quad	0x3fbbca47cf9323f8              # double 0.1085553056501708
+	.quad	0x3fd031742d620da0              # double 0.25301842147765718
+	.quad	0x3fbce4bc50cf9700              # double 0.11286522839472113
+	.quad	0x3fbd8818edab9650              # double 0.11535793116089477
+	.quad	0x3fd7972c167cabc2              # double 0.36860181995387731
+	.quad	0x3fd5b49b06c41b62              # double 0.33914828930612917
+	.quad	0x3fd92238c05701fa              # double 0.39271372588339626
+	.quad	0x3fd1b73fe3b20698              # double 0.27680966602211177
+	.quad	0x3fdac1c004616b04              # double 0.41807556560313253
+	.quad	0x3fc7fc740f2032b0              # double 0.18739176500857502
+	.quad	0x3fc5a6b12cb45260              # double 0.16914953883010053
+	.quad	0x3fa5d060d4faa200              # double 0.042605424879472054
+	.quad	0x3fdea57ff99ccf6e              # double 0.47885131241058942
+	.quad	0x3fb61a4262093c18              # double 0.086338185247982202
+	.quad	0x3fce33675b358fb0              # double 0.23594371751380327
+	.quad	0x3fb2448d6eb00830              # double 0.071358527682634287
+	.quad	0x3fcb8a4dae185808              # double 0.21515818596589065
+	.quad	0x3fe73c792bbef2b3              # double 0.72613199752921387
+	.quad	0x3fe1a3768535ec99              # double 0.55120397584632308
+	.quad	0x3fe7510aafa15eeb              # double 0.72864279082111005
+	.quad	0x3fecc7d48c813669              # double 0.89939334337550492
+	.quad	0x3f99071faaf0fec0              # double 0.024441237266954685
+	.quad	0x3fedae870752c28e              # double 0.92755462103203157
+	.quad	0x3fc7a4596f1f4574              # double 0.18470304418455508
+	.quad	0x3fda2ea2227ecc58              # double 0.40909627312357122
+	.quad	0x3fd7547fa4b3c778              # double 0.36453238567548096
+	.quad	0x3fcd539dcae609d8              # double 0.22911426932485202
+	.quad	0x3fb6212166503b78              # double 0.086443030814036592
+	.quad	0x3fe7d18ff083ef42              # double 0.74433133102090943
+	.quad	0x3fe759dfe5cd0add              # double 0.72972102053639853
+	.quad	0x3fd134bea850928c              # double 0.26884428441034269
+	.quad	0x3fb720534536f9e0              # double 0.090336994550831218
+	.quad	0x3fefb43261063023              # double 0.9907466788295135
+	.quad	0x3fcdf67be321ead8              # double 0.23408459272817228
+	.quad	0x3fd145b2bfa78464              # double 0.26987904278036567
+	.quad	0x3feb9f91710f1e99              # double 0.86322853166435032
+	.quad	0x3fe87bb775d062a3              # double 0.76510212908313624
+	.quad	0x3feb9dda95f500b9              # double 0.86301926887974567
+	.quad	0x3fe2fba1302acfce              # double 0.59321650893843425
+	.quad	0x3fd905585be1e1da              # double 0.39095124218832
+	.quad	0x3fae934c1ab0a6f0              # double 0.059717539079725657
+	.quad	0x3fe262afe8aecbef              # double 0.57454677053317293
+	.quad	0x3fd643d2ed0e402a              # double 0.34788964414565504
+	.quad	0x3fe21ea90863a598              # double 0.56624271048092378
+	.quad	0x3fe0d420b222afd8              # double 0.5258944968422794
+	.quad	0x3fed9a08fcef5eec              # double 0.92505311395049494
+	.quad	0x3fb67d7a3006aa60              # double 0.087852131581408255
+	.quad	0x3fa239267893d940              # double 0.035592272013604376
+	.quad	0x3fef5b9369183b69              # double 0.97992868925380804
+	.quad	0x3fb0924d1a89ac80              # double 0.064732378939583057
+	.quad	0x3fea22ceccf17ced              # double 0.81674900081625668
+	.quad	0x3fef99705809c393              # double 0.98748032755803405
+	.quad	0x3fe2839940be4a61              # double 0.57856428761654055
+	.quad	0x3fe8a6a608bfdf96              # double 0.77034284314048551
+	.quad	0x3fd3b5019dc3fdb4              # double 0.30792274863048452
+	.quad	0x3fd5a77ed3355c0a              # double 0.33834810853790087
+	.quad	0x3fd472c75e77ca52              # double 0.31950554108985785
+	.quad	0x3fea680c1d8db5ce              # double 0.82520108959368499
+	.quad	0x3fc466be4f080c84              # double 0.15938547953564719
+	.quad	0x3fe31a4a3359ce09              # double 0.59695920972302574
+	.quad	0x3fed227561cf5c00              # double 0.91045636275782726
+	.quad	0x3fe5a4315500640f              # double 0.67629305459843347
+	.quad	0x3fe34f9998cf9847              # double 0.60346679540521897
+	.quad	0x3fdd6022c763979e              # double 0.45899266692719631
+	.quad	0x3fee74e2a724a177              # double 0.95176823277601741
+	.quad	0x3fcba30deec9d4e8              # double 0.2159135261496552
+	.quad	0x3fc1cba50cf103a0              # double 0.13902724391848853
+	.quad	0x3fd2207635e476c0              # double 0.28323130858357715
+	.quad	0x3fd81fd8dd41d858              # double 0.37694379431866798
+	.quad	0x3fe2f18eaf6ad065              # double 0.5919869829290404
+	.quad	0x3fec0d5dc3a82dbf              # double 0.87663162435767805
+	.quad	0x3fdc43edb0131b44              # double 0.44164602465427927
+	.quad	0x3fecaa33013a66b1              # double 0.89577627410763772
+	.quad	0x3fb7ee1713be4688              # double 0.093476717300541634
+	.quad	0x3fc1985c8477b8dc              # double 0.13746220081470184
+	.quad	0x3fc5adab34963f30              # double 0.16936245029182251
+	.quad	0x3fe36e4e38dcb13e              # double 0.6072150335872164
+	.quad	0x3fdd334bfc8fd1d2              # double 0.45625590957868412
+	.quad	0x3fd36d7872a936ac              # double 0.30355654904711105
+	.quad	0x3fea75cc798727ea              # double 0.8268797277062252
+	.quad	0x3fe830b4f8d01889              # double 0.75594566913857009
+	.quad	0x3f97af1564f40d80              # double 0.023128828322126704
+	.quad	0x3fe6e0928605ed54              # double 0.71491361786267271
+	.quad	0x3fcb5b96233c46c4              # double 0.21373249741059486
+	.quad	0x3feb89468fca49e9              # double 0.86050727924367465
+	.quad	0x3fe01805a3bedd9d              # double 0.50293237668568092
+	.quad	0x3fe899e26824b911              # double 0.7687847169925438
+	.quad	0x3fe3aab664e62b1d              # double 0.6145889254270035
+	.quad	0x3fef44b9d357eed6              # double 0.9771393897821905
+	.quad	0x3fb26fd8a3fa4b08              # double 0.07201913836824414
+	.quad	0x3fe9e63ad013dc37              # double 0.8093542160048689
+	.quad	0x3fd987dcee9c149a              # double 0.39891742040374256
+	.quad	0x3fd54d17da4b1176              # double 0.33283039395998715
+	.quad	0x3fee9be5c106e729              # double 0.95653045368746803
+	.quad	0x3fd3bdf3095e54cc              # double 0.3084685889710499
+	.quad	0x3fe36cbad8c3c982              # double 0.60702268921731695
+	.quad	0x3fe9e6b34a2d3a0e              # double 0.80941166389112751
+	.quad	0x3fc6f817b6c4e1b0              # double 0.17944618629713949
+	.quad	0x3fd3eb8f44e6e466              # double 0.31125241974547746
+	.quad	0x3fe5f0f2f60733cb              # double 0.68566272785539562
+	.quad	0x3fe03687301b70ff              # double 0.50665625949798698
+	.quad	0x3fbeb04de31a02f0              # double 0.11987768930886111
+	.quad	0x3fa094a1cfef7a30              # double 0.032383972771402703
+	.quad	0x3fd7c8c02d1c9a88              # double 0.37162784963076279
+	.quad	0x3fe33c293e3d0602              # double 0.60109388500148975
+	.quad	0x3fde3ef15ed55f76              # double 0.47259172688563156
+	.quad	0x3fe9db3a98ab5254              # double 0.80801133936126712
+	.quad	0x3fd9fea6a0a8032e              # double 0.40616765679446842
+	.quad	0x3fbaf7f0adaabd38              # double 0.10534576644817129
+	.quad	0x3fefcd7f888c9ea5              # double 0.9938352267244751
+	.quad	0x3fe2ebdc46f34351              # double 0.59129155976743608
+	.quad	0x3fe6c8a13fb0e0e4              # double 0.71199095191607542
+	.quad	0x3fa28501f817afc0              # double 0.036171018156749835
+	.quad	0x3fe9cb710b709ff5              # double 0.8060841773449271
+	.quad	0x3fd7cfcffee462be              # double 0.37205886737642035
+	.quad	0x3fe3ab0acfd335ec              # double 0.61462917891338753
+	.quad	0x3fe54b74c8fc183c              # double 0.66546096091111151
+	.quad	0x3fda38dfc1490544              # double 0.40972131610404383
+	.quad	0x3fca9d5b9e55edd0              # double 0.20792718154176137
+	.quad	0x3fd2c988cebfa9be              # double 0.29355068388272432
+	.quad	0x3fceadac11359bdc              # double 0.2396750530271835
+	.quad	0x3fe26644003ccabb              # double 0.57498359724407722
+	.quad	0x3fe550bfa0fa9a9f              # double 0.66610700074382467
+	.quad	0x3fb10bbf9b51db50              # double 0.066585517330037591
+	.quad	0x3fe83bd1d5a632f8              # double 0.75730220535623882
+	.quad	0x3fe18dcd2d96d335              # double 0.54855975059635986
+	.quad	0x3feb5142c55e4679              # double 0.85366953419197877
+	.quad	0x3fe74e2d9b1cc5e8              # double 0.72829323096646892
+	.quad	0x3fefcd505713fff9              # double 0.9938127232308026
+	.quad	0x3fe9cf1a2d7973c6              # double 0.80653103715632635
+	.quad	0x3fe8a43961360f85              # double 0.77004689203793986
+	.quad	0x3fea434f01cb9976              # double 0.82071638441702421
+	.quad	0x3fe119d6cc402240              # double 0.53440418141060064
+	.quad	0x3fdd6418afab0c72              # double 0.45923440127462023
+	.quad	0x3fa4c960e26e4ad0              # double 0.040598895683748304
+	.quad	0x3fbf8986e9134550              # double 0.12319224539102902
+	.quad	0x3fe3a0362d01b6e7              # double 0.61330708303804904
+	.quad	0x3fdffeda4a7ef49e              # double 0.49992997431747621
+	.quad	0x3fddd2a1a8cf9e9c              # double 0.46598092542124347
+	.quad	0x3fd913988433176e              # double 0.39182103071322316
+	.quad	0x3fe63fdcd22b702c              # double 0.69529572533384032
+	.quad	0x3feb8606e9c7e19d              # double 0.86011071834859687
+	.quad	0x3fe954c4a88ac6e1              # double 0.79159768026712751
+	.quad	0x3fb610856e5adbb0              # double 0.086189593736760938
+	.quad	0x3fe5565a82372fb0              # double 0.66679120476464071
+	.quad	0x3feb47ccd318c11d              # double 0.85251466016601152
+	.quad	0x3fdc7826968a67b6              # double 0.44483341885790695
+	.quad	0x3fe1c966f1513d45              # double 0.55583521969121163
+	.quad	0x3fda108edb3d72f8              # double 0.40726062212142677
+	.quad	0x3fe17216f61ace37              # double 0.54517696444822306
+	.quad	0x3fefe38096aef420              # double 0.99652127676347745
+	.quad	0x3fe40aeca1da1a89              # double 0.6263335381671179
+	.quad	0x3fc5b57f4e080fd0              # double 0.16960135755664263
+	.quad	0x3fd2ecade588ec74              # double 0.29569575706017948
+	.quad	0x3fe90dbb7601c224              # double 0.78292630241600535
+	.quad	0x3fd19760838eb7fe              # double 0.2748643192998087
+	.quad	0x3fd99ad7a26ee9c0              # double 0.40007582533476338
+	.quad	0x3fcab5589f256f48              # double 0.20865924616634346
+	.quad	0x3fe6dd30a98a6de3              # double 0.71450074304032929
+	.quad	0x3fe10381a83723cc              # double 0.53167803625648835
+	.quad	0x3fd758e9f548fef4              # double 0.36480187371851902
+	.quad	0x3fdb969694836880              # double 0.43106617453816654
+	.quad	0x3fde50e29c3f09c4              # double 0.47368684061453004
+	.quad	0x3fe698b49c14cc01              # double 0.70614080891243713
+	.quad	0x3feadd87bf1003ab              # double 0.8395422679606005
+	.quad	0x3fe5be493c953254              # double 0.67947828133180588
+	.quad	0x3feb0863298b9fd1              # double 0.84477384676301359
+	.quad	0x3fbc37f840151c40              # double 0.11022903027070274
+	.quad	0x3faa2699ea8f62a0              # double 0.051075754053902189
+	.quad	0x3fa43b15745604b0              # double 0.039513273669407822
+	.quad	0x3fe3f849e482263a              # double 0.62405867224260381
+	.quad	0x3fa4f7b19c3b3010              # double 0.040952253647987047
+	.quad	0x3fe84b9b00b1a5a0              # double 0.75922918448957332
+	.quad	0x3fe31bc7b135806c              # double 0.59714111910944956
+	.quad	0x3fe46c0657e940d6              # double 0.63818661852021807
+	.quad	0x3fda9f91834d9092              # double 0.41598928282315584
+	.quad	0x3fc1f2640043416c              # double 0.14020967495754222
+	.quad	0x3fefdbfd7fef89fa              # double 0.99560427653733474
+	.quad	0x3fe6e5d72722ce92              # double 0.71555669444792813
+	.quad	0x3fe31bd99b7b802d              # double 0.59714966170941397
+	.quad	0x3fc4d4da4b438c1c              # double 0.16274574923508645
+	.quad	0x3fbb59313707b0c0              # double 0.1068297156668363
+	.quad	0x3fe10116d1e1017b              # double 0.5313829516599492
+	.quad	0x3fed9ede14fc13db              # double 0.92564300631112972
+	.quad	0x3fecff51a5a353df              # double 0.90616686202212893
+	.quad	0x3fa1a74805872320              # double 0.03447938029746056
+	.quad	0x3fe35a910f18d01a              # double 0.60480549763315428
+	.quad	0x3fedf6cb8ef0f68d              # double 0.93637636106696365
+	.quad	0x3fa91ea390e6aec0              # double 0.049061881483195346
+	.quad	0x3fee372f44df8447              # double 0.94423640682010379
+	.quad	0x3fe391ea134f90e8              # double 0.6115618111766965
+	.quad	0x3fb1534931b71968              # double 0.067677092206485434
+	.quad	0x3fea3abc0f62079e              # double 0.81966975216367977
+	.quad	0x3fae3ed058c627b0              # double 0.059072981678652936
+	.quad	0x3fe7f655d695ee3c              # double 0.74882022773039791
+	.quad	0x3fe68c1490c37514              # double 0.70459965013620485
+	.quad	0x3fc9fc70869975bc              # double 0.20301634380568412
+	.quad	0x3fe73e94ab916c34              # double 0.72638925084482375
+	.quad	0x3fc479a8d0330e14              # double 0.15996275106418578
+	.quad	0x3fe335c2f55a118b              # double 0.60031268997458775
+	.quad	0x3fdd1b13871cc8aa              # double 0.45477760500501552
+	.quad	0x3fe9d350f8288f00              # double 0.80704544514125587
+	.quad	0x3fe153ec2ef269d1              # double 0.54149445695230203
+	.quad	0x3fe1e155e5650aed              # double 0.55875677875186869
+	.quad	0x3fc6eecf9b2d9048              # double 0.17916293217706625
+	.quad	0x3fca1a3cdd42cfa8              # double 0.20392571262129633
+	.quad	0x3fe81678dfc2961d              # double 0.75274318411965491
+	.quad	0x3fdfd98252b72c3e              # double 0.49765070035636316
+	.quad	0x3fd182e6b1b0ac4e              # double 0.27361457207252193
+	.quad	0x3fb2679a44b55110              # double 0.071893350386123211
+	.quad	0x3fed47abfd454d0c              # double 0.91499900309500636
+	.quad	0x3fd30ca5d99c1d48              # double 0.29764696360549125
+	.quad	0x3fce5e3ae2796b54              # double 0.23725067194285521
+	.quad	0x3fdafe7116830fc2              # double 0.42177989195283427
+	.quad	0x3fe8da5ce6faf8ab              # double 0.77665562737799598
+	.quad	0x3fdd8f855baec46e              # double 0.46188482240092454
+	.quad	0x3fd8c0a50e032946              # double 0.38675810211556827
+	.quad	0x3fea8d7582182f30              # double 0.8297679463298433
+	.quad	0x3fe42e1f6f8875f2              # double 0.6306302240733983
+	.quad	0x3fddf5478e07acd0              # double 0.46809567327609347
+	.quad	0x3fe6e394be085c6a              # double 0.71528088680032664
+	.quad	0x3fe57a4a2d36f6a9              # double 0.67117794829365096
+	.quad	0x3fe1e696df2745a5              # double 0.55939811310434051
+	.quad	0x3fdc8fd7ad497346              # double 0.44627944872427283
+	.quad	0x3fd9c9ddb1912b42              # double 0.40294592228444881
+	.quad	0x3fee1768d1189e5a              # double 0.94035759772391292
+	.quad	0x3f9d217796059a00              # double 0.028447979480370478
+	.quad	0x3fecd7a20dd381eb              # double 0.90132239056043539
+	.quad	0x3fd8d865aa2ac9c0              # double 0.38820783250698909
+	.quad	0x3fdda873e2d81b54              # double 0.46340653565169032
+	.quad	0x3fb643ec1c639ee8              # double 0.086973912173217038
+	.quad	0x3fcfadeb7571d580              # double 0.24749510988810286
+	.quad	0x3fe94defa859a81c              # double 0.7907636917200338
+	.quad	0x3fb7e87cc18ea498              # double 0.093391225104499376
+	.quad	0x3fe0b51a6cd8744c              # double 0.5221073270692016
+	.quad	0x3fd6f9fd0a8a5c14              # double 0.35900808362333803
+	.quad	0x3f8f7f20e1d6d500              # double 0.015379197017731716
+	.quad	0x3fe872837330825f              # double 0.76397869584986811
+	.quad	0x3fca98d0f70df538              # double 0.20778858245095377
+	.quad	0x3fe8f5f723bb2fb1              # double 0.78002507189511594
+	.quad	0x3fe63944f412803e              # double 0.69449088735928632
+	.quad	0x3f96bd16af2ba700              # double 0.022205690805015443
+	.quad	0x3fdb2ca2d5e3e4e0              # double 0.42459936988559654
+	.quad	0x3fef68045b25fa32              # double 0.9814473896256628
+	.quad	0x3fe5379194812419              # double 0.66303328518654603
+	.quad	0x3fde96d5970fab74              # double 0.47795619728156358
+	.quad	0x3fc9c1e7d5e653a8              # double 0.2012300295288274
+	.quad	0x3fec2facfa87fbac              # double 0.88081978732940546
+	.quad	0x3fe82c1d43123c2e              # double 0.75538504695749054
+	.quad	0x3fef853b2ec8c54c              # double 0.98501357209730988
+	.quad	0x3fdca893da56d76c              # double 0.4477891571253767
+	.quad	0x3fd8c17583900c26              # double 0.38680780265730375
+	.quad	0x3fef36b6d4e65d22              # double 0.97542897779468185
+	.quad	0x3fe27a19b1e63a1b              # double 0.5774048304172682
+	.quad	0x3fe08c2d573d93b6              # double 0.51711146392027874
+	.quad	0x3fd1ce53ab43a716              # double 0.2782181904318447
+	.quad	0x3feff4b39e7d32c3              # double 0.99862080531018937
+	.quad	0x3fe173e68e4933f2              # double 0.54539802351211919
+	.quad	0x3fed546e3491fc33              # double 0.91655645625713189
+	.quad	0x3feb2ccea053ded7              # double 0.84921962083805169
+	.quad	0x3fc2a2661e0ff588              # double 0.14558102100265224
+	.quad	0x3fcdb551e93f4d8c              # double 0.23209594620730589
+	.quad	0x3fe1a18131a32c27              # double 0.55096492476275649
+	.quad	0x3fe5409d42890285              # double 0.66413748736529554
+	.quad	0x3fec71f9bf0ee29f              # double 0.88891303363842045
+	.quad	0x3fd876187d0f240e              # double 0.38220798695380231
+	.quad	0x3fcb508a485ca67c              # double 0.21339539082810066
+	.quad	0x3fe782901f701aef              # double 0.73468786373345363
+	.quad	0x3fd0828d148ea662              # double 0.25796820647756225
+	.quad	0x3fe43040f152091e              # double 0.63089034207249362
+	.quad	0x3fe46d9fc2d79859              # double 0.63838184409247412
+	.quad	0x3fea3b0229f80da1              # double 0.81970318028509237
+	.quad	0x3fe35e1c22616f7a              # double 0.605238024854301
+	.quad	0x3fd4dfe6fd40da50              # double 0.32616591197748779
+	.quad	0x3fe5d89247be80f4              # double 0.68268693935900027
+	.quad	0x3febcf32abe6b367              # double 0.86904271673629985
+	.quad	0x3fe29b05ea05264f              # double 0.58142371851972452
+	.quad	0x3fed9c9bd2df8f9d              # double 0.92536727129162311
+	.quad	0x3fe20ac0122dcf56              # double 0.56381228972029862
+	.quad	0x3fb13800bfd78a38              # double 0.06726078685418535
+	.quad	0x3fe063fdf8d23126              # double 0.51220606420387038
+	.quad	0x3fe87679ef451f27              # double 0.76446243984625972
+	.quad	0x3fec137499dcb639              # double 0.87737493563844915
+	.quad	0x3fe2359aedbac5a6              # double 0.56904360229070927
+	.quad	0x3fb9f75e4f2c9290              # double 0.1014307921692057
+	.quad	0x3fdb8d6b1507fc72              # double 0.43050648740604125
+	.quad	0x3fe69e8bf9973eec              # double 0.70685385463909034
+	.quad	0x3feddc705ffcf2a1              # double 0.93315905330344517
+	.quad	0x3fe9c9c624236596              # double 0.80588061388259535
+	.quad	0x3fd4005dfc6a6576              # double 0.31252240800821285
+	.quad	0x3fe725fe2d79583d              # double 0.72338780290261406
+	.quad	0x3fb36dc665e55ee0              # double 0.075893783451984387
+	.quad	0x3f63e679cd040a00              # double 0.0024292353556358837
+	.quad	0x3fc6fdab613ef954              # double 0.17961637733783198
+	.quad	0x3fe23a8911f48462              # double 0.56964543825973757
+	.quad	0x3fd69fbb1ca8e942              # double 0.35349920080956931
+	.quad	0x3fcd1eaba09f075c              # double 0.22749848692734076
+	.quad	0x3fe98c787df3e06c              # double 0.79839729881406418
+	.quad	0x3fd13ea3f1994eca              # double 0.26944826692236445
+	.quad	0x3feea468d095af82              # double 0.95756951083375008
+	.quad	0x3fd145e389004b7a              # double 0.26989067439097136
+	.quad	0x3fe0f699381e0129              # double 0.53010235748664514
+	.quad	0x3feb3f02faed63d6              # double 0.85144185075034318
+	.quad	0x3fef47539925c03c              # double 0.97745685493101275
+	.quad	0x3feb60608c0d94f5              # double 0.85551478723632945
+	.quad	0x3fd13d0ad32da842              # double 0.26935072539220439
+	.quad	0x3fe919e4b06b55f4              # double 0.78441080529108697
+	.quad	0x3fe05cdd11744e69              # double 0.51133588227317006
+	.quad	0x3fea80f193804fe3              # double 0.82824019249755698
+	.quad	0x3fe2bd90d226d489              # double 0.58564034505128959
+	.quad	0x3fdd3fef5e978b4a              # double 0.4570272849797915
+	.quad	0x3fb62e1e97433918              # double 0.086641227654784436
+	.quad	0x3fe3faf4ed513c56              # double 0.62438436842956935
+	.quad	0x3fdce2fa4e638b00              # double 0.45135362296257142
+	.quad	0x3fe8fc83282f88b5              # double 0.78082425926938603
+	.quad	0x3fe48882d717b557              # double 0.6416639519717745
+	.quad	0x3fe87f2bec6a73ed              # double 0.76552387404410427
+	.quad	0x3fea017f8cecf4ef              # double 0.81268289112600012
+	.quad	0x3fdb412037175e10              # double 0.42584996585853307
+	.quad	0x3fcc89d1e288f448              # double 0.22295592843321033
+	.quad	0x3fd46293e11aaf10              # double 0.31851670248828245
+	.quad	0x3fd8e0ed23a0a69a              # double 0.38872841338398134
+	.quad	0x3fd6f3c812813534              # double 0.35862924391843198
+	.quad	0x3f6a9bd87304db00              # double 0.0032481410527468446
+	.quad	0x3fd2d8022f445e0e              # double 0.29443411460803837
+	.quad	0x3fb7249b7598b530              # double 0.090402332506262395
+	.quad	0x3fefb6ada7cc7c29              # double 0.99104960225293325
+	.quad	0x3fe4595e66df4901              # double 0.63590927211978976
+	.quad	0x3fd9e94255df0246              # double 0.40486200700619113
+	.quad	0x3fd63a1e67952696              # double 0.34729728808870541
+	.quad	0x3feb489b14b0377f              # double 0.8526130107945703
+	.quad	0x3fe0c7f82fbae36f              # double 0.52441033670684856
+	.quad	0x3fdb42abc3e4ce18              # double 0.42594427232981635
+	.quad	0x3fe783ed251cf444              # double 0.73485429047253392
+	.quad	0x3fdf50da9428ea3e              # double 0.48930992573483312
+	.quad	0x3fd605768ca91006              # double 0.34408344017379056
+	.quad	0x3fd66d5a5f7c46c2              # double 0.35042437863112863
+	.quad	0x3feea0a2f95bf6a4              # double 0.95710896208739315
+	.quad	0x3f657d71ab3bbe00              # double 0.0026232929320639808
+	.quad	0x3fc3299890e1f7e8              # double 0.14970690798139619
+	.quad	0x3fb6272f196b4278              # double 0.086535400110060112
+	.quad	0x3fe3a014931041eb              # double 0.61329106067028982
+	.quad	0x3fe9e9f1c3e03308              # double 0.80980766541469595
+	.quad	0x3fdc8b37b5676942              # double 0.44599716868619421
+	.quad	0x3fe25518fad174c0              # double 0.57288788783957756
+	.quad	0x3fe38e317dd2b29e              # double 0.61110758375942331
+	.quad	0x3f8011d6f69c1280              # double 0.0078465265282912089
+	.quad	0x3fe4205e1c9aba7a              # double 0.62895112597273273
+	.quad	0x3f6add32c778af00              # double 0.0032793037205659514
+	.quad	0x3fe527873f82228f              # double 0.66107523349735853
+	.quad	0x3fc0de524db526d4              # double 0.13178471369092526
+	.quad	0x3fddcdacceb601f2              # double 0.46567840754144563
+	.quad	0x3fce873806b0b5bc              # double 0.238501551882491
+	.quad	0x3fe855db7a3db43b              # double 0.76048063159181056
+	.quad	0x3fd4f36f764e5ee4              # double 0.3273581176122049
+	.quad	0x3fbc63ce63a51fb0              # double 0.11089792187442415
+	.quad	0x3feaaaf2196d6891              # double 0.83336739507946522
+	.quad	0x3fdcc24130f7ea9a              # double 0.44935636312553984
+	.quad	0x3fe3e05a334bc1a7              # double 0.62113676089034164
+	.quad	0x3feb75ef6048fc76              # double 0.85814636998828919
+	.quad	0x3fd5790a69098778              # double 0.33551273591557829
+	.quad	0x3fb05bf6af87fd18              # double 0.06390325341634584
+	.quad	0x3fe14f165a8b2931              # double 0.54090421375557274
+	.quad	0x3fdc590904245308              # double 0.44293427853089939
+	.quad	0x3fedbad90b615327              # double 0.92905857298555794
+	.quad	0x3fe3d0540d3d8053              # double 0.61918070398315661
+	.quad	0x3fec64d6c3094b88              # double 0.88730943768528991
+	.quad	0x3fc5c7c941d428cc              # double 0.17015948976797401
+	.quad	0x3fc1f0614d352984              # double 0.14014831800370697
+	.quad	0x3fcdec89437ef398              # double 0.23378101154039821
+	.quad	0x3fe9376649f14d7d              # double 0.78801264230644075
+	.quad	0x3feb54091bd72fbd              # double 0.85400824964153055
+	.quad	0x3fb73b9327777810              # double 0.090752789626521002
+	.quad	0x3fd326deb6867302              # double 0.29924743485189265
+	.quad	0x3feea8bd5dc4244d              # double 0.95809810937601869
+	.quad	0x3fe782555410933a              # double 0.73465982836623955
+	.quad	0x3fe4862d346bf477              # double 0.64137897719014247
+	.quad	0x3fdf1d9b3a03bd68              # double 0.48618202844132563
+	.quad	0x3fe4f02665cc4120              # double 0.65431518442531811
+	.quad	0x3fccee34f5ec31e8              # double 0.22601949699345814
+	.quad	0x3fe7e2d70b2c8512              # double 0.74644043142703453
+	.quad	0x3fcf508880d59984              # double 0.24464517870655922
+	.quad	0x3feb6805a8e54481              # double 0.85644801127831738
+	.quad	0x3fc2f789b5c7f900              # double 0.1481792581179846
+	.quad	0x3fe45f961cb553ba              # double 0.63666825873462263
+	.quad	0x3fef351b1bf4a7c7              # double 0.97523265323729269
+	.quad	0x3fe251fc73489064              # double 0.57250807300853213
+	.quad	0x3feaf825970ae31d              # double 0.84279136181348557
+	.quad	0x3feafdbe7481b808              # double 0.84347460513322492
+	.quad	0x3fc3c9746bc5ed0c              # double 0.15458541166649586
+	.quad	0x3fe3502293dfaae9              # double 0.60353211289961195
+	.quad	0x3fed1839ab0f6649              # double 0.90920718584238458
+	.quad	0x3fe1cd88e05cb72f              # double 0.55633968182312354
+	.quad	0x3fc683961688ff1c              # double 0.17589069462155116
+	.quad	0x3fe56fca21461f5b              # double 0.66989618777095516
+	.quad	0x3fe5e8c7f0c8bba6              # double 0.68466565158984305
+	.quad	0x3fe052119471013a              # double 0.51001814835038961
+	.quad	0x3fd893c6708e7804              # double 0.38401947967383898
+	.quad	0x3fda1bedf4292ca6              # double 0.4079546818144969
+	.quad	0x3fee23ed79426a69              # double 0.94188569720729476
+	.quad	0x3f9ead6b8e725420              # double 0.029958420342684033
+	.quad	0x3fef9406568591e1              # double 0.98681942843228054
+	.quad	0x3fcce705af9c9c54              # double 0.22580023836892116
+	.quad	0x3fbb0590ef6e0720              # double 0.10555368276075372
+	.quad	0x3feec807cd99672d              # double 0.96191778331851696
+	.quad	0x3febd2a0f55dce32              # double 0.86946151660089854
+	.quad	0x3fc349691ef29be8              # double 0.15067781458966967
+	.quad	0x3fe5fdefbbca5c54              # double 0.68724810293032101
+	.quad	0x3fe18e6031527f72              # double 0.54862985261205055
+	.quad	0x3fe96cbd41387582              # double 0.79452383745562849
+	.quad	0x3fe4bb2adf606ca6              # double 0.64784759166959272
+	.quad	0x3fea53319f0f74bd              # double 0.82265549723128795
+	.quad	0x3fd6b3cd04cdb5ea              # double 0.35472417325112693
+	.quad	0x3fd34fe5952ae29e              # double 0.30175151412144341
+	.quad	0x3fe034dea11294aa              # double 0.50645381412018264
+	.quad	0x3fe1c40ba8b1cb76              # double 0.55518134067675251
+	.quad	0x3fe999a897aaf093              # double 0.80000714895824598
+	.quad	0x3fd0114863046286              # double 0.25105485601083222
+	.quad	0x3fa90f8272fe0c30              # double 0.048946453606753315
+	.quad	0x3fbccfde816299c0              # double 0.11254683169190738
+	.quad	0x3fcab9d5c061259c              # double 0.20879623311547568
+	.quad	0x3fee48a49791967b              # double 0.94636754611265361
+	.quad	0x3fd9b3807edc91de              # double 0.40158092869594764
+	.quad	0x3fcff003b33c7c4c              # double 0.24951215984126163
+	.quad	0x3fe5151512b52931              # double 0.65882352498855401
+	.quad	0x3fe99ca1b1004775              # double 0.80037006922269305
+	.quad	0x3fe7e7814d48bec6              # double 0.74700989813387575
+	.quad	0x3fe9fb02c29f3089              # double 0.81189096462323207
+	.quad	0x3fe9f0813d11c807              # double 0.8106085007441387
+	.quad	0x3fd0cf0f34cc9948              # double 0.26263790279553634
+	.quad	0x3fea0a8fc1e7ed9c              # double 0.81378925201663632
+	.quad	0x3fe87a74178fba14              # double 0.76494793512194059
+	.quad	0x3fe26c09fc52a52e              # double 0.57568835527232465
+	.quad	0x3fd02b5850d8b050              # double 0.25264556784782588
+	.quad	0x3fced846f5b9d164              # double 0.24097525595028479
+	.quad	0x3fde4d9cf7f51a38              # double 0.47348713125794317
+	.quad	0x3fe4519a94dac87f              # double 0.63496140549820257
+	.quad	0x3fefc5ec08e21411              # double 0.99291040167793387
+	.quad	0x3fe6228efaf76b50              # double 0.69171856896296369
+	.quad	0x3fb9b5a9a8559408              # double 0.10042820319866064
+	.quad	0x3fef1b56e1a9c1f1              # double 0.97208732676341302
+	.quad	0x3fc629e06ad90038              # double 0.17315297333880308
+	.quad	0x3fcca9b4f3102600              # double 0.22392904156031079
+	.quad	0x3fe5ea7129f171fb              # double 0.68486841384907338
+	.quad	0x3feb546a0a9449cf              # double 0.85405447069416052
+	.quad	0x3feaff539ca8b76a              # double 0.84366779897184796
+	.quad	0x3fec7b9e21bdf4a5              # double 0.89009005155789522
+	.quad	0x3fcce19df492451c              # double 0.22563528482400208
+	.quad	0x3fe825bacdd9056f              # double 0.75460567669521861
+	.quad	0x3fbab2b6c4061250              # double 0.1042894581388023
+	.quad	0x3fe3dfab5ab7f5e7              # double 0.62105338781810537
+	.quad	0x3fec178043073a9b              # double 0.87786877719357237
+	.quad	0x3fd063ef3fd62718              # double 0.25609952196156049
+	.quad	0x3feb7f8768c54e01              # double 0.8593174978545336
+	.quad	0x3fd353bdbd8c1834              # double 0.30198615560982778
+	.quad	0x3feb9aee03ac7c85              # double 0.86266232221159156
+	.quad	0x3fd4d596959b01b8              # double 0.32553639039908999
+	.quad	0x3fab804c5e4825b0              # double 0.053713213452350472
+	.quad	0x3fee47320cd50bff              # double 0.94619085794727187
+	.quad	0x3fedd11d4bf1e674              # double 0.93177666504852973
+	.quad	0x3fe9df45d63eab85              # double 0.8085049805134622
+	.quad	0x3fba868e74390a80              # double 0.10361566865416627
+	.quad	0x3fa1c4f826b075c0              # double 0.034705881808104078
+	.quad	0x3feaf34f08ceb3bd              # double 0.84220077247811498
+	.quad	0x3fbd6276d621f110              # double 0.11478369453283599
+	.quad	0x3fb90fcd24055978              # double 0.097897359174884957
+	.quad	0x3fc74dd70fc538c0              # double 0.18206299085654187
+	.quad	0x3fe1e9e3d7f7fa86              # double 0.55980102712040103
+	.quad	0x3fd92930daa1a4d6              # double 0.39313908911442519
+	.quad	0x3fc278cba086d6f0              # double 0.14431138361185658
+	.quad	0x3fe8e90adabf4e82              # double 0.77844755863266379
+	.quad	0x3fe43ed928e8ac02              # double 0.63267190923704697
+	.quad	0x3fce1426e5623098              # double 0.23498998833054396
+	.quad	0x3fcce92a4bdb4f04              # double 0.2258656378168028
+	.quad	0x3fe4601d7794d969              # double 0.63673280101538154
+	.quad	0x3fd71bca723e7328              # double 0.36107121616969318
+	.quad	0x3fc740b9845facdc              # double 0.18166274035988905
+	.quad	0x3fee503bf233ff9e              # double 0.94729420953079901
+	.quad	0x3fe006d91d8dc845              # double 0.50083595058664143
+	.quad	0x3fe5f87508e20ae8              # double 0.68657924399334735
+	.quad	0x3fecdcf8444de205              # double 0.90197385159177712
+	.quad	0x3fef12d1ca04e0fc              # double 0.97104730088088286
+	.quad	0x3fd4069deb8ad7c8              # double 0.31290386202033149
+	.quad	0x3fe8546f59d20db4              # double 0.76030700247831939
+	.quad	0x3fe80dd41332bbe5              # double 0.75168803929943506
+	.quad	0x3fdcff89f93053da              # double 0.45309686026422258
+	.quad	0x3fe10aebacb57d34              # double 0.53258308155265022
+	.quad	0x3fd8e1583be7dca2              # double 0.38875394678275133
+	.quad	0x3fe1ee6ffbdd7a4c              # double 0.56035613243495552
+	.quad	0x3fa1be5bc9ca87d0              # double 0.034655445463854684
+	.quad	0x3fea9de29e6c1730              # double 0.83177309934464994
+	.quad	0x3fe27ccdcc953fd3              # double 0.57773485143297376
+	.quad	0x3fc427888564091c              # double 0.15745646012516878
+	.quad	0x3fcbb082496d1098              # double 0.21632412514930333
+	.quad	0x3feadcf5e5f40497              # double 0.83947272217496305
+	.quad	0x3fe537b426b9a17f              # double 0.66304977000713439
+	.quad	0x3fe724a55a1ed4c6              # double 0.72322337724349306
+	.quad	0x3fd2f21201448e82              # double 0.29602480052765412
+	.quad	0x3fd942aae7161564              # double 0.39469406668680151
+	.quad	0x3fe2515d2893fa2c              # double 0.57243211675069494
+	.quad	0x3fd19c84365e5368              # double 0.27517800626201572
+	.quad	0x3feef8970627538c              # double 0.96784545137289645
+	.quad	0x3fe72f39d9e99fd6              # double 0.7245148902993559
+	.quad	0x3fd70ad36864485e              # double 0.36003575510506447
+	.quad	0x3fd0de71986f49e6              # double 0.26357688795283563
+	.quad	0x3fc9b87427e186e8              # double 0.20094158122360928
+	.quad	0x3fe5f47ef551c4c9              # double 0.68609569467494069
+	.quad	0x3fc53cfaf8094714              # double 0.16592347251076289
+	.quad	0x3fcd1dec943930c0              # double 0.22747571217985829
+	.quad	0x3feb93ccac6e76cf              # double 0.86179193189647119
+	.quad	0x3fe6918b1671d1a9              # double 0.70526651748382563
+	.quad	0x3fe68ad67ccc67a1              # double 0.70444797873209464
+	.quad	0x3fdd8528d8ad9082              # double 0.46125241432151409
+	.quad	0x3fb1536ba5e314b8              # double 0.067679145812763575
+	.quad	0x3fcd157e9183181c              # double 0.22721845727045398
+	.quad	0x3fe6aded7a3278a1              # double 0.70873140207892871
+	.quad	0x3feffd4ba8dea173              # double 0.99966986639360155
+	.quad	0x3fadcfa525b17270              # double 0.05822483143922319
+	.quad	0x3fe7068b807d53b0              # double 0.71954894157044258
+	.quad	0x3fc23c3042f65650              # double 0.14246180791512808
+	.quad	0x3fe0b930d7b17ecc              # double 0.52260629775624912
+	.quad	0x3feb99e16629e7ba              # double 0.86253423646780125
+	.quad	0x3fedee3a80644dc4              # double 0.93533063007856087
+	.quad	0x3fe3f3c4dcf3b1d1              # double 0.62350695757555219
+	.quad	0x3fea486b883ec2a4              # double 0.82134033785230942
+	.quad	0x3fecdb5ba15b9637              # double 0.90177709117114702
+	.quad	0x3fe29443a7aa4e0b              # double 0.58059866664047044
+	.quad	0x3fe3dd873fbfd245              # double 0.62079203082118595
+	.quad	0x3fb4375aa29efef8              # double 0.078969635679637551
+	.quad	0x3fe09fac29125a5b              # double 0.51949127218069735
+	.quad	0x3fd379e8a552a8d2              # double 0.30431572098553972
+	.quad	0x3fd9179d3491dc56              # double 0.39206628927008091
+	.quad	0x3fdfbb957e6adb16              # double 0.49582421632241969
+	.quad	0x3fcd9d433ad467a0              # double 0.23136177418274162
+	.quad	0x3fd1aa2b3cc4349c              # double 0.27601128515454731
+	.quad	0x3fd331187366b6ac              # double 0.29987155217791428
+	.quad	0x3fcc1dac1f5d5500              # double 0.21965552836869762
+	.quad	0x3fd3fceb5b529ddc              # double 0.31231197279200074
+	.quad	0x3fc48d33948c9c8c              # double 0.16055912736303346
+	.quad	0x3fd2c2277a955f58              # double 0.29310023280185282
+	.quad	0x3fe0d808338ef7e4              # double 0.52637109823239969
+	.quad	0x3fd902581dfbdd2e              # double 0.39076807907209143
+	.quad	0x3fc79c703c1ac4dc              # double 0.18446162161629942
+	.quad	0x3fe30e7e603f46f9              # double 0.59551924513127041
+	.quad	0x3fdc8e9004fdb190              # double 0.44620132911111288
+	.quad	0x3fe81d2c67263081              # double 0.75356121202777626
+	.quad	0x3fb8d9e358422ea0              # double 0.09707470803021545
+	.quad	0x3fe03c05cfb21dcd              # double 0.50732698979930435
+	.quad	0x3fee697cfce3ac2d              # double 0.9503769816632307
+	.quad	0x3fca1ce3d9989d10              # double 0.20400665402232976
+	.quad	0x3fef6dd8401c9e9f              # double 0.98215878030619652
+	.quad	0x3fc932c80461b1f0              # double 0.1968622228045116
+	.quad	0x3fea4ee2a0424865              # double 0.82212954807824856
+	.quad	0x3fc359d4f0167ddc              # double 0.15117894862213077
+	.quad	0x3fa0fcba7f5d83e0              # double 0.033178165481110744
+	.quad	0x3fa558d89e320fc0              # double 0.041693467436771936
+	.quad	0x3fe03d45f7d03b6c              # double 0.50747965241485593
+	.quad	0x3fe5a8852e10500b              # double 0.67682131764240816
+	.quad	0x3fe9dc8867abd634              # double 0.80817051170624276
+	.quad	0x3fedd7005e286a4b              # double 0.93249529257020336
+	.quad	0x3fe580cb1fac9453              # double 0.6719718569407952
+	.quad	0x3fcc8f4d06843708              # double 0.22312319582163576
+	.quad	0x3fe0c3148b76d695              # double 0.52381350745300159
+	.quad	0x3fdab1607dc18d18              # double 0.41707622795930055
+	.quad	0x3fe8a8840e39bcd0              # double 0.77057078150201086
+	.quad	0x3fd48746978c23e2              # double 0.32075657653382283
+	.quad	0x3fd5c16dbbf749a6              # double 0.3399309478383209
+	.quad	0x3fc45a8f5207b898              # double 0.15901366715792586
+	.quad	0x3fdd76ba71839184              # double 0.46037160001130695
+	.quad	0x3fbdcd847d004888              # double 0.11641719867501099
+	.quad	0x3fe64ca6b4c8f236              # double 0.69685683545646415
+	.quad	0x3fe650e91f36fa01              # double 0.6973767861998682
+	.quad	0x3febdb2b3a2b4b81              # double 0.87050401078373352
+	.quad	0x3fce5e6b067c5d08              # double 0.23725641075791537
+	.quad	0x3fe2664245d87c11              # double 0.57498277322508973
+	.quad	0x3fe405b7ac077315              # double 0.62569793319161937
+	.quad	0x3fc1fd07ae786f84              # double 0.14053436297478694
+	.quad	0x3fdcf786faed3bb8              # double 0.4526078653770429
+	.quad	0x3fecc8d342c17f20              # double 0.89951479948283363
+	.quad	0x3fed078f5475de85              # double 0.90717283722092701
+	.quad	0x3fe009a377b9e1b6              # double 0.50117658027652712
+	.quad	0x3fea28d044b44a29              # double 0.81748212260055653
+	.quad	0x3fc82469af54dd94              # double 0.18861123143299763
+	.quad	0x3fe58a4a3217eaf4              # double 0.67313108238098929
+	.quad	0x3fce92385c724aac              # double 0.23883728517519864
+	.quad	0x3fa0e2830f60e820              # double 0.032978149058593198
+	.quad	0x3fe773450b46fa3d              # double 0.73282100870694189
+	.quad	0x3fed067be3339075              # double 0.90704149604108741
+	.quad	0x3fe60900ca594414              # double 0.68859900971631527
+	.quad	0x3fcab3b612e12414              # double 0.20860935136650538
+	.quad	0x3fc35729a6275e10              # double 0.15109749424912922
+	.quad	0x3fecd4ffc83e6673              # double 0.9010008727083928
+	.quad	0x3fde434f392e80ac              # double 0.47285824379106134
+	.quad	0x3fc65b82d8e342a4              # double 0.17466769781323876
+	.quad	0x3fecc499a735c2ea              # double 0.89899904878811054
+	.quad	0x3fc49856463fc2a4              # double 0.16089895658617082
+	.quad	0x3f8535a287f1e080              # double 0.010356206678111102
+	.quad	0x3fe9306a9730e29b              # double 0.78716020135387355
+	.quad	0x3fc57894d336dbbc              # double 0.16774235070417187
+	.quad	0x3fb01e8d5aa8d2e8              # double 0.062966189035090658
+	.quad	0x3fc76c37ca9b4bac              # double 0.18299004929448637
+	.quad	0x3fbe1e83c409fa58              # double 0.11765311752422158
+	.quad	0x3fd5b4aa968b0e96              # double 0.33915199948771979
+	.quad	0x3feeafaca6882727              # double 0.95894463086844872
+	.quad	0x3fe02c352428897e              # double 0.50539643346955621
+	.quad	0x3fe1a4af66de7c63              # double 0.55135316936128864
+	.quad	0x3fb4b55f61988de8              # double 0.080892525984885943
+	.quad	0x3fefe99e828e69bc              # double 0.99726796626355662
+	.quad	0x3fe8faab91742161              # double 0.78059938820755914
+	.quad	0x3fe73971b84f5d49              # double 0.72576223371553639
+	.quad	0x3fe8566f4d5aea0c              # double 0.76055111988472523
+	.quad	0x3fe9de493db1fc6a              # double 0.80838453340392147
+	.quad	0x3fe052ebd528ca0e              # double 0.51012221939737556
+	.quad	0x3fe02b9de2e5c689              # double 0.50532430950097862
+	.quad	0x3fe05377ee24c798              # double 0.51018902313647896
+	.quad	0x3feae474f7306108              # double 0.84038780478570718
+	.quad	0x3fc73ce50281f510              # double 0.18154585478252061
+	.quad	0x3fd9e448461f5800              # double 0.40455824706930343
+	.quad	0x3fe8a7e0ea3cf979              # double 0.77049299001355032
+	.quad	0x3fd2794e44358d80              # double 0.28865391408017871
+	.quad	0x3fdb79704bd089e0              # double 0.42928702739496138
+	.quad	0x3fce4297e11b9360              # double 0.23640726558292169
+	.quad	0x3feadb1bdac05c5e              # double 0.83924668049702311
+	.quad	0x3fe5ac519ef6eef8              # double 0.67728501365442551
+	.quad	0x3fdda9fd03481970              # double 0.46350026436302638
+	.quad	0x3fe9945cef9939ad              # double 0.79936072155560611
+	.quad	0x3feffd2eaba45c1a              # double 0.99965604327997259
+	.quad	0x3fd4e0c940db17b6              # double 0.3262198575360985
+	.quad	0x3fdd0e66223c247c              # double 0.4540038427663331
+	.quad	0x3fd070cc0825edde              # double 0.25688458247870283
+	.quad	0x3febc952d54cfa0e              # double 0.8683256307629692
+	.quad	0x3fe77457bd0e471e              # double 0.73295199322658156
+	.quad	0x3feb958628592a0f              # double 0.86200244789626079
+	.quad	0x3fee517e359f5837              # double 0.94744787667401098
+	.quad	0x3fd62133ea37daf0              # double 0.34577653763646676
+	.quad	0x3fd6f8b0ecac36d0              # double 0.35892890083856077
+	.quad	0x3fee23c6cafb62f5              # double 0.94186725277822225
+	.quad	0x3fc74d4ec0d06278              # double 0.18204674162622658
+	.quad	0x3fe262bca30997e4              # double 0.57455283969170212
+	.quad	0x3fe9a785b7dc6611              # double 0.8016995039972149
+	.quad	0x3fe74df134dca270              # double 0.72826443028050214
+	.quad	0x3fe8991b0ac89834              # double 0.76868965250174037
+	.quad	0x3fdc89ba782bbd60              # double 0.44590627417979611
+	.quad	0x3fba7d1477597a88              # double 0.10347106851393495
+	.quad	0x3fde3d47068a303c              # double 0.47249007834102819
+	.quad	0x3fb30fcaa2292c18              # double 0.074459709730192336
+	.quad	0x3f97b78f63af39c0              # double 0.023161163768060211
+	.quad	0x3feb6f67234df149              # double 0.85734898467448162
+	.quad	0x3fe71b2b63b0e7e4              # double 0.72206658812433178
+	.quad	0x3fd33981cf697000              # double 0.30038495307030644
+	.quad	0x3fe272b4cf41c47e              # double 0.57650223235954434
+	.quad	0x3fc4acc45f9f6e3c              # double 0.16152243298607682
+	.quad	0x3fc41d2a486474a8              # double 0.15714005026612665
+	.quad	0x3fd890d2983d0f5e              # double 0.38383927218477776
+	.quad	0x3fe72b490ffb971d              # double 0.72403386232028633
+	.quad	0x3fe57b75b2485398              # double 0.67132077046209115
+	.quad	0x3fea286fd8a62f87              # double 0.81743614496507255
+	.quad	0x3fe22bc2a721aac9              # double 0.56784184115289194
+	.quad	0x3fa9d6d045bb85b0              # double 0.050467022430676578
+	.quad	0x3fcc998fb5ce73b4              # double 0.2234363210417577
+	.quad	0x3fe8d91c7f8c79df              # double 0.77650284683096149
+	.quad	0x3fd706a4c7ac5468              # double 0.35978049754459684
+	.quad	0x3fe477283174c6ce              # double 0.63954553279310189
+	.quad	0x3fec818dcd518a9c              # double 0.89081468678735431
+	.quad	0x3fd05f969cd8da34              # double 0.25583424870584115
+	.quad	0x3fdfe8f2f21f9d6a              # double 0.49859307904121997
+	.quad	0x3fd9a87bdfc5b6b6              # double 0.40090844013944194
+	.quad	0x3fd37c62e19c388c              # double 0.30446693451165951
+	.quad	0x3fbb6a064e86fb50              # double 0.10708655755204899
+	.quad	0x3fed73f01267690e              # double 0.9204025611354909
+	.quad	0x3fe60c979357e860              # double 0.68903712060933842
+	.quad	0x3fed13bf279df51b              # double 0.90866048562716928
+	.quad	0x3fc84db6403d31c4              # double 0.18987157951995759
+	.quad	0x3fea1aa5ea3a3774              # double 0.81575294253865004
+	.quad	0x3fea64fda3a1a55f              # double 0.82482797583831402
+	.quad	0x3fe7b3ccbd9a55e4              # double 0.74069821388064527
+	.quad	0x3f9e36f150c32840              # double 0.029506464533177956
+	.quad	0x3fe552b90fa82165              # double 0.66634800966225483
+	.quad	0x3fdea2d17c596eee              # double 0.478687640604888
+	.quad	0x3fc310d804fcac8c              # double 0.14895153277879947
+	.quad	0x3fec689733bd4ae1              # double 0.88776741128307546
+	.quad	0x3fc62c92a6844970              # double 0.17323525553417651
+	.quad	0x3fccae2bcd914430              # double 0.22406528031800255
+	.quad	0x3fe2a0d37b88c7cc              # double 0.58213209274094302
+	.quad	0x3fe6a9eee2368de9              # double 0.70824379141089111
+	.quad	0x3fe2b26f9154cfe1              # double 0.5842817152501959
+	.quad	0x3feae0a32e41f3d8              # double 0.83992156061833168
+	.quad	0x3fe0123c42015ae9              # double 0.50222599879893182
+	.quad	0x3fe024fc1541c0d0              # double 0.50451473380783263
+	.quad	0x3fec90d363a53210              # double 0.8926789232442065
+	.quad	0x3feae6d8ca4c51d0              # double 0.84067954551079005
+	.quad	0x3f502832484df600              # double 9.8614607233515894E-4
+	.quad	0x3fd12795e4eec1a4              # double 0.2680411086721739
+	.quad	0x3feaafdd79332d84              # double 0.83396791145189341
+	.quad	0x3fdbb7b5ad55c706              # double 0.43308774878742928
+	.quad	0x3feef382c10a6d9b              # double 0.96722543433445495
+	.quad	0x3fede58592857761              # double 0.93426779382182812
+	.quad	0x3fe76d2e19e870fd              # double 0.73207764682913956
+	.quad	0x3fd4927d3d228a34              # double 0.32144099207122001
+	.quad	0x3fe77955f06c374a              # double 0.73356148679315791
+	.quad	0x3fdaa3562c1a77ca              # double 0.41621927554103577
+	.quad	0x3fbfdefb09194b38              # double 0.12449616405619401
+	.quad	0x3fdcaeb8fad54008              # double 0.44816421981249777
+	.quad	0x3fdf4b5559ede21e              # double 0.48897298605109707
+	.quad	0x3fe0205ce34f90e0              # double 0.50395054241792181
+	.quad	0x3fd7d54102e042c0              # double 0.37239098816739258
+	.quad	0x3fcba004da48c1dc              # double 0.21582089098366353
+	.quad	0x3fdb66c80150fc4e              # double 0.42814827087926666
+	.quad	0x3fee24dab79729ab              # double 0.94199882371440447
+	.quad	0x3fb82176cacbe468              # double 0.094260620604374901
+	.quad	0x3fe03c105747f2e6              # double 0.50733201071815581
+	.quad	0x3fe5f978ad6f8bf2              # double 0.68670305132070397
+	.quad	0x3fee36ef9e61c336              # double 0.94420605596506024
+	.quad	0x3fef264c1716a8ea              # double 0.97342495450473376
+	.quad	0x3fcc97977ea7f8c4              # double 0.22337621387845819
+	.quad	0x3f9d3503bd049480              # double 0.028522547160851008
+	.quad	0x3fcfa49e1efb80e8              # double 0.24721123230756992
+	.quad	0x3fe15a947cda9e30              # double 0.54230713258306729
+	.quad	0x3feda2a1bf874449              # double 0.92610251815688927
+	.quad	0x3fd3fa4bc4e9c642              # double 0.31215185384562372
+	.quad	0x3fce670d004e436c              # double 0.23751986040999939
+	.quad	0x3fe840eefcb50e64              # double 0.75792645794758728
+	.quad	0x3fe0df509a47f1a8              # double 0.52726011403097051
+	.quad	0x3fb6139cbb954600              # double 0.086236758991866225
+	.quad	0x3fe0a3acd0dc3812              # double 0.51997986596120627
+	.quad	0x3fc3759a80173b9c              # double 0.1520264745181209
+	.quad	0x3fe57236f008af14              # double 0.67019221192956246
+	.quad	0x3fefd01e0e957a71              # double 0.99415495727937586
+	.quad	0x3fdcdf3bb6f9eaca              # double 0.45112507694981885
+	.quad	0x3fd3ade1d43267ac              # double 0.30748792383530588
+	.quad	0x3fe37f6b976db2aa              # double 0.60930423332100259
+	.quad	0x3fe9e5eb397c7f0e              # double 0.8093162653712811
+	.quad	0x3fe58f77cd6d0932              # double 0.67376318094492249
+	.quad	0x3fd5f4cbc020261a              # double 0.34306615602744872
+	.quad	0x3fe9d810fd67631e              # double 0.80762528889599472
+	.quad	0x3feecde3da43020b              # double 0.96263306264160186
+	.quad	0x3faa6ecc3e6f7ef0              # double 0.051626570340656985
+	.quad	0x3feb6ad89fb269e4              # double 0.85679274740988065
+	.quad	0x3fea66cc4225ea63              # double 0.82504856986572539
+	.quad	0x3feab1e4e2a7faa0              # double 0.83421558636458215
+	.quad	0x3fef0b38e2f438a7              # double 0.97011989905310691
+	.quad	0x3fdf9d4534f22414              # double 0.49397401972288546
+	.quad	0x3fe425b5c0e37b4a              # double 0.62960326837114988
+	.quad	0x3fe2b193b7189c62              # double 0.58417688141788582
+	.quad	0x3fd783428eb91596              # double 0.36738647401610913
+	.quad	0x3fe564c6f844c51a              # double 0.66855190744368831
+	.quad	0x3fe59585a98bce0b              # double 0.67450221170878544
+	.quad	0x3feae49790b4a9f0              # double 0.84040430319629245
+	.quad	0x3fe53cb12fd2771c              # double 0.66365870800266036
+	.quad	0x3fef62918a26c986              # double 0.98078228934018408
+	.quad	0x3fe7400c9d4c6c92              # double 0.7265685150372454
+	.quad	0x3fe89255ad7b4b6b              # double 0.76786311991814438
+	.quad	0x3fd89c37d1245d32              # double 0.3845347921755603
+	.quad	0x3fe69476089ea602              # double 0.70562268909014869
+	.quad	0x3fcdb3cafe43fd58              # double 0.23204934516250364
+	.quad	0x3fe7e409d26b2df3              # double 0.74658671471973859
+	.quad	0x3fed9acd64c793fa              # double 0.92514676745906788
+	.quad	0x3fdfa84079a24190              # double 0.49464427831937829
+	.quad	0x3fda20260920b1e8              # double 0.40821219340685255
+	.quad	0x3fc434ff842ccfc0              # double 0.15786737398013706
+	.quad	0x3fc939ec4eb00850              # double 0.19708017198724059
+	.quad	0x3fd5cdc5e2bd841a              # double 0.34068438665969014
+	.quad	0x3fe2ccb3dcd6b8a0              # double 0.58748810894555348
+	.quad	0x3fc94f548ee844bc              # double 0.19773346879859399
+	.quad	0x3fecb1f90f75182a              # double 0.89672520655654364
+	.quad	0x3fd30cbd4c5ef4b8              # double 0.29765255411241354
+	.quad	0x3fca7f1deafe1b34              # double 0.2070042989182298
+	.quad	0x3f86e03fbdc09f40              # double 0.011169908502850157
+	.quad	0x3fac6744c96a4730              # double 0.055475377642450474
+	.quad	0x3fe8aa8de3173d96              # double 0.77081961015385292
+	.quad	0x3fe2c50deddb33a3              # double 0.58655449348735933
+	.quad	0x3fd43866052697c0              # double 0.31594229224208092
+	.quad	0x3fea15c86dba99e9              # double 0.8151590483801644
+	.quad	0x3fdd64bb899700c2              # double 0.45927322803983028
+	.quad	0x3fe2c7ff79b6c890              # double 0.58691381237282947
+	.quad	0x3fefd1e9fe43b440              # double 0.9943742719748414
+	.quad	0x3fd40c9db8a94e7e              # double 0.31327002557120653
+	.quad	0x3fedbc779ea6fffb              # double 0.92925625788484412
+	.quad	0x3fe4a1213fd9137e              # double 0.64466917486480191
+	.quad	0x3fe651f8e1dc6d1b              # double 0.69750637162670459
+	.quad	0x3fdb6cb019c925a4              # double 0.42850878255975489
+	.quad	0x3febdc7a9ab10635              # double 0.87066393101867467
+	.quad	0x3fc2db51fac47788              # double 0.14731812233452168
+	.quad	0x3fef1b41327f39c9              # double 0.97207698691072963
+	.quad	0x3fcf3ec446cceed0              # double 0.24410298783356277
+	.quad	0x3fdc83e71f1d4c8e              # double 0.44555070913811157
+	.quad	0x3fdd95e1623e1ba4              # double 0.46227297395710765
+	.quad	0x3fdfe2b8e4426374              # double 0.49821302691412162
+	.quad	0x3feb68c6b609b48a              # double 0.85654006532935623
+	.quad	0x3fa1c8a9c1457c60              # double 0.034734062998489135
+	.quad	0x3fee3a21908dbecb              # double 0.94459608300345488
+	.quad	0x3fe8e5ff92d8af2b              # double 0.778075968560619
+	.quad	0x3fb8462664e92028              # double 0.094820403705967338
+	.quad	0x3fd9106e3cdb9178              # double 0.39162784522184024
+	.quad	0x3fe1fb2ad4531aca              # double 0.56191007108358204
+	.quad	0x3fdc97b40ccdd8ba              # double 0.4467592358627247
+	.quad	0x3fe32ddf6b58df48              # double 0.59934969869844057
+	.quad	0x3fd211c04d69a330              # double 0.28233344611958255
+	.quad	0x3fdb81ca302ca982              # double 0.42979674057519202
+	.quad	0x3fe524d44845aa09              # double 0.66074575534486357
+	.quad	0x3feaf3caad954467              # double 0.84225973036712964
+	.quad	0x3fe06456053a90dc              # double 0.51224804898495391
+	.quad	0x3feb7e9af1e23a62              # double 0.85920474284087001
+	.quad	0x3fe7f7fa74d37cde              # double 0.74902079408266409
+	.quad	0x3fbd8bd8d3471448              # double 0.11541514547487097
+	.quad	0x3fc354e1d95e45fc              # double 0.15102789987263054
+	.quad	0x3fef65531e5c42fa              # double 0.98111873559727703
+	.quad	0x3fec06973877aef5              # double 0.87580452946482856
+	.quad	0x3fc1b12d470c8f2c              # double 0.13821950883095135
+	.quad	0x3fe976120fcf9a5c              # double 0.79566290939403527
+	.quad	0x3fcc87360a725980              # double 0.22287631521312434
+	.quad	0x3fe06b320dcdb9e1              # double 0.5130853910066514
+	.quad	0x3fe729667bb5c221              # double 0.72380375063045588
+	.quad	0x3fcae1e6e50bb764              # double 0.21001897987246843
+	.quad	0x3fea71eb0f379efb              # double 0.82640603038905114
+	.quad	0x3fed46e784f2330c              # double 0.9149053188899372
+	.quad	0x3fd36f4aba28bfc8              # double 0.30366771869284692
+	.quad	0x3fcd729b80b3d1f4              # double 0.23006004127786606
+	.quad	0x3fad09c815e75540              # double 0.05671525256517862
+	.quad	0x3fd6363661a032da              # double 0.34705886396186048
+	.quad	0x3fec66887a600083              # double 0.88751624966973031
+	.quad	0x3fdc5ffc6bc4b3ce              # double 0.4433585216927981
+	.quad	0x3fd0ab8e4a646186              # double 0.26047093644003672
+	.quad	0x3fe7a00340bbc73c              # double 0.73828280108703082
+	.quad	0x3fde3a353b429f50              # double 0.47230273043759485
+	.quad	0x3fe7b2e97f01f916              # double 0.74058985525315069
+	.quad	0x3fda8a1a8dab6f82              # double 0.41467918238571866
+	.quad	0x3fd42f66ab07e6ae              # double 0.31539313032372263
+	.quad	0x3fe05e5eee64745a              # double 0.51151987610831928
+	.quad	0x3fc98aecf380b044              # double 0.19955217256335989
+	.quad	0x3fea8824886d6408              # double 0.82911898275335805
+	.quad	0x3fdc08cda5a9124c              # double 0.43803731134201906
+	.quad	0x3f88875387c37680              # double 0.011976864414857902
+	.quad	0x3fe327c4ebf48621              # double 0.59860464177126371
+	.quad	0x3fe8afc2805e0fce              # double 0.77145505019915972
+	.quad	0x3fea4458c813bbd5              # double 0.82084311559253342
+	.quad	0x3fe7debea110d48f              # double 0.74594050844338422
+	.quad	0x3fea26a25efc6687              # double 0.81721609641972826
+	.quad	0x3fd0fd7f7794d0d0              # double 0.26547228505957055
+	.quad	0x3f8200ed84287b80              # double 0.0087908321339094098
+	.quad	0x3fd986f930518d04              # double 0.39886312216386011
+	.quad	0x3fe7d2b122d96def              # double 0.74446923071394433
+	.quad	0x3fd218f615b54976              # double 0.28277351493775116
+	.quad	0x3fa74e6a2bc79920              # double 0.045520131916236162
+	.quad	0x3fdc3bed24114136              # double 0.4411576130123821
+	.quad	0x3fd84e64756a8ca2              # double 0.37978469339777565
+	.quad	0x3fe2c1538c6c7f25              # double 0.58609940935636884
+	.quad	0x3fd68dd0d9d65766              # double 0.35240575097247129
+	.quad	0x3fd11948f72cd980              # double 0.26716827524378317
+	.quad	0x3fc26b7102e34240              # double 0.14390385285379814
+	.quad	0x3f6847346b876900              # double 0.0029636405781562347
+	.quad	0x3fed219cc69a565a              # double 0.91035307683587097
+	.quad	0x3fdb9ebb44ae4f9a              # double 0.43156320292586658
+	.quad	0x3fd6c9a90fd2215a              # double 0.35605837388040629
+	.quad	0x3fe67fee32bcad7f              # double 0.70311651143622089
+	.quad	0x3fe90c9e23776efb              # double 0.78279025008256953
+	.quad	0x3fdd9a9b84a7c2a0              # double 0.46256149248714884
+	.quad	0x3fd6c9b2dfa86d74              # double 0.35606071321100008
+	.quad	0x3fd596dc681af756              # double 0.33733282248055241
+	.quad	0x3f81f95cb1bf8b80              # double 0.0087764016861393568
+	.quad	0x3fcfca4fab6fc9d0              # double 0.24836154814654643
+	.quad	0x3fedc2027f0b17e2              # double 0.92993283093596468
+	.quad	0x3fe7b5e1e87e8e39              # double 0.7409524479775832
+	.quad	0x3fe871c5ad180168              # double 0.76388820464493978
+	.quad	0x3fe6712d79a792cc              # double 0.70131562958393934
+	.quad	0x3fe5fec9a50f66d2              # double 0.68735201109231014
+	.quad	0x3fba8d8486fb5358              # double 0.10372188849880837
+	.quad	0x3febea476e58f7b0              # double 0.87234851410152281
+	.quad	0x3fdf01df68128dc8              # double 0.48448929942443586
+	.quad	0x3fdaeb01235a1530              # double 0.4205935330613384
+	.quad	0x3fdab394c6934d90              # double 0.41721076385621192
+	.quad	0x3fe6b48b7874db87              # double 0.70953916098265857
+	.quad	0x3fe443aa5ee53e01              # double 0.63325995001099511
+	.quad	0x3fb0d0a8861627c0              # double 0.065683872924778619
+	.quad	0x3f6eee7968ca3300              # double 0.00377582276116184
+	.quad	0x3fe2e31cb31a6fba              # double 0.59022364598376176
+	.quad	0x3fc677181c4ab22c              # double 0.17550946599421147
+	.quad	0x3f995d430df5cd60              # double 0.024769828536091665
+	.quad	0x3fdabd859a720bf4              # double 0.41781749804084645
+	.quad	0x3f9ae7b0962ccf80              # double 0.026274451414067368
+	.quad	0x3fdf9ee408046294              # double 0.49407292159006855
+	.quad	0x3fb84ebc5c20eb20              # double 0.094951412670451151
+	.quad	0x3fbe9a1fb9585968              # double 0.11953924441363528
+	.quad	0x3fc8bb5ad3857eac              # double 0.19321761444279184
+	.quad	0x3fb2a35c806a6f90              # double 0.072805196143632012
+	.quad	0x3fcea531337518d0              # double 0.2394162656075367
+	.quad	0x3fe2ba093bc4aaa6              # double 0.58520948098642545
+	.quad	0x3fe5d498b680de60              # double 0.68220172543710689
+	.quad	0x3fef1c051dcff02d              # double 0.97217040846544977
+	.quad	0x3fd55a1d71b85d76              # double 0.33362518411146114
+	.quad	0x3fcd967302446578              # double 0.23115384684278317
+	.quad	0x3fd1ddf1e9865064              # double 0.27917144589560494
+	.quad	0x3fefd7c44ec14941              # double 0.99508872396317127
+	.quad	0x3fe00fcee763b348              # double 0.5019297141385346
+	.quad	0x3feee415ab45d7bc              # double 0.96534236385081539
+	.quad	0x3fcaadf859e4eca4              # double 0.20843414677969918
+	.quad	0x3fd51865dc76368e              # double 0.32961412934751244
+	.quad	0x3fdd673b8866fbd4              # double 0.45942581482443967
+	.quad	0x3fe2e4a34415831e              # double 0.59040988252317894
+	.quad	0x3fea3313790efde5              # double 0.81873487133264844
+	.quad	0x3fe74aa1f0f4db3b              # double 0.72786042272387108
+	.quad	0x3feabdec9316dc8d              # double 0.83568409660701237
+	.quad	0x3fe6784cee40bf25              # double 0.7021851209046629
+	.quad	0x3fecb54dfc41fab3              # double 0.89713191289032179
+	.quad	0x3fd10b930dd84582              # double 0.26633144714386259
+	.quad	0x3feef90afb8105bd              # double 0.96790074464677611
+	.quad	0x3fc67b8d91c5214c              # double 0.17564553849866582
+	.quad	0x3fd78eb6c2d0110e              # double 0.36808556580241791
+	.quad	0x3fe8fa9cc445adbd              # double 0.78059233030710795
+	.quad	0x3fccb6eeb0c84dfc              # double 0.22433265335040165
+	.quad	0x3fee5fad8ea7f826              # double 0.94917943823361806
+	.quad	0x3fe4741d3837a769              # double 0.639174089240652
+	.quad	0x3fcce6c7ae880e10              # double 0.22579284688991708
+	.quad	0x3fe4eb34da93fafc              # double 0.65371172610306827
+	.quad	0x3fda9b8f13be79c4              # double 0.41574456146363681
+	.quad	0x3fc7c8c36e526440              # double 0.18581431280907346
+	.quad	0x3feefae0a262b6f8              # double 0.9681246921151958
+	.quad	0x3fd1747e385cfa24              # double 0.27273517135827974
+	.quad	0x3fd823919f00ce1c              # double 0.37717094924593808
+	.quad	0x3fdbb5478dc4b310              # double 0.43293942303243771
+	.quad	0x3fc988163d604080              # double 0.19946554180978993
+	.quad	0x3fd1bb4b5f82b074              # double 0.277056544563272
+	.quad	0x3fd3162cd5709d24              # double 0.29822846263637559
+	.quad	0x3fbdabb4c471de88              # double 0.11590127750411672
+	.quad	0x3fd8a56a369a5236              # double 0.38509612400347082
+	.quad	0x3fefbe133fed6da4              # double 0.99195253835516838
+	.quad	0x3fd247abfe959924              # double 0.28562450277094542
+	.quad	0x3fe9d5c50d20d429              # double 0.80734493793591355
+	.quad	0x3fd57a294798135c              # double 0.33558113090139385
+	.quad	0x3fd6e05e82d94222              # double 0.35744440820875145
+	.quad	0x3fedc551a6b45379              # double 0.93033678588345403
+	.quad	0x3fe055e8a12b3be0              # double 0.51048690298364008
+	.quad	0x3fd3cf8cc8b5f230              # double 0.309542842871255
+	.quad	0x3fe82a23c14b92d8              # double 0.75514400246592128
+	.quad	0x3fe73e9a1fcb647e              # double 0.72639185151923846
+	.quad	0x3fdc4b05a37deaf0              # double 0.44207898107531118
+	.quad	0x3fe0c0cf2afc9e50              # double 0.52353628536088515
+	.quad	0x3fe7d6a17eb7a2e0              # double 0.74495005368688893
+	.quad	0x3fe67db1f587fef5              # double 0.70284364657706411
+	.quad	0x3fe71dbf7e6ff891              # double 0.72238135046770158
+	.quad	0x3fbcd0a8e3a0fb00              # double 0.11255889470428926
+	.quad	0x3fe1e6ffc9b7b015              # double 0.55944814107852159
+	.quad	0x3fb96e21865c4480              # double 0.09933671503337571
+	.quad	0x3fc3fbda1b552228              # double 0.15612341246220862
+	.quad	0x3fe91089a0e2069f              # double 0.78326875135845231
+	.quad	0x3fed73d03dde783c              # double 0.9203873833064402
+	.quad	0x3fed99ee4883a79f              # double 0.92504038012451761
+	.quad	0x3fefb9cf72f098aa              # double 0.99143192719636386
+	.quad	0x3fcd383a443cfa10              # double 0.22827843028967765
+	.quad	0x3fb4c5fb54fc9658              # double 0.081145961998651983
+	.quad	0x3fc56f32ae9982a8              # double 0.16745599294065028
+	.quad	0x3f2b85891dd6b000              # double 2.0997332368943855E-4
+	.quad	0x3fe288e357f357fc              # double 0.57920996835559846
+	.quad	0x3fe3ea3aaf41f87d              # double 0.6223424361230766
+	.quad	0x3fef44a3e3e648a2              # double 0.97712893020277058
+	.quad	0x3fe8c4cf58763e41              # double 0.77402465131485354
+	.quad	0x3fe0c7b7c69c20c5              # double 0.52437962332717147
+	.quad	0x3fd0d50e5c84b506              # double 0.26300391230581999
+	.quad	0x3fed4164349c9d5b              # double 0.91423235202538977
+	.quad	0x3fec60ac83898d5a              # double 0.88680101099854913
+	.quad	0x3fe7af4109a26184              # double 0.74014331704806624
+	.quad	0x3fed9177006b8bc3              # double 0.9240069397168259
+	.quad	0x3fe3a86162138709              # double 0.61430424838565145
+	.quad	0x3fbf97fe5d575f38              # double 0.12341298846092463
+	.quad	0x3fe1fbfff20e05a7              # double 0.56201169277499197
+	.quad	0x3fcf95b08439d0d8              # double 0.24675566154804218
+	.quad	0x3fced49aa317e004              # double 0.24086316073930913
+	.quad	0x3fe19b345cd1a805              # double 0.55019586685853084
+	.quad	0x3fd5583e205c8a8c              # double 0.3335109058408896
+	.quad	0x3fbf90029b303688              # double 0.1232911709668888
+	.quad	0x3fd906853f0bd90e              # double 0.39102297932494501
+	.quad	0x3fcb9df2d0298c8c              # double 0.21575770534682126
+	.quad	0x3fdff511cd7e9a1a              # double 0.49933285777879777
+	.quad	0x3faf35d966019fb0              # double 0.060957711889215616
+	.quad	0x3fe14d2aa7672660              # double 0.54066975303539877
+	.quad	0x3fdd82281f084e22              # double 0.46106913595687804
+	.quad	0x3fefe7bdef4d80f9              # double 0.99703881014650541
+	.quad	0x3fc97a1647a0a430              # double 0.19903830048977644
+	.quad	0x3fd51e3d64082494              # double 0.32997069138270629
+	.quad	0x3fd3d0ec3a8605b6              # double 0.30962663378894761
+	.quad	0x3fb793c9fa5c2538              # double 0.092098830817254007
+	.quad	0x3fd5acd9d6d5366a              # double 0.33867498378535876
+	.quad	0x3febedf92f5c75fe              # double 0.87279948473195623
+	.quad	0x3fdcfb95ea05e0a4              # double 0.45285556653790082
+	.quad	0x3fed3d38697c2d05              # double 0.91372318842459832
+	.quad	0x3fb17e39a4613d68              # double 0.068332293159291901
+	.quad	0x3fe879d0ac26d2aa              # double 0.76487001059884574
+	.quad	0x3fdd901badf9777e              # double 0.46192066182799596
+	.quad	0x3feeda2a76e717e8              # double 0.9641315767591978
+	.quad	0x3fed258eb85abc5d              # double 0.91083465582586209
+	.quad	0x3fccad47ed697288              # double 0.22403811542871588
+	.quad	0x3fd80f9660f73e54              # double 0.3759513804370489
+	.quad	0x3fe45773b91649fb              # double 0.63567529821221969
+	.quad	0x3fb4966a142d05c8              # double 0.080420141149281865
+	.quad	0x3fe4939d21307f5a              # double 0.64301926119149333
+	.quad	0x3fd3f6c0f6453cb8              # double 0.31193565416192426
+	.quad	0x3f995f20b6c941a0              # double 0.02477694621694726
+	.quad	0x3fedec289b917b6b              # double 0.93507795700484786
+	.quad	0x3fe168035d4be180              # double 0.5439469167895794
+	.quad	0x3fd484cc3718c2ee              # double 0.32060532932795993
+	.quad	0x3fe869d23c591eca              # double 0.76291763102286692
+	.quad	0x3fce38805fbe7158              # double 0.23609928774829814
+	.quad	0x3fddd2cddf74fe76              # double 0.46599146673177161
+	.quad	0x3fe9522c78764f10              # double 0.79128097083818894
+	.quad	0x3fded7314fd8bc10              # double 0.48188431546708532
+	.quad	0x3fd9b81f714939ac              # double 0.4018629652317951
+	.quad	0x3fdf590fbc7458c2              # double 0.48981088069684742
+	.quad	0x3fd43fe9ef75d7a4              # double 0.31640098938748396
+	.quad	0x3fe91e6620bbc575              # double 0.78496080773599763
+	.quad	0x3fdba8939bf90282              # double 0.43216409904201936
+	.quad	0x3fe363fb57a83812              # double 0.60595481033829146
+	.quad	0x3fec7cc9ca36c130              # double 0.8902329396715114
+	.quad	0x3fe6c2184d2ea77f              # double 0.71119322847992794
+	.quad	0x3febcd85f33d87b2              # double 0.86883828647500239
+	.quad	0x3fe448f4f113d0e2              # double 0.63390585980826253
+	.quad	0x3fe328c7e227dd79              # double 0.59872812434234313
+	.quad	0x3fd35f0642ed9240              # double 0.30267483268679385
+	.quad	0x3faaf3dacfc62720              # double 0.052641713965455361
+	.quad	0x3fe7c4f656834a89              # double 0.74279324433366967
+	.quad	0x3fd7a8f7398f58ac              # double 0.36968784924591591
+	.quad	0x3fd9752ebb7ea45e              # double 0.39777725515393125
+	.quad	0x3fe693b625e7ed75              # double 0.70553119090565863
+	.quad	0x3fe5cab4d73b738c              # double 0.68099443471474919
+	.quad	0x3feb288fd6cc74b4              # double 0.84870140030729723
+	.quad	0x3fbad115ea5b5868              # double 0.1047528931770515
+	.quad	0x3fd4f3ec65c591bc              # double 0.32738790453575084
+	.quad	0x3febe440520ee98a              # double 0.87161270167352822
+	.quad	0x3febca91c6ade077              # double 0.86847771458179934
+	.quad	0x3fbdd59415402cf8              # double 0.1165401985055502
+	.quad	0x3fee6f67a374d274              # double 0.95109922337594676
+	.quad	0x3fe91938618d0dcf              # double 0.78432864239624134
+	.quad	0x3fceb62daca3c0b8              # double 0.23993464402838582
+	.quad	0x3fe7db08ddc01f8e              # double 0.74548762617722431
+	.quad	0x3fe618529912506b              # double 0.69046907326493334
+	.quad	0x3fdb18b86a8ce3e6              # double 0.42338381200130326
+	.quad	0x3fd000240f0f735c              # double 0.25000859709489531
+	.quad	0x3fd830459a31c98c              # double 0.37794628198675961
+	.quad	0x3feecef4a383832e              # double 0.96276313720963969
+	.quad	0x3fa2125cb50d1c10              # double 0.035296341992356983
+	.quad	0x3fdba2e0c5fc2678              # double 0.43181628546208328
+	.quad	0x3fe608f4793becb9              # double 0.68859313658267418
+	.quad	0x3fa6e6a0b7e08be0              # double 0.0447283005198853
+	.quad	0x3fceaaffda5d9d54              # double 0.23959348833452998
+	.quad	0x3feadaacb3e5873a              # double 0.83919367919973031
+	.quad	0x3fdd6b0b11656f50              # double 0.45965840052462159
+	.quad	0x3fdb9d9e0be9528a              # double 0.43149520076011838
+	.quad	0x3fe84becddd5f48f              # double 0.75926822020814366
+	.quad	0x3fd6a4769c77b9fc              # double 0.3537880447392181
+	.quad	0x3fe2f28baa45b9f9              # double 0.59210761314699234
+	.quad	0x3fa252de363ba910              # double 0.035788482780690356
+	.quad	0x3fe66bb8f799c5f7              # double 0.70064972266680925
+	.quad	0x3fe3cd070679c721              # double 0.61877776398452877
+	.quad	0x3fc7c852a055bf50              # double 0.18580086544852259
+	.quad	0x3fdafa4be1d72c1a              # double 0.42152688078630407
+	.quad	0x3fb1b6b99a7cf020              # double 0.069194412438208008
+	.quad	0x3feb7d4427ff742f              # double 0.85904128849108996
+	.quad	0x3f98634c88dbeb60              # double 0.023816295483793382
+	.quad	0x3fee9ed1ffa476af              # double 0.95688724451220775
+	.quad	0x3fea0be8be5ae57d              # double 0.81395375422214011
+	.quad	0x3fc78ac347dc6164              # double 0.18392220505553347
+	.quad	0x3fcd25e05278ee48              # double 0.22771839167568175
+	.quad	0x3fe2c04a861fd2ca              # double 0.5859730357757027
+	.quad	0x3fb004c9770ef5f0              # double 0.06257304341030312
+	.quad	0x3fd80fed6f3f7a26              # double 0.37597213615473135
+	.quad	0x3fecfc2f5829b21a              # double 0.90578429431258489
+	.quad	0x3feb523b37fc4a05              # double 0.85378800329846227
+	.quad	0x3fefd85a3ede52e9              # double 0.99516021994585657
+	.quad	0x3fc6a1364c9831e0              # double 0.17679480304685935
+	.quad	0x3fe6040f64ddb7e3              # double 0.68799562168510098
+	.quad	0x3f8311cc7550c6c0              # double 0.0093112920095309581
+	.quad	0x3fd0403af42e3330              # double 0.25392030568837054
+	.quad	0x3fd45a47e996b6ca              # double 0.31801030932807051
+	.quad	0x3fc0f8ba1c516fc8              # double 0.13259054548950489
+	.quad	0x3fd7bc8cc7e72b44              # double 0.37088317415025451
+	.quad	0x3fdbc075b05844fe              # double 0.43362180920765059
+	.quad	0x3fefbf9cb1aaf9f9              # double 0.99214014721638854
+	.quad	0x3fd2b86d951bfd5e              # double 0.29250659524401168
+	.quad	0x3fee61c49ebb6890              # double 0.94943457605701731
+	.quad	0x3fb033899712d850              # double 0.063286399253088321
+	.quad	0x3f9825a0595fb580              # double 0.023581033186862665
+	.quad	0x3fe548039198968f              # double 0.66504076420524594
+	.quad	0x3fdd7bdcff6481f8              # double 0.46068501415905372
+	.quad	0x3fc72cd30d9080d8              # double 0.18105543291404191
+	.quad	0x3fe2916bce107adb              # double 0.58025160071323556
+	.quad	0x3fe69a8a17fc2bfa              # double 0.70636467632846167
+	.quad	0x3fea5bb873ac96e7              # double 0.82369635193455515
+	.quad	0x3fd096f99d28637c              # double 0.25921478602827341
+	.quad	0x3fcbf10bbe7cd624              # double 0.21829363633303089
+	.quad	0x3fe512b63576afe7              # double 0.65853414957154832
+	.quad	0x3fcba78970e16be0              # double 0.21605031978364675
+	.quad	0x3fc3132b6c174880              # double 0.14902251031759661
+	.quad	0x3fa50ed5db7001e0              # double 0.041128809963996593
+	.quad	0x3fd362727e3ed8d4              # double 0.30288374260579798
+	.quad	0x3fead30e97734a39              # double 0.83826379375597704
+	.quad	0x3fab405ee0cac910              # double 0.053225483837552656
+	.quad	0x3fec149091329aef              # double 0.87751034125252925
+	.quad	0x3fda67c1b6b1453a              # double 0.4125828060251312
+	.quad	0x3feb02d05ce2af2a              # double 0.84409349576660486
+	.quad	0x3fec548b08f061d6              # double 0.88532020326516192
+	.quad	0x3fa7b465e53d7a50              # double 0.046298202737251715
+	.quad	0x3fd625c6a4a685ee              # double 0.34605566100262208
+	.quad	0x3fe08e5fb13c2372              # double 0.51737961403078558
+	.quad	0x3fa8b7f6d274cee0              # double 0.048278535070861883
+	.quad	0x3fd17355691d0504              # double 0.27266440644241663
+	.quad	0x3fdeb7dec86660d6              # double 0.47997254915527543
+	.quad	0x3fcf7a4b179dc90c              # double 0.24591959622518578
+	.quad	0x3fd77befc7db79da              # double 0.3669394923907966
+	.quad	0x3fdeaecd0a6487e4              # double 0.47941900267517057
+	.quad	0x3fe1fb8aae68835f              # double 0.56195577682602138
+	.quad	0x3feb1e878cbc7bed              # double 0.84747674453308053
+	.quad	0x3fde27a889c8208c              # double 0.47117055373429007
+	.quad	0x3fcf0b4152932074              # double 0.2425309804150434
+	.quad	0x3feb9c625ada26a3              # double 0.86283986801682422
+	.quad	0x3fe365caa92b62ff              # double 0.60617573777116707
+	.quad	0x3fe7593a64c81731              # double 0.72964210208804137
+	.quad	0x3fb1a84223e19550              # double 0.068973668823294476
+	.quad	0x3fef51723cd895a4              # double 0.97869216808310399
+	.quad	0x3fe69385de34b69c              # double 0.70550816917030401
+	.quad	0x3fc097b8a1338808              # double 0.12963016387135462
+	.quad	0x3f8dd89de7140080              # double 0.014573320021100011
+	.quad	0x3fc15ca86d4a5278              # double 0.13564019524041604
+	.quad	0x3faa8061b16a45b0              # double 0.051760723979110579
+	.quad	0x3fe9ac7ca26671cf              # double 0.80230552405151367
+	.quad	0x3fd68c939138c9d0              # double 0.35233010465449599
+	.quad	0x3fe4d9c5d854253e              # double 0.65158359767625718
+	.quad	0x3fdc5e7580998bce              # double 0.44326531942914194
+	.quad	0x3fdc55aaf0128b3c              # double 0.44272874302457743
+	.quad	0x3fe04097170086cf              # double 0.50788454525555859
+	.quad	0x3fdd673e4f4affb0              # double 0.45942647689298166
+	.quad	0x3f9f61a8729384c0              # double 0.030645973199061372
+	.quad	0x3fcf02f4a28c43a0              # double 0.24227769791516796
+	.quad	0x3fef51d379d7df74              # double 0.97873853490362572
+	.quad	0x3fa260d754609d60              # double 0.035895089197135688
+	.quad	0x3fb6da87774e1f08              # double 0.089271990420567104
+	.quad	0x3f5e0a4040aea400              # double 0.0018334987132482272
+	.quad	0x3fe801090f24cf29              # double 0.75012639005442339
+	.quad	0x3feea307072cff20              # double 0.95740081216351669
+	.quad	0x3fd5436ed6db9f0c              # double 0.33224078161445969
+	.quad	0x3fb09980fd916f20              # double 0.064842283159518121
+	.quad	0x3fe92bbc8a7c53f3              # double 0.78658892677287751
+	.quad	0x3fec5a41cb218374              # double 0.88601770090109122
+	.quad	0x3fd0995ab1b35c90              # double 0.25936000207497845
+	.quad	0x3fea0be775475293              # double 0.81395314126946727
+	.quad	0x3f82a44ac2429dc0              # double 0.0091024246724619173
+	.quad	0x3fe9ecd1f2a6f729              # double 0.81015870469102425
+	.quad	0x3fbc80a1ba0f3970              # double 0.11133776466815504
+	.quad	0x3fe5e7c6fa790fd9              # double 0.68454312248695282
+	.quad	0x3fdf216a8508319e              # double 0.48641455642134612
+	.quad	0x3fe3ac276edac8da              # double 0.61476489688200364
+	.quad	0x3fcc2cddd684dae4              # double 0.22011921858366812
+	.quad	0x3fec7a01f800436e              # double 0.88989351690007168
+	.quad	0x3fc3e9fd170614b4              # double 0.155578266374652
+	.quad	0x3fec70eab3501a0c              # double 0.88878378889131814
+	.quad	0x3fea34d65c841a08              # double 0.81894987172637546
+	.quad	0x3fe8252502071917              # double 0.75453424831428861
+	.quad	0x3fe98090b6cc9bd0              # double 0.79694400504092222
+	.quad	0x3fb5021fcd3b03f0              # double 0.082063663106069162
+	.quad	0x3fed44940924cc1e              # double 0.91462137018095624
+	.quad	0x3fe8148a5ca6427b              # double 0.75250738235088421
+	.quad	0x3feb05199d7a5864              # double 0.84437256581692254
+	.quad	0x3fc597e2c5dcf130              # double 0.16869768773347849
+	.quad	0x3fe41b69fa0273d6              # double 0.62834643201824281
+	.quad	0x3fe061111f9e140b              # double 0.51184898543636004
+	.quad	0x3fd6d473bd333b64              # double 0.35671704746794419
+	.quad	0x3fd5cedbb8cda56a              # double 0.3407506279678133
+	.quad	0x3fd31aa1c933d524              # double 0.29850048683813868
+	.quad	0x3fcae8db0eab20f8              # double 0.21023119178995109
+	.quad	0x3fd3907adf7f4172              # double 0.30569335771453787
+	.quad	0x3fe1a227cd43fc04              # double 0.55104436961107739
+	.quad	0x3fe89a2d9160dabf              # double 0.76882055658537485
+	.quad	0x3fbfaaa06b6f4a18              # double 0.12369730589788508
+	.quad	0x3f9c3c79af6e9360              # double 0.027574445087924615
+	.quad	0x3fd1e6c5f6f23cb0              # double 0.27971028438418966
+	.quad	0x3febb35acbac41a3              # double 0.86564388065203379
+	.quad	0x3fe400d2070cf8b8              # double 0.6251001489361192
+	.quad	0x3fdf140d6bfea1e8              # double 0.48559890314439125
+	.quad	0x3fcd774106225b7c              # double 0.2302018432571592
+	.quad	0x3fc6d83282fc7814              # double 0.17847281833468343
+	.quad	0x3febfeed922454d9              # double 0.87486914199203192
+	.quad	0x3fd4408a8fa7b4fa              # double 0.31643928555315848
+	.quad	0x3fd99e3987502cd8              # double 0.40028227056673193
+	.quad	0x3fdf2b1e518da1b2              # double 0.48700674022850443
+	.quad	0x3feb41052db40f81              # double 0.85168703962743575
+	.quad	0x3fd3a751e7cc15a4              # double 0.30708739887662717
+	.quad	0x3fd162a222883224              # double 0.27164510128275965
+	.quad	0x3fd681289cb934e2              # double 0.35163321785951329
+	.quad	0x3fe41eb20739399c              # double 0.62874699984404314
+	.quad	0x3fd4600d03d19bdc              # double 0.31836247799804851
+	.quad	0x3fd5bc150d46aec0              # double 0.33960462852949647
+	.quad	0x3fe1a4efa3c9c23b              # double 0.55138380040995771
+	.quad	0x3fe568aaee83594b              # double 0.66902681908212835
+	.quad	0x3fedd8faef3600d5              # double 0.93273684235466681
+	.quad	0x3fdffb77d3303e60              # double 0.49972339271423571
+	.quad	0x3fdda82da2f087c6              # double 0.46338978683536103
+	.quad	0x3fe6bb76d63b4936              # double 0.71038381425959218
+	.quad	0x3feb17200cd31881              # double 0.84657289986422779
+	.quad	0x3fecf68a2471efdd              # double 0.90509516828705794
+	.quad	0x3fe5e4362c89093e              # double 0.68410786340999841
+	.quad	0x3fde86b21ee72cbe              # double 0.47697117822526625
+	.quad	0x3fe612eec1c04b42              # double 0.68981111375828896
+	.quad	0x3fef11427210ecb9              # double 0.9708568790296318
+	.quad	0x3fe2749c4cc4175e              # double 0.57673468583446286
+	.quad	0x3fd8bf0b64e2e75a              # double 0.38666043140584849
+	.quad	0x3fb0c694db283cf8              # double 0.065530112748309111
+	.quad	0x3fe3f9f634a0c086              # double 0.62426290778059079
+	.quad	0x3fe1db4c368146e8              # double 0.55801973958497531
+	.quad	0x3fef3baa9010a04e              # double 0.97603347909626748
+	.quad	0x3fe48d577f08bc43              # double 0.642253635514756
+	.quad	0x3fefa45143a55aad              # double 0.98880828106014961
+	.quad	0x3fe95732c940efad              # double 0.79189433390955843
+	.quad	0x3fe683e2312f3277              # double 0.70359906774827052
+	.quad	0x3fe90bbb6f1e5e83              # double 0.78268214896066046
+	.quad	0x3fcdcc52f58c0f34              # double 0.2327979754410251
+	.quad	0x3fd34929884274d8              # double 0.30134046846963036
+	.quad	0x3fc6920e7301afe8              # double 0.17633228889042063
+	.quad	0x3fef4ee9ab8905cc              # double 0.97838290694215279
+	.quad	0x3fe0690c6c2fe22a              # double 0.51282330637247253
+	.quad	0x3fccc6b87c6fe0cc              # double 0.22481447292353207
+	.quad	0x3fda841fc2a93678              # double 0.41431421289312409
+	.quad	0x3fdd17344bf65ac4              # double 0.45454127710528902
+	.quad	0x3fe3e1ba4f19827d              # double 0.62130465935850021
+	.quad	0x3fe743cd78a73b80              # double 0.72702668728912556
+	.quad	0x3fd5aa5c6a069632              # double 0.33852300981593253
+	.quad	0x3fe13b2feea70f3e              # double 0.53847500430899919
+	.quad	0x3fe7cd66127674a3              # double 0.74382308584212742
+	.quad	0x3fe24f57fea5a4a7              # double 0.57218551383734428
+	.quad	0x3fcfdb347afdcf68              # double 0.24887710576478672
+	.quad	0x3fca838d3c488488              # double 0.20713963931578783
+	.quad	0x3fe0b45e8d286b83              # double 0.52201774186993111
+	.quad	0x3fcfea725d00a808              # double 0.24934224644795244
+	.quad	0x3fdb9bfb9af02838              # double 0.43139543657946744
+	.quad	0x3fe8b5967a8f1d25              # double 0.77216648042022895
+	.quad	0x3fccc70071e616ec              # double 0.2248230510851309
+	.quad	0x3fe5091af0a8bf0a              # double 0.65736147884123963
+	.quad	0x3fd8c4a8643e9bba              # double 0.38700303830631422
+	.quad	0x3fec8df63b032b5f              # double 0.89232932592254233
+	.quad	0x3fe0a673b2bb5810              # double 0.52031884106213688
+	.quad	0x3febd34475056343              # double 0.86953947883294125
+	.quad	0x3fef92bf09a342a4              # double 0.98666335947389827
+	.quad	0x3fcf1ee5689d3f40              # double 0.24313037498586176
+	.quad	0x3fe0488705bf8c22              # double 0.50885344622327389
+	.quad	0x3feaa9cdc1750286              # double 0.8332279947718042
+	.quad	0x3fe72dc533b1eebb              # double 0.72433719727219825
+	.quad	0x3fec83910adff4da              # double 0.89106037258138859
+	.quad	0x3fdef96ef59d3ffc              # double 0.4839742086960539
+	.quad	0x3fd4262a044ee184              # double 0.31482935353007968
+	.quad	0x3fe5cf08f4dceafb              # double 0.68152282547757126
+	.quad	0x3fe3c29e7cd46f22              # double 0.6175072134096562
+	.quad	0x3fc12e3da24d5064              # double 0.13422365593817454
+	.quad	0x3fd92cb757088b4a              # double 0.39335425853112282
+	.quad	0x3f94f5139b9b1e40              # double 0.020466143009598037
+	.quad	0x3fe2ee9b6919c18f              # double 0.59162683989966236
+	.quad	0x3fe42581304b0aa1              # double 0.62957820350887428
+	.quad	0x3fdfab33c580fc4c              # double 0.49482435500607802
+	.quad	0x3fe42fa5ff3248cf              # double 0.63081645815898379
+	.quad	0x3fe0a5bc9ddf46c4              # double 0.52023154100808044
+	.quad	0x3fe009b8bf7d8209              # double 0.5011867275280234
+	.quad	0x3febbc6ff5a956bb              # double 0.86675260525472397
+	.quad	0x3fcb2edb18000694              # double 0.21236742660407926
+	.quad	0x3fe770526b0b4f90              # double 0.73246117503230046
+	.quad	0x3fd8efe437ac8b5e              # double 0.38964181363023964
+	.quad	0x3fe05a667115fa49              # double 0.51103517615394722
+	.quad	0x3feba2461a322248              # double 0.86355881801962031
+	.quad	0x3f9f5d957ec997a0              # double 0.030630431998723062
+	.quad	0x3fe8b2bbe7d0cc7c              # double 0.77181811596382443
+	.quad	0x3fed5b048d83c685              # double 0.91736056937789157
+	.quad	0x3fe15caff62ddfc4              # double 0.54256437379717015
+	.quad	0x3fe1ec0467d4960b              # double 0.56006069449785068
+	.quad	0x3fe77f72c2e93cd4              # double 0.73430765217372107
+	.quad	0x3fec7c37c51747aa              # double 0.89016331190417941
+	.quad	0x3fe191bcb1ac2fad              # double 0.54904017163925334
+	.quad	0x3fee1a924f9704a3              # double 0.94074359459786583
+	.quad	0x3feb43a0cacc1ab8              # double 0.85200538262218739
+	.quad	0x3fc6e65fc89c79a8              # double 0.17890546126814155
+	.quad	0x3fe8c388a41b4fcc              # double 0.77386886646353891
+	.quad	0x3fa869c512545210              # double 0.047681959617111969
+	.quad	0x3fe2885bfff28253              # double 0.57914543142039532
+	.quad	0x3fc6ff5a9b972150              # double 0.1796677837103382
+	.quad	0x3fea31938c7e435c              # double 0.81855180206376187
+	.quad	0x3fd8236ae343b416              # double 0.37716171449466296
+	.quad	0x3fdbfa0bdb5c0dc4              # double 0.43713661596140363
+	.quad	0x3fcde195e01eb660              # double 0.23344682162626196
+	.quad	0x3fe0dc1e07d58162              # double 0.52686978845671839
+	.quad	0x3fd1157e63f3dc28              # double 0.26693687211030914
+	.quad	0x3fed7dc7af3aab6d              # double 0.92160400604676129
+	.quad	0x3fd7cc4fd3f41e72              # double 0.37184520433991175
+	.quad	0x3fe3285628bc0ce4              # double 0.59867389636965784
+	.quad	0x3f66d0898d1ad100              # double 0.0027849852129638863
+	.quad	0x3fdb38011625a6be              # double 0.42529322779465051
+	.quad	0x3fe42ee80ecd4404              # double 0.63072588816623965
+	.quad	0x3fe1ec87852cbcc5              # double 0.56012321482366956
+	.quad	0x3fcdb88ccfd17534              # double 0.23219452044842515
+	.quad	0x3fe3a57d2f15b16c              # double 0.61395129390943515
+	.quad	0x3fe8d42c40595030              # double 0.77590000694408978
+	.quad	0x3fd900f572a23f96              # double 0.39068351931290957
+	.quad	0x3fefa01fff061a6e              # double 0.98829650697082427
+	.quad	0x3fccdcd5b9f4fc0c              # double 0.22548934535913678
+	.quad	0x3fdf363431a1f2fc              # double 0.48768334242758704
+	.quad	0x3fefc0be53d698a1              # double 0.99227825522099888
+	.quad	0x3fe3293eee460cbd              # double 0.59878489053553319
+	.quad	0x3fd7e32447f5f540              # double 0.37323863055629047
+	.quad	0x3fea896684a231ab              # double 0.8292725172519132
+	.quad	0x3fd631be9f283f94              # double 0.34678617041299131
+	.quad	0x3fd7be42fef5ae6c              # double 0.37098765276343815
+	.quad	0x3fea6e7cad742e85              # double 0.82598718526556125
+	.quad	0x3fddebb22be6ddb8              # double 0.46751074111258673
+	.quad	0x3fe362741ffc5b14              # double 0.6057682633134811
+	.quad	0x3fd57ad82c2150b6              # double 0.33562282857497949
+	.quad	0x3fd049f98dd6a89e              # double 0.25451506472985297
+	.quad	0x3fdd9a0e0836a46e              # double 0.46252775957197556
+	.quad	0x3fb6ad17af445ec0              # double 0.088578682222187233
+	.quad	0x3fb610c48bd1e130              # double 0.086193355689719863
+	.quad	0x3fe5e766accd0db7              # double 0.6844972014445635
+	.quad	0x3fdf1ac589a05244              # double 0.4860090106970214
+	.quad	0x3fd0a02e7065818c              # double 0.25977669693204386
+	.quad	0x3fe7be5625672f9f              # double 0.7419844370392531
+	.quad	0x3fdd434dfaf183c8              # double 0.45723294740861009
+	.quad	0x3fdf1b4915be799a              # double 0.48604037402574252
+	.quad	0x3fc3829f974b312c              # double 0.15242380988491655
+	.quad	0x3fe47df696bcf6a7              # double 0.64037637177508067
+	.quad	0x3fe1ee3463f30b5b              # double 0.56032771607747678
+	.quad	0x3fc02f4f15cc9908              # double 0.12644375385679774
+	.quad	0x3feda98d037ca5c7              # double 0.92694712334667251
+	.quad	0x3fb96247f9aaa010              # double 0.099155901387917078
+	.quad	0x3fe30665df2fa89a              # double 0.59453099814460875
+	.quad	0x3fcb4d6f1d95d1e4              # double 0.21330059952346325
+	.quad	0x3fd5742b042619e2              # double 0.33521533398780268
+	.quad	0x3fe8e4437f4364dc              # double 0.77786421638588931
+	.quad	0x3fbb8b53165e94a8              # double 0.10759467407349865
+	.quad	0x3fe505d133e2a36b              # double 0.6569601071724781
+	.quad	0x3fe0e77f9552c02b              # double 0.5282590786428093
+	.quad	0x3fe964c5c4d6a966              # double 0.79355133481048479
+	.quad	0x3faeee91a429bc90              # double 0.060413886346276091
+	.quad	0x3fd9bde5bdc84a8a              # double 0.40221541913448589
+	.quad	0x3fe1d0a784c90601              # double 0.55672050413721774
+	.quad	0x3fe9a581a1874212              # double 0.80145341442590934
+	.quad	0x3fb23acc22d85ed8              # double 0.071209677226188872
+	.quad	0x3fe754eb572ae65a              # double 0.72911612534444292
+	.quad	0x3fe702dc83504eed              # double 0.71909928939063905
+	.quad	0x3f8c6389ce69e040              # double 0.013861729251615995
+	.quad	0x3fd1e5c6f2d4400a              # double 0.27964948381213672
+	.quad	0x3feabc5a252f9d58              # double 0.83549220335855079
+	.quad	0x3fd4db47e6fd2112              # double 0.32588384206293697
+	.quad	0x3fc1441a6addf4e8              # double 0.1348908445178616
+	.quad	0x3fad0909f87303f0              # double 0.056709586694985492
+	.quad	0x3fe7d667fab78e91              # double 0.74492262809913445
+	.quad	0x3fdfb0598651043c              # double 0.49513853184550149
+	.quad	0x3fc1baca1b6f2f3c              # double 0.13851286258283746
+	.quad	0x3feaa8815b7659cc              # double 0.83306949485523196
+	.quad	0x3fe1df5ba2d1ab48              # double 0.55851537514295391
+	.quad	0x3fd187ad0e2e19a8              # double 0.27390600571416224
+	.quad	0x3fe3f1d16e31d1cd              # double 0.62326880953201569
+	.quad	0x3fe520ebfbb8a5ca              # double 0.6602687755995984
+	.quad	0x3fda227c4a677e56              # double 0.40835482851068627
+	.quad	0x3fadec2ec1688b90              # double 0.058442555531903584
+	.quad	0x3fe1ef758fb6c1b0              # double 0.56048086232299532
+	.quad	0x3fe802a2ad501032              # double 0.75032171106477663
+	.quad	0x3fbaab1b1db81fa0              # double 0.10417336917464448
+	.quad	0x3fef761177c26d5f              # double 0.9831626261761065
+	.quad	0x3fe455c9a8546a34              # double 0.63547213436988281
+	.quad	0x3f9241a876e19420              # double 0.017828590637140818
+	.quad	0x3fd024684d3a103c              # double 0.25222213308029828
+	.quad	0x3fd95bdf1c672d0a              # double 0.3962323930142736
+	.quad	0x3febe6782d229ca1              # double 0.87188347640485031
+	.quad	0x3fee26d948ac7f8e              # double 0.94224228090387085
+	.quad	0x3fe6c0b88b979f39              # double 0.7110254980479801
+	.quad	0x3fec25f84f14bdba              # double 0.87963500447761267
+	.quad	0x3fda0bbc14cd158a              # double 0.40696622878416433
+	.quad	0x3fd0a47e76380b44              # double 0.26003991646591751
+	.quad	0x3fa52baca9907f60              # double 0.041348834704193704
+	.quad	0x3feacbe09c994bda              # double 0.83738737664895813
+	.quad	0x3febbe4760a61d6d              # double 0.86697739483581204
+	.quad	0x3fc336a7063bc20c              # double 0.15010536007277187
+	.quad	0x3f6362ab5f6e9e00              # double 0.0023663851856843277
+	.quad	0x3fdd6e06ce6294d6              # double 0.45984048991006199
+	.quad	0x3fb91e7ec68c0668              # double 0.098121570084936161
+	.quad	0x3fd7e2f26b59f8cc              # double 0.37322674258747379
+	.quad	0x3fc2274d7c7cd498              # double 0.14182442263123529
+	.quad	0x3fb9f02ee9da8970              # double 0.10132115563695776
+	.quad	0x3fef253a0971af76              # double 0.97329427570865223
+	.quad	0x3fcf7427c70d2414              # double 0.24573228091529187
+	.quad	0x3fe00a29d1c1c2e0              # double 0.50124064415112102
+	.quad	0x3fea240e0177e2e4              # double 0.81690120970514756
+	.quad	0x3fc33bf295e2f7f8              # double 0.15026695555383163
+	.quad	0x3fe3b1a7a5a27df8              # double 0.61543638563665493
+	.quad	0x3fc46fee725344e4              # double 0.15966587621964046
+	.quad	0x3fedeecd6e38979d              # double 0.93540069129516079
+	.quad	0x3fe8d56b4f90d29d              # double 0.77605214634111841
+	.quad	0x3fe4ba2ee32ba81b              # double 0.64772743577237024
+	.quad	0x3fd0967e25460bb0              # double 0.25918534889222666
+	.quad	0x3fb1a60478130b40              # double 0.068939475359951707
+	.quad	0x3f964776113bb520              # double 0.021756977845986403
+	.quad	0x3fe246dca6e52f6f              # double 0.5711501369164419
+	.quad	0x3fc1f8b7dae0d780              # double 0.14040277659813327
+	.quad	0x3fe6ce5df51907f3              # double 0.71269128676089932
+	.quad	0x3fe0f4f5b070f970              # double 0.52990231000130272
+	.quad	0x3fe1fa7050157dfa              # double 0.56182113305470627
+	.quad	0x3fed382528600f09              # double 0.91310365567957874
+	.quad	0x3fe2c23e6f198c54              # double 0.58621141146830746
+	.quad	0x3fe8d33f290e676c              # double 0.77578695315172074
+	.quad	0x3fdca6816e8a8c38              # double 0.44766269488372101
+	.quad	0x3fd9051cbfcd9c72              # double 0.39093703013208547
+	.quad	0x3fe9bccc26c3db03              # double 0.80429656573582553
+	.quad	0x3fa33e6b6ae9bf10              # double 0.037585598755752625
+	.quad	0x3fe4d167c59991bf              # double 0.65056217759825319
+	.quad	0x3fecdb2b86b19899              # double 0.90175415332193432
+	.quad	0x3fea439a2ab2902d              # double 0.82075222339017773
+	.quad	0x3fd704a1fdc5cd88              # double 0.35965776236044933
+	.quad	0x3fd62614521674bc              # double 0.34607418075922758
+	.quad	0x3fc1c65e4751c65c              # double 0.13886621935266674
+	.quad	0x3fd3d93b20d3182c              # double 0.31013372617269641
+	.quad	0x3fe9f60d7ee1faf5              # double 0.81128573209556853
+	.quad	0x3fd203eaa19b6a36              # double 0.28148904592459034
+	.quad	0x3fee1d7b8b684d51              # double 0.94109894969953178
+	.quad	0x3fcd58a896885894              # double 0.22926814413284957
+	.quad	0x3fe70d44d57800a0              # double 0.72036973660580728
+	.quad	0x3fdd221cf0e23712              # double 0.45520709537309856
+	.quad	0x3fecca9031a8a80c              # double 0.89972696017253062
+	.quad	0x3fd14353256455d4              # double 0.26973417903476826
+	.quad	0x3fe6b33352f57d08              # double 0.70937505915563381
+	.quad	0x3fe79e201c9e7db4              # double 0.73805242147130068
+	.quad	0x3fbe344949830d70              # double 0.11798532528614714
+	.quad	0x3fe3258cac267032              # double 0.59833367941928928
+	.quad	0x3fe67a596e65a76e              # double 0.70243522226267685
+	.quad	0x3faa8ce2d23c5780              # double 0.051856125033892475
+	.quad	0x3fee68da28d30960              # double 0.95029933904178776
+	.quad	0x3fb9de626aac1b58              # double 0.10104956726364145
+	.quad	0x3fd8cd20e7358e1c              # double 0.38752005175612836
+	.quad	0x3fec8328176e43f4              # double 0.89101032806695323
+	.quad	0x3fedbf7c9a6c7352              # double 0.92962484513155119
+	.quad	0x3fe318a36058d38d              # double 0.59675759141701834
+	.quad	0x3feb7396a046415d              # double 0.85785991004562911
+	.quad	0x3fe640cbf930cbcc              # double 0.69540976209679561
+	.quad	0x3fd201edcaff1dea              # double 0.28136772941476684
+	.quad	0x3fdb2f9a19fb7bac              # double 0.42478039300288617
+	.quad	0x3fd0f8a8f815d940              # double 0.26517700411877243
+	.quad	0x3feb11fdaca7a2eb              # double 0.84594615670820639
+	.quad	0x3fefb1fb582514d3              # double 0.9904762956217844
+	.quad	0x3fd7434959975dd6              # double 0.36348184346340184
+	.quad	0x3fe0c83384ecaf42              # double 0.52443862878633518
+	.quad	0x3fef3b5a21c3d16e              # double 0.97599512667379229
+	.quad	0x3fd21a1a480ccdb4              # double 0.28284318004736098
+	.quad	0x3fe8000fb22939fa              # double 0.75000748440817167
+	.quad	0x3fdccd75312e44ca              # double 0.45004014780813562
+	.quad	0x3fc30547ac89f5b0              # double 0.14859863209487179
+	.quad	0x3fe982b934d00448              # double 0.7972074538703362
+	.quad	0x3fc59965d693361c              # double 0.16874382951066103
+	.quad	0x3fe7772f9275018f              # double 0.73329905133145867
+	.quad	0x3fe2a3ada94148b6              # double 0.58248026902790317
+	.quad	0x3feb61782afbc304              # double 0.85564812083438868
+	.quad	0x3fe1bbb1318ead5e              # double 0.55416164092222764
+	.quad	0x3fe6eb9135c11415              # double 0.71625576495046295
+	.quad	0x3feb2290548e8744              # double 0.84796921267500424
+	.quad	0x3fe123b1f53c4b59              # double 0.53560731790126248
+	.quad	0x3fe01e37d4ef1be8              # double 0.50368873203921982
+	.quad	0x3fe4b4d27372ea1b              # double 0.64707300709352766
+	.quad	0x3fe2895812393ae3              # double 0.57926562842643781
+	.quad	0x3fe00ec0eb6e366f              # double 0.5018009756328875
+	.quad	0x3fd4d82faf7ce5e4              # double 0.32569496285904465
+	.quad	0x3fe1f3f99580eb98              # double 0.56103209686203837
+	.quad	0x3fe105204b5c347d              # double 0.5318757507208286
+	.quad	0x3fed8d7f426ac1bb              # double 0.9235225960929293
+	.quad	0x3fe7b30c5ea25d65              # double 0.74060648425340203
+	.quad	0x3fbb94de97d23608              # double 0.10774031836100317
+	.quad	0x3feb5c523f754cb3              # double 0.85501968759708402
+	.quad	0x3fd4914e6bf2311e              # double 0.32136879483802427
+	.quad	0x3fb52b1715412c50              # double 0.082688753785235435
+	.quad	0x3fd84d195f503f9c              # double 0.37970575626331438
+	.quad	0x3fec7f132377e0d2              # double 0.89051205565831482
+	.quad	0x3fd2809b9effce3c              # double 0.28909960295934289
+	.quad	0x3fed2053a929eefb              # double 0.91019614257626758
+	.quad	0x3fb435e00da9f928              # double 0.07894707044213034
+	.quad	0x3fe8d51d93e7b591              # double 0.77601508033483146
+	.quad	0x3fdd126cbc51518e              # double 0.45424955740352224
+	.quad	0x3fe68ad9ca572603              # double 0.70444955367673889
+	.quad	0x3fda9ec38991e5c6              # double 0.41594017443238973
+	.quad	0x3fe568333faffaba              # double 0.66896974982213142
+	.quad	0x3fd73cf296ef8206              # double 0.36309494724085345
+	.quad	0x3fa2029850ccc640              # double 0.035176048148411798
+	.quad	0x3fd32a1df3eb9fb8              # double 0.29944561786987434
+	.quad	0x3fbb8db67f6f8640              # double 0.10763111697408423
+	.quad	0x3fdfb9563bb46f36              # double 0.49568706350850122
+	.quad	0x3fdb4d1052217eb8              # double 0.42657859821882083
+	.quad	0x3fe0b71c122f75b4              # double 0.52235225250085771
+	.quad	0x3fd83956f79a27cc              # double 0.37849973850154295
+	.quad	0x3fd31598a9fee9e8              # double 0.29819313622615917
+	.quad	0x3fd9d7b8c1a6882e              # double 0.4037916079634013
+	.quad	0x3fea98cf724e2e60              # double 0.8311536057021378
+	.quad	0x3fe3e7c5aa6f2154              # double 0.62204249656591992
+	.quad	0x3fec21194090a349              # double 0.87904036150312337
+	.quad	0x3fd5ce9a6a48ad32              # double 0.34073505763327028
+	.quad	0x3fd5e03e38bcf092              # double 0.3418117097933272
+	.quad	0x3fd137f424ab572a              # double 0.26904014187799652
+	.quad	0x3fc83081aef9b098              # double 0.18898030322759918
+	.quad	0x3fdfbf3681b81622              # double 0.49604571025733624
+	.quad	0x3fc77011b4c37630              # double 0.18310757948249679
+	.quad	0x3fe00029db7df261              # double 0.50001995915915753
+	.quad	0x3fe5ed6e5147435c              # double 0.68523326754266689
+	.quad	0x3fd9e4e1abc489a6              # double 0.40459481977645806
+	.quad	0x3fd9ae2a498930e0              # double 0.40125519925346786
+	.quad	0x3fc456731a2702c8              # double 0.15888823296520216
+	.quad	0x3fe94fb8842502ae              # double 0.79098153886305567
+	.quad	0x3fe987c4ed70afa0              # double 0.79782339453730699
+	.quad	0x3fe9018d04175cf0              # double 0.78143931197237571
+	.quad	0x3fb74bcdc21f5c80              # double 0.091000423329534285
+	.quad	0x3fcd8cb7bdc9a9a8              # double 0.23085686461429344
+	.quad	0x3feeb63ed93a93fb              # double 0.95974676539901737
+	.quad	0x3fdf8affc9d221e2              # double 0.49285883626046545
+	.quad	0x3fe9b382daef8ac9              # double 0.80316298256760732
+	.quad	0x3fe5d366ecf82b65              # double 0.68205591471756277
+	.quad	0x3fed6f151e7b1d11              # double 0.91980987504294565
+	.quad	0x3fc2c045ad0e2980              # double 0.14649268102614244
+	.quad	0x3fd44accae40bcea              # double 0.31706540123827998
+	.quad	0x3fe15351b0e7d196              # double 0.54142078925956372
+	.quad	0x3fe5f043657983e4              # double 0.68557901210089911
+	.quad	0x3fe3333cd473f6aa              # double 0.60000459189150956
+	.quad	0x3fe4a3c81bdbf7f8              # double 0.64499288026104207
+	.quad	0x3fe5574229d3414a              # double 0.66690166634547521
+	.quad	0x3fdd471ba1d9e0d4              # double 0.45746508413095666
+	.quad	0x3fee2e6922c28cdd              # double 0.94316536702208575
+	.quad	0x3fd59f7b69683288              # double 0.33785901349691772
+	.quad	0x3fecc845be93a896              # double 0.89944731924085164
+	.quad	0x3fdb3319cafad7fc              # double 0.42499394247295164
+	.quad	0x3fee6ed8bcea5f04              # double 0.95103108308373451
+	.quad	0x3fd48b8614481bce              # double 0.3210158536971307
+	.quad	0x3fe117d60dbed387              # double 0.53415968594218632
+	.quad	0x3fb937c0f7af8058              # double 0.098506985159020899
+	.quad	0x3fbb0d8d8676dd70              # double 0.10567554982013916
+	.quad	0x3fe6abfdc74d055a              # double 0.70849503446531092
+	.quad	0x3fe137aa79aef00a              # double 0.53804515615729653
+	.quad	0x3fc63b59122862a0              # double 0.17368615519150854
+	.quad	0x3fe1e0a120836f9f              # double 0.55867058134343839
+	.quad	0x3fe606c1d5593b41              # double 0.68832484883919431
+	.quad	0x3fe5c0e5dac8ed15              # double 0.67979710322780085
+	.quad	0x3fdda635aa286a24              # double 0.46326963059405757
+	.quad	0x3fb7b70b36b3d498              # double 0.092636776785939623
+	.quad	0x3fd2bac0a0226790              # double 0.29264846456646243
+	.quad	0x3fedb5247b560f03              # double 0.92836212243170768
+	.quad	0x3fee2c096eca0fd8              # double 0.94287559164558398
+	.quad	0x3fefd4276aaee985              # double 0.99464770161220938
+	.quad	0x3fd8656f952b733c              # double 0.38119115416866456
+	.quad	0x3fb17dadc3640130              # double 0.068323955729287844
+	.quad	0x3fd92d97b70d1ad6              # double 0.39340775371640058
+	.quad	0x3fddd78f9941bf2a              # double 0.46628179518210067
+	.quad	0x3fd0b77ade432bd6              # double 0.26119872765837948
+	.quad	0x3fb029975b1ff320              # double 0.063134631869570246
+	.quad	0x3fd65c9f018f9be6              # double 0.34940314438284614
+	.quad	0x3fe961f25301f972              # double 0.79320636951869816
+	.quad	0x3f85594311ec4cc0              # double 0.010424159988849602
+	.quad	0x3fe6a2491788eab7              # double 0.70731024357458849
+	.quad	0x3fd8ef276d137c58              # double 0.38959680225338422
+	.quad	0x3fe821ba929b2fac              # double 0.75411728509924591
+	.quad	0x3fdf639537cfb87a              # double 0.49045305681546092
+	.quad	0x3fda1516adbaba0a              # double 0.40753714528810348
+	.quad	0x3fedca997f642d01              # double 0.93098139649501388
+	.quad	0x3fe3bdf680e01433              # double 0.61693883105238567
+	.quad	0x3fed84bbd1b72150              # double 0.92245284042386722
+	.quad	0x3fe5caf16f1e8df0              # double 0.68102332785605135
+	.quad	0x3fe88c1723699efa              # double 0.76710087696571283
+	.quad	0x3fef936df0deddd1              # double 0.98674675984414694
+	.quad	0x3fe7d32e66be6bcc              # double 0.74452896182207828
+	.quad	0x3fd7e66e938dbdd6              # double 0.37343944940127238
+	.quad	0x3fe25855912faa6f              # double 0.57328298908880793
+	.quad	0x3fbdc8e8829d8348              # double 0.11634686650132864
+	.quad	0x3fda0145bf96c84a              # double 0.40632766446936286
+	.quad	0x3fb48e8a4d3a48b8              # double 0.080299991468822607
+	.quad	0x3fe3219c61aa4c77              # double 0.59785288882484522
+	.quad	0x3fee16a647315359              # double 0.94026483444995812
+	.quad	0x3fce9562f53e51a0              # double 0.23893391585137369
+	.quad	0x3fe7748f2c9889f4              # double 0.73297842702987603
+	.quad	0x3fd231c92cf55618              # double 0.28428868666137097
+	.quad	0x3fb1ee9324202948              # double 0.070046612090810645
+	.quad	0x3fd48b0e1c1f66f2              # double 0.3209872507701298
+	.quad	0x3fd32d8f768a6298              # double 0.2996557862875675
+	.quad	0x3fde890a49bb2290              # double 0.47711426925938216
+	.quad	0x3feb46c16acfed5c              # double 0.8523871503997884
+	.quad	0x3fe4b027c57c4080              # double 0.64650333949431626
+	.quad	0x3fd1413febfe3a9c              # double 0.26960752531241794
+	.quad	0x3fbaef79dca07b10              # double 0.10521661411665328
+	.quad	0x3fdf22e64478efa0              # double 0.48650509535559117
+	.quad	0x3fda80d887389a10              # double 0.41411412434754968
+	.quad	0x3fe8a6742d74b2b6              # double 0.77031906965347363
+	.quad	0x3fdf9b9776e627c6              # double 0.49387156115755848
+	.quad	0x3fc8d770f28e6d58              # double 0.19407474368640965
+	.quad	0x3fa669e65f501a40              # double 0.043776702055812411
+	.quad	0x3fb4ede2b2eb8748              # double 0.081754845315598179
+	.quad	0x3fe42814f38a0159              # double 0.62989280287005578
+	.quad	0x3fe242cddcb38625              # double 0.5706548033305735
+	.quad	0x3fc1043cf10ecaf0              # double 0.1329418351211511
+	.quad	0x3fbf46f799f63e10              # double 0.12217662342867919
+	.quad	0x3fb1a01c2d2e7440              # double 0.068849335699682435
+	.quad	0x3febf15dbdd725b5              # double 0.87321364477354868
+	.quad	0x3fa2b87f3b756850              # double 0.036563850410587961
+	.quad	0x3fde409c528992cc              # double 0.47269352016728017
+	.quad	0x3fe6542ce3037209              # double 0.69777530993047876
+	.quad	0x3fe1e6639417d336              # double 0.5593736545984942
+	.quad	0x3fbb3e7009bb9248              # double 0.10642147290816084
+	.quad	0x3fe3e81b8289dec6              # double 0.62208343025027868
+	.quad	0x3fd26aaaee0f40f2              # double 0.28776047943121263
+	.quad	0x3fe056091db1b6df              # double 0.51050239371917516
+	.quad	0x3fdb442267a101d0              # double 0.42603359336865498
+	.quad	0x3fed08291fd3b982              # double 0.90724617210598546
+	.quad	0x3fefa62c3507b471              # double 0.989034751486214
+	.quad	0x3fce71dd4b28a6a8              # double 0.23784986657965601
+	.quad	0x3fe5de97e25ab0b6              # double 0.68342203340355101
+	.quad	0x3fdfa4d26bc88068              # double 0.49443493390754734
+	.quad	0x3fcb055feb27ebec              # double 0.21110152227615175
+	.quad	0x3f80675dce046080              # double 0.0080096558090618775
+	.quad	0x3fc4c1529ef9a288              # double 0.16214974176843477
+	.quad	0x3fedebd3cdd7b803              # double 0.93503751948969727
+	.quad	0x3fd0dabe122d764a              # double 0.26335098052172567
+	.quad	0x3fd04231f082ee02              # double 0.25404022681661342
+	.quad	0x3fa503bc9f411180              # double 0.041044134559828471
+	.quad	0x3fc38c1c88770aec              # double 0.15271336234407984
+	.quad	0x3fe0374807fd1d4f              # double 0.50674821434305695
+	.quad	0x3fcd3ebfdeac95a8              # double 0.22847746250878953
+	.quad	0x3fef48e365daa636              # double 0.97764749425295494
+	.quad	0x3fe40399ab64a8d7              # double 0.62543948626742008
+	.quad	0x3fb67950dbd06d28              # double 0.08778863302761819
+	.quad	0x3fe5ecf9aefd73cf              # double 0.6851776521467573
+	.quad	0x3fec30a3455695fc              # double 0.88093722860929757
+	.quad	0x3fe310f67a031e26              # double 0.59582065420631092
+	.quad	0x3fe9ef3f64a5871a              # double 0.81045503289735454
+	.quad	0x3fda5627b4bea70c              # double 0.41150849009373824
+	.quad	0x3fd55b57d971b220              # double 0.33370014414575344
+	.quad	0x3fe5cafda64074aa              # double 0.68102915259409724
+	.quad	0x3fc4d420cc98dc6c              # double 0.16272363653272082
+	.quad	0x3fed52b9b62deaaf              # double 0.91634831983477294
+	.quad	0x3fe7c3fa78a99bd9              # double 0.74267314497853498
+	.quad	0x3fe707df1796e35f              # double 0.71971087081247365
+	.quad	0x3fe1db1c6b9a9b77              # double 0.5579969503058767
+	.quad	0x3fec04574504ed9b              # double 0.87552989464113595
+	.quad	0x3fdd718b29af48f2              # double 0.46005515166065358
+	.quad	0x3fd1c554784cdd18              # double 0.27766906498023181
+	.quad	0x3fda9006d0c8dad2              # double 0.41504068745727551
+	.quad	0x3fd84d7c200701aa              # double 0.37972930076287048
+	.quad	0x3feb9ea3b32ebf99              # double 0.8631151675854084
+	.quad	0x3fd28fd3406f6058              # double 0.29002839367376998
+	.quad	0x3fe61415347ce977              # double 0.68995151759672424
+	.quad	0x3fe9e0fbb11b0752              # double 0.80871376601155931
+	.quad	0x3fcb656003797920              # double 0.2140312211003641
+	.quad	0x3fdc4d592ba715c4              # double 0.44222096693951252
+	.quad	0x3fdfa97f8e4abc20              # double 0.49472035308548534
+	.quad	0x3fe82a5c633549ab              # double 0.75517100693314398
+	.quad	0x3fee4d8d84e9691f              # double 0.94696689566925218
+	.quad	0x3fd1460b37ee6010              # double 0.26990013563181581
+	.quad	0x3fef14fa8b3a1872              # double 0.97131087486992684
+	.quad	0x3fe1d203b9f83e63              # double 0.55688654253203784
+	.quad	0x3fd5c1ac58b98da4              # double 0.33994587578328095
+	.quad	0x3febddcc03003987              # double 0.87082481943234391
+	.quad	0x3fc35d80bcd56424              # double 0.1512909814871658
+	.quad	0x3fdc5d622091a6de              # double 0.44319966488420259
+	.quad	0x3fe3ad2a4cbcdee3              # double 0.61488833415839073
+	.quad	0x3fe2741f933b8ec2              # double 0.57667521244408015
+	.quad	0x3fe77b05c3e69112              # double 0.73376739751668851
+	.quad	0x3fe0140302c56e34              # double 0.50244284192326072
+	.quad	0x3fe8bfdb21961eab              # double 0.77341991958470169
+	.quad	0x3fddaba173ca6704              # double 0.46360050494841709
+	.quad	0x3fdee7af4046ca3e              # double 0.4828909042072701
+	.quad	0x3fc95b125dff6060              # double 0.19809178914761372
+	.quad	0x3fe87c2e7b4fa78a              # double 0.7651588829441931
+	.quad	0x3fa67540f71b0170              # double 0.043863325275654286
+	.quad	0x3fd546c6ef22315c              # double 0.33244489052665016
+	.quad	0x3fb4cf7dbb90c938              # double 0.081291063587546897
+	.quad	0x3fc138b7e8e23520              # double 0.13454340811987553
+	.quad	0x3fe095b5c42f2a18              # double 0.5182751495097504
+	.quad	0x3fdb1eea11ad61be              # double 0.42376186109825287
+	.quad	0x3fe0831865bd6894              # double 0.51600284453458523
+	.quad	0x3fe77eb816913564              # double 0.73421863944683396
+	.quad	0x3fe8982c912d7833              # double 0.76857593874934194
+	.quad	0x3fd2fb1a74e7af46              # double 0.29657613197808919
+	.quad	0x3fef2affcc07a490              # double 0.97399892663556109
+	.quad	0x3fd7859d9059c1da              # double 0.3675302419351546
+	.quad	0x3feefa897a788157              # double 0.968083132935173
+	.quad	0x3fe10bdef7097a6a              # double 0.53269909142893579
+	.quad	0x3feddf1989389854              # double 0.93348385621062357
+	.quad	0x3fea40981f6c0ab5              # double 0.82038503777615424
+	.quad	0x3fa3e714ce2fc8a0              # double 0.038872385186452307
+	.quad	0x3fef5d1a17d1ffce              # double 0.98011498119739726
+	.quad	0x3fe8ddcd01de9293              # double 0.77707529416200527
+	.quad	0x3fc9886b23beaf7c              # double 0.19947566266398187
+	.quad	0x3fecdb5c52925009              # double 0.90177742125752147
+	.quad	0x3fb2b1c87e833000              # double 0.073025256048993015
+	.quad	0x3fd1dc21356ec6f8              # double 0.27906065195121199
+	.quad	0x3fb8e426ff4d4f58              # double 0.097231328324878574
+	.quad	0x3fed9b6eac8fc4d8              # double 0.92522367194592459
+	.quad	0x3fce648480ad6358              # double 0.23744255335875653
+	.quad	0x3fb9766e26d98208              # double 0.099463352665687066
+	.quad	0x3fe25f0a78782fee              # double 0.5741016724509771
+	.quad	0x3fed50828d94686e              # double 0.91607787754334224
+	.quad	0x3fded94200c3ae50              # double 0.4820103652443537
+	.quad	0x3f8b0d4406d67300              # double 0.01320889612071019
+	.quad	0x3fd39fdc7cf0bf14              # double 0.30663215829098189
+	.quad	0x3fe5a290fe723da6              # double 0.67609452911886048
+	.quad	0x3feb5100f93e79e7              # double 0.8536381595657162
+	.quad	0x3fc5da90239baf14              # double 0.17073251475027773
+	.quad	0x3fe62aeaa1ed34b0              # double 0.69273883463178798
+	.quad	0x3fc953a08d3a0304              # double 0.19786459823446745
+	.quad	0x3fee407729a74322              # double 0.94536932120727024
+	.quad	0x3fda8f1eb7d5983a              # double 0.41498535111020696
+	.quad	0x3fda2aea8e343bd6              # double 0.40886939894784058
+	.quad	0x3fe8023c8e537681              # double 0.75027301595737594
+	.quad	0x3fe26c2d615714cb              # double 0.5757052327322979
+	.quad	0x3fc9d0dfffd6e0a0              # double 0.20168685905605788
+	.quad	0x3fe6323e6b46f364              # double 0.69363327934807417
+	.quad	0x3fefcfaac7b03af8              # double 0.99409998895302376
+	.quad	0x3fed916065d99a27              # double 0.92399616139011165
+	.quad	0x3fd54838160fa6b8              # double 0.33253290323646523
+	.quad	0x3fd3d2afce663f4c              # double 0.30973429828826649
+	.quad	0x3fd55049ead154ba              # double 0.33302543574729848
+	.quad	0x3fb8d2c049b19898              # double 0.096965806953081546
+	.quad	0x3fea87591bb7d87d              # double 0.82902198232365232
+	.quad	0x3fe47fca60a15f68              # double 0.64059943078153214
+	.quad	0x3fd68758dff52a04              # double 0.35201093550554696
+	.quad	0x3fd183a140cb7df4              # double 0.27365905120492973
+	.quad	0x3fe4bd82ca906d27              # double 0.64813365519822674
+	.quad	0x3fa8abe8bcaa97b0              # double 0.0481865625672947
+	.quad	0x3fc0da72f24e3be0              # double 0.13166653472259693
+	.quad	0x3fe05fc413de533f              # double 0.51169017677839423
+	.quad	0x3fdfec55bce4c0d2              # double 0.49879973837506697
+	.quad	0x3fc1f6def6820438              # double 0.14034640347020555
+	.quad	0x3feff50f13b52ee8              # double 0.99866441582841236
+	.quad	0x3fd4ddbafd303b8a              # double 0.32603335118704335
+	.quad	0x3feacda2bdf2c839              # double 0.83760201548853452
+	.quad	0x3feb29487a1c6f2a              # double 0.84878944253748512
+	.quad	0x3fdfba1fb8698f06              # double 0.49573510178582614
+	.quad	0x3fe33d2272f32c5d              # double 0.6012127156367445
+	.quad	0x3fb00ff168225178              # double 0.062743270800927564
+	.quad	0x3fe581d6afbbff9a              # double 0.67209944079512529
+	.quad	0x3fb6a5f8de5cd858              # double 0.088470033920061808
+	.quad	0x3fe2c41732c97efd              # double 0.58643684310297284
+	.quad	0x3fd72603c349544c              # double 0.36169523306790974
+	.quad	0x3fa979ee85f60040              # double 0.049758390286115617
+	.quad	0x3fc6fa9b1228cb64              # double 0.1795228804272383
+	.quad	0x3fa830af20ca54d0              # double 0.047246430161217767
+	.quad	0x3fe034db5fe3445a              # double 0.50645226219252071
+	.quad	0x3feeb034f5a582a5              # double 0.95900962808453427
+	.quad	0x3fea96e871443920              # double 0.83092138407099369
+	.quad	0x3fd284e3ee49e1c4              # double 0.28936098356600959
+	.quad	0x3fdf98f2166a2aee              # double 0.49371006192147504
+	.quad	0x3fe9005bdcaeed6f              # double 0.78129380323609421
+	.quad	0x3fb680e91edf9cc8              # double 0.087904520070526293
+	.quad	0x3fe484376b4dfc3b              # double 0.6411397071641497
+	.quad	0x3fd97bdad2f4625a              # double 0.3981844959357993
+	.quad	0x3fecd00b1da2301e              # double 0.90039592540552227
+	.quad	0x3fe359ef03cd0590              # double 0.6047282289729754
+	.quad	0x3fda60283114d42e              # double 0.41211895745374505
+	.quad	0x3fc6db7377ee4820              # double 0.17857211452479849
+	.quad	0x3fe837c2b2d88df9              # double 0.75680670672266992
+	.quad	0x3fe127549ff8fe02              # double 0.53605109448102461
+	.quad	0x3fccd66295d9f2e4              # double 0.22529251400910433
+	.quad	0x3feec3a3c1a2dac6              # double 0.96138179606972396
+	.quad	0x3fd45b4225d57a0a              # double 0.31806997008052973
+	.quad	0x3fdba3b920535bc6              # double 0.4318678680114626
+	.quad	0x3fdd08e97108322e              # double 0.45366893804819852
+	.quad	0x3fdcdfb461a92dd6              # double 0.45115384614174781
+	.quad	0x3fe56a37385b47ca              # double 0.66921578414098204
+	.quad	0x3feec8b1df961e87              # double 0.96199887913913151
+	.quad	0x3febf56b7b0262e0              # double 0.8737084772611432
+	.quad	0x3fd9430bbd211a38              # double 0.39471715421351261
+	.quad	0x3fae82e9c2a361d0              # double 0.059592537889048836
+	.quad	0x3fce92ffcea65a60              # double 0.23886106100390503
+	.quad	0x3fd6dadd5ca980c0              # double 0.35710844086680638
+	.quad	0x3f90be154f9cb680              # double 0.016350110038891419
+	.quad	0x3fe9c8647de0ab56              # double 0.80571198068114813
+	.quad	0x3fd4cb3808f09dec              # double 0.3249034964851194
+	.quad	0x3fd9c77a4ebf646e              # double 0.40280015649984235
+	.quad	0x3fe2a6747ccefbbd              # double 0.58281921745935217
+	.quad	0x3fcdf74a10cc0a94              # double 0.23410917110603136
+	.quad	0x3fe6d4e7451e9910              # double 0.71348918437868925
+	.quad	0x3fe8754d2ae51717              # double 0.76431902292162845
+	.quad	0x3fea7e538e1c37dc              # double 0.82792070156005648
+	.quad	0x3fefa4386c7ea178              # double 0.98879643621789536
+	.quad	0x3fa5584e0e91c2f0              # double 0.04168933799599539
+	.quad	0x3fe977bf006f4fc4              # double 0.79586744389461516
+	.quad	0x3fe8b689892a5ce8              # double 0.77228237905629005
+	.quad	0x3fc602ea500a3a28              # double 0.17196396740151099
+	.quad	0x3fd32867f7110612              # double 0.2993411934622553
+	.quad	0x3fc85784fb6fa01c              # double 0.19017088200712429
+	.quad	0x3fe14444601071ae              # double 0.53958338511033843
+	.quad	0x3fd3a9ab1d2d9660              # double 0.30723073815747703
+	.quad	0x3fe0f85a78714c3f              # double 0.53031657718600644
+	.quad	0x3fd4b6a8ae73412c              # double 0.32364861522821076
+	.quad	0x3fde07313b3a84a4              # double 0.46918898376504559
+	.quad	0x3fec222b5363fa32              # double 0.8791710499497809
+	.quad	0x3fc79a3f55856878              # double 0.18439475704036901
+	.quad	0x3fea09496df34ced              # double 0.81363364672361416
+	.quad	0x3fcc4ee7a60c67c4              # double 0.2211579857619751
+	.quad	0x3fed4a9ce8a0e929              # double 0.91535802302613434
+	.quad	0x3fec87939dd90208              # double 0.89154988126398482
+	.quad	0x3fdff9a3408a829e              # double 0.49961167624318559
+	.quad	0x3fd0be756d4b58ce              # double 0.26162467644952592
+	.quad	0x3fe0f57f39b86d93              # double 0.52996789239425579
+	.quad	0x3fe71982dc5a2349              # double 0.72186415708083829
+	.quad	0x3fd211400c70d620              # double 0.28230286803167992
+	.quad	0x3fd6d171cf2946ee              # double 0.35653348188962652
+	.quad	0x3fd935aedf21c862              # double 0.39390155592184872
+	.quad	0x3fdd10912c2ab4cc              # double 0.4541361743275274
+	.quad	0x3fed8c9cfba602ac              # double 0.92341469907849704
+	.quad	0x3fef3d5d4969ab07              # double 0.97624077166014522
+	.quad	0x3fee0b4949ea386d              # double 0.93887772022732252
+	.quad	0x3fe4e73a0c49b616              # double 0.65322592163073767
+	.quad	0x3fc854158c1a4f8c              # double 0.19006604519801973
+	.quad	0x3fe41672bca70e57              # double 0.6277402577038157
+	.quad	0x3fe5fd4bf26e66a6              # double 0.68717000341276413
+	.quad	0x3fc8c9fbf7bc782c              # double 0.19366407009596409
+	.quad	0x3fec4b1fbce52a8b              # double 0.88417040723409579
+	.quad	0x3fe33165ba6e8e47              # double 0.59977995312187538
+	.quad	0x3fe96d69dd574b0f              # double 0.79460614424383091
+	.quad	0x3fcc99700ef61f8c              # double 0.22343254786050826
+	.quad	0x3fe55e08166fdcdd              # double 0.66772846586436752
+	.quad	0x3fce1ef7c3937dd4              # double 0.23532006311050557
+	.quad	0x3fedbfb8da442e59              # double 0.9296535742773343
+	.quad	0x3fc0e9665833187c              # double 0.13212279612179489
+	.quad	0x3fe5b6c079d16326              # double 0.67855857651293117
+	.quad	0x3fc158a33a5b0760              # double 0.13551750516313188
+	.quad	0x3fc44dc26ff97844              # double 0.15862303225998364
+	.quad	0x3fd41cb98086453e              # double 0.31425321150989649
+	.quad	0x3fcfa18caf57a5cc              # double 0.24711760102881752
+	.quad	0x3fe6a33087c0816c              # double 0.70742060197885115
+	.quad	0x3fc58e6cd1ade4cc              # double 0.1684089683365414
+	.quad	0x3fe53cc861b21f5c              # double 0.66366976815423184
+	.quad	0x3fe9d05a9c1eb5f8              # double 0.80668383114033215
+	.quad	0x3fb67f2e643ce8a0              # double 0.087878131363057665
+	.quad	0x3fddade57a32193c              # double 0.4637387936894759
+	.quad	0x3fe777136a746682              # double 0.73328562538081621
+	.quad	0x3fd8efd3d4f4253e              # double 0.38963790699252232
+	.quad	0x3fb999e757c57df8              # double 0.1000046338353896
+	.quad	0x3fb4583d8fb89600              # double 0.079471442783493274
+	.quad	0x3fda81445a9f5c50              # double 0.41413983201841109
+	.quad	0x3fbbbb83a8c8f8c8              # double 0.108329991061484
+	.quad	0x3feddcd1ba8acf74              # double 0.93320547517804053
+	.quad	0x3fef121a8d5125bf              # double 0.97095992661450469
+	.quad	0x3fd283881d18babe              # double 0.28927805749382773
+	.quad	0x3fdeac75c54f6ae8              # double 0.47927612560822164
+	.quad	0x3fd42084a6d2e85e              # double 0.31448475161926648
+	.quad	0x3fe8ccb5a57b69b9              # double 0.77498895951003199
+	.quad	0x3fedd89074a23984              # double 0.93268606929795838
+	.quad	0x3fe9890f6c65774f              # double 0.79798098727381184
+	.quad	0x3fc209e44eee7968              # double 0.14092687467650511
+	.quad	0x3fea85d036f290bd              # double 0.82883463603913976
+	.quad	0x3fdea7ec3c24d576              # double 0.47899919389177315
+	.quad	0x3fd897754bccb5ba              # double 0.38424427416142815
+	.quad	0x3fe2a32f96b0417c              # double 0.58242015296313765
+	.quad	0x3fb876731bdb21b0              # double 0.09555739812925057
+	.quad	0x3fb6d552283b7c18              # double 0.089192519018510885
+	.quad	0x3feb8dd92e11497e              # double 0.861065473533287
+	.quad	0x3fc98b35a38b1fe4              # double 0.19956083760757715
+	.quad	0x3fc6113631b8fad8              # double 0.17240025928364022
+	.quad	0x3fef38941877ecfb              # double 0.97565655497547199
+	.quad	0x3fd2da67007840d6              # double 0.29458022161362629
+	.quad	0x3fe37659db29de02              # double 0.60819714360599186
+	.quad	0x3fd04d0829108dfa              # double 0.25470165262433364
+	.quad	0x3feae83b11b489f6              # double 0.84084847887089498
+	.quad	0x3fc62c8904393818              # double 0.17323410707689457
+	.quad	0x3fc4e757ab514130              # double 0.16331001153094737
+	.quad	0x3fb3f077df4b8400              # double 0.077888004317642867
+	.quad	0x3fee1bc14ec5b276              # double 0.94088807473379066
+	.quad	0x3fb71e71b7759698              # double 0.090308291711688304
+	.quad	0x3fe68157edf58c16              # double 0.70328899837875514
+	.quad	0x3fe8522d89421e4c              # double 0.76003147896057887
+	.quad	0x3fd6249a2ac02926              # double 0.34598402190080646
+	.quad	0x3fc9858de922fb10              # double 0.19938825496316115
+	.quad	0x3fefba49208e223f              # double 0.99148994787635291
+	.quad	0x3fe33f1c77555c78              # double 0.60145400340378696
+	.quad	0x3fe554e6e276a63d              # double 0.66661400061747822
+	.quad	0x3fd3fcf1a8fc4244              # double 0.31231347563246836
+	.quad	0x3fd3d27e268d3e50              # double 0.30972245945756516
+	.quad	0x3fe06eddd98324e4              # double 0.51353352053515922
+	.quad	0x3fe74bc9f8610b40              # double 0.72800158034838347
+	.quad	0x3fdb920a21a9b750              # double 0.43078854834935942
+	.quad	0x3fb6b3446fa8c180              # double 0.088672902355716232
+	.quad	0x3feb5bfc5e35557c              # double 0.85497873687806658
+	.quad	0x3fd09f6a2aae5176              # double 0.25972990196284884
+	.quad	0x3fe33274d3065fae              # double 0.59990922179985318
+	.quad	0x3fe453c3d3c87f97              # double 0.63522521366029394
+	.quad	0x3feef4c2599f4a89              # double 0.96737782959310536
+	.quad	0x3fec5c1cb9eec4e2              # double 0.88624416651705595
+	.quad	0x3fd60b3ce0b53d3c              # double 0.34443590110909716
+	.quad	0x3fe4f36d241f1527              # double 0.65471512846912538
+	.quad	0x3fa57fb93af475f0              # double 0.041990078398366992
+	.quad	0x3fe23b212b5dc047              # double 0.56971796483959103
+	.quad	0x3fe129bf53e49b9a              # double 0.53634611497260498
+	.quad	0x3fef5f26fcf30df5              # double 0.9803652706545437
+	.quad	0x3fec5db516986eb9              # double 0.88643888867542053
+	.quad	0x3fdcc95f7bf0f5a8              # double 0.44979083160054723
+	.quad	0x3fe744213cb61ac4              # double 0.72706662995991467
+	.quad	0x3fd4123d179be164              # double 0.31361319833333412
+	.quad	0x3fe8e651857eeb46              # double 0.77811504434007683
+	.quad	0x3fdebae1422d6966              # double 0.48015624487529462
+	.quad	0x3fc61efe1b6056bc              # double 0.17282081925138992
+	.quad	0x3fe157cd7ec60d03              # double 0.54196810493922987
+	.quad	0x3fd9e63e70bca982              # double 0.40467797288388152
+	.quad	0x3fefba26251f4d3f              # double 0.99147326708263239
+	.quad	0x3fee707df3cf4f72              # double 0.95123193377592785
+	.quad	0x3fe73f6014d5567b              # double 0.72648624485982738
+	.quad	0x3fe168f851de9685              # double 0.54406372060903208
+	.quad	0x3fe60a627e7af95f              # double 0.68876766875454709
+	.quad	0x3fdaa76b97e5a2b0              # double 0.41646852334683171
+	.quad	0x3fdab621bdb2b99a              # double 0.41736644292077474
+	.quad	0x3fdd91773e528a70              # double 0.46200352750944429
+	.quad	0x3fd1ea4e4880e8a4              # double 0.2799258907358626
+	.quad	0x3faec9045705be80              # double 0.060127387640815932
+	.quad	0x3fe70c7a8a929007              # double 0.72027327599471469
+	.quad	0x3fdc372281d98364              # double 0.44086516075736015
+	.quad	0x3fd524e077c6c156              # double 0.3303757829371724
+	.quad	0x3fe431597b6a3ba0              # double 0.63102411369787959
+	.quad	0x3fddbbd257fd6792              # double 0.46458872406730578
+	.quad	0x3fe3511dad61e07d              # double 0.60365184653984694
+	.quad	0x3fe85eaa812149b4              # double 0.76155591221532015
+	.quad	0x3febd8c29f816195              # double 0.87020999101064211
+	.quad	0x3fca973f87b236e8              # double 0.20774072767056073
+	.quad	0x3fee333cf68cb224              # double 0.94375465540139602
+	.quad	0x3fc792a5145ecf44              # double 0.18416274542470934
+	.quad	0x3feede08ce4761bc              # double 0.96460380829653713
+	.quad	0x3fec07ccc360361b              # double 0.87595213088360724
+	.quad	0x3fe19539cf35ac92              # double 0.54946604223859397
+	.quad	0x3fd16148f3ba112c              # double 0.27156280328223903
+	.quad	0x3fe43b055fc5f4aa              # double 0.63220471101489761
+	.quad	0x3fe26365be519f0c              # double 0.57463347598692982
+	.quad	0x3fe37105dbe9dff9              # double 0.60754673911924251
+	.quad	0x3fe7ce0441273fad              # double 0.74389851308113963
+	.quad	0x3fecb474f70da006              # double 0.89702842953283901
+	.quad	0x3fda8bc0d2fb8ad0              # double 0.41477985957878349
+	.quad	0x3fd6cf968228b066              # double 0.35642016135057586
+	.quad	0x3fcb9192a86330d0              # double 0.21538003179592247
+	.quad	0x3feb97b8c753a094              # double 0.86227072649946245
+	.quad	0x3fe8325f5007ac9a              # double 0.75614896422247857
+	.quad	0x3fee75da080219b5              # double 0.95188619197943203
+	.quad	0x3fe8e8dbd32b999c              # double 0.77842513317300499
+	.quad	0x3fb97026a3418548              # double 0.099367537362487046
+	.quad	0x3fdd268917aa32fa              # double 0.45547702132243695
+	.quad	0x3fa3c7de70f583c0              # double 0.038634253777451999
+	.quad	0x3fd7337a28a5d95a              # double 0.36251691789165863
+	.quad	0x3fe5964c7e8f674b              # double 0.67459702223570994
+	.quad	0x3fd523dcfb315ab6              # double 0.33031391649766861
+	.quad	0x3fe6ca83a6bd78ed              # double 0.71222097937041229
+	.quad	0x3fceeb7034f41c64              # double 0.24156000695822677
+	.quad	0x3fc54e63df0c2320              # double 0.16645477667796005
+	.quad	0x3fe2718af4b87e5d              # double 0.57636020466811611
+	.quad	0x3fb961e4a7130f00              # double 0.099149981298122469
+	.quad	0x3f9bc66ae79a2980              # double 0.027124090562702374
+	.quad	0x3fbf2ecbb39e8ca8              # double 0.12180779586064949
+	.quad	0x3f8246cbbd263640              # double 0.0089240948771261985
+	.quad	0x3fe2449df575c034              # double 0.57087610188864923
+	.quad	0x3fcd8847a1e4e698              # double 0.23072142987239341
+	.quad	0x3fe670a43be26f36              # double 0.70125018783753634
+	.quad	0x3fe5de98ea6291dc              # double 0.68342252519920121
+	.quad	0x3fc9b0349d43ffc4              # double 0.20068986586556836
+	.quad	0x3fef047defbdd291              # double 0.9692983324481067
+	.quad	0x3fe85008359dae4a              # double 0.75976953956473747
+	.quad	0x3fdb60bd8ee1c526              # double 0.42777956918060267
+	.quad	0x3fd0f2e3cef773be              # double 0.26482482158263199
+	.quad	0x3fe7c95698e3abf8              # double 0.74332742558669818
+	.quad	0x3fe9dffb073941c2              # double 0.80859137926932356
+	.quad	0x3fc72588334c031c              # double 0.18083288674099485
+	.quad	0x3fa4dba7537acc30              # double 0.040738324108496093
+	.quad	0x3fe3a6fc8dd20a81              # double 0.61413409900008287
+	.quad	0x3fe201ac9a4e2944              # double 0.56270437371976145
+	.quad	0x3fe59ed707b8a269              # double 0.67563964374592189
+	.quad	0x3fe59c7b845c0b40              # double 0.67535186625932653
+	.quad	0x3faf9ae519737290              # double 0.061728629452521777
+	.quad	0x3fe2749aecd7a276              # double 0.5767340303255668
+	.quad	0x3fb34ddebacaf330              # double 0.075406952480034261
+	.quad	0x3feece5792df2d82              # double 0.96268824277778742
+	.quad	0x3fb8ff14427da128              # double 0.097642198784914869
+	.quad	0x3fc191a57a58d044              # double 0.13725727533312881
+	.quad	0x3f5eb0ed9cb54e00              # double 0.0018732376509732473
+	.quad	0x3fee2ad8149784a2              # double 0.94272998830651411
+	.quad	0x3fbbec533c2716f8              # double 0.10907478540965687
+	.quad	0x3fe8a3be046753d7              # double 0.7699880681999457
+	.quad	0x3f874161ed6c76c0              # double 0.011355176027389446
+	.quad	0x3fd87deb0696c85a              # double 0.3826854290338183
+	.quad	0x3fe59d5db128a410              # double 0.67545971490210555
+	.quad	0x3fbcdb54c9015aa0              # double 0.11272172839503947
+	.quad	0x3fe67c22890cef10              # double 0.70265318648987041
+	.quad	0x3fef314aed76db1b              # double 0.97476717357389774
+	.quad	0x3fe26764a475e5bd              # double 0.57512123223494138
+	.quad	0x3fb2fe1f2e924f10              # double 0.074190091009139758
+	.quad	0x3fb2645312c742d8              # double 0.071843330463944866
+	.quad	0x3fef65a2199a3b14              # double 0.98115639687043421
+	.quad	0x3fbc0c0a5ee3ae68              # double 0.10955872360835317
+	.quad	0x3fe25d3655f35d18              # double 0.57387844836458424
+	.quad	0x3feec5973f7df245              # double 0.96161997223641348
+	.quad	0x3fe9d214039061a8              # double 0.80689430900661296
+	.quad	0x3fd941c8a285d998              # double 0.39464012023327077
+	.quad	0x3fd246f0a83a0dd4              # double 0.28557983806987619
+	.quad	0x3fe3d6fc718b93ff              # double 0.61999342133333346
+	.quad	0x3fe4c1c5f4d307ec              # double 0.64865396325353464
+	.quad	0x3fa06b212e48a1b0              # double 0.032067334079616372
+	.quad	0x3fe6be109bd99613              # double 0.71070127906267755
+	.quad	0x3fb6d6e23fa40c70              # double 0.089216366326626106
+	.quad	0x3fec9d35d03a1e5d              # double 0.89419069928494432
+	.quad	0x3feed202ae3fb0aa              # double 0.9631360438629788
+	.quad	0x3fced1a80fdd3c88              # double 0.2407732083761156
+	.quad	0x3fe786f60c082bf4              # double 0.73522474622711664
+	.quad	0x3fad3f8a61d1a7c0              # double 0.057125400963584649
+	.quad	0x3fe2d3453a4c5baa              # double 0.5882898462904127
+	.quad	0x3fbea8f31f008e60              # double 0.11976546770943619
+	.quad	0x3fcae804b2dde9ec              # double 0.21020563825352612
+	.quad	0x3fe0fcf72ccdf33d              # double 0.5308795809829473
+	.quad	0x3fd7c64588699fa6              # double 0.37147653886358467
+	.quad	0x3fe5c79efaa4d5c5              # double 0.68061779931911615
+	.quad	0x3fe49d3e1d2619a0              # double 0.64419465726023262
+	.quad	0x3fee2724b6eb97a0              # double 0.94227824904077195
+	.quad	0x3f97845ec82b3a40              # double 0.022965889899575709
+	.quad	0x3fc56e1337671ae0              # double 0.16742172436916913
+	.quad	0x3feb2cf1c723cc31              # double 0.84923638243197364
+	.quad	0x3fe9c00ee2e734ef              # double 0.80469459836026924
+	.quad	0x3fdc0adc6c7c7a84              # double 0.43816290468559083
+	.quad	0x3fc2e188528d3e1c              # double 0.14750770598264829
+	.quad	0x3fed926b665c8126              # double 0.92412347786379168
+	.quad	0x3feb5f6ec8b9ae53              # double 0.85539950565493894
+	.quad	0x3fd0526d3c04509a              # double 0.25503092633267388
+	.quad	0x3fcb80bd4b0599d4              # double 0.21486631549050961
+	.quad	0x3fd7dc9b46ea462e              # double 0.37283975529962532
+	.quad	0x3fe0fdd8c7fdb8e0              # double 0.53098715840112831
+	.quad	0x3fdc918cd24a71ec              # double 0.44638367210589425
+	.quad	0x3fec46bb970dde68              # double 0.88363437178391013
+	.quad	0x3fd0603ddc3f646e              # double 0.25587412365491147
+	.quad	0x3fdbccc938fbdfb2              # double 0.43437414707977517
+	.quad	0x3feade62019209e0              # double 0.83964634234171953
+	.quad	0x3feb5d431cd6865a              # double 0.85513454086703722
+	.quad	0x3fe3df5368ef1936              # double 0.62101145262639679
+	.quad	0x3fdda7e10bc8a454              # double 0.46337152624852718
+	.quad	0x3fe0df8e61e241ef              # double 0.52728957288678469
+	.quad	0x3fb1979d8f02dfb8              # double 0.068719718375063077
+	.quad	0x3fc76d5bdab392b4              # double 0.18302486590177625
+	.quad	0x3fceaa3645ee25b4              # double 0.23956945814670194
+	.quad	0x3fee1886e3782bd8              # double 0.94049400737400912
+	.quad	0x3fe24a567b385f15              # double 0.57157444063611484
+	.quad	0x3fe41a5043215a2b              # double 0.62821210013755058
+	.quad	0x3fd8d190f160e440              # double 0.3877909047328707
+	.quad	0x3fd8fc2d86c62060              # double 0.39039171372906445
+	.quad	0x3fc349ac53ad05f4              # double 0.15068582616554205
+	.quad	0x3fec9b8d05c6bf65              # double 0.89398814323611175
+	.quad	0x3fe919afd1c86910              # double 0.78438559506619931
+	.quad	0x3fee1f99aad2ea0e              # double 0.94135745395698378
+	.quad	0x3fcbbd36a0dd489c              # double 0.21671183447557929
+	.quad	0x3fdb7bb9ae0205b6              # double 0.42942659371336889
+	.quad	0x3fe84d10711496a3              # double 0.75940725408573362
+	.quad	0x3fe03593b618394d              # double 0.50654016080242459
+	.quad	0x3fad665e4bd67050              # double 0.057421633489156521
+	.quad	0x3fe0bf4c89da46a9              # double 0.52335192608207592
+	.quad	0x3fec437af7589b1b              # double 0.88323734578884527
+	.quad	0x3fee4ac6a8dd50ee              # double 0.94662793141699608
+	.quad	0x3fc73f60e29135d8              # double 0.18162165701725885
+	.quad	0x3fbe7345ceddeba0              # double 0.11894642162762503
+	.quad	0x3fc58e6657764c80              # double 0.16840819616900049
+	.quad	0x3fe5b5b06bce9aac              # double 0.67842885070861803
+	.quad	0x3fe50f1ff9ed89bc              # double 0.65809630216636306
+	.quad	0x3fe9ea752d3d6e50              # double 0.80987032733851017
+	.quad	0x3fdb11030e9670cc              # double 0.42291332649780311
+	.quad	0x3feaffac100144ef              # double 0.84370997549026849
+	.quad	0x3fee85c4e6f60884              # double 0.95382924184401973
+	.quad	0x3fed2a089b8fc180              # double 0.9113810575782253
+	.quad	0x3fe331a0fa7e4574              # double 0.59980820583784444
+	.quad	0x3fe44f6e0211e1ad              # double 0.63469601063029801
+	.quad	0x3fd7533091c61b4a              # double 0.3644524978230278
+	.quad	0x3fcd5c490e4f67a8              # double 0.22937882612933191
+	.quad	0x3fd25ec67fdf0cc8              # double 0.28703463065557999
+	.quad	0x3fe6d8c7dba05eec              # double 0.71396248718062116
+	.quad	0x3fe225e28cfd242e              # double 0.56712462937242036
+	.quad	0x3fc15cd762110e34              # double 0.13564579285058331
+	.quad	0x3fec2b9089729070              # double 0.88031794400423102
+	.quad	0x3fec023f595f0e5d              # double 0.87527434783300928
+	.quad	0x3fb40cfa2ab1a900              # double 0.078323016570411852
+	.quad	0x3fec97d5c0a09d23              # double 0.89353454229868523
+	.quad	0x3fe5aa9ee6734db4              # double 0.677077722643324
+	.quad	0x3fc52b17d07b5bb8              # double 0.16537759475496983
+	.quad	0x3fdb3755155ab27e              # double 0.42525221906070232
+	.quad	0x3fe7e2811f0cbd4f              # double 0.74639946045309979
+	.quad	0x3fed981a0d23de60              # double 0.92481710974147901
+	.quad	0x3fd9b7e0f3cdb988              # double 0.40184806641527659
+	.quad	0x3fe008cdf409ca8f              # double 0.50107476867408873
+	.quad	0x3fe48eec6da84171              # double 0.64244672219687804
+	.quad	0x3fd47f1e1a000ac6              # double 0.32025864161566309
+	.quad	0x3fed2cd26217a515              # double 0.91172141226448622
+	.quad	0x3fd057c06217566e              # double 0.25535592631545156
+	.quad	0x3fbe20c38643c260              # double 0.11768743541666415
+	.quad	0x3fee78ea98af301d              # double 0.95226030179174226
+	.quad	0x3fef569814c0b2c4              # double 0.97932056477801454
+	.quad	0x3fe8ea9413fe58fc              # double 0.77863506226529421
+	.quad	0x3fe555cbc29a98fe              # double 0.66672313698361996
+	.quad	0x3fe87c0de2ff7d61              # double 0.76514334044979304
+	.quad	0x3fe99b502edab6c2              # double 0.80020913268318616
+	.quad	0x3fdaad2aaa47a3b6              # double 0.41681925419703292
+	.quad	0x3fdce42fab5c967a              # double 0.45142738089121048
+	.quad	0x3fc78a742f4640e4              # double 0.18391277607270873
+	.quad	0x3fe66537a99af94e              # double 0.69985564352081453
+	.quad	0x3fc461165dd04820              # double 0.15921287136785711
+	.quad	0x3feaea883614cc44              # double 0.84112940371267841
+	.quad	0x3fd42fd5eadb08a4              # double 0.31541965422742124
+	.quad	0x3fd42c6cddbbdc4c              # double 0.3152115025872646
+	.quad	0x3fc612006e94d67c              # double 0.17242436789972604
+	.quad	0x3f82e50922183e00              # double 0.0092259133844256879
+	.quad	0x3fbc2b0205c42308              # double 0.11003124848151569
+	.quad	0x3fe279d472ffa4bd              # double 0.57737181149163741
+	.quad	0x3fee8c668cf6cdf2              # double 0.9546387437061965
+	.quad	0x3fecc222aef2b0d1              # double 0.89869817895444204
+	.quad	0x3fd3f0676321193c              # double 0.31154808693499425
+	.quad	0x3fe00927babb8ea3              # double 0.50111757727832573
+	.quad	0x3fe10932fcdbafb7              # double 0.5323729456554166
+	.quad	0x3fd088d17d2c7a24              # double 0.25835072731016084
+	.quad	0x3fe945b632dc64dd              # double 0.78975973066112781
+	.quad	0x3fe3ee8816a567b2              # double 0.62286762641018911
+	.quad	0x3fec6a53e063d12a              # double 0.88797944856790889
+	.quad	0x3fa9c500c93ff080              # double 0.050331139151212234
+	.quad	0x3fe551c2cfd6a70e              # double 0.66623058885054021
+	.quad	0x3f9cbaf56e9cbde0              # double 0.028056940914380379
+	.quad	0x3fec258dc3bf2dc7              # double 0.87958420020861972
+	.quad	0x3fea185d007b1c23              # double 0.81547403425145537
+	.quad	0x3fefdc4421251e0e              # double 0.99563795541411237
+	.quad	0x3fea720025ceef7f              # double 0.82641608604852468
+	.quad	0x3fea3536d01d516b              # double 0.81899586341255082
+	.quad	0x3f63d1960a083c00              # double 0.0024192743733304489
+	.quad	0x3fee89253fb09628              # double 0.95424139441883415
+	.quad	0x3febc02fe85aebce              # double 0.86721034414164833
+	.quad	0x3fed50d5d7ee6b07              # double 0.91611759351812416
+	.quad	0x3fd3f94a1a35f476              # double 0.31209042129177733
+	.quad	0x3fee1be62e5c4379              # double 0.94090565733686937
+	.quad	0x3feb2c501a488d52              # double 0.84915928967931564
+	.quad	0x3fdad2468533458c              # double 0.41908419616546477
+	.quad	0x3fd8793087535c8a              # double 0.38239682402986175
+	.quad	0x3fd50f7596c1c7a6              # double 0.32906856272085816
+	.quad	0x3fe7d39b88b9621e              # double 0.7445810003656026
+	.quad	0x3fe060ffaf9ad3fd              # double 0.51184067056476545
+	.quad	0x3fe54aa865eb5a5a              # double 0.66536350160715618
+	.quad	0x3fe9b859eff68c71              # double 0.8037538229731479
+	.quad	0x3fe19ec11f7bd9e8              # double 0.55062919758966888
+	.quad	0x3fe7e6ceabd5ed3d              # double 0.74692472039843205
+	.quad	0x3fe189cfed2f3f0f              # double 0.54807277989491066
+	.quad	0x3fd161e0ea735348              # double 0.27159903426700227
+	.quad	0x3feb71f496e328ca              # double 0.85766057462867562
+	.quad	0x3fcd439c6f866d60              # double 0.22862582631646955
+	.quad	0x3feb1554074a346a              # double 0.84635354446221567
+	.quad	0x3fdce7f25fd914a4              # double 0.45165690765527189
+	.quad	0x3fc96496b27fd76c              # double 0.19838222232618408
+	.quad	0x3fe7865deb2a28a2              # double 0.73515220575906803
+	.quad	0x3fef07955c4b4607              # double 0.96967571283511311
+	.quad	0x3fa43a2ea7d92480              # double 0.039506395329746091
+	.quad	0x3feeb0a34c8b8821              # double 0.95906224203304557
+	.quad	0x3fd18332ce8a52cc              # double 0.27363271875337314
+	.quad	0x3fd7536411c9eeca              # double 0.36446477639377106
+	.quad	0x3fa50540e41e62c0              # double 0.041055705877800275
+	.quad	0x3feb3b148e0f480e              # double 0.85096194978746253
+	.quad	0x3fe48593ad824d37              # double 0.64130576981043574
+	.quad	0x3fe70c455012ae58              # double 0.72024789466145034
+	.quad	0x3fc0079aa0b900bc              # double 0.12523205611979005
+	.quad	0x3fec5c0b0e87fd73              # double 0.88623574102523006
+	.quad	0x3fe6c6407eeeba3a              # double 0.71170067588338459
+	.quad	0x3fdf1bc8c9e11e48              # double 0.48607082094938336
+	.quad	0x3fc20635cee99d10              # double 0.1408145199122619
+	.quad	0x3f985126202c8440              # double 0.023747058595408044
+	.quad	0x3fea02973a6e12ef              # double 0.81281625187020079
+	.quad	0x3fee323030432a0b              # double 0.94362649370424501
+	.quad	0x3fe4d73147f2c2c7              # double 0.6512686162223752
+	.quad	0x3feec655d0cd75d5              # double 0.9617108419585586
+	.quad	0x3fdd0d8a13cd5c84              # double 0.45395137723739531
+	.quad	0x3f9ac8af78983400              # double 0.026156179175860217
+	.quad	0x3fe80c78e79a4cf3              # double 0.75152249560269835
+	.quad	0x3fea5f95820e9cd2              # double 0.82416797067426217
+	.quad	0x3feadfd114097417              # double 0.83982137597525053
+	.quad	0x3fc9d74da1d8bd30              # double 0.20188303377788364
+	.quad	0x3fd82a04bde01f1c              # double 0.37756460707213235
+	.quad	0x3fe077ae37388fa6              # double 0.51460943971004691
+	.quad	0x3fbda2bfdf94ca90              # double 0.1157646103718355
+	.quad	0x3fe371275bad4610              # double 0.60756271272311047
+	.quad	0x3fef2099e20a8dc5              # double 0.97272962711979771
+	.quad	0x3fec5b16910a585c              # double 0.886119159013798
+	.quad	0x3fdffdfe15a6d90c              # double 0.49987747301510477
+	.quad	0x3feeac5d61d9a969              # double 0.95854062186599009
+	.quad	0x3fe195e75d695e45              # double 0.54954879993869865
+	.quad	0x3fec42c057d4dbf7              # double 0.88314835695825777
+	.quad	0x3fef1f3cc8d5b3b3              # double 0.97256316400090836
+	.quad	0x3fc21a3f0db10e58              # double 0.14142597359215148
+	.quad	0x3fec041f28115512              # double 0.87550313783381939
+	.quad	0x3fd9ad83948c379c              # double 0.40121545321096064
+	.quad	0x3fc6352bf5a0985c              # double 0.17349767201921196
+	.quad	0x3feaae3121580222              # double 0.83376366150338677
+	.quad	0x3fd62c6cc30eb1d0              # double 0.34646147774290359
+	.quad	0x3fc3d3003a02d880              # double 0.15487673599790597
+	.quad	0x3fd28fe1af9180e0              # double 0.29003183503483676
+	.quad	0x3fe031dd7f214a9e              # double 0.50608706312262419
+	.quad	0x3feaa4a0fbf70cf7              # double 0.83259629451677497
+	.quad	0x3fe04d22e11d0f48              # double 0.50941604583247457
+	.quad	0x3fe7c618880b5df1              # double 0.74293161936924268
+	.quad	0x3fded7aa7d6c2750              # double 0.48191320656097947
+	.quad	0x3fd824d7ba1fd4cc              # double 0.37724869896130708
+	.quad	0x3fea19be9d4bed2c              # double 0.81564264986028467
+	.quad	0x3fd1efa12b8ad024              # double 0.28025082828685499
+	.quad	0x3fef52c0725fabcf              # double 0.97885153139702107
+	.quad	0x3fe497777aa608d1              # double 0.64348958926009392
+	.quad	0x3fcf1c6b2ee73af8              # double 0.2430547694225067
+	.quad	0x3fe46af0230027ac              # double 0.63805395923667652
+	.quad	0x3fdb210bbaf4c4f4              # double 0.4238919568770847
+	.quad	0x3fd585e2bf436dbc              # double 0.3362967365080427
+	.quad	0x3fce7c4aec47a554              # double 0.23816811120131354
+	.quad	0x3fd5183edceac10a              # double 0.329604831446901
+	.quad	0x3feac8522f15f55c              # double 0.83695325085106331
+	.quad	0x3fe00378f95b8719              # double 0.50042389586107838
+	.quad	0x3fe93e9d21f3f6ea              # double 0.78889328605120324
+	.quad	0x3fe6cf543cd1fce5              # double 0.71280872229536085
+	.quad	0x3fd387cfda03da58              # double 0.30516430178196208
+	.quad	0x3fe5f4481331f487              # double 0.68606952427912027
+	.quad	0x3feca0b576a534a5              # double 0.89461777851979163
+	.quad	0x3fe3bd6399c89331              # double 0.6168687823852449
+	.quad	0x3fd220058b515ea8              # double 0.28320444684275481
+	.quad	0x3fa19158b14428b0              # double 0.034312030447908426
+	.quad	0x3fd0547cb5c10764              # double 0.25515668630042954
+	.quad	0x3fc71ea407dc5c38              # double 0.18062258132769826
+	.quad	0x3fc43648d5ca3760              # double 0.15790663184128118
+	.quad	0x3fe8bd9f2352eae0              # double 0.77314717196653859
+	.quad	0x3fc3c5c9d98a5640              # double 0.15447352525795743
+	.quad	0x3feed8e30d731b8f              # double 0.96397545458681743
+	.quad	0x3fd5d111df00d75c              # double 0.34088560846008931
+	.quad	0x3fce1365f8d61550              # double 0.23496698999603405
+	.quad	0x3fdac46d744dbb6a              # double 0.41823898656632841
+	.quad	0x3fece27234feafeb              # double 0.90264234877167604
+	.quad	0x3fe6f93d2b09661c              # double 0.71792467504127755
+	.quad	0x3fd2a0828841f778              # double 0.29104674631513872
+	.quad	0x3feda9b0d82fcaab              # double 0.92696420883142616
+	.quad	0x3fe55355fc30825e              # double 0.6664228368354761
+	.quad	0x3fe6071812389072              # double 0.68836597021846857
+	.quad	0x3fa23a90b538f820              # double 0.035603067514316189
+	.quad	0x3feddbfb5439aa00              # double 0.93310324144596279
+	.quad	0x3fe556987a3a3fa4              # double 0.6668207537895694
+	.quad	0x3feea6d9ee8a68a4              # double 0.95786758985493181
+	.quad	0x3fdca7d23007974c              # double 0.44774298372646082
+	.quad	0x3fc65216d20d8380              # double 0.17438016182407168
+	.quad	0x3fd91878fb88ddea              # double 0.39211868823937712
+	.quad	0x3fe284002972596f              # double 0.57861335845045214
+	.quad	0x3fd70a0c5c43a570              # double 0.35998829851322167
+	.quad	0x3fe6853ec9894c7c              # double 0.7037652908569636
+	.quad	0x3fd02c21d096525e              # double 0.2526936089500732
+	.quad	0x3fde98986e63a12c              # double 0.47806368618195694
+	.quad	0x3fcb0e7b79f4cb8c              # double 0.21137946562666021
+	.quad	0x3feef0a4bc007dfd              # double 0.96687542647481417
+	.quad	0x3fece29a7f435a6e              # double 0.90266156059335656
+	.quad	0x3fd564f18c4eeaa4              # double 0.33428610517482071
+	.quad	0x3fb5348cea18d540              # double 0.082833106186474659
+	.quad	0x3fea58605bfa206d              # double 0.82328813518780708
+	.quad	0x3fec3367205cb53b              # double 0.88127476044397868
+	.quad	0x3fea0a52ba93ec84              # double 0.81376015130025836
+	.quad	0x3fab6995f8ae4a90              # double 0.053539930922075318
+	.quad	0x3fdf63a746c1c5a0              # double 0.49045736226897851
+	.quad	0x3fe27715eb32dbdb              # double 0.57703681885947888
+	.quad	0x3fe132c310405bcc              # double 0.53744652914144231
+	.quad	0x3fc79a6306ffabb4              # double 0.18439901200994557
+	.quad	0x3f9882a1b59a9e80              # double 0.023935820302226407
+	.quad	0x3fed896dcdcf7294              # double 0.92302599141437946
+	.quad	0x3fea9448996137aa              # double 0.83060102421744841
+	.quad	0x3fe1b2e17829887f              # double 0.55308602780520733
+	.quad	0x3fe606f0ba6cb1a5              # double 0.68834721003581889
+	.quad	0x3fecd28ca62ac8c0              # double 0.90070183233753909
+	.quad	0x3fd7fb9db3f38e6a              # double 0.37473242352846248
+	.quad	0x3fd60fe6d8585386              # double 0.34472056510394855
+	.quad	0x3f8a58cb8edd9a80              # double 0.012864675805486003
+	.quad	0x3f8f00975abdef80              # double 0.015137846428608048
+	.quad	0x3fcccaa4508b1f98              # double 0.22493413861070333
+	.quad	0x3fd3e94afdec54d6              # double 0.31111407086548348
+	.quad	0x3fda355f8df0fb56              # double 0.40950764523943428
+	.quad	0x3fef898b458e19ef              # double 0.98554004273392858
+	.quad	0x3fee9d6b01f956b9              # double 0.95671606431525114
+	.quad	0x3fe32b33ca898fe0              # double 0.59902371938778387
+	.quad	0x3fdafde36c2b503a              # double 0.42174611628911729
+	.quad	0x3fb67b56777b5658              # double 0.087819484873159381
+	.quad	0x3fe493b8702b23fc              # double 0.643032282904755
+	.quad	0x3fd4725c23a9c7c8              # double 0.31947997553572494
+	.quad	0x3fdc6dd2173e5976              # double 0.44420292158010655
+	.quad	0x3fc7878b8a976658              # double 0.1838240076747748
+	.quad	0x3fad8d0f0d4b54d0              # double 0.057716818211397958
+	.quad	0x3fecaf0fb495679b              # double 0.89636979360806224
+	.quad	0x3fd9eff173252e9c              # double 0.40526996845867713
+	.quad	0x3fc89f387956949c              # double 0.19235902714459463
+	.quad	0x3fdd1bb7f705aaaa              # double 0.45481680987601669
+	.quad	0x3fd269452b1021de              # double 0.28767518239376766
+	.quad	0x3fdd56c2e93d4d50              # double 0.45842049386302097
+	.quad	0x3fe7ca1c18221aba              # double 0.74342159951705544
+	.quad	0x3fe9b96259cb5f1a              # double 0.80387990510914453
+	.quad	0x3fe6150a7fbc7df6              # double 0.69006848286147604
+	.quad	0x3feaab8baf9be9c3              # double 0.83344063089980869
+	.quad	0x3fab9574ba61a810              # double 0.053874633552212114
+	.quad	0x3fd156de72c580be              # double 0.27092705925134541
+	.quad	0x3fd1568bf194f484              # double 0.27090738861063124
+	.quad	0x3fe0e2fd9513a0a4              # double 0.5277088081029615
+	.quad	0x3fe6042f3f391db2              # double 0.68801081035865352
+	.quad	0x3fc0fae73853958c              # double 0.13265695810620703
+	.quad	0x3f9fb0c5ea804de0              # double 0.030947773397270839
+	.quad	0x3fc0becb44ff09a0              # double 0.13082257145840703
+	.quad	0x3fc5b560b2222a08              # double 0.16959770868227531
+	.quad	0x3fe76bf7819d9009              # double 0.73192954364321949
+	.quad	0x3fe5591e70d1b71e              # double 0.66712877306938245
+	.quad	0x3fea257b67e8ea15              # double 0.81707544608008453
+	.quad	0x3fe015a3dd43411c              # double 0.50264161315320477
+	.quad	0x3fe839fdf068ca5a              # double 0.75707909541081198
+	.quad	0x3fd279eabe27f0b6              # double 0.28869122095035082
+	.quad	0x3fe649b342fde7b3              # double 0.69649661144580077
+	.quad	0x3fa0031b39d04570              # double 0.031273699576682357
+	.quad	0x3fb719c5cd1eff48              # double 0.090237009600056983
+	.quad	0x3fb5deab4d018c90              # double 0.085428911495500026
+	.quad	0x3fc461d9c96647ac              # double 0.15923616727792245
+	.quad	0x3fd3e9c6e2e54180              # double 0.31114360959784193
+	.quad	0x3fe4402d3e5b484c              # double 0.63283407382028534
+	.quad	0x3fed5abf9cbc8b98              # double 0.9173276959667076
+	.quad	0x3fd46418b7c37478              # double 0.31860940881399058
+	.quad	0x3feb6d2b653645f5              # double 0.85707635658235282
+	.quad	0x3fe7466b3a8a058d              # double 0.7273460524885863
+	.quad	0x3fe77c686e42576c              # double 0.73393651518811742
+	.quad	0x3fe1773f92a770c8              # double 0.54580668109294894
+	.quad	0x3fe394c3b82e0d2d              # double 0.6119097325576256
+	.quad	0x3fc98221a2993d80              # double 0.19928379477867608
+	.quad	0x3faec1f04eca2180              # double 0.060073384874217872
+	.quad	0x3fe297c108c78101              # double 0.58102466311177647
+	.quad	0x3fdd1c40c2e8ac2c              # double 0.45484942468709977
+	.quad	0x3fd27c6fc4729578              # double 0.28884500679335856
+	.quad	0x3fdf017a0a14b434              # double 0.48446513161144655
+	.quad	0x3fe40fd1ebf6b94a              # double 0.62693115317032633
+	.quad	0x3fbd1dacc3ab8a20              # double 0.11373405243970369
+	.quad	0x3fd63ce7ebf69038              # double 0.34746740382456975
+	.quad	0x3fe177430882f48b              # double 0.54580833113108562
+	.quad	0x3feb872391c229bf              # double 0.86024645298430602
+	.quad	0x3fc2f59fa974a87c              # double 0.14812083982662105
+	.quad	0x3fd61e4ad6f70f6a              # double 0.3455988978641843
+	.quad	0x3fed7290a3134143              # double 0.92023498392703862
+	.quad	0x3fe03d9f18b1d4a7              # double 0.50752215216802632
+	.quad	0x3fe88c9c8c84192c              # double 0.76716449207814241
+	.quad	0x3fd420bd9febbf66              # double 0.31449833504938451
+	.quad	0x3fe93036bed10f30              # double 0.78713547963022812
+	.quad	0x3feb1bab56b20f83              # double 0.84712759907459689
+	.quad	0x3fda15691baf2426              # double 0.40755679801492517
+	.quad	0x3fc4f071345dabe4              # double 0.16358771378449355
+	.quad	0x3fe1f26965dc008e              # double 0.56084127325449784
+	.quad	0x3fe1793d8a22ff34              # double 0.54604985217881685
+	.quad	0x3fb77aa13367a508              # double 0.091714930582060927
+	.quad	0x3fcfeefd55ac8ca0              # double 0.24948088343908115
+	.quad	0x3fea0500536794aa              # double 0.81311050691569631
+	.quad	0x3fedba727fe13303              # double 0.92900967575550941
+	.quad	0x3fdc3d8506eedbce              # double 0.44125486065916852
+	.quad	0x3feae391c9efc50f              # double 0.84027947846166906
+	.quad	0x3fd1338767c2942c              # double 0.26877007611102743
+	.quad	0x3fea983c1609092e              # double 0.83108333877342999
+	.quad	0x3fe4ed246c8899ca              # double 0.65394803235977261
+	.quad	0x3fe087ab323b6d17              # double 0.51656112490619222
+	.quad	0x3fdfeed2daf88c68              # double 0.49895163902164663
+	.quad	0x3fb574ac90a743c0              # double 0.083811555209890365
+	.quad	0x3feaff6392852eff              # double 0.84367540948139197
+	.quad	0x3fe2d66eb2388bb9              # double 0.58867583092466369
+	.quad	0x3fe214d3d17aea71              # double 0.5650424090775471
+	.quad	0x3fe6e636872f28a1              # double 0.71560217288176287
+	.quad	0x3feca543ef3dbbc5              # double 0.89517399527346042
+	.quad	0x3fb5e0f4c0d24448              # double 0.085463807178045248
+	.quad	0x3fe9ca449b947f11              # double 0.80594091784220911
+	.quad	0x3fee5493fd3368a7              # double 0.94782447293552685
+	.quad	0x3fc5dfd23b6ba550              # double 0.1708929815425031
+	.quad	0x3fe121cf3042f9aa              # double 0.53537711549852429
+	.quad	0x3fd3209d6c2e9ea0              # double 0.29886565746935823
+	.quad	0x3fead8fc5f48f234              # double 0.83898752794590913
+	.quad	0x3fd7e17eebcb984e              # double 0.37313817049869591
+	.quad	0x3fe165bb048f3427              # double 0.54366827860360878
+	.quad	0x3fd390724291de9c              # double 0.3056913042159779
+	.quad	0x3fedd16574fa2ca6              # double 0.93181107375257421
+	.quad	0x3fc155f42e54a540              # double 0.13543560278166389
+	.quad	0x3feb184b50b5f4e7              # double 0.84671560062238604
+	.quad	0x3febfee582a759e5              # double 0.87486529844573779
+	.quad	0x3fe7e0c3e9c14845              # double 0.74618716864848322
+	.quad	0x3fe4d7ded67782d0              # double 0.6513513745122399
+	.quad	0x3fd20b244145ebdc              # double 0.28193003057793731
+	.quad	0x3fdf349e3afb0ed6              # double 0.48758655319055089
+	.quad	0x3fcaabf14d1f5b74              # double 0.20837227121111435
+	.quad	0x3fe65d538a343176              # double 0.69889237397141701
+	.quad	0x3fd3c0bbc3dba182              # double 0.30863851668120657
+	.quad	0x3feffa530797a7ed              # double 0.99930716975108924
+	.quad	0x3fd826648da3c3ac              # double 0.37734330970766439
+	.quad	0x3fe74ec438ff9691              # double 0.72836505062578472
+	.quad	0x3fed6e72d9a52b45              # double 0.91973249920679534
+	.quad	0x3fe539e5b1d0e1e2              # double 0.66331753472973909
+	.quad	0x3fea64ada9bdc6c0              # double 0.82478984024620416
+	.quad	0x3fc87587686c344c              # double 0.19108669852031068
+	.quad	0x3fe3d896b3d0a7a1              # double 0.62018904800537566
+	.quad	0x3fe6e4823cd281a5              # double 0.71539413337091118
+	.quad	0x3fe90c054cccf99a              # double 0.78271737098821181
+	.quad	0x3fe962718e19e0ae              # double 0.79326703790777287
+	.quad	0x3fe7399919f4749a              # double 0.72578101224248148
+	.quad	0x3fc294bfce20a688              # double 0.14516446652242032
+	.quad	0x3fed8cb07fad8f86              # double 0.92342400490859755
+	.quad	0x3fe27abdf00f7641              # double 0.57748314749523655
+	.quad	0x3fd6b579e970cd84              # double 0.35482642933785535
+	.quad	0x3fe7c1fa7f23f411              # double 0.74242901641958003
+	.quad	0x3fea98c6e516cfb9              # double 0.83114952796903829
+	.quad	0x3fe260b8b7bcc93a              # double 0.57430683027477092
+	.quad	0x3fca4d9a14d20610              # double 0.20549322144147242
+	.quad	0x3fe0f0a6cf5de6ee              # double 0.52937641621903508
+	.quad	0x3f93ebb3f499be20              # double 0.019453822902901874
+	.quad	0x3fddfcefa465b3e0              # double 0.46856299452229955
+	.quad	0x3fc916a17534cdec              # double 0.1960031339927889
+	.quad	0x3fe9118ecbd608e2              # double 0.78339328586323753
+	.quad	0x3fe3036f91fd85e3              # double 0.59416941179022975
+	.quad	0x3fd0e260c7f5b592              # double 0.26381701972317118
+	.quad	0x3fdbdfbd3c4ff21c              # double 0.43553095712539558
+	.quad	0x3fdf38b73dad1c9a              # double 0.48783665679042942
+	.quad	0x3fd718e5bb17ff5e              # double 0.36089461584923821
+	.quad	0x3fbbe2aa61dbf3e0              # double 0.10892739190235501
+	.quad	0x3fee0d78bc93308a              # double 0.93914448576971776
+	.quad	0x3fe540187bd188a7              # double 0.66407417472170926
+	.quad	0x3fed0db8fbe8b99b              # double 0.90792512131683922
+	.quad	0x3fe1477fc4165c9b              # double 0.53997791574774412
+	.quad	0x3fe683d0bf47e8e2              # double 0.70359074935484167
+	.quad	0x3fef75961c38584e              # double 0.98310380470025804
+	.quad	0x3fefaf1f66257119              # double 0.99012727690163437
+	.quad	0x3fe0e282d359fcb5              # double 0.52765027312843549
+	.quad	0x3fee5e6edcc30d72              # double 0.94902747266352905
+	.quad	0x3fd2f8e0280cc75e              # double 0.29644016181111066
+	.quad	0x3f90c952c7146fe0              # double 0.016392987633579881
+	.quad	0x3faeae920d81d0c0              # double 0.05992561735993851
+	.quad	0x3febf1ea493f727e              # double 0.87328066164225482
+	.quad	0x3fe202d4cbd5d70d              # double 0.56284560977539544
+	.quad	0x3fe477a691e283fc              # double 0.639605793887426
+	.quad	0x3fc9b3e50569aa34              # double 0.20080244793219182
+	.quad	0x3fdd897f42e68280              # double 0.46151715787167547
+	.quad	0x3fd32312fac5a778              # double 0.29901575555287918
+	.quad	0x3fa2ff8eabb9a300              # double 0.037105997526685641
+	.quad	0x3fe434cfdb809a13              # double 0.63144677039673736
+	.quad	0x3fd69d7674d7b752              # double 0.35336076174177322
+	.quad	0x3fe0be1a17a394f8              # double 0.52320580117216675
+	.quad	0x3fe45feb4aebd437              # double 0.63670887597130033
+	.quad	0x3fc08f8c004664f0              # double 0.12938070310045857
+	.quad	0x3faabc6a418a2a10              # double 0.052218742847873867
+	.quad	0x3fcf54f8f9155e94              # double 0.24478065645483993
+	.quad	0x3febf658afd581d1              # double 0.87382158606129157
+	.quad	0x3fdfce99e7673a02              # double 0.49698493574115343
+	.quad	0x3fe15810316ae1ac              # double 0.54199990894180905
+	.quad	0x3fe0c213d3eb4f35              # double 0.52369109526123359
+	.quad	0x3fed22536dddaa4e              # double 0.91044017275027911
+	.quad	0x3fe45ce85d60cae4              # double 0.63634126890096043
+	.quad	0x3feb56c63a2d0941              # double 0.85434256899342398
+	.quad	0x3fc8a5e935be0ff8              # double 0.19256320118086001
+	.quad	0x3fd6e8a1e246c97c              # double 0.357948752377659
+	.quad	0x3fdee4c34965815c              # double 0.48271257560374692
+	.quad	0x3fe0b72955acead2              # double 0.52235857709396272
+	.quad	0x3fe13b2891d84aef              # double 0.53847149358111135
+	.quad	0x3fd8efab7141db8e              # double 0.38962827739981598
+	.quad	0x3fe84e68bb48b1aa              # double 0.7595714242830145
+	.quad	0x3fe2a8d2ce41590f              # double 0.58310833248359184
+	.quad	0x3fd35aeff246791c              # double 0.30242537173934791
+	.quad	0x3fd937d224928e72              # double 0.39403203555614319
+	.quad	0x3fd1211794e592b4              # double 0.2676447824544923
+	.quad	0x3fb468a46e145ce8              # double 0.079721714854133929
+	.quad	0x3fb89d94e8d88030              # double 0.096154505583854854
+	.quad	0x3fd77bb13d5014e8              # double 0.36692458140926343
+	.quad	0x3f6fb985d40c4d00              # double 0.0038726438364250493
+	.quad	0x3fe1438cd0dd58ad              # double 0.53949585718034643
+	.quad	0x3feeee2a36027d26              # double 0.96657286213659144
+	.quad	0x3feb5ef4cb68122f              # double 0.85534133651578326
+	.quad	0x3fd8c331145a928c              # double 0.38691355693507812
+	.quad	0x3fe22ce3ba3c8a61              # double 0.56797968267740029
+	.quad	0x3fb77dedc8255e00              # double 0.091765271533738257
+	.quad	0x3fef7c473c493b8e              # double 0.98392068647977893
+	.quad	0x3fe85d2b3d3ae672              # double 0.76137315711021203
+	.quad	0x3fe3212cc69c9bbb              # double 0.597799671090676
+	.quad	0x3f84efbff2a26d40              # double 0.010222911445728955
+	.quad	0x3fd00e1089bd5b60              # double 0.25085843516483486
+	.quad	0x3fd0f374c3703f2a              # double 0.26485938154017907
+	.quad	0x3fdfb904c1d2c8e0              # double 0.49566763809265346
+	.quad	0x3fd2fbbe67f911d4              # double 0.29661522058111456
+	.quad	0x3feb0b6d8d9b0320              # double 0.84514501244857243
+	.quad	0x3fd2f8b3040d8e82              # double 0.29642939945026836
+	.quad	0x3fa2c69e90ba8ba0              # double 0.03667159573276213
+	.quad	0x3fdbdebb02bdd214              # double 0.43546939151500053
+	.quad	0x3fad5ac90aa5f4a0              # double 0.057333262014233499
+	.quad	0x3fe32b5a1a5d337d              # double 0.5990419878886396
+	.quad	0x3fdded259caa8afa              # double 0.46759929942542977
+	.quad	0x3fbd7d37f3124d28              # double 0.11519193348276657
+	.quad	0x3fd4055f8ef687b8              # double 0.31282795869094171
+	.quad	0x3feaf9df361a44de              # double 0.84300194327274958
+	.quad	0x3fdaedb39a4e6e3e              # double 0.42075815266591465
+	.quad	0x3f95397d8ce33160              # double 0.020727121090020062
+	.quad	0x3fc382075703e838              # double 0.15240566014091583
+	.quad	0x3fefa4c610346d90              # double 0.98886397519111036
+	.quad	0x3fe70762bb4b28de              # double 0.71965157109050515
+	.quad	0x3fcba635d12e43d8              # double 0.21600983346846081
+	.quad	0x3fe8139e57ebb718              # double 0.75239483997367795
+	.quad	0x3f9f89195fc4b760              # double 0.030796429128876368
+	.quad	0x3fea653db0382d2e              # double 0.82485851686343437
+	.quad	0x3fad6f8d52964ae0              # double 0.057491699534826912
+	.quad	0x3fd15e94b04caa84              # double 0.27139775482888973
+	.quad	0x3f82d6bbb5192cc0              # double 0.0091986336366488563
+	.quad	0x3fd7c0a19990b996              # double 0.37113227841009555
+	.quad	0x3fd2fb9ca71e2e16              # double 0.29660717315775409
+	.quad	0x3feeb2469c8124e3              # double 0.95926218573836441
+	.quad	0x3fd2a7c5e555b5e0              # double 0.29149005313851539
+	.quad	0x3fecc1d620db4a51              # double 0.89866167466454716
+	.quad	0x3fe49ead1104985e              # double 0.64436963390177104
+	.quad	0x3fc70d01e1193fa4              # double 0.18008445254463112
+	.quad	0x3fe2130a095f9fe3              # double 0.5648241217686486
+	.quad	0x3fdce2d61dc5686c              # double 0.45134499461494815
+	.quad	0x3fded86f4c9421ea              # double 0.48196012953169876
+	.quad	0x3fec6733b961f982              # double 0.88759790618478029
+	.quad	0x3fa6b209f43d5280              # double 0.044327078880688653
+	.quad	0x3fef82e51b438ae3              # double 0.9847283871170841
+	.quad	0x3fd8931a08b9ae84              # double 0.38397837497789333
+	.quad	0x3fe6ba4fb82ed842              # double 0.71024309132804597
+	.quad	0x3fe8e73c41184d85              # double 0.77822697366575311
+	.quad	0x3fe9bc5060984b25              # double 0.80423754564467187
+	.quad	0x3fcd1228943c4348              # double 0.22711665380531998
+	.quad	0x3fb62e6896151760              # double 0.086645638123710622
+	.quad	0x3fefb3b88bed79b4              # double 0.99068858461014608
+	.quad	0x3febd054192707df              # double 0.86918072617140385
+	.quad	0x3fd8d10f78ceef48              # double 0.3877600364464695
+	.quad	0x3fe1afc3c58e28de              # double 0.5527056559087915
+	.quad	0x3fd5bd32e6512fba              # double 0.33967277995975176
+	.quad	0x3fd915011918c1e4              # double 0.39190700007296031
+	.quad	0x3fea48ba3674e423              # double 0.82137785564475896
+	.quad	0x3fd9958f8fc3cd3e              # double 0.39975346602951223
+	.quad	0x3fdfd2418b7cb9ae              # double 0.49720800992772751
+	.quad	0x3fec6a04c1ffc7f8              # double 0.88794172182519926
+	.quad	0x3fe34bdeca84bfd0              # double 0.60301150850681928
+	.quad	0x3fde6e0b27a6c7a6              # double 0.47546652672019218
+	.quad	0x3fef3d757531b7b1              # double 0.97625229730123497
+	.quad	0x3fd55fcd93279bf4              # double 0.33397235270098169
+	.quad	0x3fe283c1453bedbe              # double 0.57858336946758704
+	.quad	0x3fe62e97b2d926ce              # double 0.69318756991671093
+	.quad	0x3fdbabfd00522e12              # double 0.43237233191823166
+	.quad	0x3fd73461c2a89d7c              # double 0.36257213601717075
+	.quad	0x3febda01234439cd              # double 0.87036187065114634
+	.quad	0x3fe5599bd3b7eaed              # double 0.66718856192832521
+	.quad	0x3fe74e50cb08ea51              # double 0.72831000952948888
+	.quad	0x3fd62d72fafca13c              # double 0.34652399549897317
+	.quad	0x3fe6fefd1001e35f              # double 0.71862652899208601
+	.quad	0x3fe80951c7669ea1              # double 0.75113762803535533
+	.quad	0x3feaaaae89b87320              # double 0.83333517931496103
+	.quad	0x3fd2c5ac081cc772              # double 0.29331494133213376
+	.quad	0x3fc417d506ec4600              # double 0.15697729909929592
+	.quad	0x3fcfa4f224aeaa9c              # double 0.24722124854209404
+	.quad	0x3fd37a6b7ec16d0e              # double 0.30434691790078794
+	.quad	0x3fe8545c8bc19bad              # double 0.76029803558491482
+	.quad	0x3f9843089f9c5020              # double 0.02369321321664597
+	.quad	0x3fe7a2f8df782cee              # double 0.73864406248449455
+	.quad	0x3fed2d1f77e57f32              # double 0.91175816933898646
+	.quad	0x3fec72d5e7e419a2              # double 0.8890180138703736
+	.quad	0x3fef98a8a2eebbee              # double 0.9873850996281115
+	.quad	0x3fe1ea37ec772c72              # double 0.55984111962005856
+	.quad	0x3fe75770545fbbc7              # double 0.72942368010796421
+	.quad	0x3fed6872a1509d9d              # double 0.91899997240846043
+	.quad	0x3fdf6dc8aab98ef4              # double 0.49107567474696556
+	.quad	0x3fd25a216ba57228              # double 0.2867511321290146
+	.quad	0x3feb6db766eff3f7              # double 0.85714311699814416
+	.quad	0x3fe26591a82b2db4              # double 0.57489855618898966
+	.quad	0x3fc1f9526e42b978              # double 0.1404212034589809
+	.quad	0x3fe0a82d059181ad              # double 0.52052928054404435
+	.quad	0x3fd8a2c593aae604              # double 0.38493480129872659
+	.quad	0x3fec1a2e4c117cea              # double 0.87819590432255024
+	.quad	0x3feb8f89b51608a5              # double 0.8612717186772626
+	.quad	0x3fefd22dcfb86dc3              # double 0.99440661020656084
+	.quad	0x3fa586d91b40a2e0              # double 0.042044434143752474
+	.quad	0x3fe5901b0e9fbd73              # double 0.6738410268425653
+	.quad	0x3fdfc53514d711e8              # double 0.49641158137481378
+	.quad	0x3fef84422a309d49              # double 0.98489483108725395
+	.quad	0x3fe7f07a3fdba937              # double 0.74810516807818928
+	.quad	0x3febcd03df176e75              # double 0.86877626011432929
+	.quad	0x3fba18f2e48570a0              # double 0.10194318846828532
+	.quad	0x3fadbd9fd15c1470              # double 0.058087343508341216
+	.quad	0x3fd978ff18881592              # double 0.39801003833448434
+	.quad	0x3fb93e47fca1d720              # double 0.098606585672169178
+	.quad	0x3fa3f2b6d9247f70              # double 0.038961137777959176
+	.quad	0x3feb1deb4cfb4a70              # double 0.84740223918409008
+	.quad	0x3fc6f2c971b8dcbc              # double 0.17928426792943764
+	.quad	0x3fdfcc1df5276276              # double 0.49683331433110511
+	.quad	0x3fc5e658d3369f0c              # double 0.17109213174011761
+	.quad	0x3fe1dc3e361f6790              # double 0.55813513346514476
+	.quad	0x3fda3466ef48ac5a              # double 0.40944836967054743
+	.quad	0x3f9a4a3d4b5500c0              # double 0.025673825953391072
+	.quad	0x3fedfeb4ed8d9f3b              # double 0.93734213254081256
+	.quad	0x3fe0fe02b842caa2              # double 0.53100715626199624
+	.quad	0x3fdf3e0d9f685230              # double 0.48816242758883543
+	.quad	0x3fc74861c11471f8              # double 0.18189641883590446
+	.quad	0x3fdbac8a439f5570              # double 0.43240601161718129
+	.quad	0x3fbeb6d6d05e1d60              # double 0.11997740351772768
+	.quad	0x3fe95d509afa5562              # double 0.79264097470392536
+	.quad	0x3febdefb2222a20a              # double 0.87096935908363204
+	.quad	0x3fed2314aa7a9cf6              # double 0.91053231522246736
+	.quad	0x3fe78220db7a262a              # double 0.7346348082221017
+	.quad	0x3fefb7c35371e8f9              # double 0.99118200586170168
+	.quad	0x3fe4286ff63124eb              # double 0.62993619999283845
+	.quad	0x3fef9feee04e2122              # double 0.98827308473213216
+	.quad	0x3fe3196c3f292455              # double 0.59685337387157722
+	.quad	0x3feef36632dab84b              # double 0.96721181805129086
+	.quad	0x3fd9c2bbef638b0e              # double 0.40251062753502331
+	.quad	0x3fe2f34e6a6f8902              # double 0.59220047748775095
+	.quad	0x3fb492a00eeb8e88              # double 0.080362323420155701
+	.quad	0x3f717128af2c3f80              # double 0.00425830738346622
+	.quad	0x3faddee221465830              # double 0.058341089784491706
+	.quad	0x3fd771cca5126efe              # double 0.36632076378167244
+	.quad	0x3faec0f393519900              # double 0.060065852864498837
+	.quad	0x3fecd3acbcf60de7              # double 0.90083920389627969
+	.quad	0x3fd556923d652390              # double 0.33340888972866711
+	.quad	0x3fd6bdb275584b62              # double 0.3553281923242847
+	.quad	0x3fe137517c14430f              # double 0.53800272211273803
+	.quad	0x3fee64c2db5382d5              # double 0.94979994618560204
+	.quad	0x3fd7ab596464e664              # double 0.36983332447161943
+	.quad	0x3fcd26c2683f66ec              # double 0.22774534311502437
+	.quad	0x3fe0ec7fe24c0a62              # double 0.5288695735801634
+	.quad	0x3fe89c88eb7caccc              # double 0.76910825723225562
+	.quad	0x3fe9a2f653010f86              # double 0.80114284717318252
+	.quad	0x3fba158838fe78c0              # double 0.10189105407195864
+	.quad	0x3fcc8ed96379de70              # double 0.22310941083172819
+	.quad	0x3fddf02bf3a33d16              # double 0.46778391640414563
+	.quad	0x3fc0f0236ffe0968              # double 0.13232844322562731
+	.quad	0x3fd5cb25c30f8d18              # double 0.34052413987065355
+	.quad	0x3fef3fcc33d6f737              # double 0.97653780102675724
+	.quad	0x3fce33c0bbd886f4              # double 0.23595437214049009
+	.quad	0x3fdb3b2b1d1edc22              # double 0.42548635333827367
+	.quad	0x3fea8bd52ce1f9f5              # double 0.8295694233527785
+	.quad	0x3fe6f9db53ce1804              # double 0.7180000912492237
+	.quad	0x3fd58824beee7cd2              # double 0.33643454213774959
+	.quad	0x3fcbd26ab7c3e1a0              # double 0.21735891316326406
+	.quad	0x3fe118549157419a              # double 0.53422001253970852
+	.quad	0x3fecf2b83c70b108              # double 0.90462886624075711
+	.quad	0x3fd0f35695f51d68              # double 0.26485218662533905
+	.quad	0x3fca045fa6218e18              # double 0.2032584725558173
+	.quad	0x3fcb5a1cc7bbbab4              # double 0.21368751289943122
+	.quad	0x3fe7b54579e3b07f              # double 0.74087785536313777
+	.quad	0x3fe0263edbc25918              # double 0.50466864511216425
+	.quad	0x3fd5cc0e8b02bf14              # double 0.34057963919893663
+	.quad	0x3fee0c0f81d94e7a              # double 0.93897223816971054
+	.quad	0x3f779eb105e97700              # double 0.0057665743794055313
+	.quad	0x3fe2e6a4eed21210              # double 0.5906548180069553
+	.quad	0x3fef737c1206c5ea              # double 0.98284724732201068
+	.quad	0x3fee7f55bc1678f7              # double 0.95304381118674442
+	.quad	0x3fec79b3cfaf097f              # double 0.88985624850492673
+	.quad	0x3fec989f71dd1aba              # double 0.89363071669580241
+	.quad	0x3fdc75090ad03a38              # double 0.44464326911921459
+	.quad	0x3fdda0ede632a712              # double 0.46294734459171238
+	.quad	0x3fefa9c63f65cea8              # double 0.98947441465721386
+	.quad	0x3fc3b67a5aa4f70c              # double 0.15400628496166069
+	.quad	0x3fcdd6c8e12fd3cc              # double 0.23311720843744721
+	.quad	0x3fd8e1d83e69c612              # double 0.38878446669613809
+	.quad	0x3fe75358855328e5              # double 0.7289240459442935
+	.quad	0x3fd1b5f7eb4fdbde              # double 0.27673147182161795
+	.quad	0x3fe3605ad4aae887              # double 0.60551206146853154
+	.quad	0x3fd35c75fd652a22              # double 0.30251836534140086
+	.quad	0x3fe4827002add366              # double 0.64092255137675802
+	.quad	0x3fe351bf1a891858              # double 0.60372882063598876
+	.quad	0x3fd1e86474899728              # double 0.27980910664187997
+	.quad	0x3fe5c8255b949e04              # double 0.6806818760568949
+	.quad	0x3fe0f5d426992b8d              # double 0.53000838793501404
+	.quad	0x3fe6443f39fd2628              # double 0.69583093000364205
+	.quad	0x3fd2878dfa32d208              # double 0.28952359612893064
+	.quad	0x3fe7d784f9142f84              # double 0.7450585236378946
+	.quad	0x3fe36372e1bf9345              # double 0.60588974086258729
+	.quad	0x3fe77d9aedba0f3f              # double 0.73408266478552509
+	.quad	0x3fe8fdbaeb2e97f4              # double 0.78097291883454866
+	.quad	0x3fe5beb9a0ead84c              # double 0.67953187398121306
+	.quad	0x3fea9ea2dba45b23              # double 0.8318647661097639
+	.quad	0x3feeaffebd0da054              # double 0.95898377346476104
+	.quad	0x3fec1d0b85f573a5              # double 0.87854553378894151
+	.quad	0x3fd94d4661dbe284              # double 0.39534148747001319
+	.quad	0x3fd3a9bc8b2c6764              # double 0.3072348937144993
+	.quad	0x3fc126344a966e80              # double 0.13397840158437546
+	.quad	0x3fec37f1d623a77c              # double 0.88182918380810759
+	.quad	0x3fd42d01fc714e5e              # double 0.31524705555532317
+	.quad	0x3fdb611c771343d4              # double 0.42780219677393672
+	.quad	0x3fd4047dbf85eb0c              # double 0.31277412131719085
+	.quad	0x3fb7cd3ab07614b8              # double 0.092975299912796738
+	.quad	0x3fe8ffd1fe10a26f              # double 0.78122806188646432
+	.quad	0x3feba25f3d50d673              # double 0.86357080436455502
+	.quad	0x3feaa783145ef027              # double 0.83294824579889315
+	.quad	0x3fdb68d2bb13b208              # double 0.42827289838058435
+	.quad	0x3fdcf27fb1527b30              # double 0.45230095211620647
+	.quad	0x3fcb73a43c3f9380              # double 0.21446659986318295
+	.quad	0x3f9ebbd0fedde8a0              # double 0.030013337665402262
+	.quad	0x3fe5fa176c3be440              # double 0.68677874698108354
+	.quad	0x3fd5704eaebb5b00              # double 0.33497969688089313
+	.quad	0x3fe2cae262c85b05              # double 0.58726615231975698
+	.quad	0x3fe973e428061c08              # double 0.79539687935982872
+	.quad	0x3fe406a50c7cc31d              # double 0.6258111232656095
+	.quad	0x3fd62b871736d4ac              # double 0.34640671984682103
+	.quad	0x3fe474bec3ad11b2              # double 0.63925111978510629
+	.quad	0x3fb315dd53b3a9c0              # double 0.074552376685153909
+	.quad	0x3fe0dfa963778c62              # double 0.52730245043893498
+	.quad	0x3fc542cc8af8e114              # double 0.16610104356528466
+	.quad	0x3fe07d83c8278ca7              # double 0.51532162754701438
+	.quad	0x3fe161e52755b570              # double 0.5432000892885025
+	.quad	0x3fe930e28538ad03              # double 0.78721738834192967
+	.quad	0x3feca9f6a7398eb4              # double 0.89574749623394334
+	.quad	0x3fd99af9046a0f6a              # double 0.40008378439983139
+	.quad	0x3fda04292d473668              # double 0.40650395795532868
+	.quad	0x3fe81cb637079b8d              # double 0.7535048556136289
+	.quad	0x3fe05d3b59999463              # double 0.51138083934769119
+	.quad	0x3fcebd32004f07fc              # double 0.24014878287385943
+	.quad	0x3fd552993feb73fa              # double 0.33316642038499789
+	.quad	0x3fef43774564ae5f              # double 0.97698558381439315
+	.quad	0x3fee738c0e96075d              # double 0.95160487030828345
+	.quad	0x3fe746ef6e442934              # double 0.72740909134271314
+	.quad	0x3fe1fa862fe3d936              # double 0.56183156350633712
+	.quad	0x3fe2cfaf994351b9              # double 0.58785228666470524
+	.quad	0x3fe0e43e8449ea59              # double 0.52786184156077376
+	.quad	0x3fe2e1d1a28bb0b2              # double 0.59006578204345872
+	.quad	0x3fe5578fc785384b              # double 0.66693867653681005
+	.quad	0x3fe13e08a8ecfb13              # double 0.53882248872091265
+	.quad	0x3f9a32640c786800              # double 0.025582850705269777
+	.quad	0x3fe620dcadbdb385              # double 0.69151147779267375
+	.quad	0x3fe4cc9b0a8125d7              # double 0.64997627307564698
+	.quad	0x3fd064151463b05a              # double 0.25610854140427863
+	.quad	0x3fd6e18dfc165c28              # double 0.35751676195053728
+	.quad	0x3fe4c21866a5355f              # double 0.648693275908652
+	.quad	0x3fe2b392bdd2c833              # double 0.58442055773617196
+	.quad	0x3feb029a1e6a0905              # double 0.84406763019822562
+	.quad	0x3fce7511858b4c74              # double 0.23794764538488133
+	.quad	0x3fe83249d011cd39              # double 0.75613871229726393
+	.quad	0x3fe5312b76bdf131              # double 0.6622521704844414
+	.quad	0x3fe1d12badd25c99              # double 0.55678352307849643
+	.quad	0x3f9629fd8c80e4c0              # double 0.021644555760052198
+	.quad	0x3fecd0b56d0bd4f5              # double 0.90047713564004417
+	.quad	0x3fe88ad7902e21f0              # double 0.76694849167057377
+	.quad	0x3fede95bc48e29fb              # double 0.93473614110672487
+	.quad	0x3fe59c43a5cbd71d              # double 0.67532522565918252
+	.quad	0x3fc349e0f9ace6ac              # double 0.15069210234815011
+	.quad	0x3fdea44cf3a66e42              # double 0.47877811235386869
+	.quad	0x3fc684039c925e60              # double 0.1759037508497725
+	.quad	0x3fee7531d3afdb78              # double 0.9518059858809087
+	.quad	0x3fc8a55db08283f4              # double 0.19254656904834599
+	.quad	0x3fefd47ca92053e7              # double 0.99468834907986269
+	.quad	0x3f92fa057cd4de20              # double 0.018531881088362678
+	.quad	0x3fdb336dfa706e36              # double 0.42501401383353554
+	.quad	0x3fdcfa3ecba4060e              # double 0.45277376066960151
+	.quad	0x3fb91007d69e0428              # double 0.097900857826986099
+	.quad	0x3fdd6263c08636be              # double 0.45913022805403247
+	.quad	0x3fc687acee929550              # double 0.1760154881386975
+	.quad	0x3fdf0489899bfd68              # double 0.48465193212901747
+	.quad	0x3fd5b7b73f728630              # double 0.33933812328368429
+	.quad	0x3fd5d34483674a6a              # double 0.34101975281115549
+	.quad	0x3fc7cf48069d9de4              # double 0.1860132248213936
+	.quad	0x3fe4a6a3e48f5c7f              # double 0.64534182205797197
+	.quad	0x3fe47e2153e28a34              # double 0.64039675124906248
+	.quad	0x3fdb12185b8e0618              # double 0.42297944012543232
+	.quad	0x3fe52f61e7b59193              # double 0.66203398948396097
+	.quad	0x3fdd3fbdf7711730              # double 0.45701550640329724
+	.quad	0x3feebff28eba2458              # double 0.96093109012975741
+	.quad	0x3fdc2caadae816d8              # double 0.44022628190610424
+	.quad	0x3fec5b78547b6e87              # double 0.88616577625676107
+	.quad	0x3feb43e09f77b6a8              # double 0.85203581949254659
+	.quad	0x3fea0efca37372a7              # double 0.81432945179002025
+	.quad	0x3feac65e4a2feb6e              # double 0.83671488275227346
+	.quad	0x3fd05b7692a39606              # double 0.25558246917930239
+	.quad	0x3fce0e865a263268              # double 0.23481826211754542
+	.quad	0x3fef6e24d8fb5568              # double 0.98219530467274029
+	.quad	0x3f99ee16dc9d1ac0              # double 0.025322301116171841
+	.quad	0x3fd8615bac10baf4              # double 0.3809422664952955
+	.quad	0x3fe4e7a6609eaab3              # double 0.65327757712414891
+	.quad	0x3fe7f8c659828f0b              # double 0.74911801798268252
+	.quad	0x3fec14af71545954              # double 0.8775250638453067
+	.quad	0x3fb55b2ee716e388              # double 0.083422595423043089
+	.quad	0x3fe3e1b82ed13b5d              # double 0.62130364555364859
+	.quad	0x3fdb1da1a4a82dc4              # double 0.4236835582712184
+	.quad	0x3fd53ea823bd98a4              # double 0.33194926729482632
+	.quad	0x3fda3675303b3a00              # double 0.40957383833020344
+	.quad	0x3fdd73b16a6c3dce              # double 0.46018634217122389
+	.quad	0x3fe859ff29e78edf              # double 0.76098592934109976
+	.quad	0x3fed7e1e8e808c83              # double 0.92164542992067344
+	.quad	0x3fd30ca9e899216e              # double 0.2976479312387913
+	.quad	0x3fed5b6f3704ccbe              # double 0.91741142984246671
+	.quad	0x3fe072f159d339fd              # double 0.51403110069242042
+	.quad	0x3fd04d060c3273b0              # double 0.25470114890213846
+	.quad	0x3fcd50fdce7062f0              # double 0.22903416233091134
+	.quad	0x3f9743b78e985760              # double 0.022719257429421602
+	.quad	0x3fec621334d6a3da              # double 0.88697204895026549
+	.quad	0x3feac33fdcd3ecc6              # double 0.83633416300235619
+	.quad	0x3fee682ba3a700f0              # double 0.95021612132407363
+	.quad	0x3feceaa403855f60              # double 0.90364266097729384
+	.quad	0x3fef4378c769edba              # double 0.97698630283360122
+	.quad	0x3fcdb6149d673ff8              # double 0.23211915670117356
+	.quad	0x3fe0a02df257ded8              # double 0.51955315907158717
+	.quad	0x3fe630863ed7615d              # double 0.69342338823029659
+	.quad	0x3fefd4a2b4b96a6c              # double 0.99470649049483261
+	.quad	0x3fdf4f3f2e80efd6              # double 0.48921184102414139
+	.quad	0x3fec5d274636e166              # double 0.88637126649613829
+	.quad	0x3fcc093da4657280              # double 0.21903200652277022
+	.quad	0x3fc1a3db905b2d84              # double 0.13781303928986344
+	.quad	0x3fe570d710ba2f76              # double 0.6700244261460131
+	.quad	0x3f92c1dcf59730a0              # double 0.018317654122981808
+	.quad	0x3fd6855ed90505ae              # double 0.35189028924295485
+	.quad	0x3fe82ebbbce499bd              # double 0.75570475476415988
+	.quad	0x3fd082a938032208              # double 0.25797491521782989
+	.quad	0x3fe61ecd3c995fc5              # double 0.69125997386708404
+	.quad	0x3fc8e82f10c1fabc              # double 0.19458568876503601
+	.quad	0x3fd44bb3e912c284              # double 0.31712053071081692
+	.quad	0x3fd92d1eaa657914              # double 0.39337889328261721
+	.quad	0x3fb688112c4616c8              # double 0.088013718899755067
+	.quad	0x3fda9cc258c41bfc              # double 0.4158178202491738
+	.quad	0x3fe2316ded341891              # double 0.56853386238869252
+	.quad	0x3fddac08cbb9a9d8              # double 0.46362514395755516
+	.quad	0x3fe2ad5cb082a80a              # double 0.5836623618572514
+	.quad	0x3fe02880466f73fa              # double 0.50494397885233799
+	.quad	0x3f956b4d89ad5340              # double 0.020917140510692933
+	.quad	0x3fe3e431b71cadb4              # double 0.62160573734347802
+	.quad	0x3fee100f086e7995              # double 0.93946029326234515
+	.quad	0x3fe8531a6f7eaea7              # double 0.76014444137895942
+	.quad	0x3fecf1eceb1b94e6              # double 0.90453191680412881
+	.quad	0x3fea72ab04c29529              # double 0.8264975636454085
+	.quad	0x3fdafe3f1392a04a              # double 0.42176796828653507
+	.quad	0x3fb3ff7aa77d99d0              # double 0.078117051974550877
+	.quad	0x3febe690b594979b              # double 0.87189517464570387
+	.quad	0x3fe1db1709d06291              # double 0.55799438397214562
+	.quad	0x3fd85601b32c0d64              # double 0.38024942872308132
+	.quad	0x3fe140ae3cb221d4              # double 0.53914558272031821
+	.quad	0x3fe4d8ad84f70022              # double 0.65144992799469414
+	.quad	0x3fe1fe4ce6becd94              # double 0.56229252879568259
+	.quad	0x3fddc23baa7666ea              # double 0.46498004576424867
+	.quad	0x3fe3b8976ea87e90              # double 0.61628314602781309
+	.quad	0x3fdd07cf76952a3e              # double 0.45360170917834697
+	.quad	0x3f944959de1ccd60              # double 0.019811062032386473
+	.quad	0x3fda58dddc3dc23c              # double 0.4116739893716248
+	.quad	0x3fd2e8cd56620094              # double 0.29545911250898738
+	.quad	0x3fde915924025462              # double 0.47762135044587783
+	.quad	0x3fa4e6f866872400              # double 0.040824663653957316
+	.quad	0x3fe5ef359bdd04ae              # double 0.68545036737500253
+	.quad	0x3fdd038cb0c935b0              # double 0.45334164871459404
+	.quad	0x3fe0581a1a97c345              # double 0.51075463479910665
+	.quad	0x3facd630975af620              # double 0.056321638561240173
+	.quad	0x3fecfc8ff5a582ee              # double 0.90583036401593886
+	.quad	0x3fdd07fb63730500              # double 0.453612181776478
+	.quad	0x3fb1f26b26e61ab0              # double 0.07010526370695902
+	.quad	0x3fc79cdd1eec3d00              # double 0.18447460184004427
+	.quad	0x3fd6a6a19b4ca75a              # double 0.35392036596259902
+	.quad	0x3fe3ec4f30a33d44              # double 0.62259635448018757
+	.quad	0x3fd8c65877360a06              # double 0.38710605279644061
+	.quad	0x3fdd7093769def2c              # double 0.45999609550175324
+	.quad	0x3fd0ef6c1e2ff6a8              # double 0.26461317966446041
+	.quad	0x3fd70ca84c0a6ae0              # double 0.36014754701470331
+	.quad	0x3fe167f442cef055              # double 0.54393971489435933
+	.quad	0x3fe5f32809613110              # double 0.6859321768947968
+	.quad	0x3fe4151768809322              # double 0.62757463846773853
+	.quad	0x3fce5270a11fed9c              # double 0.23689086787622393
+	.quad	0x3fcace18a7398bb8              # double 0.20941455998680936
+	.quad	0x3fe1d6217472832d              # double 0.55738899940124542
+	.quad	0x3fedd989cf99ec6a              # double 0.93280497119066053
+	.quad	0x3feca464d0d0db95              # double 0.89506760391565143
+	.quad	0x3f9c6dbee59b5fe0              # double 0.027762396587462379
+	.quad	0x3fe47000925e1528              # double 0.6386721476307331
+	.quad	0x3fd2b3034b96614a              # double 0.29217607862075978
+	.quad	0x3fdf6bcafd1d65dc              # double 0.49095415800328879
+	.quad	0x3f96d6fe250cb140              # double 0.022304507266356355
+	.quad	0x3f9cfc0d67969700              # double 0.02830525345566226
+	.quad	0x3fd9c0267785bc56              # double 0.40235292121991983
+	.quad	0x3fd07c2dc3f73d72              # double 0.25757927071841558
+	.quad	0x3fde619017a1bc46              # double 0.47470476444044996
+	.quad	0x3fd270b8a80d2878              # double 0.28812996302861604
+	.quad	0x3fec5c491d7833d2              # double 0.88626533275384589
+	.quad	0x3fd75698dafa46fa              # double 0.36466046700034804
+	.quad	0x3f825cf3b9b9db00              # double 0.0089663544706417575
+	.quad	0x3fe4b3e67ce8138e              # double 0.64696049114046317
+	.quad	0x3fcb307b44f9a928              # double 0.21241703861171257
+	.quad	0x3fe891fb0bc1d4c7              # double 0.76781990333861294
+	.quad	0x3fec21470ecbdda3              # double 0.8790622033110832
+	.quad	0x3fbaacca7c721e60              # double 0.10419908083178475
+	.quad	0x3fe1e4e52f6f6f1d              # double 0.55919131531433985
+	.quad	0x3fd9dbf91dfaf472              # double 0.40405109336626943
+	.quad	0x3fd49bcc41a0f67a              # double 0.32200914773043332
+	.quad	0x3fe466e509228290              # double 0.63756038459912823
+	.quad	0x3fdbf7114a803cc0              # double 0.43695480609398984
+	.quad	0x3fa88e383cad0060              # double 0.047960050017082478
+	.quad	0x3fef2c11ee740e30              # double 0.97412964413564929
+	.quad	0x3feefc363bd03386              # double 0.96828757936747034
+	.quad	0x3fa9fbd11ca468c0              # double 0.050749335047116428
+	.quad	0x3fb99993e4ed6d98              # double 0.099999659910670835
+	.quad	0x3fd5acd6bc37b8f4              # double 0.33867424374228894
+	.quad	0x3fa6724483cf5a80              # double 0.043840542879185485
+	.quad	0x3fcdebefdeb70a90              # double 0.23376272558933353
+	.quad	0x3fe08e988bbbd8ba              # double 0.51740672389748643
+	.quad	0x3fefd3ee654dcdc6              # double 0.99462051187440959
+	.quad	0x3fee9828118dd118              # double 0.95607379368314848
+	.quad	0x3fd433aaf2ed1ade              # double 0.31565355036984311
+	.quad	0x3fb5fa0452adc0c0              # double 0.08584620493434425
+	.quad	0x3fe2c18bd713e47e              # double 0.58612625129093465
+	.quad	0x3fe7a3ac306eeac7              # double 0.73872956714270621
+	.quad	0x3fe0da55aa4179fd              # double 0.526652176409527
+	.quad	0x3fef17e90aca4a92              # double 0.97166874034367567
+	.quad	0x3fece50a299c2f82              # double 0.90295894743893279
+	.quad	0x3fd1bb40b9e292be              # double 0.27705400612675735
+	.quad	0x3febd538e855140d              # double 0.86977811219606027
+	.quad	0x3fdda651fae5b118              # double 0.46327638150866468
+	.quad	0x3fafcac0701068c0              # double 0.062093747787189013
+	.quad	0x3fb800047994e020              # double 0.093750266726488451
+	.quad	0x3fe2b4e973603f4a              # double 0.5845839742123442
+	.quad	0x3fe83791012cc874              # double 0.75678301076392395
+	.quad	0x3fe5e6c15ed69df4              # double 0.68441837809672146
+	.quad	0x3fb7d5ae653af808              # double 0.093104266848030304
+	.quad	0x3fed9f06ec3f5f42              # double 0.92566248075579716
+	.quad	0x3fe46658c0459194              # double 0.63749349167896918
+	.quad	0x3fc571c16b179560              # double 0.16753404358966417
+	.quad	0x3fb80b6fbe97b530              # double 0.093924507171057269
+	.quad	0x3fee5f97baf8eab4              # double 0.94916903036149458
+	.quad	0x3fe5b609c4d12716              # double 0.67847145500965911
+	.quad	0x3fe0eada6f3e7df3              # double 0.52866861083378891
+	.quad	0x3fe13ce957fb45fe              # double 0.53868548568624397
+	.quad	0x3fc6d63c472c37f0              # double 0.17841294741850744
+	.quad	0x3fe82f33770e8329              # double 0.75576184514293232
+	.quad	0x3fe4e2895db98b7f              # double 0.65265339189168958
+	.quad	0x3feb5adb5d966040              # double 0.85484092978277459
+	.quad	0x3fd5e9ace5ccf536              # double 0.34238741342035739
+	.quad	0x3fee963100c581c1              # double 0.95583391333280343
+	.quad	0x3fd21965646b5aa2              # double 0.28280005270554842
+	.quad	0x3fe70e57537e724a              # double 0.72050062472733001
+	.quad	0x3fe059ed3af558a1              # double 0.5109773780375414
+	.quad	0x3fdcd49f55c953a6              # double 0.45047744157391845
+	.quad	0x3fee3b519a826671              # double 0.94474106004345348
+	.quad	0x3fef399448fd707f              # double 0.97577871566637941
+	.quad	0x3fe89467bc6ea1b3              # double 0.76811587145953408
+	.quad	0x3fe74f3d7e160541              # double 0.72842287660765959
+	.quad	0x3fc7e90e0f0d36bc              # double 0.18679977164213379
+	.quad	0x3fe695d5ae600172              # double 0.70579036767598624
+	.quad	0x3fe7017e83ccf578              # double 0.71893239729222014
+	.quad	0x3fe0ca1ea4c00463              # double 0.52467281511065911
+	.quad	0x3fef3d6833ccc89a              # double 0.97624597661185253
+	.quad	0x3fc522259fea2968              # double 0.16510458286604579
+	.quad	0x3fe13b5540c20a74              # double 0.53849280021706969
+	.quad	0x3fda3559cde275a2              # double 0.40950627427977271
+	.quad	0x3fefc6219c371dfc              # double 0.99293594847489385
+	.quad	0x3fc0adbdeaddccac              # double 0.13030218093954227
+	.quad	0x3f8c83d5f535fe00              # double 0.013923331781142245
+	.quad	0x3fbe7cb876fb0000              # double 0.11909058480068779
+	.quad	0x3fd0173e932262d2              # double 0.25141872757516837
+	.quad	0x3fabed4f9fc52740              # double 0.054544914487065999
+	.quad	0x3fd4f437bbd2c27a              # double 0.32740586607091127
+	.quad	0x3fddd031bd40d2e8              # double 0.46583217126617038
+	.quad	0x3fea163808a2f251              # double 0.81521226584261275
+	.quad	0x3fb3d66ef02ff810              # double 0.077490743293282315
+	.quad	0x3fe429862f647582              # double 0.63006886726695677
+	.quad	0x3feb73227e858bdf              # double 0.85780453406584545
+	.quad	0x3fdf35717163334a              # double 0.48763691018102817
+	.quad	0x3fd5016d2552a1e2              # double 0.32821205754092209
+	.quad	0x3feba4d498f353b9              # double 0.86387090562003899
+	.quad	0x3fd28b6b6aff1274              # double 0.28975949715485361
+	.quad	0x3fa1d16e7b3d2970              # double 0.034800961059391677
+	.quad	0x3fd07615f1747300              # double 0.25720738010004141
+	.quad	0x3fe71c0ac52bcc09              # double 0.72217310438134164
+	.quad	0x3fe35b59251c8424              # double 0.60490090606993308
+	.quad	0x3fb8e8c7f7601458              # double 0.097301957983363052
+	.quad	0x3fec079ee9436ac7              # double 0.87593026694533982
+	.quad	0x3f90ceec879e5000              # double 0.016414352204790816
+	.quad	0x3fc98b3ff679ff08              # double 0.1995620683192032
+	.quad	0x3fd2b935838cf516              # double 0.29255426260699957
+	.quad	0x3fdd0c5f1c02154c              # double 0.45388009772462534
+	.quad	0x3fea8a3c1da86e2c              # double 0.82937436859669366
+	.quad	0x3fd467583a9b4d24              # double 0.31880765651040321
+	.quad	0x3f57e04bfc553600              # double 0.0014572851226434258
+	.quad	0x3fe9b84c4e63620d              # double 0.80374732313345165
+	.quad	0x3fda9f2378db9bf4              # double 0.41596304705166109
+	.quad	0x3febb08196c2593f              # double 0.86529616780425289
+	.quad	0x3fedec79b5f97d97              # double 0.93511663000019751
+	.quad	0x3f858c6d71eebdc0              # double 0.01052175048775339
+	.quad	0x3fb6e0bb64deacb0              # double 0.089366638304158696
+	.quad	0x3fe46a496b899c17              # double 0.63797446254182233
+	.quad	0x3fe58821bd6c6bbf              # double 0.67286765095501966
+	.quad	0x3fc785aa1910b9e4              # double 0.18376661514180548
+	.quad	0x3fef6795d675b5c3              # double 0.98139469038658722
+	.quad	0x3fd076dc441368fc              # double 0.25725466392545093
+	.quad	0x3fb988f3480edf98              # double 0.099745946018514053
+	.quad	0x3fc976208954cb30              # double 0.19891745286585083
+	.quad	0x3f981941b9c5b000              # double 0.023533846820484428
+	.quad	0x3fc226353fdc1860              # double 0.14179101579810816
+	.quad	0x3fc9d80c39a2f78c              # double 0.2019057542256032
+	.quad	0x3fed03738ead4e3f              # double 0.90667131296726911
+	.quad	0x3fea2bb55849480b              # double 0.81783549540910039
+	.quad	0x3fe7ba28fd8b0bea              # double 0.74147462387224761
+	.quad	0x3fe80b79c405d43d              # double 0.75140083585450379
+	.quad	0x3fcebed6e49f587c              # double 0.24019895709233541
+	.quad	0x3fb89084ddfd0650              # double 0.095955185123807185
+	.quad	0x3fd3b102bf5676ae              # double 0.30767887769057267
+	.quad	0x3fe7c1ee59eaeb60              # double 0.74242322504083446
+	.quad	0x3fc66d7648658580              # double 0.17521551642407118
+	.quad	0x3fe3d55b356b7829              # double 0.61979446824603202
+	.quad	0x3fd1c6d6e4340c9e              # double 0.27776119504432895
+	.quad	0x3fcb585b7f7eaecc              # double 0.21363395428976728
+	.quad	0x3fd5914acfc7d12c              # double 0.33699293414180675
+	.quad	0x3fdd7388bd3300d6              # double 0.46017664410102321
+	.quad	0x3fec088b194c6240              # double 0.87604288998688418
+	.quad	0x3fe742175ac0ea86              # double 0.72681777692135152
+	.quad	0x3feb6538de66c513              # double 0.85610621869833137
+	.quad	0x3fe92cf6c945845c              # double 0.78673877058839591
+	.quad	0x3fd839ba3332f8be              # double 0.37852339744484798
+	.quad	0x3fa68497a5e06b70              # double 0.043980349539387897
+	.quad	0x3fe97ff9703a6df0              # double 0.79687187118127945
+	.quad	0x3fdee9563a64c12a              # double 0.48299174978730497
+	.quad	0x3feccef2371aa13b              # double 0.90026198160652571
+	.quad	0x3fb3addcf134b7d8              # double 0.076871689689795075
+	.quad	0x3fe46432c4213ec1              # double 0.63723123842824958
+	.quad	0x3fea56b6a78f2695              # double 0.8230851433410914
+	.quad	0x3fd63692bf50b9f8              # double 0.34708088572634166
+	.quad	0x3fd4875f8f159792              # double 0.32076252911644432
+	.quad	0x3f8015b44262f980              # double 0.0078538973579014293
+	.quad	0x3fed67fee825c41a              # double 0.91894479123414219
+	.quad	0x3fe228b4b1795fac              # double 0.56746897375977801
+	.quad	0x3fe39c9917a4745a              # double 0.61286596887260747
+	.quad	0x3fe8075e958e9286              # double 0.75089959345184876
+	.quad	0x3fd60f2dacad1cec              # double 0.34467641699707374
+	.quad	0x3fdd6fcc1403b640              # double 0.45994855837384208
+	.quad	0x3feb43c72fe94348              # double 0.85202369077351481
+	.quad	0x3faec019ca4e33b0              # double 0.06005936235951681
+	.quad	0x3fe8c04d87a7dbc1              # double 0.77347446913960749
+	.quad	0x3fef32bb6ae7d1cf              # double 0.97494288330067913
+	.quad	0x3fdcab708e47d09a              # double 0.44796384710867587
+	.quad	0x3fc8fd0a4aac45d0              # double 0.19522217413081799
+	.quad	0x3fefb3536f49b96c              # double 0.99064037071165733
+	.quad	0x3fd2eeb0aa7f625a              # double 0.29581848764568053
+	.quad	0x3fe82443523f76ee              # double 0.75442663253826736
+	.quad	0x3fd79e7ca546b350              # double 0.36904827251674011
+	.quad	0x3fee3e9fd34ef8f3              # double 0.94514457007588104
+	.quad	0x3fd05d20effe7b18              # double 0.25568412243767247
+	.quad	0x3fe6289558a237f8              # double 0.69245402632964126
+	.quad	0x3fe1f333022f2f52              # double 0.56093740870117359
+	.quad	0x3fec4e57e728c09e              # double 0.88456339977530596
+	.quad	0x3fe1cf8aec385d70              # double 0.55658479820969653
+	.quad	0x3fe299abd1eb8dc6              # double 0.58125868797326841
+	.quad	0x3febe377e8219b56              # double 0.87151713693752231
+	.quad	0x3fb950373b56e158              # double 0.098880245196487748
+	.quad	0x3fd331af17461ede              # double 0.29990746758310916
+	.quad	0x3fe0a5107e7930a4              # double 0.52014946653209337
+	.quad	0x3fdb4577b05d72ea              # double 0.42611496184490127
+	.quad	0x3fe1ae2af2669ef4              # double 0.55251071304243604
+	.quad	0x3feafe5ae923501d              # double 0.84354920897249352
+	.quad	0x3fe15fbd58e07914              # double 0.54293696745642928
+	.quad	0x3fc2eb34d32d1008              # double 0.14780292807893169
+	.quad	0x3fd504756b3315a6              # double 0.32839713543611493
+	.quad	0x3febeb91fc09a4b6              # double 0.87250613428218204
+	.quad	0x3fe14bb66308c3ad              # double 0.54049224226593184
+	.quad	0x3fe89bdddfc429e3              # double 0.76902669624660935
+	.quad	0x3fe19aaf3d83be35              # double 0.55013238920759611
+	.quad	0x3fef0b5580531598              # double 0.97013354361904458
+	.quad	0x3fbc4ff5c99094b8              # double 0.11059509440436244
+	.size	.L__constant_100x100xf64, 80000
+
+	.section	".note.GNU-stack","",@progbits

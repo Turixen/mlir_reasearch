@@ -1,8 +1,8 @@
-2.38,msec,task-clock,1.00%,2446916,100.00,0.564,CPUs utilized
-0,,context-switches,0.00%,2446916,100.00,0.000,/sec
-0,,cpu-migrations,0.00%,2446916,100.00,0.000,/sec
-82,,page-faults,0.26%,2446916,100.00,34.454,K/sec
-4264672,,cycles,1.00%,2446916,100.00,1.792,GHz
-992027,,instructions,0.62%,2446916,100.00,0.23,insn per cycle
-117560,,branches,0.52%,2446916,100.00,49.396,M/sec
-13508,,branch-misses,0.96%,2446916,100.00,11.49,of all branches
+2.37,msec,task-clock,0.74%,2343000,100.00,0.570,CPUs utilized
+0,,context-switches,0.00%,2343000,100.00,0.000,/sec
+0,,cpu-migrations,0.00%,2343000,100.00,0.000,/sec
+82,,page-faults,0.35%,2343000,100.00,34.545,K/sec
+4254240,,cycles,0.74%,2343000,100.00,1.792,GHz
+993708,,instructions,0.68%,2343000,100.00,0.23,insn per cycle
+117743,,branches,0.60%,2343000,100.00,49.602,M/sec
+13261,,branch-misses,0.77%,2343000,100.00,11.26,of all branches
