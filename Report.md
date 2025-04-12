@@ -92,3 +92,92 @@ Nell'output del file è indicato anche il:
 ![Vectors perfomance Analysis](jupiter/vector_performance_dashboard.png)
 
 ### Confronto vector length migliore (4) con performance scalare
+
+
+## Analisi del Codice Vettoriale RISC-V per Moltiplicazione di Matrici
+
+Ho analizzato il codice assembly per un'implementazione di moltiplicazione di matrici che utilizza le istruzioni vettoriali RISC-V. Questo codice sembra essere il risultato di un processo di compilazione da MLIR (Multi-Level Intermediate Representation) attraverso LLVM fino all'assembly RISC-V, con particolare attenzione alla vettorizzazione.
+
+### Panoramica
+
+Il codice consiste di tre funzioni principali:
+1. `matmul` - Un'implementazione vettorizzata della moltiplicazione di matrici
+2. `main` - Il punto di ingresso che prepara i dati e chiama `matmul`
+3. `test_assemble` - Funzione di supporto per la preparazione dei dati di test
+
+### Implementazione della Moltiplicazione di Matrici
+
+La funzione `matmul` implementa la moltiplicazione di matrici utilizzando le istruzioni vettoriali RISC-V, sfruttando in particolare l'estensione "V" di RISC-V. La funzione è ottimizzata per operazioni su matrici sparse basate sui flag di compilazione mostrati nel tuo script di build (in particolare `-sparsification-and-bufferization` e `-sparse-tensor-codegen`).
+
+```asm
+matmul:                                 # @matmul
+    # Prologo della funzione - salva i registri callee-saved
+    addi    sp, sp, -96
+    sd      s0, 88(sp)                  # Salva i registri nello stack
+    # ... altri salvataggi di registri ...
+```
+
+### Operazioni Vettoriali Chiave
+
+Il codice utilizza diverse importanti istruzioni vettoriali RISC-V:
+
+1. `vsetvli` - Imposta la lunghezza del vettore in base alla dimensione dell'elemento (e32/e64) e alla dimensione del gruppo vettoriale (m2/m4)
+2. `vid.v` - Carica interi consecutivi (0, 1, 2...) in un registro vettoriale
+3. `vmv.v.i` - Sposta un valore immediato in tutti gli elementi di un registro vettoriale
+4. `vmslt.vx` - Crea una maschera basata sul confronto tra elementi vettoriali e uno scalare
+5. `vmv4r.v` - Copia un registro vettoriale in un altro (4 registri alla volta per vettori più ampi)
+6. `vle64.v` - Caricamento vettoriale di elementi a 64 bit
+7. `vse64.v` - Memorizzazione vettoriale di elementi a 64 bit
+8. `vfmul.vf` - Moltiplicazione in virgola mobile vettore-scalare
+9. `vfadd.vv` - Addizione in virgola mobile vettore-vettore
+
+### Gestione di Matrici Sparse
+
+L'implementazione sembra essere progettata per operazioni efficienti su matrici sparse:
+
+```asm
+.LBB0_7:                                #   nel Loop: Header=BB0_8 Profondità=3
+    vsetvli  zero, zero, e32, m2, ta, ma
+    vmslt.vx v0, v8, a5                # Crea maschera basata sugli indici
+    add      a5, s8, s0
+    vmv4r.v  v16, v12                  # Inizializza vettori con zeri
+    add      a4, s7, a1
+    vmv4r.v  v20, v12
+    vsetvli  zero, zero, e64, m4, ta, mu
+    vle64.v  v16, (a5), v0.t          # Caricamento con maschera (simile a gather)
+    vle64.v  v20, (a4), v0.t          # Caricamento con maschera (simile a gather)
+    # ... operazioni sui dati caricati ...
+    vse64.v  v16, (a5), v0.t          # Memorizzazione con maschera (simile a scatter)
+```
+
+### Perché le Tradizionali Gather/Scatter Non Sono Utilizzate
+
+L'estensione vettoriale RISC-V fornisce le istruzioni `vluxei` e `vsuxei` per un vero accesso indicizzato alla memoria (gather/scatter), ma questo codice non le utilizza esplicitamente. Invece, utilizza caricamenti e memorizzazioni con mascheramento (`v0.t` come suffisso). Ecco perché:
+
+1. **Decisione del Compilatore**: La pipeline di compilazione MLIR-to-LLVM-to-RISC-V ha scelto di implementare l'accesso sparso utilizzando operazioni mascherate anziché operazioni indicizzate basate su specifici pattern di accesso.
+
+2. **Strategia di Ottimizzazione**: I flag di compilazione includono `-sparse-tensor-codegen` e `-sparsification-and-bufferization`, suggerendo una strategia specifica per la gestione di tensori sparsi che favorisce l'accesso basato su maschere per questo particolare pattern di calcolo.
+
+3. **Regolarità di Accesso**: L'algoritmo sembra lavorare con formati compressi per matrici sparse dove gli elementi non-zero seguono un pattern più strutturato, rendendo le operazioni basate su maschere più efficienti rispetto a gather/scatter casuali.
+
+4. **Benefici della Predicazione**: L'uso di operazioni predicate consente al codice di eseguire condizionalmente operazioni su elementi vettoriali, che può essere più efficiente di gather/scatter quando si ha a che fare con dati sparsi che presentano località.
+
+5. **Vettorizzazione VLA**: Il flag `enable-vla-vectorization=true` indica che viene utilizzata la vettorizzazione di array a lunghezza variabile, che spesso funziona meglio con approcci basati su maschere per questa struttura algoritmica.
+
+## Considerazioni sulle Prestazioni
+
+L'implementazione utilizza diverse tecniche per le prestazioni:
+
+1. **Programmazione Vector Length Agnostic**: Il codice utilizza `vsetvli` per impostare la lunghezza del vettore in base all'hardware disponibile.
+
+2. **Riutilizzo dei Registri**: Gestione attenta dei registri vettoriali (v8, v12, v16, v20) per minimizzare la pressione sui registri.
+
+3. **Annidamento dei Loop**: La struttura a triplo loop annidato (`.LBB0_2`, `.LBB0_5`, `.LBB0_8`) suggerisce il classico algoritmo di moltiplicazione matriciale i-j-k, vettorizzato lungo la dimensione più interna.
+
+4. **Generazione di Maschere**: Il codice crea maschere utilizzando `vmslt.vx` per operare selettivamente su specifici elementi, essenziale per operazioni sparse.
+
+5. **Precisione Mista**: Il codice passa da operazioni vettoriali e32 (32-bit) a e64 (64-bit) per diverse parti del calcolo per ottimizzare sia l'accesso alla memoria che il calcolo.
+
+### Conclusione
+
+Questa implementazione dimostra un uso avanzato delle istruzioni vettoriali RISC-V per la moltiplicazione di matrici sparse. Piuttosto che utilizzare operazioni esplicite di gather/scatter, impiega caricamenti e memorizzazioni vettoriali con mascheramento e predicazione per ottenere funzionalità simili, sfruttando potenzialmente meglio le caratteristiche delle matrici sparse. L'approccio bilancia l'efficienza della vettorizzazione con i pattern di accesso irregolare alla memoria tipici nelle operazioni su matrici sparse.
