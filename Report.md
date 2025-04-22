@@ -45,6 +45,49 @@
 # - Sparsity levels range from 50 to 95 (by 5).
 # - Stride levels go from 1 to 4.
 ```
+## Makefile 
+Option per "sparsification-and-bufferization":
+
+    --vl=<int> (vectorLength)
+        Type: int32_t
+        Default: 0
+        Description: Sets a fixed vector length for SIMD (Single Instruction, Multiple Data) vectorization. A value of 0 disables this type of vectorization. This is used for traditional fixed-length vectorization.
+
+    --enable-vla-vectorization (enableVLAVectorization)
+        Type: bool
+        Default: false
+        Description: Enables Vector Length Agnostic (VLA) vectorization. This is a more modern approach where the code doesn't assume a fixed hardware vector size, allowing it to adapt to different SIMD capabilities (like ARM SVE or RISC-V V).
+
+    --enable-simd-index32 (enableSIMDIndex32)
+        Type: bool
+        Default: false
+        Description: Allows the use of 32-bit integers (i32) for indexing within vectors, primarily intended to improve the efficiency of vector gather and scatter operations on hardware that supports it.
+
+    --enable-gpu-libgen (enableGPULibgen)
+        Type: bool
+        Default: false
+        Description: Enables GPU acceleration by generating calls to vendor-specific sparse libraries (like cuSPARSE for NVIDIA or rocSPARSE for AMD) instead of generating low-level GPU kernel code through the standard MLIR GPU dialect pipeline.
+
+    --sparse-emit-strategy=<strategy> (sparseEmitStrategy)
+        Type: mlir::SparseEmitStrategy
+        Default: functional
+        Description: Controls the code generation strategy for loops iterating over sparse tensors.
+        Possible Values:
+            functional: Emits standard MLIR control flow using scf.for and scf.while loops.
+            sparse-iterator: Emits experimental code using the sparse.iterate operation.
+            debug-interface: Emits code structured as non-functional interfaces, potentially easier to debug but not intended for performance.
+
+    --parallelization-strategy=<strategy> (parallelization)
+        Type: mlir::SparseParallelizationStrategy
+        Default: none
+        Description: Defines the strategy for automatically parallelizing loops involved in sparse tensor computations, usually targeting multi-core CPU execution.
+        Possible Values:
+            none: Disables automatic parallelization for sparse operations.
+            dense-outer-loop: Parallelizes the outermost loop only if it iterates over a dense dimension.
+            any-storage-outer-loop: Parallelizes the outermost loop regardless of whether it iterates over a dense or sparse dimension.
+            dense-any-loop: Parallelizes any loop that iterates over a dense dimension (not just the outermost).
+            any-storage-any-loop: Parallelizes any loop, regardless of whether it iterates over a dense or sparse dimension.
+
 
 ### Flusso di lavoro:
 Dato che ci sono problemi di liberie python sul Jupiter il flow di test è:
