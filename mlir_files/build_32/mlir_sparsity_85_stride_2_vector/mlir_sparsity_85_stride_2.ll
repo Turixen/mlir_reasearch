@@ -67,7 +67,7 @@ define { ptr, ptr, i64, [2 x i64], [2 x i64] } @matmul(ptr %0, ptr %1, i64 %2, i
   %78 = getelementptr double, ptr %60, i64 %73
   %79 = load double, ptr %78, align 8
   %80 = call i64 @llvm.vscale.i64()
-  %81 = mul i64 %80, 32
+  %81 = mul i64 %80, 16
   br label %82
 
 82:                                               ; preds = %85, %75
@@ -80,30 +80,30 @@ define { ptr, ptr, i64, [2 x i64], [2 x i64] } @matmul(ptr %0, ptr %1, i64 %2, i
   %87 = add i64 %86, 100
   %88 = icmp slt i64 %87, %81
   %89 = select i1 %88, i64 %87, i64 %81
-  %90 = call <vscale x 32 x i32> @llvm.stepvector.nxv32i32()
+  %90 = call <vscale x 16 x i32> @llvm.stepvector.nxv16i32()
   %91 = trunc i64 %89 to i32
-  %92 = insertelement <vscale x 32 x i32> undef, i32 %91, i32 0
-  %93 = shufflevector <vscale x 32 x i32> %92, <vscale x 32 x i32> undef, <vscale x 32 x i32> zeroinitializer
-  %94 = icmp slt <vscale x 32 x i32> %90, %93
+  %92 = insertelement <vscale x 16 x i32> undef, i32 %91, i32 0
+  %93 = shufflevector <vscale x 16 x i32> %92, <vscale x 16 x i32> undef, <vscale x 16 x i32> zeroinitializer
+  %94 = icmp slt <vscale x 16 x i32> %90, %93
   %95 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %59, 1
   %96 = mul i64 %77, 100
   %97 = add i64 %96, %83
   %98 = getelementptr double, ptr %95, i64 %97
-  %99 = call <vscale x 32 x double> @llvm.masked.load.nxv32f64.p0(ptr %98, i32 8, <vscale x 32 x i1> %94, <vscale x 32 x double> zeroinitializer)
-  %100 = insertelement <vscale x 32 x double> undef, double %79, i32 0
-  %101 = shufflevector <vscale x 32 x double> %100, <vscale x 32 x double> undef, <vscale x 32 x i32> zeroinitializer
+  %99 = call <vscale x 16 x double> @llvm.masked.load.nxv16f64.p0(ptr %98, i32 8, <vscale x 16 x i1> %94, <vscale x 16 x double> zeroinitializer)
+  %100 = insertelement <vscale x 16 x double> undef, double %79, i32 0
+  %101 = shufflevector <vscale x 16 x double> %100, <vscale x 16 x double> undef, <vscale x 16 x i32> zeroinitializer
   %102 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %37, 1
   %103 = mul i64 %64, 100
   %104 = add i64 %103, %83
   %105 = getelementptr double, ptr %102, i64 %104
-  %106 = call <vscale x 32 x double> @llvm.masked.load.nxv32f64.p0(ptr %105, i32 8, <vscale x 32 x i1> %94, <vscale x 32 x double> zeroinitializer)
-  %107 = fmul <vscale x 32 x double> %101, %106
-  %108 = fadd <vscale x 32 x double> %99, %107
+  %106 = call <vscale x 16 x double> @llvm.masked.load.nxv16f64.p0(ptr %105, i32 8, <vscale x 16 x i1> %94, <vscale x 16 x double> zeroinitializer)
+  %107 = fmul <vscale x 16 x double> %101, %106
+  %108 = fadd <vscale x 16 x double> %99, %107
   %109 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %59, 1
   %110 = mul i64 %77, 100
   %111 = add i64 %110, %83
   %112 = getelementptr double, ptr %109, i64 %111
-  call void @llvm.masked.store.nxv32f64.p0(<vscale x 32 x double> %108, ptr %112, i32 8, <vscale x 32 x i1> %94)
+  call void @llvm.masked.store.nxv16f64.p0(<vscale x 16 x double> %108, ptr %112, i32 8, <vscale x 16 x i1> %94)
   %113 = add i64 %83, %81
   br label %82
 
@@ -169,7 +169,7 @@ define i64 @main() {
 }
 
 define { { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { [2 x i64], [3 x i64] } } @test_assemble() {
-  %1 = load i64, ptr getelementptr (i64, ptr @__constant_101xindex, i32 100), align 4
+  %1 = load i64, ptr getelementptr (i64, ptr @__constant_101xindex, i64 100), align 4
   %2 = insertvalue { [2 x i64], [3 x i64] } { [2 x i64] [i64 100, i64 100], [3 x i64] [i64 101, i64 0, i64 0] }, i64 %1, 1, 1
   %3 = insertvalue { [2 x i64], [3 x i64] } %2, i64 %1, 1, 2
   %4 = insertvalue { { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { [2 x i64], [3 x i64] } } { { ptr, ptr, i64, [1 x i64], [1 x i64] } { ptr inttoptr (i64 3735928559 to ptr), ptr @__constant_101xindex, i64 0, [1 x i64] [i64 101], [1 x i64] [i64 1] }, { ptr, ptr, i64, [1 x i64], [1 x i64] } { ptr inttoptr (i64 3735928559 to ptr), ptr @__constant_1500xindex, i64 0, [1 x i64] [i64 1500], [1 x i64] [i64 1] }, { ptr, ptr, i64, [1 x i64], [1 x i64] } { ptr inttoptr (i64 3735928559 to ptr), ptr @__constant_1500xf64, i64 0, [1 x i64] [i64 1500], [1 x i64] [i64 1] }, { [2 x i64], [3 x i64] } undef }, { [2 x i64], [3 x i64] } %3, 3
@@ -180,13 +180,13 @@ define { { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1
 declare i64 @llvm.vscale.i64() #0
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(none)
-declare <vscale x 32 x i32> @llvm.stepvector.nxv32i32() #0
+declare <vscale x 16 x i32> @llvm.stepvector.nxv16i32() #0
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: read)
-declare <vscale x 32 x double> @llvm.masked.load.nxv32f64.p0(ptr nocapture, i32 immarg, <vscale x 32 x i1>, <vscale x 32 x double>) #1
+declare <vscale x 16 x double> @llvm.masked.load.nxv16f64.p0(ptr nocapture, i32 immarg, <vscale x 16 x i1>, <vscale x 16 x double>) #1
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: write)
-declare void @llvm.masked.store.nxv32f64.p0(<vscale x 32 x double>, ptr nocapture, i32 immarg, <vscale x 32 x i1>) #2
+declare void @llvm.masked.store.nxv16f64.p0(<vscale x 16 x double>, ptr nocapture, i32 immarg, <vscale x 16 x i1>) #2
 
 attributes #0 = { nocallback nofree nosync nounwind willreturn memory(none) }
 attributes #1 = { nocallback nofree nosync nounwind willreturn memory(argmem: read) }

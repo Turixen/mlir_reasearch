@@ -8,21 +8,21 @@
 matmul:                                 # @matmul
 	.cfi_startproc
 # %bb.0:
-	addi	sp, sp, -192
-	.cfi_def_cfa_offset 192
-	sd	ra, 184(sp)                     # 8-byte Folded Spill
-	sd	s0, 176(sp)                     # 8-byte Folded Spill
-	sd	s1, 168(sp)                     # 8-byte Folded Spill
-	sd	s2, 160(sp)                     # 8-byte Folded Spill
-	sd	s3, 152(sp)                     # 8-byte Folded Spill
-	sd	s4, 144(sp)                     # 8-byte Folded Spill
-	sd	s5, 136(sp)                     # 8-byte Folded Spill
-	sd	s6, 128(sp)                     # 8-byte Folded Spill
-	sd	s7, 120(sp)                     # 8-byte Folded Spill
-	sd	s8, 112(sp)                     # 8-byte Folded Spill
-	sd	s9, 104(sp)                     # 8-byte Folded Spill
-	sd	s10, 96(sp)                     # 8-byte Folded Spill
-	sd	s11, 88(sp)                     # 8-byte Folded Spill
+	addi	sp, sp, -144
+	.cfi_def_cfa_offset 144
+	sd	ra, 136(sp)                     # 8-byte Folded Spill
+	sd	s0, 128(sp)                     # 8-byte Folded Spill
+	sd	s1, 120(sp)                     # 8-byte Folded Spill
+	sd	s2, 112(sp)                     # 8-byte Folded Spill
+	sd	s3, 104(sp)                     # 8-byte Folded Spill
+	sd	s4, 96(sp)                      # 8-byte Folded Spill
+	sd	s5, 88(sp)                      # 8-byte Folded Spill
+	sd	s6, 80(sp)                      # 8-byte Folded Spill
+	sd	s7, 72(sp)                      # 8-byte Folded Spill
+	sd	s8, 64(sp)                      # 8-byte Folded Spill
+	sd	s9, 56(sp)                      # 8-byte Folded Spill
+	sd	s10, 48(sp)                     # 8-byte Folded Spill
+	sd	s11, 40(sp)                     # 8-byte Folded Spill
 	.cfi_offset ra, -8
 	.cfi_offset s0, -16
 	.cfi_offset s1, -24
@@ -37,77 +37,53 @@ matmul:                                 # @matmul
 	.cfi_offset s10, -96
 	.cfi_offset s11, -104
 	csrr	a1, vlenb
-	li	a3, 68
-	mul	a1, a1, a3
+	slli	a1, a1, 4
 	sub	sp, sp, a1
-	.cfi_escape 0x0f, 0x0f, 0x72, 0x00, 0x11, 0xc0, 0x01, 0x22, 0x11, 0xc4, 0x00, 0x92, 0xa2, 0x38, 0x00, 0x1e, 0x22 # sp + 192 + 68 * vlenb
+	.cfi_escape 0x0f, 0x0e, 0x72, 0x00, 0x11, 0x90, 0x01, 0x22, 0x11, 0x10, 0x92, 0xa2, 0x38, 0x00, 0x1e, 0x22 # sp + 144 + 16 * vlenb
 	li	s3, 0
 	li	t5, 0
 	csrr	a1, vlenb
-	li	a3, 68
-	mul	a1, a1, a3
+	slli	a1, a1, 4
 	add	a1, a1, sp
-	ld	s5, 304(a1)
+	ld	s7, 256(a1)
 	csrr	a1, vlenb
-	li	a3, 68
-	mul	a1, a1, a3
+	slli	a1, a1, 4
 	add	a1, a1, sp
-	ld	a1, 400(a1)
-	sd	a1, 64(sp)                      # 8-byte Folded Spill
+	ld	a6, 352(a1)
 	csrr	a1, vlenb
-	li	a3, 68
-	mul	a1, a1, a3
+	slli	a1, a1, 4
 	add	a1, a1, sp
-	ld	a1, 392(a1)
-	sd	a1, 56(sp)                      # 8-byte Folded Spill
+	ld	t0, 344(a1)
 	csrr	a1, vlenb
-	li	a3, 68
-	mul	a1, a1, a3
+	slli	a1, a1, 4
 	add	a1, a1, sp
-	ld	a1, 384(a1)
-	sd	a1, 48(sp)                      # 8-byte Folded Spill
+	ld	t1, 336(a1)
 	csrr	a1, vlenb
-	li	a3, 68
-	mul	a1, a1, a3
+	slli	a1, a1, 4
 	add	a1, a1, sp
-	ld	a1, 376(a1)
-	sd	a1, 40(sp)                      # 8-byte Folded Spill
+	ld	t2, 328(a1)
 	csrr	a1, vlenb
-	li	a3, 68
-	mul	a1, a1, a3
+	slli	a1, a1, 4
 	add	a1, a1, sp
-	ld	a1, 368(a1)
-	sd	a1, 32(sp)                      # 8-byte Folded Spill
+	ld	t3, 320(a1)
 	csrr	a1, vlenb
-	li	a3, 68
-	mul	a1, a1, a3
+	slli	a1, a1, 4
 	add	a1, a1, sp
-	ld	s8, 360(a1)
+	ld	s8, 312(a1)
 	csrr	a1, vlenb
-	li	a3, 68
-	mul	a1, a1, a3
+	slli	a1, a1, 4
 	add	a1, a1, sp
-	ld	a1, 352(a1)
-	sd	a1, 24(sp)                      # 8-byte Folded Spill
+	ld	t4, 304(a1)
 	csrr	a1, vlenb
-	li	a3, 68
-	mul	a1, a1, a3
+	slli	a1, a1, 4
 	add	a1, a1, sp
-	ld	t6, 224(a1)
-	csrr	t4, vlenb
-	li	s4, 99
+	ld	t6, 176(a1)
+	csrr	s10, vlenb
+	li	s6, 99
 	li	s2, 800
-	vsetvli	a1, zero, e32, m8, ta, ma
-	vid.v	v8
-	slli	s9, t4, 5
-	slli	t2, t4, 2
-	slli	a1, t4, 1
-	slli	t0, t4, 3
-	vadd.vx	v8, v8, a1
-	addi	a1, sp, 80
-	vs8r.v	v8, (a1)                        # Unknown-size Folded Spill
-	sub	t3, s9, t0
-	slli	t4, t4, 4
+	slli	s9, s10, 4
+	slli	s11, s10, 1
+	slli	s10, s10, 3
 	j	.LBB0_2
 .LBB0_1:                                #   in Loop: Header=BB0_2 Depth=1
 	addi	t5, t5, 1
@@ -115,306 +91,140 @@ matmul:                                 # @matmul
 .LBB0_2:                                # =>This Loop Header: Depth=1
                                         #     Child Loop BB0_5 Depth 2
                                         #       Child Loop BB0_8 Depth 3
-	blt	s4, t5, .LBB0_11
+	blt	s6, t5, .LBB0_11
 # %bb.3:                                #   in Loop: Header=BB0_2 Depth=1
-	slli	a1, t5, 3
-	add	a1, a1, a2
-	lwu	a4, 4(a1)
-	lwu	a5, 0(a1)
-	lwu	s0, 12(a1)
-	lwu	a1, 8(a1)
+	slli	a3, t5, 3
+	add	a3, a3, a2
+	lwu	a4, 4(a3)
+	lwu	a5, 0(a3)
+	lwu	s0, 12(a3)
+	lwu	a3, 8(a3)
 	slli	a4, a4, 32
-	or	s6, a4, a5
+	or	s4, a4, a5
 	slli	s0, s0, 32
-	or	s7, s0, a1
+	or	s5, s0, a3
 	j	.LBB0_5
 .LBB0_4:                                #   in Loop: Header=BB0_5 Depth=2
-	addi	s6, s6, 1
+	addi	s4, s4, 1
 .LBB0_5:                                #   Parent Loop BB0_2 Depth=1
                                         # =>  This Loop Header: Depth=2
                                         #       Child Loop BB0_8 Depth 3
-	bge	s6, s7, .LBB0_1
+	bge	s4, s5, .LBB0_1
 # %bb.6:                                #   in Loop: Header=BB0_5 Depth=2
-	li	a6, 0
-	slli	a1, s6, 3
-	add	a4, a7, a1
+	li	ra, 0
+	slli	a3, s4, 3
+	add	a4, a7, a3
 	lwu	a5, 4(a4)
 	lwu	a4, 0(a4)
-	add	a1, a1, t6
-	fld	fa5, 0(a1)
+	add	a3, a3, t6
+	fld	fa5, 0(a3)
 	slli	a5, a5, 32
 	or	a4, a4, a5
-	mul	a5, a4, s2
-	li	a4, 100
-	mv	s1, s3
+	mul	a4, a4, s2
+	li	a3, 100
+	mv	a5, s3
 	j	.LBB0_8
 .LBB0_7:                                #   in Loop: Header=BB0_8 Depth=3
-	vsetvli	a3, zero, e32, m8, ta, ma
-	vmv.v.x	v8, a1
-	add	a1, s8, a5
-	vsetvli	a3, zero, e64, m8, ta, ma
-	vmv.v.i	v16, 0
-	addi	a3, sp, 80
-	vl8r.v	v24, (a3)                       # Unknown-size Folded Reload
-	vsetvli	zero, zero, e32, m4, ta, ma
-	vmslt.vv	v5, v24, v8
-	csrr	a3, vlenb
-	li	t1, 43
-	mul	a3, a3, t1
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vs1r.v	v5, (a3)                        # Unknown-size Folded Spill
-	vmslt.vv	v4, v28, v12
-	vsetvli	a3, zero, e32, m8, ta, ma
+	vsetvli	a1, zero, e32, m8, ta, ma
+	vmv.v.x	v8, s1
+	sd	a0, 8(sp)                       # 8-byte Folded Spill
+	csrr	a0, vlenb
+	slli	a0, a0, 3
+	add	a0, a0, sp
+	addi	a0, a0, 32
+	vs8r.v	v8, (a0)                        # Unknown-size Folded Spill
+	add	s1, s8, a4
+	vsetvli	a1, zero, e64, m8, ta, ma
+	vmv.v.i	v8, 0
+	addi	a0, sp, 32
+	vs8r.v	v8, (a0)                        # Unknown-size Folded Spill
+	add	a1, s7, a5
+	vsetvli	s0, zero, e32, m8, ta, ma
 	vid.v	v24
-	vsetvli	a3, zero, e32, m4, ta, ma
-	vmslt.vv	v7, v24, v8
-	vmslt.vv	v3, v28, v12
-	add	s11, a1, t3
-	csrr	a3, vlenb
-	li	t1, 60
-	mul	a3, a3, t1
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vs8r.v	v16, (a3)                       # Unknown-size Folded Spill
-	add	ra, a1, t4
-	vmv8r.v	v24, v16
-	add	s10, a1, t0
-	csrr	a3, vlenb
-	slli	t1, a3, 5
-	add	a3, a3, t1
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vs1r.v	v4, (a3)                        # Unknown-size Folded Spill
-	vmv1r.v	v0, v4
-	csrr	a3, vlenb
-	li	t1, 60
-	mul	a3, a3, t1
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vl8r.v	v8, (a3)                        # Unknown-size Folded Reload
+	csrr	a0, vlenb
+	slli	a0, a0, 3
+	add	a0, a0, sp
+	addi	a0, a0, 32
+	vl8r.v	v0, (a0)                        # Unknown-size Folded Reload
+	vsetvli	s0, zero, e32, m4, ta, ma
+	vmslt.vv	v7, v24, v0
+	csrr	a0, vlenb
+	slli	a0, a0, 3
+	add	a0, a0, sp
+	addi	a0, a0, 32
+	vl8r.v	v16, (a0)                       # Unknown-size Folded Reload
+	vmslt.vv	v6, v28, v20
 	vsetvli	zero, zero, e64, m8, ta, mu
-	vle64.v	v8, (s11), v0.t
-	csrr	a3, vlenb
-	li	t1, 60
-	mul	a3, a3, t1
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vs8r.v	v8, (a3)                        # Unknown-size Folded Spill
-	vmv1r.v	v0, v5
-	vle64.v	v24, (ra), v0.t
-	csrr	a3, vlenb
-	li	t1, 52
-	mul	a3, a3, t1
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vs8r.v	v24, (a3)                       # Unknown-size Folded Spill
-	vmv8r.v	v8, v16
-	vmv1r.v	v0, v3
-	csrr	a3, vlenb
-	slli	a3, a3, 5
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vs1r.v	v3, (a3)                        # Unknown-size Folded Spill
-	vle64.v	v8, (s10), v0.t
-	csrr	a3, vlenb
-	li	t1, 44
-	mul	a3, a3, t1
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vs8r.v	v8, (a3)                        # Unknown-size Folded Spill
-	vmv8r.v	v8, v16
-	csrr	a3, vlenb
-	li	t1, 42
-	mul	a3, a3, t1
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vs1r.v	v7, (a3)                        # Unknown-size Folded Spill
-	vmv1r.v	v0, v7
-	vle64.v	v8, (a1), v0.t
-	csrr	a3, vlenb
-	li	t1, 34
-	mul	a3, a3, t1
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vs8r.v	v8, (a3)                        # Unknown-size Folded Spill
-	add	a3, s5, s1
-	add	t1, a3, t3
-	vmv8r.v	v8, v16
-	vmv1r.v	v0, v4
-	vle64.v	v8, (t1), v0.t
-	csrr	t1, vlenb
-	li	s0, 24
-	mul	t1, t1, s0
-	add	t1, t1, sp
-	addi	t1, t1, 80
-	vs8r.v	v8, (t1)                        # Unknown-size Folded Spill
-	vmv8r.v	v24, v16
-	vmv1r.v	v0, v7
-	vle64.v	v24, (a3), v0.t
-	add	s0, a3, t0
-	vmv8r.v	v8, v16
-	vmv1r.v	v0, v3
+	vmv.v.i	v16, 0
+	add	s0, s1, s10
+	vmv1r.v	v0, v6
 	vle64.v	v8, (s0), v0.t
-	csrr	t1, vlenb
-	li	s0, 24
-	mul	t1, t1, s0
-	add	t1, t1, sp
-	addi	t1, t1, 80
-	vl8r.v	v0, (t1)                        # Unknown-size Folded Reload
-	vfmul.vf	v0, v0, fa5
-	vfmul.vf	v24, v24, fa5
-	csrr	t1, vlenb
-	slli	t1, t1, 4
-	add	t1, t1, sp
-	addi	t1, t1, 80
-	vs8r.v	v24, (t1)                       # Unknown-size Folded Spill
-	csrr	t1, vlenb
-	li	s0, 60
-	mul	t1, t1, s0
-	add	t1, t1, sp
-	addi	t1, t1, 80
-	vl8r.v	v24, (t1)                       # Unknown-size Folded Reload
-	vfadd.vv	v24, v24, v0
-	csrr	t1, vlenb
-	li	s0, 24
-	mul	t1, t1, s0
-	add	t1, t1, sp
-	addi	t1, t1, 80
-	vs8r.v	v24, (t1)                       # Unknown-size Folded Spill
-	vfmul.vf	v8, v8, fa5
-	csrr	t1, vlenb
-	slli	t1, t1, 3
-	add	t1, t1, sp
-	addi	t1, t1, 80
-	vs8r.v	v8, (t1)                        # Unknown-size Folded Spill
-	add	a3, a3, t4
-	csrr	t1, vlenb
-	li	s0, 43
-	mul	t1, t1, s0
-	add	t1, t1, sp
-	addi	t1, t1, 80
-	vl1r.v	v7, (t1)                        # Unknown-size Folded Reload
+	csrr	a0, vlenb
+	slli	a0, a0, 3
+	add	a0, a0, sp
+	addi	a0, a0, 32
+	vs8r.v	v8, (a0)                        # Unknown-size Folded Spill
 	vmv1r.v	v0, v7
-	vle64.v	v16, (a3), v0.t
-	csrr	a3, vlenb
-	li	t1, 34
-	mul	a3, a3, t1
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vl8r.v	v24, (a3)                       # Unknown-size Folded Reload
-	csrr	a3, vlenb
-	slli	a3, a3, 4
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vl8r.v	v8, (a3)                        # Unknown-size Folded Reload
-	vfadd.vv	v24, v24, v8
-	csrr	a3, vlenb
-	li	t1, 60
-	mul	a3, a3, t1
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vs8r.v	v24, (a3)                       # Unknown-size Folded Spill
-	csrr	a3, vlenb
-	slli	t1, a3, 5
-	add	a3, a3, t1
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vl1r.v	v0, (a3)                        # Unknown-size Folded Reload
-	csrr	a3, vlenb
-	li	t1, 24
-	mul	a3, a3, t1
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vl8r.v	v24, (a3)                       # Unknown-size Folded Reload
-	vse64.v	v24, (s11), v0.t
-	csrr	a3, vlenb
-	li	t1, 44
-	mul	a3, a3, t1
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vl8r.v	v24, (a3)                       # Unknown-size Folded Reload
-	csrr	a3, vlenb
-	slli	a3, a3, 3
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vl8r.v	v8, (a3)                        # Unknown-size Folded Reload
-	vfadd.vv	v8, v24, v8
+	addi	a0, sp, 32
+	vl8r.v	v24, (a0)                       # Unknown-size Folded Reload
+	ld	a0, 8(sp)                       # 8-byte Folded Reload
+	vle64.v	v24, (s1), v0.t
+	vle64.v	v16, (a1), v0.t
+	add	a1, a1, s10
+	vmv.v.i	v8, 0
+	vmv1r.v	v0, v6
+	vle64.v	v8, (a1), v0.t
 	vfmul.vf	v16, v16, fa5
-	csrr	a3, vlenb
-	li	t1, 52
-	mul	a3, a3, t1
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vl8r.v	v24, (a3)                       # Unknown-size Folded Reload
 	vfadd.vv	v16, v24, v16
+	vfmul.vf	v8, v8, fa5
+	csrr	a1, vlenb
+	slli	a1, a1, 3
+	add	a1, a1, sp
+	addi	a1, a1, 32
+	vl8r.v	v24, (a1)                       # Unknown-size Folded Reload
+	vfadd.vv	v8, v24, v8
+	vse64.v	v8, (s0), v0.t
 	vmv1r.v	v0, v7
-	vse64.v	v16, (ra), v0.t
-	csrr	a3, vlenb
-	slli	a3, a3, 5
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vl1r.v	v0, (a3)                        # Unknown-size Folded Reload
-	vse64.v	v8, (s10), v0.t
-	csrr	a3, vlenb
-	li	t1, 42
-	mul	a3, a3, t1
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vl1r.v	v0, (a3)                        # Unknown-size Folded Reload
-	csrr	a3, vlenb
-	li	t1, 60
-	mul	a3, a3, t1
-	add	a3, a3, sp
-	addi	a3, a3, 80
-	vl8r.v	v8, (a3)                        # Unknown-size Folded Reload
-	vse64.v	v8, (a1), v0.t
-	add	a6, a6, t2
+	vse64.v	v16, (s1), v0.t
+	add	ra, ra, s11
+	add	a4, a4, s9
 	add	a5, a5, s9
-	add	s1, s1, s9
-	sub	a4, a4, t2
+	sub	a3, a3, s11
 .LBB0_8:                                #   Parent Loop BB0_2 Depth=1
                                         #     Parent Loop BB0_5 Depth=2
                                         # =>    This Inner Loop Header: Depth=3
-	blt	s4, a6, .LBB0_4
+	blt	s6, ra, .LBB0_4
 # %bb.9:                                #   in Loop: Header=BB0_8 Depth=3
-	mv	a1, a4
-	blt	a4, t2, .LBB0_7
+	mv	s1, a3
+	blt	a3, s11, .LBB0_7
 # %bb.10:                               #   in Loop: Header=BB0_8 Depth=3
-	mv	a1, t2
+	mv	s1, s11
 	j	.LBB0_7
 .LBB0_11:
-	ld	a1, 24(sp)                      # 8-byte Folded Reload
-	sd	a1, 0(a0)
+	sd	t4, 0(a0)
 	sd	s8, 8(a0)
-	ld	a1, 32(sp)                      # 8-byte Folded Reload
-	sd	a1, 16(a0)
-	ld	a1, 40(sp)                      # 8-byte Folded Reload
-	sd	a1, 24(a0)
-	ld	a1, 48(sp)                      # 8-byte Folded Reload
-	sd	a1, 32(a0)
-	ld	a1, 56(sp)                      # 8-byte Folded Reload
-	sd	a1, 40(a0)
-	ld	a1, 64(sp)                      # 8-byte Folded Reload
-	sd	a1, 48(a0)
+	sd	t3, 16(a0)
+	sd	t2, 24(a0)
+	sd	t1, 32(a0)
+	sd	t0, 40(a0)
+	sd	a6, 48(a0)
 	csrr	a0, vlenb
-	li	a1, 68
-	mul	a0, a0, a1
+	slli	a0, a0, 4
 	add	sp, sp, a0
-	.cfi_def_cfa sp, 192
-	ld	ra, 184(sp)                     # 8-byte Folded Reload
-	ld	s0, 176(sp)                     # 8-byte Folded Reload
-	ld	s1, 168(sp)                     # 8-byte Folded Reload
-	ld	s2, 160(sp)                     # 8-byte Folded Reload
-	ld	s3, 152(sp)                     # 8-byte Folded Reload
-	ld	s4, 144(sp)                     # 8-byte Folded Reload
-	ld	s5, 136(sp)                     # 8-byte Folded Reload
-	ld	s6, 128(sp)                     # 8-byte Folded Reload
-	ld	s7, 120(sp)                     # 8-byte Folded Reload
-	ld	s8, 112(sp)                     # 8-byte Folded Reload
-	ld	s9, 104(sp)                     # 8-byte Folded Reload
-	ld	s10, 96(sp)                     # 8-byte Folded Reload
-	ld	s11, 88(sp)                     # 8-byte Folded Reload
+	.cfi_def_cfa sp, 144
+	ld	ra, 136(sp)                     # 8-byte Folded Reload
+	ld	s0, 128(sp)                     # 8-byte Folded Reload
+	ld	s1, 120(sp)                     # 8-byte Folded Reload
+	ld	s2, 112(sp)                     # 8-byte Folded Reload
+	ld	s3, 104(sp)                     # 8-byte Folded Reload
+	ld	s4, 96(sp)                      # 8-byte Folded Reload
+	ld	s5, 88(sp)                      # 8-byte Folded Reload
+	ld	s6, 80(sp)                      # 8-byte Folded Reload
+	ld	s7, 72(sp)                      # 8-byte Folded Reload
+	ld	s8, 64(sp)                      # 8-byte Folded Reload
+	ld	s9, 56(sp)                      # 8-byte Folded Reload
+	ld	s10, 48(sp)                     # 8-byte Folded Reload
+	ld	s11, 40(sp)                     # 8-byte Folded Reload
 	.cfi_restore ra
 	.cfi_restore s0
 	.cfi_restore s1
@@ -428,7 +238,7 @@ matmul:                                 # @matmul
 	.cfi_restore s9
 	.cfi_restore s10
 	.cfi_restore s11
-	addi	sp, sp, 192
+	addi	sp, sp, 144
 	.cfi_def_cfa_offset 0
 	ret
 .Lfunc_end0:

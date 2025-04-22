@@ -169,7 +169,7 @@ define i64 @main() {
 }
 
 define { { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { [2 x i64], [3 x i64] } } @test_assemble() {
-  %1 = load i64, ptr getelementptr (i64, ptr @__constant_101xindex, i32 100), align 4
+  %1 = load i64, ptr getelementptr (i64, ptr @__constant_101xindex, i64 100), align 4
   %2 = insertvalue { [2 x i64], [3 x i64] } { [2 x i64] [i64 100, i64 100], [3 x i64] [i64 101, i64 0, i64 0] }, i64 %1, 1, 1
   %3 = insertvalue { [2 x i64], [3 x i64] } %2, i64 %1, 1, 2
   %4 = insertvalue { { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { [2 x i64], [3 x i64] } } { { ptr, ptr, i64, [1 x i64], [1 x i64] } { ptr inttoptr (i64 3735928559 to ptr), ptr @__constant_101xindex, i64 0, [1 x i64] [i64 101], [1 x i64] [i64 1] }, { ptr, ptr, i64, [1 x i64], [1 x i64] } { ptr inttoptr (i64 3735928559 to ptr), ptr @__constant_5000xindex, i64 0, [1 x i64] [i64 5000], [1 x i64] [i64 1] }, { ptr, ptr, i64, [1 x i64], [1 x i64] } { ptr inttoptr (i64 3735928559 to ptr), ptr @__constant_5000xf64, i64 0, [1 x i64] [i64 5000], [1 x i64] [i64 1] }, { [2 x i64], [3 x i64] } undef }, { [2 x i64], [3 x i64] } %3, 3
