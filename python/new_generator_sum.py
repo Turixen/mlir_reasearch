@@ -350,9 +350,9 @@ class MlirGenerator:
 
 def main():
     """Main function to generate matrices and MLIR code."""
-    size = 10 # Reduced size for quicker testing of generated MLIR
-    sparsity_levels = [0.50, 0.90] # Reduced levels
-    strides = [1, 2] # Reduced strides
+    size = 100 
+    sparsity_levels = [0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95] 
+    strides = [1, 2,3,4] 
 
     matrix_generator = MatrixGenerator("../matrices")
     mlir_generator = MlirGenerator("../mlir_files")
@@ -364,7 +364,7 @@ def main():
     for sparsity in sparsity_levels:
         for stride in strides:
             # Keep the skip condition for demonstrating subsets
-            # if (sparsity == 0.95 and stride == 4) or stride < 4:
+            if (sparsity == 0.95 and stride == 4) or stride < 4:
                 print(f"Generating for sparsity: {sparsity:.2f}, stride: {stride}")
 
                 try:
