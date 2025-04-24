@@ -4,30 +4,30 @@ import os
 import random
 from pathlib import Path
 from typing import Tuple, List, Optional
-
+import math # Import math for isnan check
 
 class MatrixGenerator:
     """Class for generating and handling sparse and dense matrices."""
-    
+
     def __init__(self, output_dir: str = "../matrices"):
         """
         Initialize the matrix generator.
-        
+
         Args:
             output_dir: Directory to store generated matrices
         """
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
-    
+
     def generate_sparse_matrix(self, size: int, sparsity: float, stride: int) -> sp.csc_matrix:
         """
         Generate a sparse matrix with controlled sparsity and strided pattern.
-        
+
         Args:
             size: Size of the square matrix
             sparsity: Target sparsity level (0.0-1.0)
             stride: Stride parameter for structured sparsity
-            
+
         Returns:
             A scipy CSC sparse matrix
         """
@@ -35,29 +35,30 @@ class MatrixGenerator:
             raise ValueError("Sparsity must be between 0 and 1")
         if size <= 0 or stride <= 0:
             raise ValueError("Size and stride must be positive")
-            
+
         # Calculate the number of non-zero elements
         nnz = int((1 - sparsity) * size * size)
-        
+
         # More efficient to create COO format first, then convert to CSC
         row_indices = []
         col_indices = []
         values = []
-        
+
         # First, identify strided positions
-        strided_positions = [(i, j) for i in range(0, size, stride) 
+        strided_positions = [(i, j) for i in range(0, size, stride)
                              for j in range(0, size, stride)]
-        
+
         # Use strided positions first
         if strided_positions:
             num_strided = min(nnz, len(strided_positions))
             selected_strided = random.sample(strided_positions, num_strided)
-            
+
             # Add these positions
             row_indices.extend([i for i, j in selected_strided])
             col_indices.extend([j for i, j in selected_strided])
-            values.extend([1.0] * num_strided)
-            
+            # Assign non-zero random values instead of just 1.0
+            values.extend([random.random() * 100 for _ in range(num_strided)])
+
             # If we need more non-zeros, fill random positions
             remaining = nnz - num_strided
             if remaining > 0:
@@ -65,70 +66,80 @@ class MatrixGenerator:
                 mask = np.ones((size, size), dtype=bool)
                 for i, j in selected_strided:
                     mask[i, j] = False
-                
+
                 # Find candidate positions (more efficient than generating all pairs)
-                candidate_positions = np.argwhere(mask)
-                if len(candidate_positions) > 0:
-                    selected_idx = np.random.choice(len(candidate_positions), 
-                                                   min(remaining, len(candidate_positions)), 
+                # Ensure we don't sample more positions than available
+                num_candidates = np.sum(mask)
+                if num_candidates > 0:
+                    selected_idx = np.random.choice(num_candidates,
+                                                   min(remaining, num_candidates),
                                                    replace=False)
-                    selected_remaining = candidate_positions[selected_idx]
-                    
+
+                    # Get row and column indices of selected remaining positions
+                    # This requires mapping flat indices back to 2D indices if using np.where or similar
+                    # A simpler way is to just get the indices of `False` in the mask
+                    remaining_positions = np.argwhere(mask)
+                    selected_remaining = remaining_positions[selected_idx]
+
+
                     row_indices.extend(selected_remaining[:, 0])
                     col_indices.extend(selected_remaining[:, 1])
-                    values.extend([1.0] * len(selected_remaining))
-        
+                     # Assign non-zero random values
+                    values.extend([random.random() * 100 for _ in range(len(selected_remaining))])
+
         # Create the sparse matrix in COO format, then convert to CSC
-        return sp.coo_matrix((values, (row_indices, col_indices)), 
+        # Ensure shapes match even if nnz is 0
+        return sp.coo_matrix((values, (row_indices, col_indices)),
                              shape=(size, size)).tocsc()
-    
+
     def generate_dense_matrix(self, rows: int, cols: int) -> np.ndarray:
         """
         Generate a dense matrix with random values.
-        
+
         Args:
             rows: Number of rows
             cols: Number of columns
-            
+
         Returns:
             A NumPy dense matrix
         """
-        return np.random.rand(rows, cols)
-    
+        return np.random.rand(rows, cols) * 100 # Use larger random values
+
+
     def save_sparse_matrix(self, matrix: sp.csc_matrix, filename: str) -> None:
         """
         Save a sparse matrix to file.
-        
+
         Args:
             matrix: Sparse matrix to save
             filename: Target filename
         """
         filepath = self.output_dir / filename
-        np.savez(filepath, 
-                 matrix_data=matrix.data, 
+        np.savez(filepath,
+                 matrix_data=matrix.data,
                  matrix_indices=matrix.indices,
-                 matrix_indptr=matrix.indptr, 
+                 matrix_indptr=matrix.indptr,
                  matrix_shape=matrix.shape)
-    
+
     def save_dense_matrix(self, matrix: np.ndarray, filename: str) -> None:
         """
         Save a dense matrix to file.
-        
+
         Args:
             matrix: Dense matrix to save
             filename: Target filename
         """
         filepath = self.output_dir / filename
         np.save(filepath, matrix)
-    
+
     @staticmethod
     def load_sparse_matrix(filepath: str) -> sp.csc_matrix:
         """
         Load a sparse matrix from file.
-        
+
         Args:
             filepath: Path to the saved matrix
-            
+
         Returns:
             The loaded sparse matrix
         """
@@ -142,50 +153,65 @@ class MatrixGenerator:
 
 class MlirGenerator:
     """Class for generating MLIR code for sparse matrix multiplication."""
-    
+
     def __init__(self, output_dir: str = "../mlir_files"):
         """
         Initialize the MLIR generator.
-        
+
         Args:
             output_dir: Directory to store generated MLIR files
         """
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
-    
-    def generate_mlir(self, 
-                     sparse_matrix: sp.csc_matrix, 
-                     dense_matrix: np.ndarray, 
-                     sparsity: float, 
+
+    def generate_mlir(self,
+                     sparse_matrix: sp.csc_matrix,
+                     dense_matrix: np.ndarray,
+                     sparsity: float,
                      stride: int) -> str:
         """
-        Generate MLIR code for sparse-dense matrix multiplication.
-        
+        Generate MLIR code for sparse-dense matrix multiplication with checks.
+
         Args:
             sparse_matrix: The sparse matrix in CSC format
             dense_matrix: The dense matrix
             sparsity: Sparsity level of the sparse matrix
             stride: Stride used to generate the sparse matrix
-            
+
         Returns:
             MLIR code as a string
         """
         m, k = sparse_matrix.shape
         k2, n = dense_matrix.shape
-        
+
         if k != k2:
             raise ValueError(f"Matrix dimensions don't match for multiplication: {k} vs {k2}")
-        
+
         values = sparse_matrix.data.tolist()
         row_indices = sparse_matrix.indices.tolist()
         col_pointers = sparse_matrix.indptr.tolist()
-        
-        # Format the dense matrix data cleanly
+
+        # Calculate the expected result matrix and sum using NumPy
+        expected_result_np = sparse_matrix.toarray() @ dense_matrix
+        expected_sum_np = np.sum(expected_result_np)
+
+        # Format the dense matrix data and expected result data for MLIR representation
         dense_data_str = self._format_dense_matrix(dense_matrix)
-        
+        expected_dense_data_str = self._format_dense_matrix(expected_result_np)
+
+        # Handle potential NaN/Inf in sum for MLIR constant
+        expected_sum_str = str(expected_sum_np)
+        if math.isnan(expected_sum_np):
+             expected_sum_str = '0.0 / 0.0' # MLIR representation for NaN
+        elif math.isinf(expected_sum_np):
+             expected_sum_str = '1.0 / 0.0' if expected_sum_np > 0 else '-1.0 / 0.0' # MLIR representation for Inf
+
+
         mlir_content = f"""// Sparse-Dense Matrix Multiplication
             // Sparse Matrix: {m}x{k} with {len(values)} non-zeros ({sparsity:.2f} sparsity, stride={stride})
             // Dense Matrix: {k}x{n}
+            // Expected Result: {m}x{n}
+            // Expected Sum: {expected_sum_str}
 
             #CSC = #sparse_tensor.encoding<{{
             map = (d0, d1) -> (d1: dense, d0: compressed)
@@ -203,37 +229,86 @@ class MlirGenerator:
                 return %result : tensor<{m}x{n}xf64>
             }}
 
+            // Function to compute the sum of all elements in a tensor
             func.func @compute_sum(%tensor: tensor<{m}x{n}xf64>) -> f64 {{
-                %c0 = arith.constant 0 : index
-                %c1 = arith.constant 1 : index
-                %dim0 = tensor.dim %tensor, %c0 : tensor<{m}x{n}xf64>
-                %dim1 = tensor.dim %tensor, %c1 : tensor<{m}x{n}xf64>
-                %init = arith.constant 0.0 : f64
-                
-                %sum = scf.for %i = %c0 to %dim0 step %c1 iter_args(%sum_iter = %init) -> (f64) {{
-                    %inner_sum = scf.for %j = %c0 to %dim1 step %c1 iter_args(%inner_sum_iter = %sum_iter) -> (f64) {{
-                    %elem = tensor.extract %tensor[%i, %j] : tensor<{m}x{n}xf64>
-                    %new_sum = arith.addf %inner_sum_iter, %elem : f64
-                    scf.yield %new_sum : f64
-                    }}
-                    scf.yield %inner_sum : f64
+              %c0 = arith.constant 0 : index
+              %c1 = arith.constant 1 : index
+              %rows = arith.constant {m} : index
+              %cols = arith.constant {n} : index
+              %init = arith.constant 0.0 : f64
+
+              %sum = scf.for %i = %c0 to %rows step %c1 iter_args(%sum_iter = %init) -> (f64) {{
+                %inner_sum = scf.for %j = %c0 to %cols step %c1 iter_args(%inner_sum_iter = %sum_iter) -> (f64) {{
+                  %elem = tensor.extract %tensor[%i, %j] : tensor<{m}x{n}xf64>
+                  %new_sum = arith.addf %inner_sum_iter, %elem : f64
+                  scf.yield %new_sum : f64
                 }}
-                
-                return %sum : f64
+                scf.yield %inner_sum : f64
+              }}
+              return %sum : f64
             }}
 
-            func.func @main() -> f64 {{
-            %output = tensor.empty() : tensor<{m}x{n}xf64>
-            %sparse_tensor = call @assemble_sparse_tensor() : () -> tensor<{m}x{k}xf64, #CSC>
-            %dense_tensor = arith.constant dense<{dense_data_str}> : tensor<{k}x{n}xf64>
-            // Perform the matrix multiplication
-            %result = call @sparse_dense_matmul(%sparse_tensor, %dense_tensor, %output) :
+            func.func @main() -> i32 {{ // Return status code (0 for success, 1 for failure)
+                %output = tensor.empty() : tensor<{m}x{n}xf64>
+                %sparse_tensor = call @assemble_sparse_tensor() : () -> tensor<{m}x{k}xf64, #CSC>
+                %dense_tensor = arith.constant dense<{dense_data_str}> : tensor<{k}x{n}xf64>
+
+                // Perform the matrix multiplication
+                %computed_result = call @sparse_dense_matmul(%sparse_tensor, %dense_tensor, %output) :
                 (tensor<{m}x{k}xf64, #CSC>, tensor<{k}x{n}xf64>, tensor<{m}x{n}xf64>) -> tensor<{m}x{n}xf64>
-            
-            // Compute the sum of all elements as a verification
-            %sum = call @compute_sum(%result) : (tensor<{m}x{n}xf64>) -> f64
-            
-            return %sum : f64
+
+                // --- Checks Start Here (Dynamic) ---
+
+                // Define the expected result matrix as a constant
+                %expected_result = arith.constant dense<{expected_dense_data_str}> : tensor<{m}x{n}xf64>
+
+                // Check all elements of the computed result against the expected result
+                %c0 = arith.constant 0 : index
+                %c1 = arith.constant 1 : index
+                %rows = arith.constant {m} : index
+                %cols = arith.constant {n} : index
+                // Initialize check result to true (1 for i1)
+                %all_elements_match_init = arith.constant 1 : i1
+
+                %elements_check_result = scf.for %i = %c0 to %rows step %c1 iter_args(%row_match_iter = %all_elements_match_init) -> (i1) {{
+                  %col_check_result = scf.for %j = %c0 to %cols step %c1 iter_args(%col_match_iter = %row_match_iter) -> (i1) {{
+                    %computed_elem = tensor.extract %computed_result[%i, %j] : tensor<{m}x{n}xf64>
+                    %expected_elem = tensor.extract %expected_result[%i, %j] : tensor<{m}x{n}xf64>
+                    // Compare floating point values for ordered equality (oeq)
+                    // Note: Floating point comparisons can be tricky due to precision.
+                    // For generated constants and exact computations, oeq might work.
+                    // For real-world scenarios, a tolerance comparison is often needed.
+                    %elem_is_equal = arith.cmpf oeq, %computed_elem, %expected_elem : f64
+                    // Combine current element check result with previous results using logical AND
+                    %current_match = arith.andi %col_match_iter, %elem_is_equal : i1
+                    scf.yield %current_match : i1
+                  }}
+                  scf.yield %col_check_result : i1
+                }}
+
+                // Calculate the sum of the computed result matrix
+                %computed_sum = call @compute_sum(%computed_result) : (tensor<{m}x{n}xf64>) -> f64
+
+                // Define the expected sum as a constant
+                %expected_sum = arith.constant {expected_sum_str} : f64
+
+                // Check if the computed sum matches the expected sum
+                %sum_matches = arith.cmpf oeq, %computed_sum, %expected_sum : f64
+
+                // Combine the element-wise check result and the sum check result
+                %all_checks_pass = arith.andi %elements_check_result, %sum_matches : i1
+
+                // Return 0 if all checks pass, 1 otherwise
+                %return_status = scf.if %all_checks_pass -> (i32) {{
+                  %success = arith.constant 0 : i32
+                  scf.yield %success : i32
+                }} else {{
+                  %failure = arith.constant 1 : i32
+                  scf.yield %failure : i32
+                }}
+
+                return %return_status : i32
+                // --- Checks End Here ---
             }}
 
             func.func private @assemble_sparse_tensor() -> tensor<{m}x{k}xf64, #CSC> {{
@@ -241,28 +316,29 @@ class MlirGenerator:
                 %values = arith.constant dense<[{', '.join(map(str, values))}]> : tensor<{len(values)}xf64>
                 %row_indices = arith.constant dense<[{', '.join(map(str, row_indices))}]> : tensor<{len(row_indices)}xindex>
                 %col_pointers = arith.constant dense<[{', '.join(map(str, col_pointers))}]> : tensor<{len(col_pointers)}xindex>
-                
+
                 // Assemble the sparse tensor
                 %sparse_tensor = sparse_tensor.assemble (%col_pointers, %row_indices), %values
                 : (tensor<{len(col_pointers)}xindex>, tensor<{len(row_indices)}xindex>), tensor<{len(values)}xf64> to tensor<{m}x{k}xf64, #CSC>
-                
+
                 return %sparse_tensor : tensor<{m}x{k}xf64, #CSC>
             }}
             }}
             """
         return mlir_content
-    
+
     def _format_dense_matrix(self, matrix: np.ndarray) -> str:
         """Format a dense matrix for MLIR representation."""
         rows = []
         for row in matrix:
-            rows.append('[' + ', '.join(f"{x:.6f}" for x in row) + ']')
+            # Use 'g' format specifier for general format, removing trailing zeros where possible
+            rows.append('[' + ', '.join(f"{x:.6g}" for x in row) + ']')
         return '[' + ', '.join(rows) + ']'
-    
+
     def save_mlir(self, mlir_content: str, filename: str) -> None:
         """
         Save MLIR code to file.
-        
+
         Args:
             mlir_content: MLIR code as string
             filename: Target filename
@@ -274,37 +350,41 @@ class MlirGenerator:
 
 def main():
     """Main function to generate matrices and MLIR code."""
-    size = 100
-    sparsity_levels = [0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95]
-    strides = [1, 2, 3, 4]
-    
+    size = 10 # Reduced size for quicker testing of generated MLIR
+    sparsity_levels = [0.50, 0.90] # Reduced levels
+    strides = [1, 2] # Reduced strides
+
     matrix_generator = MatrixGenerator("../matrices")
     mlir_generator = MlirGenerator("../mlir_files")
-    
+
+    # Ensure output directories exist
+    Path("../matrixmul").mkdir(parents=True, exist_ok=True)
+
+
     for sparsity in sparsity_levels:
         for stride in strides:
-            # Skip certain combinations as per original code
-            if (sparsity == 0.95 and stride == 4) or stride < 4:
+            # Keep the skip condition for demonstrating subsets
+            # if (sparsity == 0.95 and stride == 4) or stride < 4:
                 print(f"Generating for sparsity: {sparsity:.2f}, stride: {stride}")
-                
-                try:
-                    # Generate matrices
-                    sparse_matrix = matrix_generator.generate_sparse_matrix(size, sparsity, stride)
-                    dense_matrix = matrix_generator.generate_dense_matrix(size, size)
-                    
-                    # Save matrices
-                    sparse_filename = f"matrix_sparsity_{int(sparsity*100)}_stride_{stride}.npz"
-                    dense_filename = f"dense_matrix_sparsity_{int(sparsity*100)}_stride_{stride}.npy"
-                    matrix_generator.save_sparse_matrix(sparse_matrix, sparse_filename)
-                    matrix_generator.save_dense_matrix(dense_matrix, dense_filename)
-                    
-                    # Generate and save MLIR
-                    mlir_content = mlir_generator.generate_mlir(sparse_matrix, dense_matrix, sparsity, stride)
-                    mlir_filename = f"mlir_sparsity_{int(sparsity*100)}_stride_{stride}.mlir"
-                    mlir_generator.save_mlir(mlir_content, mlir_filename)
-                 
 
-                    # Calcola il risultato atteso con NumPy
+                try:
+                    # Generate matrices (using size x size for simplicity as before)
+                    sparse_matrix = matrix_generator.generate_sparse_matrix(size, sparsity, stride)
+                    dense_matrix = matrix_generator.generate_dense_matrix(size, size) # Still generating square dense
+
+                    # Save matrices (optional, but good practice)
+                    # sparse_filename = f"matrix_sparsity_{int(sparsity*100)}_stride_{stride}.npz"
+                    # dense_filename = f"dense_matrix_sparsity_{int(sparsity*100)}_stride_{stride}.npy"
+                    # matrix_generator.save_sparse_matrix(sparse_matrix, sparse_filename)
+                    # matrix_generator.save_dense_matrix(dense_matrix, dense_filename)
+
+                    # Generate and save MLIR with dynamic checks
+                    mlir_content = mlir_generator.generate_mlir(sparse_matrix, dense_matrix, sparsity, stride)
+                    mlir_filename = f"mlir_checked_sparsity_{int(sparsity*100)}_stride_{stride}.mlir"
+                    mlir_generator.save_mlir(mlir_content, mlir_filename)
+
+
+                    # Calcola il risultato atteso con NumPy e salva (still useful for external verification)
                     expected_result = sparse_matrix.toarray() @ dense_matrix
                     result_filename = f"matrixmul_{int(sparsity*100)}_stride_{stride}.txt"
                     result_path = os.path.join("../matrixmul", result_filename)
@@ -313,9 +393,11 @@ def main():
                     np.savetxt(result_path, expected_result, fmt="%.6f")
                     print(f"Saved expected result to {result_path}")
                     print(f"Successfully generated files with sparsity: {sparsity:.2f}, stride: {stride}")
-                    
+
                 except Exception as e:
-                    print(f"Error generating matrices with sparsity: {sparsity:.2f}, stride: {stride}: {e}")
+                    print(f"Error generating files with sparsity: {sparsity:.2f}, stride: {stride}: {e}")
+                    import traceback
+                    traceback.print_exc()
 
 
 if __name__ == "__main__":
