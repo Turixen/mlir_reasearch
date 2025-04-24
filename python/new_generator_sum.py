@@ -358,12 +358,14 @@ class MlirGenerator:
 
     # MODIFIED: Use the new helper
     def _format_dense_matrix(self, matrix: np.ndarray) -> str:
-        """Format a dense matrix for MLIR representation using _format_float_literal."""
+        """
+        Format a dense matrix to a string suitable for MLIR, ensuring all values are floats.
+        """
         rows = []
-        for row in matrix:
-             # Use the helper for each element
-            rows.append('[' + ', '.join(self._format_float_literal(x) for x in row) + ']')
-        return '[' + ', '.join(rows) + ']'
+        for row in matrix.tolist():
+            formatted_row = [self._format_float_literal(val) for val in row]
+            rows.append(f"[{', '.join(formatted_row)}]")
+        return f"[{', '.join(rows)}]"
 
 
     def save_mlir(self, mlir_content: str, filename: str) -> None:
