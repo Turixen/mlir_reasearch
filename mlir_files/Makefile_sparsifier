@@ -9,7 +9,7 @@ SRC_DIR = .
 OPTFLAGS +=
 
 # Default optimization flags
-OPTFLAGS += -sparsifier="vl=16 enable-runtime-library=false"
+OPTFLAGS += -sparsifier="vl=4 enable-runtime-library=false"
 
 # Ensure the build directory exists
 $(shell mkdir -p $(BUILD_DIR))
