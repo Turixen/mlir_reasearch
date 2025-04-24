@@ -380,19 +380,25 @@ def main():
 
                     # Generate and save MLIR with dynamic checks
                     mlir_content = mlir_generator.generate_mlir(sparse_matrix, dense_matrix, sparsity, stride)
-                    mlir_filename = f"mlir_checked_sparsity_{int(sparsity*100)}_stride_{stride}.mlir"
+                    mlir_filename = f"mlir_sparsity_{int(sparsity*100)}_stride_{stride}.mlir"
                     mlir_generator.save_mlir(mlir_content, mlir_filename)
 
 
                     # Calcola il risultato atteso con NumPy e salva (still useful for external verification)
                     expected_result = sparse_matrix.toarray() @ dense_matrix
-                    result_filename = f"matrixmul_{int(sparsity*100)}_stride_{stride}.txt"
+                    expected_sum_np = np.sum(expected_result) 
+
+                    result_filename = f"matrixmul_{int(sparsity*100)}_stride_{stride}_sum.txt" # Filename indicates sum
                     result_path = os.path.join("../matrixmul", result_filename)
 
-                    # Save result to text file
-                    np.savetxt(result_path, expected_result, fmt="%.6f")
-                    print(f"Saved expected result to {result_path}")
+                    # Save ONLY the sum to text file
+                    with open(result_path, 'w') as f:
+                         # Write the string representation of the sum
+                        f.write(str(expected_sum_np))
+
+                    print(f"Saved expected sum to {result_path}") # Update print message
                     print(f"Successfully generated files with sparsity: {sparsity:.2f}, stride: {stride}")
+
 
                 except Exception as e:
                     print(f"Error generating files with sparsity: {sparsity:.2f}, stride: {stride}: {e}")
