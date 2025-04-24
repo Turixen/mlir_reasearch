@@ -180,20 +180,16 @@ class MlirGenerator:
         ensuring a decimal part for whole numbers and handling special values.
         """
         if math.isnan(val):
-            return '0.0 / 0.0' # MLIR representation for NaN
+            return '0.0 / 0.0'  # MLIR representation for NaN
         elif math.isinf(val):
-             return '1.0 / 0.0' if val > 0 else '-1.0 / 0.0' # MLIR representation for Inf
+            return '1.0 / 0.0' if val > 0 else '-1.0 / 0.0'  # MLIR representation for Inf
         else:
-            # Use the general format, but ensure a decimal point is present
-            # by adding .0 if the number looks like an exact integer.
-            # Check if it's a whole number within a small tolerance for safety
-            if abs(val - round(val)) < 1e-9: # Tolerance for floating point comparison
-                 # Format as integer followed by .0 (e.g., 50.0)
-                 return f"{int(round(val))}.0"
+            # Always add .0 for integers to ensure MLIR compatibility
+            if abs(val - round(val)) < 1e-9:  # Tolerance for floating point comparison
+                return f"{int(round(val))}.0"  # Make sure it has a decimal point
             else:
-                 # Use general format for non-whole numbers (e.g., 1.234e+50 or 0.123)
-                 # Increased precision slightly from .6g just in case, but .6g is usually fine
-                 return f"{val:.7g}"
+                # Use a fixed format with decimal point for non-integers
+                return f"{val:.6f}"  # Always include decimal places
 
 
     def generate_mlir(self,
