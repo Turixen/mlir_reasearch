@@ -7,6 +7,7 @@ from typing import Tuple, List, Optional
 import math # Import math for isnan check
 
 class MatrixGenerator:
+    # ... (keep MatrixGenerator class as is)
     """Class for generating and handling sparse and dense matrices."""
 
     def __init__(self, output_dir: str = "../matrices"):
@@ -20,6 +21,7 @@ class MatrixGenerator:
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
     def generate_sparse_matrix(self, size: int, sparsity: float, stride: int) -> sp.csc_matrix:
+        # ... (keep generate_sparse_matrix as is)
         """
         Generate a sparse matrix with controlled sparsity and strided pattern.
 
@@ -87,12 +89,15 @@ class MatrixGenerator:
                      # Assign non-zero random values
                     values.extend([random.random() * 100 for _ in range(len(selected_remaining))])
 
+
         # Create the sparse matrix in COO format, then convert to CSC
         # Ensure shapes match even if nnz is 0
         return sp.coo_matrix((values, (row_indices, col_indices)),
                              shape=(size, size)).tocsc()
 
+
     def generate_dense_matrix(self, rows: int, cols: int) -> np.ndarray:
+        # ... (keep generate_dense_matrix as is)
         """
         Generate a dense matrix with random values.
 
@@ -107,6 +112,7 @@ class MatrixGenerator:
 
 
     def save_sparse_matrix(self, matrix: sp.csc_matrix, filename: str) -> None:
+        # ... (keep save_sparse_matrix as is)
         """
         Save a sparse matrix to file.
 
@@ -121,12 +127,14 @@ class MatrixGenerator:
                  matrix_indptr=matrix.indptr,
                  matrix_shape=matrix.shape)
 
+
     def save_dense_matrix(self, matrix: np.ndarray, filename: str) -> None:
+        # ... (keep save_dense_matrix as is)
         """
         Save a dense matrix to file.
 
         Args:
-            matrix: Dense matrix to save
+            matrix: Dense matrix to file
             filename: Target filename
         """
         filepath = self.output_dir / filename
@@ -134,6 +142,7 @@ class MatrixGenerator:
 
     @staticmethod
     def load_sparse_matrix(filepath: str) -> sp.csc_matrix:
+        # ... (keep load_sparse_matrix as is)
         """
         Load a sparse matrix from file.
 
@@ -164,6 +173,29 @@ class MlirGenerator:
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
+    # NEW HELPER FUNCTION
+    def _format_float_literal(self, val: float) -> str:
+        """
+        Format a float number as a string literal suitable for MLIR,
+        ensuring a decimal part for whole numbers and handling special values.
+        """
+        if math.isnan(val):
+            return '0.0 / 0.0' # MLIR representation for NaN
+        elif math.isinf(val):
+             return '1.0 / 0.0' if val > 0 else '-1.0 / 0.0' # MLIR representation for Inf
+        else:
+            # Use the general format, but ensure a decimal point is present
+            # by adding .0 if the number looks like an exact integer.
+            # Check if it's a whole number within a small tolerance for safety
+            if abs(val - round(val)) < 1e-9: # Tolerance for floating point comparison
+                 # Format as integer followed by .0 (e.g., 50.0)
+                 return f"{int(round(val))}.0"
+            else:
+                 # Use general format for non-whole numbers (e.g., 1.234e+50 or 0.123)
+                 # Increased precision slightly from .6g just in case, but .6g is usually fine
+                 return f"{val:.7g}"
+
+
     def generate_mlir(self,
                      sparse_matrix: sp.csc_matrix,
                      dense_matrix: np.ndarray,
@@ -187,24 +219,21 @@ class MlirGenerator:
         if k != k2:
             raise ValueError(f"Matrix dimensions don't match for multiplication: {k} vs {k2}")
 
-        values = sparse_matrix.data.tolist()
-        row_indices = sparse_matrix.indices.tolist()
-        col_pointers = sparse_matrix.indptr.tolist()
+        # Use the new helper function for formatting values
+        values = [self._format_float_literal(v) for v in sparse_matrix.data.tolist()]
+        row_indices = sparse_matrix.indices.tolist() # These are integers, no change needed
+        col_pointers = sparse_matrix.indptr.tolist() # These are integers, no change needed
 
         # Calculate the expected result matrix and sum using NumPy
         expected_result_np = sparse_matrix.toarray() @ dense_matrix
         expected_sum_np = np.sum(expected_result_np)
 
-        # Format the dense matrix data and expected result data for MLIR representation
+        # Format the dense matrix data and expected result data using the modified helper
         dense_data_str = self._format_dense_matrix(dense_matrix)
         expected_dense_data_str = self._format_dense_matrix(expected_result_np)
 
-        # Handle potential NaN/Inf in sum for MLIR constant
-        expected_sum_str = str(expected_sum_np)
-        if math.isnan(expected_sum_np):
-             expected_sum_str = '0.0 / 0.0' # MLIR representation for NaN
-        elif math.isinf(expected_sum_np):
-             expected_sum_str = '1.0 / 0.0' if expected_sum_np > 0 else '-1.0 / 0.0' # MLIR representation for Inf
+        # Format the expected sum using the new helper
+        expected_sum_str = self._format_float_literal(expected_sum_np)
 
 
         mlir_content = f"""// Sparse-Dense Matrix Multiplication
@@ -235,7 +264,7 @@ class MlirGenerator:
               %c1 = arith.constant 1 : index
               %rows = arith.constant {m} : index
               %cols = arith.constant {n} : index
-              %init = arith.constant 0.0 : f64
+              %init = arith.constant 0.0 : f64 // Keep init as 0.0 (float)
 
               %sum = scf.for %i = %c0 to %rows step %c1 iter_args(%sum_iter = %init) -> (f64) {{
                 %inner_sum = scf.for %j = %c0 to %cols step %c1 iter_args(%inner_sum_iter = %sum_iter) -> (f64) {{
@@ -289,7 +318,7 @@ class MlirGenerator:
                 // Calculate the sum of the computed result matrix
                 %computed_sum = call @compute_sum(%computed_result) : (tensor<{m}x{n}xf64>) -> f64
 
-                // Define the expected sum as a constant
+                // Define the expected sum as a constant - Formatted by the helper
                 %expected_sum = arith.constant {expected_sum_str} : f64
 
                 // Check if the computed sum matches the expected sum
@@ -312,10 +341,10 @@ class MlirGenerator:
             }}
 
             func.func private @assemble_sparse_tensor() -> tensor<{m}x{k}xf64, #CSC> {{
-                // Sparse tensor assembly data
-                %values = arith.constant dense<[{', '.join(map(str, values))}]> : tensor<{len(values)}xf64>
-                %row_indices = arith.constant dense<[{', '.join(map(str, row_indices))}]> : tensor<{len(row_indices)}xindex>
-                %col_pointers = arith.constant dense<[{', '.join(map(str, col_pointers))}]> : tensor<{len(col_pointers)}xindex>
+                // Sparse tensor assembly data - Use the helper for values
+                %values = arith.constant dense<[{', '.join(values)}]> : tensor<{len(values)}xf64>
+                %row_indices = arith.constant dense<[{', '.join(map(str, row_indices))}]> : tensor<{len(row_indices)}xindex> // Keep as index
+                %col_pointers = arith.constant dense<[{', '.join(map(str, col_pointers))}]> : tensor<{len(col_pointers)}xindex> // Keep as index
 
                 // Assemble the sparse tensor
                 %sparse_tensor = sparse_tensor.assemble (%col_pointers, %row_indices), %values
@@ -327,15 +356,18 @@ class MlirGenerator:
             """
         return mlir_content
 
+    # MODIFIED: Use the new helper
     def _format_dense_matrix(self, matrix: np.ndarray) -> str:
-        """Format a dense matrix for MLIR representation."""
+        """Format a dense matrix for MLIR representation using _format_float_literal."""
         rows = []
         for row in matrix:
-            # Use 'g' format specifier for general format, removing trailing zeros where possible
-            rows.append('[' + ', '.join(f"{x:.6g}" for x in row) + ']')
+             # Use the helper for each element
+            rows.append('[' + ', '.join(self._format_float_literal(x) for x in row) + ']')
         return '[' + ', '.join(rows) + ']'
 
+
     def save_mlir(self, mlir_content: str, filename: str) -> None:
+        # ... (keep save_mlir as is)
         """
         Save MLIR code to file.
 
@@ -349,10 +381,11 @@ class MlirGenerator:
 
 
 def main():
+    # ... (keep main function as is)
     """Main function to generate matrices and MLIR code."""
-    size = 100 
-    sparsity_levels = [0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95] 
-    strides = [1, 2,3,4] 
+    size = 100
+    sparsity_levels = [0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95]
+    strides = [1, 2,3,4]
 
     matrix_generator = MatrixGenerator("../matrices")
     mlir_generator = MlirGenerator("../mlir_files")
@@ -364,7 +397,9 @@ def main():
     for sparsity in sparsity_levels:
         for stride in strides:
             # Keep the skip condition for demonstrating subsets
-            if (sparsity == 0.95 and stride == 4) or stride < 4:
+            # This condition means: Process strides 1, 2, 3 for ALL sparsity levels,
+            # AND process stride 4 ONLY for sparsity 0.95.
+            if stride < 4 or (stride == 4 and sparsity == 0.95):
                 print(f"Generating for sparsity: {sparsity:.2f}, stride: {stride}")
 
                 try:
@@ -386,7 +421,7 @@ def main():
 
                     # Calcola il risultato atteso con NumPy e salva (still useful for external verification)
                     expected_result = sparse_matrix.toarray() @ dense_matrix
-                    expected_sum_np = np.sum(expected_result) 
+                    expected_sum_np = np.sum(expected_result)
 
                     result_filename = f"matrixmul_{int(sparsity*100)}_stride_{stride}_sum.txt" # Filename indicates sum
                     result_path = os.path.join("../matrixmul", result_filename)
@@ -394,6 +429,8 @@ def main():
                     # Save ONLY the sum to text file
                     with open(result_path, 'w') as f:
                          # Write the string representation of the sum
+                         # Use the same formatting logic as for MLIR constants for consistency if needed,
+                         # but simple str() is fine for a human-readable file.
                         f.write(str(expected_sum_np))
 
                     print(f"Saved expected sum to {result_path}") # Update print message
