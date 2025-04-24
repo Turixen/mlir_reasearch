@@ -203,21 +203,37 @@ class MlirGenerator:
                 return %result : tensor<{m}x{n}xf64>
             }}
 
-            func.func @main() -> i64 {{
-                %output = tensor.empty() : tensor<{m}x{n}xf64>
-                %sparse_tensor = call @assemble_sparse_tensor() : () -> tensor<{m}x{k}xf64, #CSC>
-                %dense_tensor = arith.constant dense<{dense_data_str}> : tensor<{k}x{n}xf64>
-                
-                // Perform the matrix multiplication
-                %result = call @sparse_dense_matmul(%sparse_tensor, %dense_tensor, %output) :
-                (tensor<{m}x{k}xf64, #CSC>, tensor<{k}x{n}xf64>, tensor<{m}x{n}xf64>) -> tensor<{m}x{n}xf64>
-                
-                // Extract a sample element from the result
+            func.func @compute_sum(%tensor: tensor<{m}x{n}xf64>) -> f64 {{
+                %c0 = arith.constant 0 : index
                 %c1 = arith.constant 1 : index
-                %element_f64 = tensor.extract %result[%c1, %c1] : tensor<{m}x{n}xf64>
-                %element_i64 = arith.fptosi %element_f64 : f64 to i64
-                    
-                return %element_i64 : i64
+                %dim0 = tensor.dim %tensor, %c0 : tensor<{m}x{n}xf64>
+                %dim1 = tensor.dim %tensor, %c1 : tensor<{m}x{n}xf64>
+                %init = arith.constant 0.0 : f64
+                
+                %sum = scf.for %i = %c0 to %dim0 step %c1 iter_args(%sum_iter = %init) -> (f64) {{
+                    %inner_sum = scf.for %j = %c0 to %dim1 step %c1 iter_args(%inner_sum_iter = %sum_iter) -> (f64) {{
+                    %elem = tensor.extract %tensor[%i, %j] : tensor<{m}x{n}xf64>
+                    %new_sum = arith.addf %inner_sum_iter, %elem : f64
+                    scf.yield %new_sum : f64
+                    }}
+                    scf.yield %inner_sum : f64
+                }}
+                
+                return %sum : f64
+            }}
+
+            func.func @main() -> f64 {{
+            %output = tensor.empty() : tensor<{m}x{n}xf64>
+            %sparse_tensor = call @assemble_sparse_tensor() : () -> tensor<{m}x{k}xf64, #CSC>
+            %dense_tensor = arith.constant dense<{dense_data_str}> : tensor<{k}x{n}xf64>
+            // Perform the matrix multiplication
+            %result = call @sparse_dense_matmul(%sparse_tensor, %dense_tensor, %output) :
+                (tensor<{m}x{k}xf64, #CSC>, tensor<{k}x{n}xf64>, tensor<{m}x{n}xf64>) -> tensor<{m}x{n}xf64>
+            
+            // Compute the sum of all elements as a verification
+            %sum = call @compute_sum(%result) : (tensor<{m}x{n}xf64>) -> f64
+            
+            return %sum : f64
             }}
 
             func.func private @assemble_sparse_tensor() -> tensor<{m}x{k}xf64, #CSC> {{
