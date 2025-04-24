@@ -373,10 +373,10 @@ def main():
                     dense_matrix = matrix_generator.generate_dense_matrix(size, size) # Still generating square dense
 
                     # Save matrices (optional, but good practice)
-                    # sparse_filename = f"matrix_sparsity_{int(sparsity*100)}_stride_{stride}.npz"
-                    # dense_filename = f"dense_matrix_sparsity_{int(sparsity*100)}_stride_{stride}.npy"
-                    # matrix_generator.save_sparse_matrix(sparse_matrix, sparse_filename)
-                    # matrix_generator.save_dense_matrix(dense_matrix, dense_filename)
+                    sparse_filename = f"matrix_sparsity_{int(sparsity*100)}_stride_{stride}.npz"
+                    dense_filename = f"dense_matrix_sparsity_{int(sparsity*100)}_stride_{stride}.npy"
+                    matrix_generator.save_sparse_matrix(sparse_matrix, sparse_filename)
+                    matrix_generator.save_dense_matrix(dense_matrix, dense_filename)
 
                     # Generate and save MLIR with dynamic checks
                     mlir_content = mlir_generator.generate_mlir(sparse_matrix, dense_matrix, sparsity, stride)
