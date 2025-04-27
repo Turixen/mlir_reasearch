@@ -75,15 +75,10 @@ for makefile in Makefile_vector_*; do
             echo "❌ Perf test failed for $name"
             continue
         fi
-        echo "[v] Test completed for $name. Results saved in $output_file"
 
         executable_output_file="${RESULTS_DIR}/output_vector_${name}.txt"
-        echo "[+] Running executable to capture output..."
-        {
-            echo "${name} :"
-            "$FILE_BUILD_DIR/$name"
-        } > "$executable_output_file" 2>&1
-        
-        echo "[v] Executable output saved to $executable_output_file"
+        # Append the exit status of the perf test to the output file
+        echo $? > "$executable_output_file"
+        echo "[v] Test completed for $name. Results saved in $executable_output_file"
     done
 done

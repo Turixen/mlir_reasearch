@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex  # Stop on error
+set -e  # Stop on error
 
 # Parameters
 RESULTS_DIR="$(pwd)/results_scalar"
@@ -8,7 +8,6 @@ mkdir -p $RESULTS_DIR
 cd mlir_files
 
 BUILD_DIR="build"
-
 
 for file in ./*.mlir; do
 
@@ -56,21 +55,10 @@ for file in ./*.mlir; do
         echo "❌ Perf test failed for $name"
         continue
     fi
-    echo "[v] Test completed for $name. Results saved in $output_file"
 
-        executable_output_file="${RESULTS_DIR}/output_vector_${name}.txt"
-    echo "[+] Running executable to capture output and exit code..."
-    echo > "$executable_output_file"
-
-    {
-        echo "${name} :"
-        "$FILE_BUILD_DIR/$name"
-        exit_code=$?
-        echo ""
-        echo "Exit Code: $exit_code"
-    } > "$executable_output_file" 2>&1
-
-    echo "[v] Executable output and exit code saved to $executable_output_file"
-
+        executable_output_file="${RESULTS_DIR}/output_scalar_${name}.txt"
+        # Append the exit status of the perf test to the output file
+        echo $? > "$executable_output_file"
+        echo "[v] Test completed for $name. Results saved in $executable_output_file"
 
 done
