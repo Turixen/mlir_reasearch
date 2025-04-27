@@ -276,51 +276,44 @@ func.func @main() -> i32 {{ // Return status code (0 for success, 1 for failure)
     %computed_result = call @sparse_dense_matmul(%sparse_tensor, %dense_tensor, %output) :
     (tensor<{m}x{k}xf64, #CSC>, tensor<{k}x{n}xf64>, tensor<{m}x{n}xf64>) -> tensor<{m}x{n}xf64>
 
+    // --- Checks Start Here (Dynamic) ---
+
     // Define the expected result matrix as a constant
     %expected_result = arith.constant dense<{expected_dense_data_str}> : tensor<{m}x{n}xf64>
-    
-    // --- Simplified Validation Start ---
-    
-    // Compute the total absolute error
+
+    // Check all elements of the computed result against the expected result
     %c0 = arith.constant 0 : index
     %c1 = arith.constant 1 : index
     %rows = arith.constant {m} : index
     %cols = arith.constant {n} : index
-    %init_error = arith.constant 0.0 : f64
-    
-    // Tolerance for floating-point comparisons
-    %tolerance = arith.constant 1.0e-10 : f64
-    
-    %total_error = scf.for %i = %c0 to %rows step %c1 iter_args(%error_iter = %init_error) -> (f64) {{
-        %row_error = scf.for %j = %c0 to %cols step %c1 iter_args(%row_error_iter = %error_iter) -> (f64) {{
-            %computed_elem = tensor.extract %computed_result[%i, %j] : tensor<{m}x{n}xf64>
-            %expected_elem = tensor.extract %expected_result[%i, %j] : tensor<{m}x{n}xf64>
-            
-            // Compute absolute difference
-            %diff = arith.subf %computed_elem, %expected_elem : f64
-            %abs_diff = math.absf %diff : f64
-            
-            // Add to running error
-            %new_error = arith.addf %row_error_iter, %abs_diff : f64
-            scf.yield %new_error : f64
-        }}
-        scf.yield %row_error : f64
+    // Initialize check result to true (1 for i1)
+    %all_elements_match_init = arith.constant 1 : i1
+
+    %elements_check_result = scf.for %i = %c0 to %rows step %c1 iter_args(%row_match_iter = %all_elements_match_init) -> (i1) {{
+    %col_check_result = scf.for %j = %c0 to %cols step %c1 iter_args(%col_match_iter = %row_match_iter) -> (i1) {{
+        %computed_elem = tensor.extract %computed_result[%i, %j] : tensor<{m}x{n}xf64>
+        %expected_elem = tensor.extract %expected_result[%i, %j] : tensor<{m}x{n}xf64>
+        // Compare floating point values for ordered equality (oeq)
+        // Note: Floating point comparisons can be tricky due to precision.
+        // For generated constants and exact computations, oeq might work.
+        // For real-world scenarios, a tolerance comparison is often needed.
+        %elem_is_equal = arith.cmpf oeq, %computed_elem, %expected_elem : f64
+        // Combine current element check result with previous results using logical AND
+        %current_match = arith.andi %col_match_iter, %elem_is_equal : i1
+        scf.yield %current_match : i1
     }}
-    
-    // Check if total error is within tolerance
-    %error_within_tolerance = arith.cmpf olt, %total_error, %tolerance : f64
-    
-    // Return 0 if validation passes, 1 otherwise
-    %return_status = scf.if %error_within_tolerance -> (i32) {{
-        %success = arith.constant 0 : i32
+    scf.yield %col_check_result : i1
+    }}
+
+    // Return 0 if all checks pass, 1 otherwise
+    %return_status = scf.if %elements_check_result -> (i32) {{
+        %success = arith.constant 11 : i32
         scf.yield %success : i32
     }} else {{
-        %failure = arith.constant 1 : i32
+        %failure = arith.constant 33 : i32
         scf.yield %failure : i32
     }}
-    
-    // --- Simplified Validation End ---
-    
+    // --- Checks End Here ---
     return %return_status : i32
 }}
 
