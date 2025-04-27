@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e  # Stop on error
+set -ex  # Stop on error
 
 # Parameters
 RESULTS_DIR="$(pwd)/results_scalar"
@@ -29,6 +29,7 @@ for file in ./*.mlir; do
 
     executable_output_file="${RESULTS_DIR}/output_vector_${name}.txt"
     echo "[+] Running executable to capture output and exit code..."
+    echo "$executable_output_file"
     echo > "$executable_output_file"
 
     {

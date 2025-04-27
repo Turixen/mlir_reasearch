@@ -1,0 +1,3 @@
++ echo 'mlir_sparsity_50_stride_1 :'
+mlir_sparsity_50_stride_1 :
++ build/mlir_sparsity_50_stride_1_scalar/mlir_sparsity_50_stride_1
