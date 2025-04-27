@@ -57,7 +57,7 @@ class MatrixGenerator:
             row_indices.extend([i for i, j in selected_strided])
             col_indices.extend([j for i, j in selected_strided])
             # Assign non-zero random values instead of just 1.0
-            values.extend([random.random() * 100 for _ in range(num_strided)])
+            values.extend([random.random() * 10 for _ in range(num_strided)])
 
             # If we need more non-zeros, fill random positions
             remaining = nnz - num_strided
@@ -85,7 +85,7 @@ class MatrixGenerator:
                     row_indices.extend(selected_remaining[:, 0])
                     col_indices.extend(selected_remaining[:, 1])
                      # Assign non-zero random values
-                    values.extend([random.random() * 100 for _ in range(len(selected_remaining))])
+                    values.extend([random.random() * 10 for _ in range(len(selected_remaining))])
 
 
         # Create the sparse matrix in COO format, then convert to CSC
@@ -105,7 +105,7 @@ class MatrixGenerator:
         Returns:
             A NumPy dense matrix
         """
-        return np.random.rand(rows, cols) * 100 # Use larger random values
+        return np.random.rand(rows, cols) * 10 # Use larger random values
 
 
     def save_sparse_matrix(self, matrix: sp.csc_matrix, filename: str) -> None:
