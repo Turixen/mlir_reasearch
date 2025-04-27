@@ -2,12 +2,10 @@
 set -e  # Stop on error
 
 # Parameters
-RESULTS_DIR="results_scalar"
+RESULTS_DIR="$(pwd)/results_scalar"
 
 mkdir -p $RESULTS_DIR
 cd mlir_files
-
-echo "$(pwd)"
 
 BUILD_DIR="build"
 
@@ -31,7 +29,6 @@ for file in ./*.mlir; do
 
     executable_output_file="${RESULTS_DIR}/output_vector_${name}.txt"
     echo "[+] Running executable to capture output and exit code..."
-    echo "$executable_output_file"
     echo > "$executable_output_file"
 
     {
@@ -75,13 +72,4 @@ for file in ./*.mlir; do
     fi
     echo "[v] Test completed for $name. Results saved in $output_file"
 
-    executable_output_file="${RESULTS_DIR}/output_scalar_${name}.txt"
-
-    echo "[+] Running executable to capture output..."
-    {
-        echo "${name} :"
-        "$FILE_BUILD_DIR/$name"
-    } > "$executable_output_file" 2>&1
-    
-    echo "[v] Executable output saved to $executable_output_file"
 done
