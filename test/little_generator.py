@@ -157,7 +157,7 @@ class MatrixGenerator:
 class MlirGenerator:
     """Class for generating MLIR code for sparse matrix multiplication."""
 
-    def __init__(self, output_dir: str = "../mlir_files"):
+    def __init__(self, output_dir: str = "."):
         """
         Initialize the MLIR generator.
 
@@ -372,7 +372,7 @@ def main():
     strides = [1]
 
     matrix_generator = MatrixGenerator("../matrices")
-    mlir_generator = MlirGenerator("../mlir_files")
+    mlir_generator = MlirGenerator(".")
 
     # Ensure output directories exist
     Path("../matrixmul").mkdir(parents=True, exist_ok=True)
