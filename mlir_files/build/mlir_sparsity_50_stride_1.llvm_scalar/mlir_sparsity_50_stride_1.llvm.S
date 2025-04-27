@@ -8,120 +8,106 @@
 sparse_dense_matmul:                    # @sparse_dense_matmul
 	.cfi_startproc
 # %bb.0:
-	addi	sp, sp, -80
-	.cfi_def_cfa_offset 80
-	sd	s0, 72(sp)                      # 8-byte Folded Spill
-	sd	s1, 64(sp)                      # 8-byte Folded Spill
-	sd	s2, 56(sp)                      # 8-byte Folded Spill
-	sd	s3, 48(sp)                      # 8-byte Folded Spill
-	sd	s4, 40(sp)                      # 8-byte Folded Spill
-	sd	s5, 32(sp)                      # 8-byte Folded Spill
-	sd	s6, 24(sp)                      # 8-byte Folded Spill
-	sd	s7, 16(sp)                      # 8-byte Folded Spill
-	sd	s8, 8(sp)                       # 8-byte Folded Spill
+	addi	sp, sp, -48
+	.cfi_def_cfa_offset 48
+	sd	s0, 40(sp)                      # 8-byte Folded Spill
+	sd	s1, 32(sp)                      # 8-byte Folded Spill
+	sd	s2, 24(sp)                      # 8-byte Folded Spill
+	sd	s3, 16(sp)                      # 8-byte Folded Spill
+	sd	s4, 8(sp)                       # 8-byte Folded Spill
+	sd	s5, 0(sp)                       # 8-byte Folded Spill
 	.cfi_offset s0, -8
 	.cfi_offset s1, -16
 	.cfi_offset s2, -24
 	.cfi_offset s3, -32
 	.cfi_offset s4, -40
 	.cfi_offset s5, -48
-	.cfi_offset s6, -56
-	.cfi_offset s7, -64
-	.cfi_offset s8, -72
-	li	t6, 0
 	li	t5, 0
-	ld	s8, 192(sp)
-	ld	a6, 288(sp)
-	ld	t0, 280(sp)
-	ld	t1, 272(sp)
-	ld	t2, 264(sp)
-	ld	t3, 256(sp)
-	ld	a4, 248(sp)
-	ld	t4, 240(sp)
-	ld	s3, 112(sp)
-	li	s7, 99
-	li	s2, 800
+	ld	s2, 216(sp)
+	ld	s4, 160(sp)
+	ld	s3, 80(sp)
+	ld	a6, 256(sp)
+	ld	t0, 248(sp)
+	ld	t1, 240(sp)
+	ld	t2, 232(sp)
+	ld	t3, 224(sp)
+	ld	t4, 208(sp)
+	li	a5, 99
+	li	t6, 800
 	j	.LBB0_2
 .LBB0_1:                                #   in Loop: Header=BB0_2 Depth=1
 	addi	t5, t5, 1
-	addi	t6, t6, 800
+	addi	s4, s4, 800
 .LBB0_2:                                # =>This Loop Header: Depth=1
                                         #     Child Loop BB0_5 Depth 2
                                         #       Child Loop BB0_7 Depth 3
-	blt	s7, t5, .LBB0_8
+	blt	a5, t5, .LBB0_8
 # %bb.3:                                #   in Loop: Header=BB0_2 Depth=1
 	slli	a1, t5, 3
 	add	a1, a1, a2
-	lwu	s4, 4(a1)
-	lwu	s1, 0(a1)
-	lwu	s0, 12(a1)
+	lwu	a3, 4(a1)
+	lwu	a4, 0(a1)
+	lwu	s1, 12(a1)
 	lwu	a1, 8(a1)
-	slli	s4, s4, 32
-	or	s5, s4, s1
-	slli	s0, s0, 32
-	or	s4, s0, a1
+	slli	a3, a3, 32
+	or	s0, a3, a4
+	slli	s1, s1, 32
+	or	s5, s1, a1
 	j	.LBB0_5
 .LBB0_4:                                #   in Loop: Header=BB0_5 Depth=2
-	addi	s5, s5, 1
+	addi	s0, s0, 1
 .LBB0_5:                                #   Parent Loop BB0_2 Depth=1
                                         # =>  This Loop Header: Depth=2
                                         #       Child Loop BB0_7 Depth 3
-	bge	s5, s4, .LBB0_1
+	bge	s0, s5, .LBB0_1
 # %bb.6:                                #   in Loop: Header=BB0_5 Depth=2
-	li	a1, 0
-	slli	s0, s5, 3
-	add	s1, a7, s0
-	lwu	s6, 4(s1)
-	lwu	s1, 0(s1)
-	add	s0, s0, s3
-	fld	fa5, 0(s0)
-	slli	s6, s6, 32
-	or	s0, s6, s1
-	mul	s0, s0, s2
-	mv	s1, t6
-	bltz	s7, .LBB0_4
+	li	a3, 0
+	slli	a1, s0, 3
+	add	a4, a7, a1
+	lwu	s1, 4(a4)
+	lwu	a4, 0(a4)
+	add	a1, a1, s3
+	fld	fa5, 0(a1)
+	slli	s1, s1, 32
+	or	a4, a4, s1
+	mul	a1, a4, t6
+	add	a1, a1, s2
+	mv	a4, s4
+	bltz	a5, .LBB0_4
 .LBB0_7:                                #   Parent Loop BB0_2 Depth=1
                                         #     Parent Loop BB0_5 Depth=2
                                         # =>    This Inner Loop Header: Depth=3
-	add	a3, a4, s0
-	add	a5, s8, s1
-	fld	fa4, 0(a5)
-	fld	fa3, 0(a3)
-	addi	a1, a1, 1
-	addi	s0, s0, 8
+	fld	fa4, 0(a4)
+	fld	fa3, 0(a1)
+	addi	a3, a3, 1
 	fmul.d	fa4, fa5, fa4
 	fadd.d	fa4, fa3, fa4
-	fsd	fa4, 0(a3)
-	addi	s1, s1, 8
-	bge	s7, a1, .LBB0_7
+	fsd	fa4, 0(a1)
+	addi	a1, a1, 8
+	addi	a4, a4, 8
+	bge	a5, a3, .LBB0_7
 	j	.LBB0_4
 .LBB0_8:
 	sd	t4, 0(a0)
-	sd	a4, 8(a0)
+	sd	s2, 8(a0)
 	sd	t3, 16(a0)
 	sd	t2, 24(a0)
 	sd	t1, 32(a0)
 	sd	t0, 40(a0)
 	sd	a6, 48(a0)
-	ld	s0, 72(sp)                      # 8-byte Folded Reload
-	ld	s1, 64(sp)                      # 8-byte Folded Reload
-	ld	s2, 56(sp)                      # 8-byte Folded Reload
-	ld	s3, 48(sp)                      # 8-byte Folded Reload
-	ld	s4, 40(sp)                      # 8-byte Folded Reload
-	ld	s5, 32(sp)                      # 8-byte Folded Reload
-	ld	s6, 24(sp)                      # 8-byte Folded Reload
-	ld	s7, 16(sp)                      # 8-byte Folded Reload
-	ld	s8, 8(sp)                       # 8-byte Folded Reload
+	ld	s0, 40(sp)                      # 8-byte Folded Reload
+	ld	s1, 32(sp)                      # 8-byte Folded Reload
+	ld	s2, 24(sp)                      # 8-byte Folded Reload
+	ld	s3, 16(sp)                      # 8-byte Folded Reload
+	ld	s4, 8(sp)                       # 8-byte Folded Reload
+	ld	s5, 0(sp)                       # 8-byte Folded Reload
 	.cfi_restore s0
 	.cfi_restore s1
 	.cfi_restore s2
 	.cfi_restore s3
 	.cfi_restore s4
 	.cfi_restore s5
-	.cfi_restore s6
-	.cfi_restore s7
-	.cfi_restore s8
-	addi	sp, sp, 80
+	addi	sp, sp, 48
 	.cfi_def_cfa_offset 0
 	ret
 .Lfunc_end0:
@@ -134,29 +120,27 @@ sparse_dense_matmul:                    # @sparse_dense_matmul
 compute_sum:                            # @compute_sum
 	.cfi_startproc
 # %bb.0:
-	li	a6, 0
-	li	a2, 0
+	li	a0, 0
 	fmv.d.x	fa0, zero
-	li	a3, 99
+	li	a2, 99
 	j	.LBB1_2
 .LBB1_1:                                #   in Loop: Header=BB1_2 Depth=1
-	addi	a2, a2, 1
-	addi	a6, a6, 800
+	addi	a0, a0, 1
+	addi	a1, a1, 800
 .LBB1_2:                                # =>This Loop Header: Depth=1
                                         #     Child Loop BB1_4 Depth 2
-	blt	a3, a2, .LBB1_5
+	blt	a2, a0, .LBB1_5
 # %bb.3:                                #   in Loop: Header=BB1_2 Depth=1
-	li	a4, 0
-	mv	a0, a6
-	bltz	a3, .LBB1_1
+	li	a3, 0
+	mv	a4, a1
+	bltz	a2, .LBB1_1
 .LBB1_4:                                #   Parent Loop BB1_2 Depth=1
                                         # =>  This Inner Loop Header: Depth=2
-	add	a5, a1, a0
-	fld	fa5, 0(a5)
-	addi	a4, a4, 1
+	fld	fa5, 0(a4)
+	addi	a3, a3, 1
 	fadd.d	fa0, fa0, fa5
-	addi	a0, a0, 8
-	bge	a3, a4, .LBB1_4
+	addi	a4, a4, 8
+	bge	a2, a3, .LBB1_4
 	j	.LBB1_1
 .LBB1_5:
 	ret
@@ -175,22 +159,26 @@ compute_sum:                            # @compute_sum
 main:                                   # @main
 	.cfi_startproc
 # %bb.0:
-	addi	sp, sp, -464
-	.cfi_def_cfa_offset 464
-	sd	ra, 456(sp)                     # 8-byte Folded Spill
-	sd	s0, 448(sp)                     # 8-byte Folded Spill
-	sd	s1, 440(sp)                     # 8-byte Folded Spill
-	sd	s2, 432(sp)                     # 8-byte Folded Spill
+	addi	sp, sp, -480
+	.cfi_def_cfa_offset 480
+	sd	ra, 472(sp)                     # 8-byte Folded Spill
+	sd	s0, 464(sp)                     # 8-byte Folded Spill
+	sd	s1, 456(sp)                     # 8-byte Folded Spill
+	sd	s2, 448(sp)                     # 8-byte Folded Spill
+	sd	s3, 440(sp)                     # 8-byte Folded Spill
+	sd	s4, 432(sp)                     # 8-byte Folded Spill
 	.cfi_offset ra, -8
 	.cfi_offset s0, -16
 	.cfi_offset s1, -24
 	.cfi_offset s2, -32
+	.cfi_offset s3, -40
+	.cfi_offset s4, -48
 	lui	a0, 20
 	addiw	a0, a0, -1856
 	call	malloc
-	mv	s0, a0
+	mv	s4, a0
 	addi	a0, a0, 63
-	andi	s1, a0, -64
+	andi	s3, a0, -64
 	addi	a0, sp, 272
 	call	assemble_sparse_tensor
 	addi	a0, sp, 392
@@ -206,37 +194,33 @@ main:                                   # @main
 	ld	a4, 296(sp)
 	vsetivli	zero, 8, e64, m4, ta, ma
 	vle64.v	v12, (t0)
-	ld	t2, 424(sp)
-	sd	s0, 160(sp)
-	sd	s1, 168(sp)
-	sd	zero, 176(sp)
+	ld	t3, 424(sp)
 	li	s2, 1
 	lui	t0, %hi(.L__constant_100x100xf64_0)
 	addi	t0, t0, %lo(.L__constant_100x100xf64_0)
 	lui	t1, 228023
-	lui	s1, 5702
-	addi	s0, sp, 184
+	lui	t2, 411206
+	addi	s1, sp, 176
+	addi	t4, sp, 120
+	sd	s4, 160(sp)
+	sd	s3, 168(sp)
+	sd	s2, 208(sp)
 	slli	t1, t1, 2
-	addi	s1, s1, 1124
-	addi	a0, t1, -273
-	sd	t2, 96(sp)
-	sd	a0, 104(sp)
+	addi	a0, t2, 1024
+	addi	s0, t1, -273
+	sd	t3, 96(sp)
+	sd	s0, 104(sp)
 	sd	t0, 112(sp)
 	sd	s2, 152(sp)
 	vse64.v	v12, (sp)
-	vmv.s.x	v10, s1
-	lui	a0, 411206
-	addi	a0, a0, 1024
-	vmv.s.x	v11, a0
-	addi	a0, sp, 120
+	vmv.s.x	v10, a0
+	addi	s0, sp, 64
 	vsetivli	zero, 4, e64, m2, ta, ma
 	vsext.vf8	v12, v10
-	vse64.v	v12, (s0)
-	addi	s1, sp, 64
-	vsext.vf8	v12, v11
-	vse64.v	v12, (a0)
+	vse64.v	v12, (s1)
 	addi	a0, sp, 216
-	vse64.v	v8, (s1)
+	vse64.v	v12, (t4)
+	vse64.v	v8, (s0)
 	call	sparse_dense_matmul
 	li	a7, 0
 	li	t0, 0
@@ -247,31 +231,31 @@ main:                                   # @main
 	ld	a1, 224(sp)
 	ld	a2, 232(sp)
 	ld	a3, 240(sp)
-	li	t1, 99
-	lui	t2, %hi(.L__constant_100x100xf64)
-	addi	t2, t2, %lo(.L__constant_100x100xf64)
+	li	t2, 99
+	lui	t1, %hi(.L__constant_100x100xf64)
+	addi	t1, t1, %lo(.L__constant_100x100xf64)
 	j	.LBB2_2
 .LBB2_1:                                #   in Loop: Header=BB2_2 Depth=1
 	addi	t0, t0, 1
 	addi	a7, a7, 800
 .LBB2_2:                                # =>This Loop Header: Depth=1
                                         #     Child Loop BB2_4 Depth 2
-	blt	t1, t0, .LBB2_5
+	blt	t2, t0, .LBB2_5
 # %bb.3:                                #   in Loop: Header=BB2_2 Depth=1
 	li	t3, 0
 	mv	t4, a7
-	bltz	t1, .LBB2_1
+	bltz	t2, .LBB2_1
 .LBB2_4:                                #   Parent Loop BB2_2 Depth=1
                                         # =>  This Inner Loop Header: Depth=2
 	add	s1, a1, t4
 	fld	fa5, 0(s1)
-	add	s0, t2, t4
+	add	s0, t1, t4
 	fld	fa4, 0(s0)
 	addi	t3, t3, 1
 	feq.d	s1, fa5, fa4
 	and	s2, s2, s1
 	addi	t4, t4, 8
-	bge	t1, t3, .LBB2_4
+	bge	t2, t3, .LBB2_4
 	j	.LBB2_1
 .LBB2_5:
 	call	compute_sum
@@ -282,15 +266,19 @@ main:                                   # @main
 	not	a1, s2
 	or	a0, a0, a1
 	andi	a0, a0, 1
-	ld	ra, 456(sp)                     # 8-byte Folded Reload
-	ld	s0, 448(sp)                     # 8-byte Folded Reload
-	ld	s1, 440(sp)                     # 8-byte Folded Reload
-	ld	s2, 432(sp)                     # 8-byte Folded Reload
+	ld	ra, 472(sp)                     # 8-byte Folded Reload
+	ld	s0, 464(sp)                     # 8-byte Folded Reload
+	ld	s1, 456(sp)                     # 8-byte Folded Reload
+	ld	s2, 448(sp)                     # 8-byte Folded Reload
+	ld	s3, 440(sp)                     # 8-byte Folded Reload
+	ld	s4, 432(sp)                     # 8-byte Folded Reload
 	.cfi_restore ra
 	.cfi_restore s0
 	.cfi_restore s1
 	.cfi_restore s2
-	addi	sp, sp, 464
+	.cfi_restore s3
+	.cfi_restore s4
+	addi	sp, sp, 480
 	.cfi_def_cfa_offset 0
 	ret
 .Lfunc_end2:

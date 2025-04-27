@@ -27,20 +27,6 @@ for file in ./*.mlir; do
     echo "[+] Compiling MLIR file..."
     make -f Makefile_scalar "$name"
 
-    executable_output_file="${RESULTS_DIR}/output_vector_${name}.txt"
-    echo "[+] Running executable to capture output and exit code..."
-    echo > "$executable_output_file"
-
-    {
-        echo "${name} :"
-        "$FILE_BUILD_DIR/$name"
-        exit_code=$?
-        echo ""
-        echo "Exit Code: $exit_code"
-    } > "$executable_output_file" 2>&1
-
-    echo "[v] Executable output and exit code saved to $executable_output_file"
-
     # Move output files to corresponding build dir
     if [[ -f "./$name" ]]; then
         echo "Found executable ./$name, copying to $FILE_BUILD_DIR/"

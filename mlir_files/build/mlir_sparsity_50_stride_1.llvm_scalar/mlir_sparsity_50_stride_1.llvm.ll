@@ -10,144 +10,108 @@ source_filename = "LLVMDialectModule"
 declare ptr @malloc(i64)
 
 define { ptr, ptr, i64, [2 x i64], [2 x i64] } @sparse_dense_matmul(ptr %0, ptr %1, i64 %2, i64 %3, i64 %4, ptr %5, ptr %6, i64 %7, i64 %8, i64 %9, ptr %10, ptr %11, i64 %12, i64 %13, i64 %14, { [2 x i64], [3 x i64] } %15, ptr %16, ptr %17, i64 %18, i64 %19, i64 %20, i64 %21, i64 %22, ptr %23, ptr %24, i64 %25, i64 %26, i64 %27, i64 %28, i64 %29) {
-  %31 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } undef, ptr %16, 0
-  %32 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %31, ptr %17, 1
-  %33 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %32, i64 %18, 2
-  %34 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %33, i64 %19, 3, 0
-  %35 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %34, i64 %21, 4, 0
-  %36 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %35, i64 %20, 3, 1
-  %37 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %36, i64 %22, 4, 1
-  %38 = insertvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } undef, ptr %10, 0
-  %39 = insertvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %38, ptr %11, 1
-  %40 = insertvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %39, i64 %12, 2
-  %41 = insertvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %40, i64 %13, 3, 0
-  %42 = insertvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %41, i64 %14, 4, 0
-  %43 = insertvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } undef, ptr %5, 0
-  %44 = insertvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %43, ptr %6, 1
-  %45 = insertvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %44, i64 %7, 2
-  %46 = insertvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %45, i64 %8, 3, 0
-  %47 = insertvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %46, i64 %9, 4, 0
-  %48 = insertvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } undef, ptr %0, 0
-  %49 = insertvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %48, ptr %1, 1
-  %50 = insertvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %49, i64 %2, 2
-  %51 = insertvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %50, i64 %3, 3, 0
-  %52 = insertvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %51, i64 %4, 4, 0
-  %53 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } undef, ptr %23, 0
-  %54 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %53, ptr %24, 1
-  %55 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %54, i64 %25, 2
-  %56 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %55, i64 %26, 3, 0
-  %57 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %56, i64 %28, 4, 0
-  %58 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %57, i64 %27, 3, 1
-  %59 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %58, i64 %29, 4, 1
-  %60 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %42, 1
-  %61 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %52, 1
-  %62 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %47, 1
-  br label %63
+  %31 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } undef, ptr %23, 0
+  %32 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %31, ptr %24, 1
+  %33 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %32, i64 %25, 2
+  %34 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %33, i64 %26, 3, 0
+  %35 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %34, i64 %28, 4, 0
+  %36 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %35, i64 %27, 3, 1
+  %37 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %36, i64 %29, 4, 1
+  br label %38
 
-63:                                               ; preds = %103, %30
-  %64 = phi i64 [ %104, %103 ], [ 0, %30 ]
-  %65 = icmp slt i64 %64, 100
-  br i1 %65, label %66, label %105
+38:                                               ; preds = %75, %30
+  %39 = phi i64 [ %76, %75 ], [ 0, %30 ]
+  %40 = icmp slt i64 %39, 100
+  br i1 %40, label %41, label %77
 
-66:                                               ; preds = %63
-  %67 = getelementptr i64, ptr %61, i64 %64
-  %68 = load i64, ptr %67, align 4
-  %69 = add i64 %64, 1
-  %70 = getelementptr i64, ptr %61, i64 %69
-  %71 = load i64, ptr %70, align 4
-  br label %72
+41:                                               ; preds = %38
+  %42 = getelementptr i64, ptr %1, i64 %39
+  %43 = load i64, ptr %42, align 4
+  %44 = add i64 %39, 1
+  %45 = getelementptr i64, ptr %1, i64 %44
+  %46 = load i64, ptr %45, align 4
+  br label %47
 
-72:                                               ; preds = %101, %66
-  %73 = phi i64 [ %102, %101 ], [ %68, %66 ]
-  %74 = icmp slt i64 %73, %71
-  br i1 %74, label %75, label %103
+47:                                               ; preds = %73, %41
+  %48 = phi i64 [ %74, %73 ], [ %43, %41 ]
+  %49 = icmp slt i64 %48, %46
+  br i1 %49, label %50, label %75
 
-75:                                               ; preds = %72
-  %76 = getelementptr i64, ptr %62, i64 %73
-  %77 = load i64, ptr %76, align 4
-  %78 = getelementptr double, ptr %60, i64 %73
-  %79 = load double, ptr %78, align 8
-  br label %80
+50:                                               ; preds = %47
+  %51 = getelementptr i64, ptr %6, i64 %48
+  %52 = load i64, ptr %51, align 4
+  %53 = getelementptr double, ptr %11, i64 %48
+  %54 = load double, ptr %53, align 8
+  br label %55
 
-80:                                               ; preds = %83, %75
-  %81 = phi i64 [ %100, %83 ], [ 0, %75 ]
-  %82 = icmp slt i64 %81, 100
-  br i1 %82, label %83, label %101
+55:                                               ; preds = %58, %50
+  %56 = phi i64 [ %72, %58 ], [ 0, %50 ]
+  %57 = icmp slt i64 %56, 100
+  br i1 %57, label %58, label %73
 
-83:                                               ; preds = %80
-  %84 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %59, 1
-  %85 = mul i64 %77, 100
-  %86 = add i64 %85, %81
-  %87 = getelementptr double, ptr %84, i64 %86
-  %88 = load double, ptr %87, align 8
-  %89 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %37, 1
-  %90 = mul i64 %64, 100
-  %91 = add i64 %90, %81
-  %92 = getelementptr double, ptr %89, i64 %91
-  %93 = load double, ptr %92, align 8
-  %94 = fmul double %79, %93
-  %95 = fadd double %88, %94
-  %96 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %59, 1
-  %97 = mul i64 %77, 100
-  %98 = add i64 %97, %81
-  %99 = getelementptr double, ptr %96, i64 %98
-  store double %95, ptr %99, align 8
-  %100 = add i64 %81, 1
-  br label %80
+58:                                               ; preds = %55
+  %59 = mul i64 %52, 100
+  %60 = add i64 %59, %56
+  %61 = getelementptr double, ptr %24, i64 %60
+  %62 = load double, ptr %61, align 8
+  %63 = mul i64 %39, 100
+  %64 = add i64 %63, %56
+  %65 = getelementptr double, ptr %17, i64 %64
+  %66 = load double, ptr %65, align 8
+  %67 = fmul double %54, %66
+  %68 = fadd double %62, %67
+  %69 = mul i64 %52, 100
+  %70 = add i64 %69, %56
+  %71 = getelementptr double, ptr %24, i64 %70
+  store double %68, ptr %71, align 8
+  %72 = add i64 %56, 1
+  br label %55
 
-101:                                              ; preds = %80
-  %102 = add i64 %73, 1
-  br label %72
+73:                                               ; preds = %55
+  %74 = add i64 %48, 1
+  br label %47
 
-103:                                              ; preds = %72
-  %104 = add i64 %64, 1
-  br label %63
+75:                                               ; preds = %47
+  %76 = add i64 %39, 1
+  br label %38
 
-105:                                              ; preds = %63
-  ret { ptr, ptr, i64, [2 x i64], [2 x i64] } %59
+77:                                               ; preds = %38
+  ret { ptr, ptr, i64, [2 x i64], [2 x i64] } %37
 }
 
 define double @compute_sum(ptr %0, ptr %1, i64 %2, i64 %3, i64 %4, i64 %5, i64 %6) {
-  %8 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } undef, ptr %0, 0
-  %9 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %8, ptr %1, 1
-  %10 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %9, i64 %2, 2
-  %11 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %10, i64 %3, 3, 0
-  %12 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %11, i64 %5, 4, 0
-  %13 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %12, i64 %4, 3, 1
-  %14 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %13, i64 %6, 4, 1
-  br label %15
+  br label %8
 
-15:                                               ; preds = %32, %7
-  %16 = phi i64 [ %33, %32 ], [ 0, %7 ]
-  %17 = phi double [ %22, %32 ], [ 0.000000e+00, %7 ]
-  %18 = icmp slt i64 %16, 100
-  br i1 %18, label %19, label %34
+8:                                                ; preds = %24, %7
+  %9 = phi i64 [ %25, %24 ], [ 0, %7 ]
+  %10 = phi double [ %15, %24 ], [ 0.000000e+00, %7 ]
+  %11 = icmp slt i64 %9, 100
+  br i1 %11, label %12, label %26
 
-19:                                               ; preds = %15
-  br label %20
+12:                                               ; preds = %8
+  br label %13
 
-20:                                               ; preds = %24, %19
-  %21 = phi i64 [ %31, %24 ], [ 0, %19 ]
-  %22 = phi double [ %30, %24 ], [ %17, %19 ]
-  %23 = icmp slt i64 %21, 100
-  br i1 %23, label %24, label %32
+13:                                               ; preds = %17, %12
+  %14 = phi i64 [ %23, %17 ], [ 0, %12 ]
+  %15 = phi double [ %22, %17 ], [ %10, %12 ]
+  %16 = icmp slt i64 %14, 100
+  br i1 %16, label %17, label %24
 
-24:                                               ; preds = %20
-  %25 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %14, 1
-  %26 = mul i64 %16, 100
-  %27 = add i64 %26, %21
-  %28 = getelementptr double, ptr %25, i64 %27
-  %29 = load double, ptr %28, align 8
-  %30 = fadd double %22, %29
-  %31 = add i64 %21, 1
-  br label %20
+17:                                               ; preds = %13
+  %18 = mul i64 %9, 100
+  %19 = add i64 %18, %14
+  %20 = getelementptr double, ptr %1, i64 %19
+  %21 = load double, ptr %20, align 8
+  %22 = fadd double %15, %21
+  %23 = add i64 %14, 1
+  br label %13
 
-32:                                               ; preds = %20
-  %33 = add i64 %16, 1
-  br label %15
+24:                                               ; preds = %13
+  %25 = add i64 %9, 1
+  br label %8
 
-34:                                               ; preds = %15
-  ret double %17
+26:                                               ; preds = %8
+  ret double %10
 }
 
 define i32 @main() {
@@ -157,95 +121,81 @@ define i32 @main() {
   %4 = urem i64 %3, 64
   %5 = sub i64 %3, %4
   %6 = inttoptr i64 %5 to ptr
-  %7 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } undef, ptr %1, 0
-  %8 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %7, ptr %6, 1
-  %9 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %8, i64 0, 2
-  %10 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %9, i64 100, 3, 0
-  %11 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %10, i64 100, 3, 1
-  %12 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %11, i64 100, 4, 0
-  %13 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %12, i64 1, 4, 1
-  %14 = call { { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { [2 x i64], [3 x i64] } } @assemble_sparse_tensor()
-  %15 = extractvalue { { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { [2 x i64], [3 x i64] } } %14, 0
-  %16 = extractvalue { { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { [2 x i64], [3 x i64] } } %14, 1
-  %17 = extractvalue { { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { [2 x i64], [3 x i64] } } %14, 2
-  %18 = extractvalue { { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { [2 x i64], [3 x i64] } } %14, 3
-  %19 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %15, 0
-  %20 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %15, 1
-  %21 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %15, 2
-  %22 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %15, 3, 0
-  %23 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %15, 4, 0
-  %24 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %16, 0
-  %25 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %16, 1
-  %26 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %16, 2
-  %27 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %16, 3, 0
-  %28 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %16, 4, 0
-  %29 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %17, 0
-  %30 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %17, 1
-  %31 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %17, 2
-  %32 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %17, 3, 0
-  %33 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %17, 4, 0
-  %34 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %13, 0
-  %35 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %13, 1
-  %36 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %13, 2
-  %37 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %13, 3, 0
-  %38 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %13, 3, 1
-  %39 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %13, 4, 0
-  %40 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %13, 4, 1
-  %41 = call { ptr, ptr, i64, [2 x i64], [2 x i64] } @sparse_dense_matmul(ptr %19, ptr %20, i64 %21, i64 %22, i64 %23, ptr %24, ptr %25, i64 %26, i64 %27, i64 %28, ptr %29, ptr %30, i64 %31, i64 %32, i64 %33, { [2 x i64], [3 x i64] } %18, ptr inttoptr (i64 3735928559 to ptr), ptr @__constant_100x100xf64_0, i64 0, i64 100, i64 100, i64 100, i64 1, ptr %34, ptr %35, i64 %36, i64 %37, i64 %38, i64 %39, i64 %40)
-  br label %42
+  %7 = call { { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { [2 x i64], [3 x i64] } } @assemble_sparse_tensor()
+  %8 = extractvalue { { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { [2 x i64], [3 x i64] } } %7, 0
+  %9 = extractvalue { { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { [2 x i64], [3 x i64] } } %7, 1
+  %10 = extractvalue { { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { [2 x i64], [3 x i64] } } %7, 2
+  %11 = extractvalue { { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { [2 x i64], [3 x i64] } } %7, 3
+  %12 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %8, 0
+  %13 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %8, 1
+  %14 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %8, 2
+  %15 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %8, 3, 0
+  %16 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %8, 4, 0
+  %17 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %9, 0
+  %18 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %9, 1
+  %19 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %9, 2
+  %20 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %9, 3, 0
+  %21 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %9, 4, 0
+  %22 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %10, 0
+  %23 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %10, 1
+  %24 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %10, 2
+  %25 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %10, 3, 0
+  %26 = extractvalue { ptr, ptr, i64, [1 x i64], [1 x i64] } %10, 4, 0
+  %27 = call { ptr, ptr, i64, [2 x i64], [2 x i64] } @sparse_dense_matmul(ptr %12, ptr %13, i64 %14, i64 %15, i64 %16, ptr %17, ptr %18, i64 %19, i64 %20, i64 %21, ptr %22, ptr %23, i64 %24, i64 %25, i64 %26, { [2 x i64], [3 x i64] } %11, ptr inttoptr (i64 3735928559 to ptr), ptr @__constant_100x100xf64_0, i64 0, i64 100, i64 100, i64 100, i64 1, ptr %1, ptr %6, i64 0, i64 100, i64 100, i64 100, i64 1)
+  br label %28
 
-42:                                               ; preds = %64, %0
-  %43 = phi i64 [ %65, %64 ], [ 0, %0 ]
-  %44 = phi i1 [ %49, %64 ], [ true, %0 ]
-  %45 = icmp slt i64 %43, 100
-  br i1 %45, label %46, label %66
+28:                                               ; preds = %50, %0
+  %29 = phi i64 [ %51, %50 ], [ 0, %0 ]
+  %30 = phi i1 [ %35, %50 ], [ true, %0 ]
+  %31 = icmp slt i64 %29, 100
+  br i1 %31, label %32, label %52
 
-46:                                               ; preds = %42
-  br label %47
+32:                                               ; preds = %28
+  br label %33
 
-47:                                               ; preds = %51, %46
-  %48 = phi i64 [ %63, %51 ], [ 0, %46 ]
-  %49 = phi i1 [ %62, %51 ], [ %44, %46 ]
-  %50 = icmp slt i64 %48, 100
-  br i1 %50, label %51, label %64
+33:                                               ; preds = %37, %32
+  %34 = phi i64 [ %49, %37 ], [ 0, %32 ]
+  %35 = phi i1 [ %48, %37 ], [ %30, %32 ]
+  %36 = icmp slt i64 %34, 100
+  br i1 %36, label %37, label %50
 
-51:                                               ; preds = %47
-  %52 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %41, 1
-  %53 = mul i64 %43, 100
-  %54 = add i64 %53, %48
-  %55 = getelementptr double, ptr %52, i64 %54
-  %56 = load double, ptr %55, align 8
-  %57 = mul i64 %43, 100
-  %58 = add i64 %57, %48
-  %59 = getelementptr double, ptr @__constant_100x100xf64, i64 %58
-  %60 = load double, ptr %59, align 8
-  %61 = fcmp oeq double %56, %60
-  %62 = and i1 %49, %61
-  %63 = add i64 %48, 1
-  br label %47
+37:                                               ; preds = %33
+  %38 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %27, 1
+  %39 = mul i64 %29, 100
+  %40 = add i64 %39, %34
+  %41 = getelementptr double, ptr %38, i64 %40
+  %42 = load double, ptr %41, align 8
+  %43 = mul i64 %29, 100
+  %44 = add i64 %43, %34
+  %45 = getelementptr double, ptr @__constant_100x100xf64, i64 %44
+  %46 = load double, ptr %45, align 8
+  %47 = fcmp oeq double %42, %46
+  %48 = and i1 %35, %47
+  %49 = add i64 %34, 1
+  br label %33
 
-64:                                               ; preds = %47
-  %65 = add i64 %43, 1
-  br label %42
+50:                                               ; preds = %33
+  %51 = add i64 %29, 1
+  br label %28
 
-66:                                               ; preds = %42
-  %67 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %41, 0
-  %68 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %41, 1
-  %69 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %41, 2
-  %70 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %41, 3, 0
-  %71 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %41, 3, 1
-  %72 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %41, 4, 0
-  %73 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %41, 4, 1
-  %74 = call double @compute_sum(ptr %67, ptr %68, i64 %69, i64 %70, i64 %71, i64 %72, i64 %73)
-  %75 = fcmp oeq double %74, 0x41D2B999E0F08BA8
-  %76 = and i1 %44, %75
-  %77 = xor i1 %76, true
-  %78 = zext i1 %77 to i32
-  ret i32 %78
+52:                                               ; preds = %28
+  %53 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %27, 0
+  %54 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %27, 1
+  %55 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %27, 2
+  %56 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %27, 3, 0
+  %57 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %27, 3, 1
+  %58 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %27, 4, 0
+  %59 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %27, 4, 1
+  %60 = call double @compute_sum(ptr %53, ptr %54, i64 %55, i64 %56, i64 %57, i64 %58, i64 %59)
+  %61 = fcmp oeq double %60, 0x41D2B999E0F08BA8
+  %62 = and i1 %30, %61
+  %63 = xor i1 %62, true
+  %64 = zext i1 %63 to i32
+  ret i32 %64
 }
 
 define { { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { [2 x i64], [3 x i64] } } @assemble_sparse_tensor() {
-  %1 = load i64, ptr getelementptr (i64, ptr @__constant_101xindex, i64 100), align 4
+  %1 = load i64, ptr getelementptr (i64, ptr @__constant_101xindex, i32 100), align 4
   %2 = insertvalue { [2 x i64], [3 x i64] } { [2 x i64] [i64 100, i64 100], [3 x i64] [i64 101, i64 0, i64 0] }, i64 %1, 1, 1
   %3 = insertvalue { [2 x i64], [3 x i64] } %2, i64 %1, 1, 2
   %4 = insertvalue { { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { [2 x i64], [3 x i64] } } { { ptr, ptr, i64, [1 x i64], [1 x i64] } { ptr inttoptr (i64 3735928559 to ptr), ptr @__constant_101xindex, i64 0, [1 x i64] [i64 101], [1 x i64] [i64 1] }, { ptr, ptr, i64, [1 x i64], [1 x i64] } { ptr inttoptr (i64 3735928559 to ptr), ptr @__constant_5000xindex, i64 0, [1 x i64] [i64 5000], [1 x i64] [i64 1] }, { ptr, ptr, i64, [1 x i64], [1 x i64] } { ptr inttoptr (i64 3735928559 to ptr), ptr @__constant_5000xf64, i64 0, [1 x i64] [i64 5000], [1 x i64] [i64 1] }, { [2 x i64], [3 x i64] } undef }, { [2 x i64], [3 x i64] } %3, 3
