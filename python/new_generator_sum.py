@@ -325,10 +325,10 @@ func.func @main() -> i32 {{ // Return status code (0 for success, 1 for failure)
 
     // Return 0 if all checks pass, 1 otherwise
     %return_status = scf.if %all_checks_pass -> (i32) {{
-    %success = arith.constant 0 : i32
+    %success = arith.constant 11 : i32
     scf.yield %success : i32
     }} else {{
-    %failure = arith.constant 1 : i32
+    %failure = arith.constant 33 : i32
     scf.yield %failure : i32
     }}
 
