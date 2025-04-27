@@ -29,7 +29,6 @@ for file in ./*.mlir; do
 
     executable_output_file="${RESULTS_DIR}/output_vector_${name}.txt"
     echo "[+] Running executable to capture output and exit code..."
-    echo "$executable_output_file"
     echo > "$executable_output_file"
 
     {
@@ -72,5 +71,20 @@ for file in ./*.mlir; do
         continue
     fi
     echo "[v] Test completed for $name. Results saved in $output_file"
+
+        executable_output_file="${RESULTS_DIR}/output_vector_${name}.txt"
+    echo "[+] Running executable to capture output and exit code..."
+    echo > "$executable_output_file"
+
+    {
+        echo "${name} :"
+        "$FILE_BUILD_DIR/$name"
+        exit_code=$?
+        echo ""
+        echo "Exit Code: $exit_code"
+    } > "$executable_output_file" 2>&1
+
+    echo "[v] Executable output and exit code saved to $executable_output_file"
+
 
 done
