@@ -233,123 +233,123 @@ class MlirGenerator:
 
 
         mlir_content = f"""// Sparse-Dense Matrix Multiplication
-            // Sparse Matrix: {m}x{k} with {len(values)} non-zeros ({sparsity:.2f} sparsity, stride={stride})
-            // Dense Matrix: {k}x{n}
-            // Expected Result: {m}x{n}
-            // Expected Sum: {expected_sum_str}
+// Sparse Matrix: {m}x{k} with {len(values)} non-zeros ({sparsity:.2f} sparsity, stride={stride})
+// Dense Matrix: {k}x{n}
+// Expected Result: {m}x{n}
+// Expected Sum: {expected_sum_str}
 
-            #CSC = #sparse_tensor.encoding<{{
-            map = (d0, d1) -> (d1: dense, d0: compressed)
-            }}>
+#CSC = #sparse_tensor.encoding<{{
+map = (d0, d1) -> (d1: dense, d0: compressed)
+}}>
 
-            module {{
-            func.func @sparse_dense_matmul(
-                %sparse : tensor<{m}x{k}xf64, #CSC>,
-                %dense : tensor<{k}x{n}xf64>,
-                %init : tensor<{m}x{n}xf64>
-            ) -> tensor<{m}x{n}xf64> {{
-                %result = linalg.matmul
-                ins(%sparse, %dense: tensor<{m}x{k}xf64, #CSC>, tensor<{k}x{n}xf64>)
-                outs(%init: tensor<{m}x{n}xf64>) -> tensor<{m}x{n}xf64>
-                return %result : tensor<{m}x{n}xf64>
-            }}
+module {{
+func.func @sparse_dense_matmul(
+    %sparse : tensor<{m}x{k}xf64, #CSC>,
+    %dense : tensor<{k}x{n}xf64>,
+    %init : tensor<{m}x{n}xf64>
+) -> tensor<{m}x{n}xf64> {{
+    %result = linalg.matmul
+    ins(%sparse, %dense: tensor<{m}x{k}xf64, #CSC>, tensor<{k}x{n}xf64>)
+    outs(%init: tensor<{m}x{n}xf64>) -> tensor<{m}x{n}xf64>
+    return %result : tensor<{m}x{n}xf64>
+}}
 
-            // Function to compute the sum of all elements in a tensor
-            func.func @compute_sum(%tensor: tensor<{m}x{n}xf64>) -> f64 {{
-              %c0 = arith.constant 0 : index
-              %c1 = arith.constant 1 : index
-              %rows = arith.constant {m} : index
-              %cols = arith.constant {n} : index
-              %init = arith.constant 0.0 : f64 // Keep init as 0.0 (float)
+// Function to compute the sum of all elements in a tensor
+func.func @compute_sum(%tensor: tensor<{m}x{n}xf64>) -> f64 {{
+%c0 = arith.constant 0 : index
+%c1 = arith.constant 1 : index
+%rows = arith.constant {m} : index
+%cols = arith.constant {n} : index
+%init = arith.constant 0.0 : f64 // Keep init as 0.0 (float)
 
-              %sum = scf.for %i = %c0 to %rows step %c1 iter_args(%sum_iter = %init) -> (f64) {{
-                %inner_sum = scf.for %j = %c0 to %cols step %c1 iter_args(%inner_sum_iter = %sum_iter) -> (f64) {{
-                  %elem = tensor.extract %tensor[%i, %j] : tensor<{m}x{n}xf64>
-                  %new_sum = arith.addf %inner_sum_iter, %elem : f64
-                  scf.yield %new_sum : f64
-                }}
-                scf.yield %inner_sum : f64
-              }}
-              return %sum : f64
-            }}
+%sum = scf.for %i = %c0 to %rows step %c1 iter_args(%sum_iter = %init) -> (f64) {{
+    %inner_sum = scf.for %j = %c0 to %cols step %c1 iter_args(%inner_sum_iter = %sum_iter) -> (f64) {{
+    %elem = tensor.extract %tensor[%i, %j] : tensor<{m}x{n}xf64>
+    %new_sum = arith.addf %inner_sum_iter, %elem : f64
+    scf.yield %new_sum : f64
+    }}
+    scf.yield %inner_sum : f64
+}}
+return %sum : f64
+}}
 
-            func.func @main() -> i32 {{ // Return status code (0 for success, 1 for failure)
-                %output = tensor.empty() : tensor<{m}x{n}xf64>
-                %sparse_tensor = call @assemble_sparse_tensor() : () -> tensor<{m}x{k}xf64, #CSC>
-                %dense_tensor = arith.constant dense<{dense_data_str}> : tensor<{k}x{n}xf64>
+func.func @main() -> i32 {{ // Return status code (0 for success, 1 for failure)
+    %output = tensor.empty() : tensor<{m}x{n}xf64>
+    %sparse_tensor = call @assemble_sparse_tensor() : () -> tensor<{m}x{k}xf64, #CSC>
+    %dense_tensor = arith.constant dense<{dense_data_str}> : tensor<{k}x{n}xf64>
 
-                // Perform the matrix multiplication
-                %computed_result = call @sparse_dense_matmul(%sparse_tensor, %dense_tensor, %output) :
-                (tensor<{m}x{k}xf64, #CSC>, tensor<{k}x{n}xf64>, tensor<{m}x{n}xf64>) -> tensor<{m}x{n}xf64>
+    // Perform the matrix multiplication
+    %computed_result = call @sparse_dense_matmul(%sparse_tensor, %dense_tensor, %output) :
+    (tensor<{m}x{k}xf64, #CSC>, tensor<{k}x{n}xf64>, tensor<{m}x{n}xf64>) -> tensor<{m}x{n}xf64>
 
-                // --- Checks Start Here (Dynamic) ---
+    // --- Checks Start Here (Dynamic) ---
 
-                // Define the expected result matrix as a constant
-                %expected_result = arith.constant dense<{expected_dense_data_str}> : tensor<{m}x{n}xf64>
+    // Define the expected result matrix as a constant
+    %expected_result = arith.constant dense<{expected_dense_data_str}> : tensor<{m}x{n}xf64>
 
-                // Check all elements of the computed result against the expected result
-                %c0 = arith.constant 0 : index
-                %c1 = arith.constant 1 : index
-                %rows = arith.constant {m} : index
-                %cols = arith.constant {n} : index
-                // Initialize check result to true (1 for i1)
-                %all_elements_match_init = arith.constant 1 : i1
+    // Check all elements of the computed result against the expected result
+    %c0 = arith.constant 0 : index
+    %c1 = arith.constant 1 : index
+    %rows = arith.constant {m} : index
+    %cols = arith.constant {n} : index
+    // Initialize check result to true (1 for i1)
+    %all_elements_match_init = arith.constant 1 : i1
 
-                %elements_check_result = scf.for %i = %c0 to %rows step %c1 iter_args(%row_match_iter = %all_elements_match_init) -> (i1) {{
-                  %col_check_result = scf.for %j = %c0 to %cols step %c1 iter_args(%col_match_iter = %row_match_iter) -> (i1) {{
-                    %computed_elem = tensor.extract %computed_result[%i, %j] : tensor<{m}x{n}xf64>
-                    %expected_elem = tensor.extract %expected_result[%i, %j] : tensor<{m}x{n}xf64>
-                    // Compare floating point values for ordered equality (oeq)
-                    // Note: Floating point comparisons can be tricky due to precision.
-                    // For generated constants and exact computations, oeq might work.
-                    // For real-world scenarios, a tolerance comparison is often needed.
-                    %elem_is_equal = arith.cmpf oeq, %computed_elem, %expected_elem : f64
-                    // Combine current element check result with previous results using logical AND
-                    %current_match = arith.andi %col_match_iter, %elem_is_equal : i1
-                    scf.yield %current_match : i1
-                  }}
-                  scf.yield %col_check_result : i1
-                }}
+    %elements_check_result = scf.for %i = %c0 to %rows step %c1 iter_args(%row_match_iter = %all_elements_match_init) -> (i1) {{
+    %col_check_result = scf.for %j = %c0 to %cols step %c1 iter_args(%col_match_iter = %row_match_iter) -> (i1) {{
+        %computed_elem = tensor.extract %computed_result[%i, %j] : tensor<{m}x{n}xf64>
+        %expected_elem = tensor.extract %expected_result[%i, %j] : tensor<{m}x{n}xf64>
+        // Compare floating point values for ordered equality (oeq)
+        // Note: Floating point comparisons can be tricky due to precision.
+        // For generated constants and exact computations, oeq might work.
+        // For real-world scenarios, a tolerance comparison is often needed.
+        %elem_is_equal = arith.cmpf oeq, %computed_elem, %expected_elem : f64
+        // Combine current element check result with previous results using logical AND
+        %current_match = arith.andi %col_match_iter, %elem_is_equal : i1
+        scf.yield %current_match : i1
+    }}
+    scf.yield %col_check_result : i1
+    }}
 
-                // Calculate the sum of the computed result matrix
-                %computed_sum = call @compute_sum(%computed_result) : (tensor<{m}x{n}xf64>) -> f64
+    // Calculate the sum of the computed result matrix
+    %computed_sum = call @compute_sum(%computed_result) : (tensor<{m}x{n}xf64>) -> f64
 
-                // Define the expected sum as a constant - Formatted by the helper
-                %expected_sum = arith.constant {expected_sum_str} : f64
+    // Define the expected sum as a constant - Formatted by the helper
+    %expected_sum = arith.constant {expected_sum_str} : f64
 
-                // Check if the computed sum matches the expected sum
-                %sum_matches = arith.cmpf oeq, %computed_sum, %expected_sum : f64
+    // Check if the computed sum matches the expected sum
+    %sum_matches = arith.cmpf oeq, %computed_sum, %expected_sum : f64
 
-                // Combine the element-wise check result and the sum check result
-                %all_checks_pass = arith.andi %elements_check_result, %sum_matches : i1
+    // Combine the element-wise check result and the sum check result
+    %all_checks_pass = arith.andi %elements_check_result, %sum_matches : i1
 
-                // Return 0 if all checks pass, 1 otherwise
-                %return_status = scf.if %all_checks_pass -> (i32) {{
-                  %success = arith.constant 0 : i32
-                  scf.yield %success : i32
-                }} else {{
-                  %failure = arith.constant 1 : i32
-                  scf.yield %failure : i32
-                }}
+    // Return 0 if all checks pass, 1 otherwise
+    %return_status = scf.if %all_checks_pass -> (i32) {{
+    %success = arith.constant 0 : i32
+    scf.yield %success : i32
+    }} else {{
+    %failure = arith.constant 1 : i32
+    scf.yield %failure : i32
+    }}
 
-                return %return_status : i32
-                // --- Checks End Here ---
-            }}
+    return %return_status : i32
+    // --- Checks End Here ---
+}}
 
-            func.func private @assemble_sparse_tensor() -> tensor<{m}x{k}xf64, #CSC> {{
-                // Sparse tensor assembly data - Use the helper for values
-                %values = arith.constant dense<[{', '.join(values)}]> : tensor<{len(values)}xf64>
-                %row_indices = arith.constant dense<[{', '.join(map(str, row_indices))}]> : tensor<{len(row_indices)}xindex> // Keep as index
-                %col_pointers = arith.constant dense<[{', '.join(map(str, col_pointers))}]> : tensor<{len(col_pointers)}xindex> // Keep as index
+func.func private @assemble_sparse_tensor() -> tensor<{m}x{k}xf64, #CSC> {{
+    // Sparse tensor assembly data - Use the helper for values
+    %values = arith.constant dense<[{', '.join(values)}]> : tensor<{len(values)}xf64>
+    %row_indices = arith.constant dense<[{', '.join(map(str, row_indices))}]> : tensor<{len(row_indices)}xindex> // Keep as index
+    %col_pointers = arith.constant dense<[{', '.join(map(str, col_pointers))}]> : tensor<{len(col_pointers)}xindex> // Keep as index
 
-                // Assemble the sparse tensor
-                %sparse_tensor = sparse_tensor.assemble (%col_pointers, %row_indices), %values
-                : (tensor<{len(col_pointers)}xindex>, tensor<{len(row_indices)}xindex>), tensor<{len(values)}xf64> to tensor<{m}x{k}xf64, #CSC>
+    // Assemble the sparse tensor
+    %sparse_tensor = sparse_tensor.assemble (%col_pointers, %row_indices), %values
+    : (tensor<{len(col_pointers)}xindex>, tensor<{len(row_indices)}xindex>), tensor<{len(values)}xf64> to tensor<{m}x{k}xf64, #CSC>
 
-                return %sparse_tensor : tensor<{m}x{k}xf64, #CSC>
-            }}
-            }}
-            """
+    return %sparse_tensor : tensor<{m}x{k}xf64, #CSC>
+}}
+}}
+"""
         return mlir_content
 
     # MODIFIED: Use the new helper
