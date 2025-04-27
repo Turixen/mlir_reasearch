@@ -2,7 +2,6 @@
 set -e  # Stop on error
 
 # Parameters
-EXE_FILE="build/my_program"
 RESULTS_BASE_DIR="results_vector"
 mkdir -p "$RESULTS_BASE_DIR"
 
@@ -29,7 +28,7 @@ for makefile in Makefile_vector_*; do
     mkdir -p "$RESULTS_DIR"
     
     for file in ./*.mlir; do
-        echo "🔹 Processing file: $file"
+        echo "- Processing file: $file"
         name="${file%.*}"
         name="${name#./}"  # Removes the leading ./
         if [[ -z "$name" ]]; then
@@ -48,7 +47,6 @@ for makefile in Makefile_vector_*; do
         fi
         
         # Move output files to corresponding build dir
-        # The key change: Look for the executable in the current directory
         if [[ -f "./$name" ]]; then
             echo "Found executable ./$name, copying to $FILE_BUILD_DIR/"
             mv "./$name" "$FILE_BUILD_DIR/"
@@ -78,5 +76,14 @@ for makefile in Makefile_vector_*; do
             continue
         fi
         echo "[v] Test completed for $name. Results saved in $output_file"
+
+        executable_output_file="${RESULTS_DIR}/output_vector_${name}.txt"
+        echo "[+] Running executable to capture output..."
+        {
+            echo "${name} :"
+            "$FILE_BUILD_DIR/$name"
+        } > "$executable_output_file" 2>&1
+        
+        echo "[v] Executable output saved to $executable_output_file"
     done
 done
