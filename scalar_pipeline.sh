@@ -53,12 +53,13 @@ for file in ./*.mlir; do
     echo "[+] Running perf test... Saving results to $output_file"
     if ! perf stat -r 10 -x, "$FILE_BUILD_DIR/$name" > "$output_file" 2>&1; then
         echo "❌ Perf test failed for $name"
-        continue
-    fi
 
         executable_output_file="${RESULTS_DIR}/output_scalar_${name}.txt"
         # Append the exit status of the perf test to the output file
         echo $? > "$executable_output_file"
         echo "[v] Test completed for $name. Results saved in $executable_output_file"
+
+        continue
+    fi
 
 done
