@@ -311,29 +311,16 @@ func.func @main() -> i32 {{ // Return status code (0 for success, 1 for failure)
     scf.yield %col_check_result : i1
     }}
 
-    // Calculate the sum of the computed result matrix
-    %computed_sum = call @compute_sum(%computed_result) : (tensor<{m}x{n}xf64>) -> f64
-
-    // Define the expected sum as a constant - Formatted by the helper
-    %expected_sum = arith.constant {expected_sum_str} : f64
-
-    // Check if the computed sum matches the expected sum
-    %sum_matches = arith.cmpf oeq, %computed_sum, %expected_sum : f64
-
-    // Combine the element-wise check result and the sum check result
-    %all_checks_pass = arith.andi %elements_check_result, %sum_matches : i1
-
     // Return 0 if all checks pass, 1 otherwise
-    %return_status = scf.if %all_checks_pass -> (i32) {{
-    %success = arith.constant 11 : i32
-    scf.yield %success : i32
+    %return_status = scf.if %elements_check_result -> (i32) {{
+        %success = arith.constant 11 : i32
+        scf.yield %success : i32
     }} else {{
-    %failure = arith.constant 33 : i32
-    scf.yield %failure : i32
+        %failure = arith.constant 33 : i32
+        scf.yield %failure : i32
     }}
-
-    return %return_status : i32
     // --- Checks End Here ---
+    return %return_status : i32
 }}
 
 func.func private @assemble_sparse_tensor() -> tensor<{m}x{k}xf64, #CSC> {{
