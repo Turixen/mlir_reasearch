@@ -188,7 +188,7 @@ module {{
 
     func.func @main() -> i64 {{
         %c = tensor.empty() : tensor<{m}x{n}xf64>
-        %t_sparse = call @test_assemble() : () -> tensor<{m}x{k}xf64, #CSR>
+        %t_sparse = call @assemble_sparse() : () -> tensor<{m}x{k}xf64, #CSR>
         %s = arith.constant dense<[
             {', '.join(str(row) for row in dense_matrix.tolist())}
         ]> : tensor<{k}x{n}xf64>
