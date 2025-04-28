@@ -190,7 +190,7 @@ module {{
         %c = tensor.empty() : tensor<{m}x{n}xf64>
         %t_sparse = call @assemble_sparse() : () -> tensor<{m}x{k}xf64, #CSR>
         %s = arith.constant dense<[
-            {dense_str}
+            {', '.join(str(row) for row in dense_matrix.tolist())}
         ]> : tensor<{k}x{n}xf64>
         %result_matrix = call @matmul(%t_sparse, %s, %c) :
             (tensor<{m}x{k}xf64, #CSR>, tensor<{k}x{n}xf64>, tensor<{m}x{n}xf64>) -> tensor<{m}x{n}xf64>
