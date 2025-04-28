@@ -181,7 +181,7 @@ module {{
     func.func @sparse_dense_matmul(%sparse: tensor<{m}x{k}xf64, #CSR>,%dense: tensor<{k}x{n}xf64>,%init: tensor<{m}x{n}xf64>
     ) -> tensor<{m}x{n}xf64> {{
         %res = linalg.matmul ins(%sparse, %dense: tensor<{m}x{k}xf64, #CSR>, tensor<{k}x{n}xf64>) 
-            outs(%init: tensor<{m}x{n}xf64) -> tensor<{m}x{n}xf64>
+            outs(%init: tensor<{m}x{n}xf64>) -> tensor<{m}x{n}xf64>
         return %res : tensor<{m}x{n}xf64>
     }}
 
