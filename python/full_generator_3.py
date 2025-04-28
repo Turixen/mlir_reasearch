@@ -206,7 +206,7 @@ module {{
                 %cmp_c = tensor.extract %computed[%i, %j] : tensor<{m}x{n}xf64>
                 %cmp_e = tensor.extract %expected[%i, %j] : tensor<{m}x{n}xf64>
                 %neq = arith.cmpf une, %cmp_c, %cmp_e : f64
-                %new_f = arith.or %f_in, %neq : i1
+                %new_f = arith.ori %f_in, %neq : i1
                 scf.yield %new_f : i1
             }}
             scf.yield %flag_row : i1
