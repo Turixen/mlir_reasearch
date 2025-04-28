@@ -185,8 +185,7 @@ module {{
             outs(%out: tensor<{m}x{n}xf64>) -> tensor<{m}x{n}xf64>
         return %0 : tensor<{m}x{n}xf64>
     }}
-    func.func private @printf(!string.constant, f64) -> i32  // Declare
-    
+
     func.func @main() -> i64 {{
         %c = tensor.empty() : tensor<{m}x{n}xf64>
         %t_sparse = call @assemble_sparse() : () -> tensor<{m}x{k}xf64, #CSR>
@@ -196,10 +195,8 @@ module {{
         %result_matrix = call @matmul(%t_sparse, %s, %c) :
             (tensor<{m}x{k}xf64, #CSR>, tensor<{k}x{n}xf64>, tensor<{m}x{n}xf64>) -> tensor<{m}x{n}xf64>
         %c1 = arith.constant 1 : index
+
         %element_f64 = tensor.extract %result_matrix[%c1, %c1] : tensor<{m}x{n}xf64>
-        // Debug: Print the value
-        %fmt = arith.constant "Value at [1,1]: %f\n" : !string.constant
-        call @printf(%fmt, %element_f64) : (!string.constant, f64) -> ()
         %element_i64 = arith.fptosi %element_f64 : f64 to i64
         return %element_i64 : i64
     }}
