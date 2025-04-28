@@ -178,48 +178,26 @@ class MlirGenerator:
 }}>
 
 module {{
-    func.func @sparse_dense_matmul(%sparse: tensor<{m}x{k}xf64, #CSR>,%dense: tensor<{k}x{n}xf64>,%init: tensor<{m}x{n}xf64>
-    ) -> tensor<{m}x{n}xf64> {{
-        %res = linalg.matmul ins(%sparse, %dense: tensor<{m}x{k}xf64, #CSR>, tensor<{k}x{n}xf64>) 
-            outs(%init: tensor<{m}x{n}xf64>) -> tensor<{m}x{n}xf64>
-        return %res : tensor<{m}x{n}xf64>
+    func.func @matmul(%t : tensor<{m}x{k}xf64, #CSR>, %s : tensor<{k}x{n}xf64>, %out : tensor<{m}x{n}xf64>)
+        -> tensor<{m}x{n}xf64> {{
+        %0 = linalg.matmul
+            ins(%t, %s: tensor<{m}x{k}xf64, #CSR>, tensor<{k}x{n}xf64>)
+            outs(%out: tensor<{m}x{n}xf64>) -> tensor<{m}x{n}xf64>
+        return %0 : tensor<{m}x{n}xf64>
     }}
 
-    func.func @main() -> i32 {{
-        %c0 = arith.constant 0 : index
+    func.func @main() -> i64 {{
+        %c = tensor.empty() : tensor<{m}x{n}xf64>
+        %t_sparse = call @test_assemble() : () -> tensor<{m}x{k}xf64, #CSR>
+        %s = arith.constant dense<[
+            {', '.join(str(row) for row in dense_matrix.tolist())}
+        ]> : tensor<{k}x{n}xf64>
+        %result_matrix = call @matmul(%t_sparse, %s, %c) :
+            (tensor<{m}x{k}xf64, #CSR>, tensor<{k}x{n}xf64>, tensor<{m}x{n}xf64>) -> tensor<{m}x{n}xf64>
         %c1 = arith.constant 1 : index
-        %rows = arith.constant {m} : index
-        %cols = arith.constant {n} : index
-        %zero_f64 = arith.constant 0.0 : f64
-
-        %init = tensor.empty() : tensor<{m}x{n}xf64>
-        %sparse = call @assemble_sparse() : () -> tensor<{m}x{k}xf64, #CSR>
-        %dense = arith.constant dense<{dense_str}> : tensor<{k}x{n}xf64>
-
-        %computed = call @sparse_dense_matmul(%sparse, %dense, %init) : (tensor<{m}x{k}xf64, #CSR>, tensor<{k}x{n}xf64>, tensor<{m}x{n}xf64>) -> tensor<{m}x{n}xf64>
-        %expected = arith.constant dense<{expected_str}> : tensor<{m}x{n}xf64>
-
-        // Validate each element
-        %false = arith.constant "false" : i1
-        %flag = scf.for %i = %c0 to %rows step %c1 iter_args(%f_iter = %false) -> (i1) {{
-            %flag_row = scf.for %j = %c0 to %cols step %c1 iter_args(%f_in = %f_iter) -> (i1) {{
-                %cmp_c = tensor.extract %computed[%i, %j] : tensor<{m}x{n}xf64>
-                %cmp_e = tensor.extract %expected[%i, %j] : tensor<{m}x{n}xf64>
-                %neq = arith.cmpf une, %cmp_c, %cmp_e : f64
-                %new_f = arith.ori %f_in, %neq : i1
-                scf.yield %new_f : i1
-            }}
-            scf.yield %flag_row : i1
-        }}
-
-        %zero_i32 = arith.constant 0 : i32
-        %one_i32 = arith.constant 1 : i32
-        %status = scf.if %flag -> (i32) {{
-            scf.yield %one_i32 : i32
-        }} else {{
-            scf.yield %zero_i32 : i32
-        }}
-        return %status : i32
+        %element_f64 = tensor.extract %result_matrix[%c1, %c1] : tensor<{m}x{n}xf64>
+        %element_i64 = arith.fptosi %element_f64 : f64 to i64
+        return %element_i64 : i64
     }}
 
     func.func @assemble_sparse() -> tensor<{m}x{k}xf64, #CSR> {{
@@ -229,7 +207,7 @@ module {{
         %s = sparse_tensor.assemble(%row_ptr, %col_ind), %values : (tensor<{len(row_pointers)}xindex>, tensor<{len(col_indices)}xindex>), tensor<{len(values)}xf64> to tensor<{m}x{k}xf64, #CSR>
         return %s : tensor<{m}x{k}xf64, #CSR>
     }}
-
+    
 }}
 """
         return mlir
