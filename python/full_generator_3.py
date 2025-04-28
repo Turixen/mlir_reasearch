@@ -202,22 +202,22 @@ module {{
         // Validate each element
         %false = arith.constant false : i1
         %flag = scf.for %i = %c0 to %rows step %c1 iter_args(%f_iter = %false) -> (i1) {{
-        %flag_row = scf.for %j = %c0 to %cols step %c1 iter_args(%f_in = %f_iter) -> (i1) {{
-            %cmp_c = tensor.extract %computed[%i, %j] : tensor<{m}x{n}xf64>
-            %cmp_e = tensor.extract %expected[%i, %j] : tensor<{m}x{n}xf64>
-            %neq = arith.cmpf une, %cmp_c, %cmp_e : f64
-            %new_f = arith.or %f_in, %neq : i1
-            scf.yield %new_f : i1
-        }}
-        scf.yield %flag_row : i1
+            %flag_row = scf.for %j = %c0 to %cols step %c1 iter_args(%f_in = %f_iter) -> (i1) {{
+                %cmp_c = tensor.extract %computed[%i, %j] : tensor<{m}x{n}xf64>
+                %cmp_e = tensor.extract %expected[%i, %j] : tensor<{m}x{n}xf64>
+                %neq = arith.cmpf une, %cmp_c, %cmp_e : f64
+                %new_f = arith.or %f_in, %neq : i1
+                scf.yield %new_f : i1
+            }}
+            scf.yield %flag_row : i1
         }}
 
         %zero_i32 = arith.constant 0 : i32
         %one_i32 = arith.constant 1 : i32
         %status = scf.if %flag -> (i32) {{
-        scf.yield %one_i32 : i32
+            scf.yield %one_i32 : i32
         }} else {{
-        scf.yield %zero_i32 : i32
+            scf.yield %zero_i32 : i32
         }}
         return %status : i32
     }}
@@ -241,7 +241,7 @@ module {{
 
 
 def main():
-    size = 100
+    size = 10
     sparsity_levels = [0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95]
     strides = [1, 2, 3, 4]
 
