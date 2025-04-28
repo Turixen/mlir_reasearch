@@ -410,7 +410,8 @@ def main():
                     result_filename = f"matrixmul_{int(sparsity*100)}_stride_{stride}_sum.txt" # Filename indicates sum
                     result_path = os.path.join("../matrixmul", result_filename)
 
-                    # Save ONLY the sum to text file
+                    # Save result to text file
+                    np.savetxt(result_path, expected_result, fmt="%.6f")
                     with open(result_path, 'w') as f:
                          # Write the string representation of the sum
                          # Use the same formatting logic as for MLIR constants for consistency if needed,

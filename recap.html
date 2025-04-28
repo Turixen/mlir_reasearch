@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLIR Sparse Tensor Passes Options</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            border-bottom: 1px solid #bdc3c7;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        code {
+            background-color: #f8f8f8;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            color: #e74c3c;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #ddd;
+            margin: 20px 0;
+        }
+        .option-group {
+            margin-bottom: 40px;
+        }
+        .note {
+            background-color: #fef9e7;
+            padding: 10px 15px;
+            border-left: 4px solid #f39c12;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>MLIR Sparse Tensor Passes Options</h1>
+
+    <section class="option-group">
+        <h2>Sparsification-And-Bufferization Pass</h2>
+        
+        <p>This pass forms a mini-pipeline that combines bufferization and sparsification.</p>
+        
+        <h3>Command Line Usage</h3>
+        <pre>-sparsification-and-bufferization="vl=4 enable-vla-vectorization=true enable-simd-index32=true enable-gpu-libgen=true sparse-emit-strategy=functional parallelization-strategy=dense-outer-loop"</pre>
+        
+        <h3>Available Options</h3>
+        <pre>-sparsification-and-bufferization="vl=[0,4,8,16] enable-vla-vectorization=[true,false] enable-simd-index32=[true,false] enable-gpu-libgen=[true,false] sparse-emit-strategy=[functional,sparse-iterator,debug-interface] parallelization-strategy=[none,dense-outer-loop,any-storage-outer-loop,dense-any-loop,any-storage-any-loop]"</pre>
+        
+        <table>
+            <tr>
+                <th>Option</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+                <th>Possible Values</th>
+            </tr>
+            <tr>
+                <td>vl</td>
+                <td>int32_t</td>
+                <td>0</td>
+                <td>Set the vector length (use 0 to disable vectorization)</td>
+                <td>0, 4, 8, 16, etc.</td>
+            </tr>
+            <tr>
+                <td>enable-vla-vectorization</td>
+                <td>bool</td>
+                <td>false</td>
+                <td>Enable vector length agnostic vectorization</td>
+                <td>true, false</td>
+            </tr>
+            <tr>
+                <td>enable-simd-index32</td>
+                <td>bool</td>
+                <td>false</td>
+                <td>Enable i32 indexing into vectors (for efficient gather/scatter)</td>
+                <td>true, false</td>
+            </tr>
+            <tr>
+                <td>enable-gpu-libgen</td>
+                <td>bool</td>
+                <td>false</td>
+                <td>Enable GPU acceleration by means of direct library calls</td>
+                <td>true, false</td>
+            </tr>
+            <tr>
+                <td>sparse-emit-strategy</td>
+                <td>mlir::SparseEmitStrategy</td>
+                <td>functional</td>
+                <td>Emit functional code or interfaces (to debug) for sparse loops</td>
+                <td>
+                    <ul>
+                        <li><code>functional</code>: Emit functional code (with scf.for/while)</li>
+                        <li><code>sparse-iterator</code>: Emit (experimental) loops (with sparse.iterate)</li>
+                        <li><code>debug-interface</code>: Emit non-functional but easy-to-read interfaces to debug</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>parallelization-strategy</td>
+                <td>mlir::SparseParallelizationStrategy</td>
+                <td>none</td>
+                <td>Set the parallelization strategy</td>
+                <td>
+                    <ul>
+                        <li><code>none</code>: Turn off sparse parallelization</li>
+                        <li><code>dense-outer-loop</code>: Enable dense outer loop sparse parallelization</li>
+                        <li><code>any-storage-outer-loop</code>: Enable sparse parallelization regardless of storage for the outer loop</li>
+                        <li><code>dense-any-loop</code>: Enable dense parallelization for any loop</li>
+                        <li><code>any-storage-any-loop</code>: Enable sparse parallelization for any storage and loop</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </section>
+
+    <section class="option-group">
+        <h2>SparsifierOptions Pass</h2>
+        
+        <p>A more comprehensive set of options for the sparse tensor pipeline.</p>
+        
+        <h3>Command Line Usage</h3>
+        <pre>--sparsifier="parallelization-strategy=dense-outer-loop sparse-emit-strategy=functional enable-runtime-library=true vl=4 enable-gpu-libgen=true"</pre>
+        
+        <h3>Available Options</h3>
+        <pre>--sparsifier="parallelization-strategy=[none,dense-outer-loop,any-storage-outer-loop,dense-any-loop,any-storage-any-loop] sparse-emit-strategy=[functional,sparse-iterator,debug-interface] enable-runtime-library=[true,false] test-bufferization-analysis-only=[true,false] enable-buffer-initialization=[true,false] create-sparse-deallocs=[true,false] vl=[0,4,8,16,32] reassociate-fp-reductions=[true,false] enable-index-optimizations=[true,false] enable-amx=[true,false] enable-arm-neon=[true,false] enable-arm-sve=[true,false] enable-x86vector=[true,false] gpu-triple=[nvptx64-nvidia-cuda,amdgcn-amd-amdhsa] gpu-chip=[sm_70,sm_80,gfx90a] gpu-features=[+ptx60,+sramecc] gpu-format=[isa,bin,fatbin] enable-gpu-libgen=[true,false]"</pre>
+        
+        <h3>Parallelization Options</h3>
+        <table>
+            <tr>
+                <th>Option</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+                <th>Possible Values</th>
+            </tr>
+            <tr>
+                <td>parallelization-strategy</td>
+                <td>mlir::SparseParallelizationStrategy</td>
+                <td>none</td>
+                <td>Set the parallelization strategy</td>
+                <td>
+                    <ul>
+                        <li><code>none</code>: Turn off sparse parallelization</li>
+                        <li><code>dense-outer-loop</code>: Enable dense outer loop sparse parallelization</li>
+                        <li><code>any-storage-outer-loop</code>: Enable sparse parallelization regardless of storage for the outer loop</li>
+                        <li><code>dense-any-loop</code>: Enable dense parallelization for any loop</li>
+                        <li><code>any-storage-any-loop</code>: Enable sparse parallelization for any storage and loop</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+
+        <h3>Code Generation Options</h3>
+        <table>
+            <tr>
+                <th>Option</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+                <th>Possible Values</th>
+            </tr>
+            <tr>
+                <td>sparse-emit-strategy</td>
+                <td>mlir::SparseEmitStrategy</td>
+                <td>functional</td>
+                <td>Emit functional code or interfaces (to debug) for sparse loops</td>
+                <td>
+                    <ul>
+                        <li><code>functional</code>: Emit functional code (with scf.for/while)</li>
+                        <li><code>sparse-iterator</code>: Emit (experimental) loops (with sparse.iterate)</li>
+                        <li><code>debug-interface</code>: Emit non-functional but easy-to-read interfaces to debug</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>enable-runtime-library</td>
+                <td>bool</td>
+                <td>true</td>
+                <td>Enable runtime library for manipulating sparse tensors</td>
+                <td>true, false</td>
+            </tr>
+            <tr>
+                <td>test-bufferization-analysis-only</td>
+                <td>bool</td>
+                <td>false</td>
+                <td>Run only the inplacability analysis</td>
+                <td>true, false</td>
+            </tr>
+            <tr>
+                <td>enable-buffer-initialization</td>
+                <td>bool</td>
+                <td>false</td>
+                <td>Enable zero-initialization of memory buffers</td>
+                <td>true, false</td>
+            </tr>
+            <tr>
+                <td>create-sparse-deallocs</td>
+                <td>bool</td>
+                <td>true</td>
+                <td>Specify if temporary buffers created by the sparse compiler should be deallocated</td>
+                <td>true, false</td>
+            </tr>
+        </table>
+
+        <h3>Vectorization Options</h3>
+        <table>
+            <tr>
+                <th>Option</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+                <th>Possible Values</th>
+            </tr>
+            <tr>
+                <td>vl</td>
+                <td>int32_t</td>
+                <td>0</td>
+                <td>Set the vector length (0 disables vectorization)</td>
+                <td>0, 4, 8, 16, 32, etc.</td>
+            </tr>
+            <tr>
+                <td>reassociate-fp-reductions</td>
+                <td>bool</td>
+                <td>false</td>
+                <td>Allows LLVM to reassociate floating-point reductions for speed</td>
+                <td>true, false</td>
+            </tr>
+            <tr>
+                <td>enable-index-optimizations</td>
+                <td>bool</td>
+                <td>true</td>
+                <td>Allows compiler to assume indices fit in 32-bit if that yields faster code</td>
+                <td>true, false</td>
+            </tr>
+        </table>
+
+        <h3>Hardware-Specific Options</h3>
+        <table>
+            <tr>
+                <th>Option</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+                <th>Possible Values</th>
+            </tr>
+            <tr>
+                <td>enable-amx</td>
+                <td>bool</td>
+                <td>false</td>
+                <td>Enables the use of AMX dialect while lowering the vector dialect</td>
+                <td>true, false</td>
+            </tr>
+            <tr>
+                <td>enable-arm-neon</td>
+                <td>bool</td>
+                <td>false</td>
+                <td>Enables the use of ArmNeon dialect while lowering the vector dialect</td>
+                <td>true, false</td>
+            </tr>
+            <tr>
+                <td>enable-arm-sve</td>
+                <td>bool</td>
+                <td>false</td>
+                <td>Enables the use of ArmSVE dialect while lowering the vector dialect</td>
+                <td>true, false</td>
+            </tr>
+            <tr>
+                <td>enable-x86vector</td>
+                <td>bool</td>
+                <td>false</td>
+                <td>Enables the use of X86Vector dialect while lowering the vector dialect</td>
+                <td>true, false</td>
+            </tr>
+        </table>
+
+        <h3>GPU Options</h3>
+        <table>
+            <tr>
+                <th>Option</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+                <th>Possible Values</th>
+            </tr>
+            <tr>
+                <td>gpu-triple</td>
+                <td>string</td>
+                <td>none</td>
+                <td>GPU target triple</td>
+                <td>nvptx64-nvidia-cuda, amdgcn-amd-amdhsa, etc.</td>
+            </tr>
+            <tr>
+                <td>gpu-chip</td>
+                <td>string</td>
+                <td>none</td>
+                <td>GPU target architecture</td>
+                <td>sm_70, sm_80, gfx90a, etc.</td>
+            </tr>
+            <tr>
+                <td>gpu-features</td>
+                <td>string</td>
+                <td>none</td>
+                <td>GPU target features</td>
+                <td>+ptx60, +sramecc, etc.</td>
+            </tr>
+            <tr>
+                <td>gpu-format</td>
+                <td>string</td>
+                <td>fatbin</td>
+                <td>GPU compilation format</td>
+                <td>
+                    <ul>
+                        <li><code>isa</code>: generates PTX, driver JITs the PTX (test-friendly but slow)</li>
+                        <li><code>bin</code>: generates CUBIN object for specified chip (faster but requires exact architecture match)</li>
+                        <li><code>fatbin</code>: generates fat binary with CUBIN and embedded PTX (best compromise)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>enable-gpu-libgen</td>
+                <td>bool</td>
+                <td>false</td>
+                <td>Enables GPU acceleration by means of direct library calls (like cuSPARSE)</td>
+                <td>true, false</td>
+            </tr>
+        </table>
+    </section>
+
+    <div class="note">
+        <p><strong>Note:</strong> The options for SparsificationAndBufferization are a subset of the options available in the more comprehensive SparsifierOptions. When using the mini-pipeline, only the most important optimization options are exposed.</p>
+    </div>
+</body>
+</html>

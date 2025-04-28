@@ -398,17 +398,12 @@ def main():
 
                     # Calcola il risultato atteso con NumPy e salva (still useful for external verification)
                     expected_result = sparse_matrix.toarray() @ dense_matrix
-                    expected_sum_np = np.sum(expected_result)
-
-                    result_filename = f"matrixmul_{int(sparsity*100)}_stride_{stride}_sum.txt" # Filename indicates sum
+                    result_filename = f"matrixmul_{int(sparsity*100)}_stride_{stride}.txt"
                     result_path = os.path.join("../matrixmul", result_filename)
 
-                    # Save ONLY the sum to text file
-                    with open(result_path, 'w') as f:
-                         # Write the string representation of the sum
-                         # Use the same formatting logic as for MLIR constants for consistency if needed,
-                         # but simple str() is fine for a human-readable file.
-                        f.write(str(expected_sum_np))
+                    # Save result to text file
+                    np.savetxt(result_path, expected_result, fmt="%.6f")
+
 
                     print(f"Saved expected sum to {result_path}") # Update print message
                     print(f"Successfully generated files with sparsity: {sparsity:.2f}, stride: {stride}")

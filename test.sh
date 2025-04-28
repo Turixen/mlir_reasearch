@@ -1,8 +1,8 @@
 #!/bin/bash
 executable="/root/gmastrotucci/mlir_reasearch/mlir_files/build/mlir_sparsity_50_stride_1_scalar/mlir_sparsity_50_stride_1"
 name="mlir_sparsity_50_stride_1"
-output_csv="mlir_sparsity_50_stride_1.csv"
-executable_output_file="output_scalar_mlir_sparsity_50_stride_1.txt"
+output_csv="test/mlir_sparsity_50_stride_1.csv"
+executable_output_file="test/output_scalar_mlir_sparsity_50_stride_1.txt"
 
 # Run the command and capture its exit code
 perf stat -r 10 -x, $executable > $output_csv
