@@ -200,7 +200,7 @@ module {{
         %expected = arith.constant dense<{expected_str}> : tensor<{m}x{n}xf64>
 
         // Validate each element
-        %false = arith.constant false : i1
+        %false = arith.constant "false" : i1
         %flag = scf.for %i = %c0 to %rows step %c1 iter_args(%f_iter = %false) -> (i1) {{
             %flag_row = scf.for %j = %c0 to %cols step %c1 iter_args(%f_in = %f_iter) -> (i1) {{
                 %cmp_c = tensor.extract %computed[%i, %j] : tensor<{m}x{n}xf64>
