@@ -226,7 +226,7 @@ module {{
         %values = arith.constant dense<[{', '.join(values)}]> : tensor<{len(values)}xf64>
         %row_ptr = arith.constant dense<[{', '.join(map(str, row_pointers))}]> : tensor<{len(row_pointers)}xindex>
         %col_ind = arith.constant dense<[{', '.join(map(str, col_indices))}]> : tensor<{len(col_indices)}xindex>
-        %s = sparse_tensor.assemble(%row_ptr, %col_ind), %values : (tensor<{len(row_pointers)}xindex>, tensor<{len(col_indices)}xindex>), tensor<{len(values)}xf64> -> tensor<{m}x{k}xf64, #CSR>
+        %s = sparse_tensor.assemble(%row_ptr, %col_ind), %values : (tensor<{len(row_pointers)}xindex>, tensor<{len(col_indices)}xindex>), tensor<{len(values)}xf64> to tensor<{m}x{k}xf64, #CSR>
         return %s : tensor<{m}x{k}xf64, #CSR>
     }}
 
