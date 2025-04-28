@@ -1,0 +1,36 @@
+OPT = /root/llvm-project/build/bin/mlir-opt
+TRANSLATE = /root/llvm-project/build/bin/mlir-translate
+
+# Output directory
+BUILD_DIR = build
+SRC_DIR = .
+
+# Allow specifying additional flags before the default flags
+OPTFLAGS +=
+
+# Default optimization flags
+OPTFLAGS += -sparsifier="vl=4 enable-runtime-library=false parallelization-strategy=any-storage-any-loop"
+
+# Ensure the build directory exists
+$(shell mkdir -p $(BUILD_DIR))
+
+# Rules
+.PRECIOUS: %.llvm.mlir
+.PRECIOUS: %.ll
+.PRECIOUS: %.S
+
+# Generate .llvm.mlir files in the build directory
+%.llvm.mlir: %.mlir
+	$(OPT) $(OPTFLAGS) -o $@ $<
+
+# Generate .ll files in the build directory
+%.ll: %.llvm.mlir
+	$(TRANSLATE) -mlir-to-llvmir -o $@ $<
+
+# Generate .S files in the build directory
+%.S: %.ll
+	/root/llvm-project/build/bin/llc -march=riscv64 -mattr=+m,+a,+f,+d,+v,+c -o $@ $<
+
+# Generate final executable in the build directory
+%: %.S
+	riscv64-redhat-linux-gcc-14 -march=rv64imafdcv -mabi=lp64d -o $@ $<
