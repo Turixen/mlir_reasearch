@@ -74,6 +74,7 @@ for makefile in Makefile_vector_*; do
         if ! perf stat -r 10 -x, "$FILE_BUILD_DIR/$name" > "$output_file" 2>&1; then
             echo "❌ Perf test failed for $name"
             # Append the exit status of the perf test to the output file
+	    executable_output_file="${RESULTS_DIR}/${RESULTS_BASE_DIR}_${name}.txt"
             echo $? > "$executable_output_file"
             echo "[v] Test completed for $name. Results saved in $executable_output_file"
             continue
