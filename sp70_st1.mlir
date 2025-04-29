@@ -1,7 +1,8 @@
 // Sparse-Dense Matrix Multiplication using CSR
 #CSR = #sparse_tensor.encoding<{ 
-   map = (d0, d1) -> (d0: compressed, d1: dense) 
+   map = (d0, d1) -> (d0: dense, d1: compressed) 
 }>
+
 
 module {
 

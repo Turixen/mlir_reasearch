@@ -8,146 +8,136 @@
 matmul:                                 # @matmul
 	.cfi_startproc
 # %bb.0:
-	addi	sp, sp, -112
-	.cfi_def_cfa_offset 112
-	sd	ra, 104(sp)                     # 8-byte Folded Spill
-	sd	s0, 96(sp)                      # 8-byte Folded Spill
-	sd	s1, 88(sp)                      # 8-byte Folded Spill
-	sd	s2, 80(sp)                      # 8-byte Folded Spill
-	sd	s3, 72(sp)                      # 8-byte Folded Spill
-	sd	s4, 64(sp)                      # 8-byte Folded Spill
-	sd	s5, 56(sp)                      # 8-byte Folded Spill
-	sd	s6, 48(sp)                      # 8-byte Folded Spill
-	sd	s7, 40(sp)                      # 8-byte Folded Spill
-	sd	s8, 32(sp)                      # 8-byte Folded Spill
-	sd	s9, 24(sp)                      # 8-byte Folded Spill
-	sd	s10, 16(sp)                     # 8-byte Folded Spill
-	sd	s11, 8(sp)                      # 8-byte Folded Spill
-	.cfi_offset ra, -8
-	.cfi_offset s0, -16
-	.cfi_offset s1, -24
-	.cfi_offset s2, -32
-	.cfi_offset s3, -40
-	.cfi_offset s4, -48
-	.cfi_offset s5, -56
-	.cfi_offset s6, -64
-	.cfi_offset s7, -72
-	.cfi_offset s8, -80
-	.cfi_offset s9, -88
-	.cfi_offset s10, -96
-	.cfi_offset s11, -104
-	ld	s10, 224(sp)
-	ld	a6, 320(sp)
-	ld	t0, 312(sp)
-	ld	t1, 304(sp)
-	ld	t2, 296(sp)
-	ld	t3, 288(sp)
-	ld	s11, 280(sp)
-	ld	t4, 272(sp)
-	ld	s4, 144(sp)
-	lwu	a1, 0(a2)
-	lwu	a3, 4(a2)
-	lwu	a4, 8(a2)
-	lwu	a2, 12(a2)
-	csrr	a5, vlenb
-	li	t5, 10
-	li	t6, 80
-	slli	a3, a3, 32
-	or	s3, a3, a1
-	li	s9, 9
-	vsetvli	a1, zero, e32, m2, ta, ma
+	addi	sp, sp, -96
+	.cfi_def_cfa_offset 96
+	sd	s0, 88(sp)                      # 8-byte Folded Spill
+	sd	s1, 80(sp)                      # 8-byte Folded Spill
+	sd	s2, 72(sp)                      # 8-byte Folded Spill
+	sd	s3, 64(sp)                      # 8-byte Folded Spill
+	sd	s4, 56(sp)                      # 8-byte Folded Spill
+	sd	s5, 48(sp)                      # 8-byte Folded Spill
+	sd	s6, 40(sp)                      # 8-byte Folded Spill
+	sd	s7, 32(sp)                      # 8-byte Folded Spill
+	sd	s8, 24(sp)                      # 8-byte Folded Spill
+	sd	s9, 16(sp)                      # 8-byte Folded Spill
+	sd	s10, 8(sp)                      # 8-byte Folded Spill
+	.cfi_offset s0, -8
+	.cfi_offset s1, -16
+	.cfi_offset s2, -24
+	.cfi_offset s3, -32
+	.cfi_offset s4, -40
+	.cfi_offset s5, -48
+	.cfi_offset s6, -56
+	.cfi_offset s7, -64
+	.cfi_offset s8, -72
+	.cfi_offset s9, -80
+	.cfi_offset s10, -88
+	li	t6, 0
+	li	t5, 0
+	ld	s7, 208(sp)
+	ld	a6, 304(sp)
+	ld	t0, 296(sp)
+	ld	t1, 288(sp)
+	ld	t2, 280(sp)
+	ld	t3, 272(sp)
+	ld	s8, 264(sp)
+	ld	t4, 256(sp)
+	ld	s3, 128(sp)
+	csrr	a1, vlenb
+	li	s6, 9
+	slli	s9, a1, 2
+	srli	s10, a1, 1
+	li	s2, 80
+	vsetvli	a3, zero, e32, m2, ta, ma
 	vid.v	v8
-	slli	a2, a2, 32
-	or	s2, a2, a4
-	slli	ra, a5, 2
-	srli	a2, a5, 1
 	vsetvli	zero, zero, e64, m4, ta, ma
 	vmv.v.i	v12, 0
 	j	.LBB0_2
 .LBB0_1:                                #   in Loop: Header=BB0_2 Depth=1
-	addi	s3, s3, 1
+	addi	t5, t5, 1
+	addi	t6, t6, 80
 .LBB0_2:                                # =>This Loop Header: Depth=1
                                         #     Child Loop BB0_5 Depth 2
                                         #       Child Loop BB0_8 Depth 3
-	bge	s3, s2, .LBB0_11
+	blt	s6, t5, .LBB0_11
 # %bb.3:                                #   in Loop: Header=BB0_2 Depth=1
-	li	s7, 0
-	li	s8, 0
-	slli	a3, s3, 3
-	add	a3, a3, a7
+	slli	a3, t5, 3
+	add	a3, a3, a2
 	lwu	a4, 4(a3)
-	lwu	a3, 0(a3)
+	lwu	a5, 0(a3)
+	lwu	s0, 12(a3)
+	lwu	a3, 8(a3)
 	slli	a4, a4, 32
-	or	a3, a3, a4
-	mul	s5, s3, t5
-	mul	s6, a3, t6
+	or	s5, a4, a5
+	slli	s0, s0, 32
+	or	s4, s0, a3
 	j	.LBB0_5
 .LBB0_4:                                #   in Loop: Header=BB0_5 Depth=2
-	addi	s8, s8, 1
-	addi	s7, s7, 80
+	addi	s5, s5, 1
 .LBB0_5:                                #   Parent Loop BB0_2 Depth=1
                                         # =>  This Loop Header: Depth=2
                                         #       Child Loop BB0_8 Depth 3
-	blt	s9, s8, .LBB0_1
+	bge	s5, s4, .LBB0_1
 # %bb.6:                                #   in Loop: Header=BB0_5 Depth=2
-	li	s0, 0
-	add	a3, s8, s5
-	slli	a3, a3, 3
-	add	a3, a3, s4
+	li	s1, 0
+	slli	a3, s5, 3
+	add	a4, a7, a3
+	lwu	a5, 4(a4)
+	lwu	a4, 0(a4)
+	add	a3, a3, s3
 	fld	fa5, 0(a3)
-	li	a4, 10
-	mv	a1, s7
-	mv	a5, s6
+	slli	a5, a5, 32
+	or	a4, a4, a5
+	mul	a1, a4, s2
+	li	a3, 10
+	mv	a4, t6
 	j	.LBB0_8
 .LBB0_7:                                #   in Loop: Header=BB0_8 Depth=3
 	vsetvli	zero, zero, e32, m2, ta, ma
-	vmslt.vx	v0, v8, a3
-	add	a3, s11, a5
+	vmslt.vx	v0, v8, a5
+	add	a5, s8, a4
 	vmv4r.v	v16, v12
-	add	s1, s10, a1
+	add	s0, s7, a1
 	vmv4r.v	v20, v12
 	vsetvli	zero, zero, e64, m4, ta, mu
-	vle64.v	v16, (a3), v0.t
-	vle64.v	v20, (s1), v0.t
-	add	s0, s0, a2
-	add	a5, a5, ra
-	add	a1, a1, ra
+	vle64.v	v16, (a5), v0.t
+	vle64.v	v20, (s0), v0.t
+	add	s1, s1, s10
+	add	a4, a4, s9
+	add	a1, a1, s9
 	vfmul.vf	v20, v20, fa5
 	vfadd.vv	v16, v16, v20
-	vse64.v	v16, (a3), v0.t
-	sub	a4, a4, a2
+	vse64.v	v16, (a5), v0.t
+	sub	a3, a3, s10
 .LBB0_8:                                #   Parent Loop BB0_2 Depth=1
                                         #     Parent Loop BB0_5 Depth=2
                                         # =>    This Inner Loop Header: Depth=3
-	blt	s9, s0, .LBB0_4
+	blt	s6, s1, .LBB0_4
 # %bb.9:                                #   in Loop: Header=BB0_8 Depth=3
-	mv	a3, a4
-	blt	a4, a2, .LBB0_7
+	mv	a5, a3
+	blt	a3, s10, .LBB0_7
 # %bb.10:                               #   in Loop: Header=BB0_8 Depth=3
-	mv	a3, a2
+	mv	a5, s10
 	j	.LBB0_7
 .LBB0_11:
 	sd	t4, 0(a0)
-	sd	s11, 8(a0)
+	sd	s8, 8(a0)
 	sd	t3, 16(a0)
 	sd	t2, 24(a0)
 	sd	t1, 32(a0)
 	sd	t0, 40(a0)
 	sd	a6, 48(a0)
-	ld	ra, 104(sp)                     # 8-byte Folded Reload
-	ld	s0, 96(sp)                      # 8-byte Folded Reload
-	ld	s1, 88(sp)                      # 8-byte Folded Reload
-	ld	s2, 80(sp)                      # 8-byte Folded Reload
-	ld	s3, 72(sp)                      # 8-byte Folded Reload
-	ld	s4, 64(sp)                      # 8-byte Folded Reload
-	ld	s5, 56(sp)                      # 8-byte Folded Reload
-	ld	s6, 48(sp)                      # 8-byte Folded Reload
-	ld	s7, 40(sp)                      # 8-byte Folded Reload
-	ld	s8, 32(sp)                      # 8-byte Folded Reload
-	ld	s9, 24(sp)                      # 8-byte Folded Reload
-	ld	s10, 16(sp)                     # 8-byte Folded Reload
-	ld	s11, 8(sp)                      # 8-byte Folded Reload
-	.cfi_restore ra
+	ld	s0, 88(sp)                      # 8-byte Folded Reload
+	ld	s1, 80(sp)                      # 8-byte Folded Reload
+	ld	s2, 72(sp)                      # 8-byte Folded Reload
+	ld	s3, 64(sp)                      # 8-byte Folded Reload
+	ld	s4, 56(sp)                      # 8-byte Folded Reload
+	ld	s5, 48(sp)                      # 8-byte Folded Reload
+	ld	s6, 40(sp)                      # 8-byte Folded Reload
+	ld	s7, 32(sp)                      # 8-byte Folded Reload
+	ld	s8, 24(sp)                      # 8-byte Folded Reload
+	ld	s9, 16(sp)                      # 8-byte Folded Reload
+	ld	s10, 8(sp)                      # 8-byte Folded Reload
 	.cfi_restore s0
 	.cfi_restore s1
 	.cfi_restore s2
@@ -159,8 +149,7 @@ matmul:                                 # @matmul
 	.cfi_restore s8
 	.cfi_restore s9
 	.cfi_restore s10
-	.cfi_restore s11
-	addi	sp, sp, 112
+	addi	sp, sp, 96
 	.cfi_def_cfa_offset 0
 	ret
 .Lfunc_end0:
@@ -351,41 +340,40 @@ assemble_sparse:                        # @assemble_sparse
 	.cfi_startproc
 # %bb.0:
 	lui	a1, %hi(.L__constant_11xindex)
-	li	t3, 10
-	lui	a6, %hi(.L__constant_30xindex)
-	addi	a6, a6, %lo(.L__constant_30xindex)
-	lui	a7, %hi(.L__constant_30xf64)
-	addi	a7, a7, %lo(.L__constant_30xf64)
-	li	t0, 2
-	lui	t2, 228023
-	lui	a4, %hi(.LCPI2_0)
-	addi	a4, a4, %lo(.LCPI2_0)
-	addi	a5, a0, 56
-	lui	t1, %hi(.LCPI2_1)
-	addi	t1, t1, %lo(.LCPI2_1)
-	addi	a3, a0, 16
+	addi	a1, a1, %lo(.L__constant_11xindex)
+	lui	a7, %hi(.L__constant_30xindex)
+	addi	a7, a7, %lo(.L__constant_30xindex)
+	lui	t0, %hi(.L__constant_30xf64)
+	addi	t0, t0, %lo(.L__constant_30xf64)
+	li	a6, 11
+	li	t1, 10
+	lui	a4, 228023
+	lui	a2, %hi(.LCPI2_0)
+	addi	a2, a2, %lo(.LCPI2_0)
+	addi	a3, a0, 56
+	lui	a5, %hi(.LCPI2_1)
+	addi	a5, a5, %lo(.LCPI2_1)
 	vsetivli	zero, 4, e64, m2, ta, ma
-	vle64.v	v8, (a4)
-	addi	a4, a1, %lo(.L__constant_11xindex)
-	ld	a1, %lo(.L__constant_11xindex+8)(a1)
-	slli	t2, t2, 2
-	addi	a2, t2, -273
-	sd	a2, 0(a0)
-	sd	a4, 8(a0)
-	sd	a6, 48(a0)
-	sd	a7, 88(a0)
-	mul	a2, a1, t3
-	sd	t3, 128(a0)
-	sd	t0, 136(a0)
-	sd	a1, 144(a0)
+	vle64.v	v8, (a2)
+	ld	a2, 80(a1)
+	slli	a4, a4, 2
+	addi	a4, a4, -273
+	sd	a4, 0(a0)
+	sd	a1, 8(a0)
+	sd	a7, 48(a0)
+	sd	t0, 88(a0)
+	addi	a1, a0, 16
+	sd	t1, 128(a0)
+	sd	a6, 136(a0)
+	sd	a2, 144(a0)
 	sd	a2, 152(a0)
-	vse64.v	v8, (a5)
-	vle64.v	v8, (t1)
-	addi	a0, a0, 96
-	lui	a1, 40978
-	addi	a1, a1, -512
 	vse64.v	v8, (a3)
-	vmv.s.x	v8, a1
+	vle64.v	v8, (a5)
+	addi	a0, a0, 96
+	lui	a2, 40978
+	addi	a2, a2, -512
+	vse64.v	v8, (a1)
+	vmv.s.x	v8, a2
 	vsext.vf8	v10, v8
 	vse64.v	v10, (a0)
 	ret
