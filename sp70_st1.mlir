@@ -4,6 +4,8 @@
 }>
 
 module {
+    func.func private @printMemrefF64(%ptr : tensor<10x10xf64>) attributes { llvm.emit_c_interface }
+
     func.func @matmul(%t : tensor<10x10xf64, #CSR>, %s : tensor<10x10xf64>, %out : tensor<10x10xf64>)
         -> tensor<10x10xf64> {
         %0 = linalg.matmul
@@ -20,7 +22,9 @@ module {
         ]> : tensor<10x10xf64>
         %result_matrix = call @matmul(%t_sparse, %s, %c) :
             (tensor<10x10xf64, #CSR>, tensor<10x10xf64>, tensor<10x10xf64>) -> tensor<10x10xf64>
-        %c1 = arith.constant 1 : index
+
+        func.call @printMemrefF64(%result_matrix) : (tensor<10x10xf64>) -> ()
+        %c1 = arith.constant 0 : index
 
         %element_f64 = tensor.extract %result_matrix[%c1, %c1] : tensor<10x10xf64>
         %element_i64 = arith.fptosi %element_f64 : f64 to i64
