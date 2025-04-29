@@ -4,6 +4,10 @@
 }>
 
 module {
+<<<<<<< HEAD
+=======
+    func.func private @printMemrefF64(%ptr : tensor<?x?xf64>) attributes { llvm.emit_c_interface }
+>>>>>>> aca6b08 (builded chiamata 29)
 
     func.func @matmul(%t : tensor<10x10xf64, #CSR>, %s : tensor<10x10xf64>, %out : tensor<10x10xf64>)
         -> tensor<10x10xf64> {
@@ -31,10 +35,16 @@ module {
         %result_matrix = call @matmul(%t_sparse, %s, %c) :
             (tensor<10x10xf64, #CSR>, tensor<10x10xf64>, tensor<10x10xf64>) -> tensor<10x10xf64>
 
+<<<<<<< HEAD
         %c0 = arith.constant 0 : index
         %c10 = arith.constant 10 : index
         %c1 = arith.constant 1 : index
         %f0 = arith.constant 0.0 : f64
+=======
+        %p = tensor.cast %result_matrix : tensor<10x10xf64> to tensor<?x?xf64>
+        func.call @printMemrefF64(%p) : (tensor<?x?xf64>) -> ()
+        %c1 = arith.constant 0 : index
+>>>>>>> aca6b08 (builded chiamata 29)
 
         scf.for %i = %c0 to %c10 step %c1 {
             %row = vector.transfer_read %result_matrix[%i, %c0], %f0 : tensor<10x10xf64>, vector<10xf64>
