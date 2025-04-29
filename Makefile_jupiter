@@ -57,11 +57,4 @@ $(shell mkdir -p $(BUILD_DIR))
 
 # Generate final executable in the build directory
 %: %.S
-	riscv64-redhat-linux-gcc-14 -march=rv64imafdcv -mabi=lp64d \
-  -I/root/llvm-project/build/include \
-  -I/root/llvm-project/llvm/include \
-  -I/root/llvm-project/mlir/include \
-  -L/root/llvm-project/build/lib \
-  -lmlir_runner_utils \
-  -Wl,-rpath,/root/llvm-project/build/lib \
-  -o $@ $<
+	riscv64-redhat-linux-gcc-14 -march=rv64imafdcv -mabi=lp64d -L/root/llvm-project/build/lib -lmlir_c_runner_utils -Wl,-rpath,/root/llvm-project/build/lib -o sp70_st1 sp70_st1.S

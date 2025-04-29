@@ -8,21 +8,15 @@ source_filename = "LLVMDialectModule"
 
 declare ptr @malloc(i64)
 
-define private void @printMemrefF64(ptr %0, ptr %1, i64 %2, i64 %3, i64 %4, i64 %5, i64 %6) {
-  %8 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } undef, ptr %0, 0
-  %9 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %8, ptr %1, 1
-  %10 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %9, i64 %2, 2
-  %11 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %10, i64 %3, 3, 0
-  %12 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %11, i64 %5, 4, 0
-  %13 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %12, i64 %4, 3, 1
-  %14 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %13, i64 %6, 4, 1
-  %15 = alloca { ptr, ptr, i64, [2 x i64], [2 x i64] }, i64 1, align 8
-  store { ptr, ptr, i64, [2 x i64], [2 x i64] } %14, ptr %15, align 8
-  call void @_mlir_ciface_printMemrefF64(ptr %15)
-  ret void
-}
+declare void @printNewline()
 
-declare void @_mlir_ciface_printMemrefF64(ptr)
+declare void @printClose()
+
+declare void @printComma()
+
+declare void @printF64(double)
+
+declare void @printOpen()
 
 define { ptr, ptr, i64, [2 x i64], [2 x i64] } @matmul(ptr %0, ptr %1, i64 %2, i64 %3, i64 %4, ptr %5, ptr %6, i64 %7, i64 %8, i64 %9, ptr %10, ptr %11, i64 %12, i64 %13, i64 %14, { [2 x i64], [3 x i64] } %15, ptr %16, ptr %17, i64 %18, i64 %19, i64 %20, i64 %21, i64 %22, ptr %23, ptr %24, i64 %25, i64 %26, i64 %27, i64 %28, i64 %29) {
   %31 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } undef, ptr %16, 0
@@ -178,41 +172,53 @@ define i64 @main() {
   %39 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %13, 4, 0
   %40 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %13, 4, 1
   %41 = call { ptr, ptr, i64, [2 x i64], [2 x i64] } @matmul(ptr %19, ptr %20, i64 %21, i64 %22, i64 %23, ptr %24, ptr %25, i64 %26, i64 %27, i64 %28, ptr %29, ptr %30, i64 %31, i64 %32, i64 %33, { [2 x i64], [3 x i64] } %18, ptr inttoptr (i64 3735928559 to ptr), ptr @__constant_10x10xf64, i64 0, i64 10, i64 10, i64 10, i64 1, ptr %34, ptr %35, i64 %36, i64 %37, i64 %38, i64 %39, i64 %40)
-  %42 = call ptr @malloc(i64 add (i64 ptrtoint (ptr getelementptr (double, ptr null, i32 100) to i64), i64 64))
-  %43 = ptrtoint ptr %42 to i64
-  %44 = add i64 %43, 63
-  %45 = urem i64 %44, 64
-  %46 = sub i64 %44, %45
-  %47 = inttoptr i64 %46 to ptr
-  %48 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } undef, ptr %42, 0
-  %49 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %48, ptr %47, 1
-  %50 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %49, i64 0, 2
-  %51 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %50, i64 10, 3, 0
-  %52 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %51, i64 10, 3, 1
-  %53 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %52, i64 10, 4, 0
-  %54 = insertvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %53, i64 1, 4, 1
-  %55 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %41, 3, 0
-  %56 = mul i64 %55, 1
-  %57 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %41, 3, 1
-  %58 = mul i64 %56, %57
-  %59 = mul i64 %58, ptrtoint (ptr getelementptr (double, ptr null, i32 1) to i64)
-  %60 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %41, 1
-  %61 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %41, 2
-  %62 = getelementptr double, ptr %60, i64 %61
-  call void @llvm.memcpy.p0.p0.i64(ptr %47, ptr %62, i64 %59, i1 false)
-  %63 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %54, 0
-  %64 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %54, 1
-  %65 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %54, 2
-  %66 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %54, 3, 0
-  %67 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %54, 3, 1
-  %68 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %54, 4, 0
-  %69 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %54, 4, 1
-  call void @printMemrefF64(ptr %63, ptr %64, i64 %65, i64 %66, i64 %67, i64 %68, i64 %69)
-  %70 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %41, 1
-  %71 = getelementptr double, ptr %70, i64 0
-  %72 = load double, ptr %71, align 8
-  %73 = fptosi double %72 to i64
-  ret i64 %73
+  br label %42
+
+42:                                               ; preds = %60, %0
+  %43 = phi i64 [ %61, %60 ], [ 0, %0 ]
+  %44 = icmp slt i64 %43, 10
+  br i1 %44, label %45, label %62
+
+45:                                               ; preds = %42
+  %46 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %41, 1
+  %47 = mul i64 %43, 10
+  %48 = add i64 %47, 0
+  %49 = getelementptr double, ptr %46, i64 %48
+  %50 = load <10 x double>, ptr %49, align 8
+  call void @printOpen()
+  br label %51
+
+51:                                               ; preds = %58, %45
+  %52 = phi i64 [ %59, %58 ], [ 0, %45 ]
+  %53 = icmp slt i64 %52, 10
+  br i1 %53, label %54, label %60
+
+54:                                               ; preds = %51
+  %55 = extractelement <10 x double> %50, i64 %52
+  call void @printF64(double %55)
+  %56 = icmp ult i64 %52, 9
+  br i1 %56, label %57, label %58
+
+57:                                               ; preds = %54
+  call void @printComma()
+  br label %58
+
+58:                                               ; preds = %57, %54
+  %59 = add i64 %52, 1
+  br label %51
+
+60:                                               ; preds = %51
+  call void @printClose()
+  call void @printNewline()
+  %61 = add i64 %43, 1
+  br label %42
+
+62:                                               ; preds = %42
+  %63 = extractvalue { ptr, ptr, i64, [2 x i64], [2 x i64] } %41, 1
+  %64 = getelementptr double, ptr %63, i64 88
+  %65 = load double, ptr %64, align 8
+  %66 = fptosi double %65 to i64
+  ret i64 %66
 }
 
 define { { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { ptr, ptr, i64, [1 x i64], [1 x i64] }, { [2 x i64], [3 x i64] } } @assemble_sparse() {
@@ -237,13 +243,9 @@ declare <vscale x 4 x double> @llvm.masked.load.nxv4f64.p0(ptr nocapture, i32 im
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: write)
 declare void @llvm.masked.store.nxv4f64.p0(<vscale x 4 x double>, ptr nocapture, i32 immarg, <vscale x 4 x i1>) #2
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #3
-
 attributes #0 = { nocallback nofree nosync nounwind willreturn memory(none) }
 attributes #1 = { nocallback nofree nosync nounwind willreturn memory(argmem: read) }
 attributes #2 = { nocallback nofree nosync nounwind willreturn memory(argmem: write) }
-attributes #3 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 
 !llvm.module.flags = !{!0}
 

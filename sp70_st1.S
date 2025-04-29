@@ -2,33 +2,6 @@
 	.attribute	5, "rv64i2p1_m2p0_a2p1_f2p2_d2p2_c2p0_v1p0_zicsr2p0_zmmul1p0_zaamo1p0_zalrsc1p0_zve32f1p0_zve32x1p0_zve64d1p0_zve64f1p0_zve64x1p0_zvl128b1p0_zvl32b1p0_zvl64b1p0"
 	.file	"LLVMDialectModule"
 	.text
-	.p2align	1                               # -- Begin function printMemrefF64
-	.type	.LprintMemrefF64,@function
-.LprintMemrefF64:                       # @printMemrefF64
-	.cfi_startproc
-# %bb.0:
-	addi	sp, sp, -64
-	.cfi_def_cfa_offset 64
-	sd	ra, 56(sp)                      # 8-byte Folded Spill
-	.cfi_offset ra, -8
-	sd	a4, 32(sp)
-	sd	a5, 40(sp)
-	sd	a6, 48(sp)
-	sd	a0, 0(sp)
-	sd	a1, 8(sp)
-	sd	a2, 16(sp)
-	sd	a3, 24(sp)
-	mv	a0, sp
-	call	_mlir_ciface_printMemrefF64
-	ld	ra, 56(sp)                      # 8-byte Folded Reload
-	.cfi_restore ra
-	addi	sp, sp, 64
-	.cfi_def_cfa_offset 0
-	ret
-.Lfunc_end0:
-	.size	.LprintMemrefF64, .Lfunc_end0-.LprintMemrefF64
-	.cfi_endproc
-                                        # -- End function
 	.globl	matmul                          # -- Begin function matmul
 	.p2align	1
 	.type	matmul,@function
@@ -90,14 +63,14 @@ matmul:                                 # @matmul
 	srli	a2, a5, 1
 	vsetvli	zero, zero, e64, m4, ta, ma
 	vmv.v.i	v12, 0
-	j	.LBB1_2
-.LBB1_1:                                #   in Loop: Header=BB1_2 Depth=1
+	j	.LBB0_2
+.LBB0_1:                                #   in Loop: Header=BB0_2 Depth=1
 	addi	s3, s3, 1
-.LBB1_2:                                # =>This Loop Header: Depth=1
-                                        #     Child Loop BB1_5 Depth 2
-                                        #       Child Loop BB1_8 Depth 3
-	bge	s3, s2, .LBB1_11
-# %bb.3:                                #   in Loop: Header=BB1_2 Depth=1
+.LBB0_2:                                # =>This Loop Header: Depth=1
+                                        #     Child Loop BB0_5 Depth 2
+                                        #       Child Loop BB0_8 Depth 3
+	bge	s3, s2, .LBB0_11
+# %bb.3:                                #   in Loop: Header=BB0_2 Depth=1
 	li	s7, 0
 	li	s8, 0
 	slli	a3, s3, 3
@@ -108,15 +81,15 @@ matmul:                                 # @matmul
 	or	a3, a3, a4
 	mul	s5, s3, t5
 	mul	s6, a3, t6
-	j	.LBB1_5
-.LBB1_4:                                #   in Loop: Header=BB1_5 Depth=2
+	j	.LBB0_5
+.LBB0_4:                                #   in Loop: Header=BB0_5 Depth=2
 	addi	s8, s8, 1
 	addi	s7, s7, 80
-.LBB1_5:                                #   Parent Loop BB1_2 Depth=1
+.LBB0_5:                                #   Parent Loop BB0_2 Depth=1
                                         # =>  This Loop Header: Depth=2
-                                        #       Child Loop BB1_8 Depth 3
-	blt	s9, s8, .LBB1_1
-# %bb.6:                                #   in Loop: Header=BB1_5 Depth=2
+                                        #       Child Loop BB0_8 Depth 3
+	blt	s9, s8, .LBB0_1
+# %bb.6:                                #   in Loop: Header=BB0_5 Depth=2
 	li	s0, 0
 	add	a3, s8, s5
 	slli	a3, a3, 3
@@ -125,8 +98,8 @@ matmul:                                 # @matmul
 	li	a4, 10
 	mv	a1, s7
 	mv	a5, s6
-	j	.LBB1_8
-.LBB1_7:                                #   in Loop: Header=BB1_8 Depth=3
+	j	.LBB0_8
+.LBB0_7:                                #   in Loop: Header=BB0_8 Depth=3
 	vsetvli	zero, zero, e32, m2, ta, ma
 	vmslt.vx	v0, v8, a3
 	add	a3, s11, a5
@@ -143,17 +116,17 @@ matmul:                                 # @matmul
 	vfadd.vv	v16, v16, v20
 	vse64.v	v16, (a3), v0.t
 	sub	a4, a4, a2
-.LBB1_8:                                #   Parent Loop BB1_2 Depth=1
-                                        #     Parent Loop BB1_5 Depth=2
+.LBB0_8:                                #   Parent Loop BB0_2 Depth=1
+                                        #     Parent Loop BB0_5 Depth=2
                                         # =>    This Inner Loop Header: Depth=3
-	blt	s9, s0, .LBB1_4
-# %bb.9:                                #   in Loop: Header=BB1_8 Depth=3
+	blt	s9, s0, .LBB0_4
+# %bb.9:                                #   in Loop: Header=BB0_8 Depth=3
 	mv	a3, a4
-	blt	a4, a2, .LBB1_7
-# %bb.10:                               #   in Loop: Header=BB1_8 Depth=3
+	blt	a4, a2, .LBB0_7
+# %bb.10:                               #   in Loop: Header=BB0_8 Depth=3
 	mv	a3, a2
-	j	.LBB1_7
-.LBB1_11:
+	j	.LBB0_7
+.LBB0_11:
 	sd	t4, 0(a0)
 	sd	s11, 8(a0)
 	sd	t3, 16(a0)
@@ -190,8 +163,8 @@ matmul:                                 # @matmul
 	addi	sp, sp, 112
 	.cfi_def_cfa_offset 0
 	ret
-.Lfunc_end1:
-	.size	matmul, .Lfunc_end1-matmul
+.Lfunc_end0:
+	.size	matmul, .Lfunc_end0-matmul
 	.cfi_endproc
                                         # -- End function
 	.globl	main                            # -- Begin function main
@@ -200,124 +173,172 @@ matmul:                                 # @matmul
 main:                                   # @main
 	.cfi_startproc
 # %bb.0:
-	addi	sp, sp, -480
-	.cfi_def_cfa_offset 480
-	sd	ra, 472(sp)                     # 8-byte Folded Spill
-	sd	s0, 464(sp)                     # 8-byte Folded Spill
-	sd	s1, 456(sp)                     # 8-byte Folded Spill
-	sd	s2, 448(sp)                     # 8-byte Folded Spill
-	sd	s3, 440(sp)                     # 8-byte Folded Spill
-	sd	s4, 432(sp)                     # 8-byte Folded Spill
+	addi	sp, sp, -640
+	.cfi_def_cfa_offset 640
+	sd	ra, 632(sp)                     # 8-byte Folded Spill
+	sd	s0, 624(sp)                     # 8-byte Folded Spill
+	sd	s1, 616(sp)                     # 8-byte Folded Spill
+	sd	s2, 608(sp)                     # 8-byte Folded Spill
+	sd	s3, 600(sp)                     # 8-byte Folded Spill
+	sd	s4, 592(sp)                     # 8-byte Folded Spill
+	sd	s5, 584(sp)                     # 8-byte Folded Spill
+	sd	s6, 576(sp)                     # 8-byte Folded Spill
+	sd	s7, 568(sp)                     # 8-byte Folded Spill
+	sd	s8, 560(sp)                     # 8-byte Folded Spill
 	.cfi_offset ra, -8
 	.cfi_offset s0, -16
 	.cfi_offset s1, -24
 	.cfi_offset s2, -32
 	.cfi_offset s3, -40
 	.cfi_offset s4, -48
+	.cfi_offset s5, -56
+	.cfi_offset s6, -64
+	.cfi_offset s7, -72
+	.cfi_offset s8, -80
+	addi	s0, sp, 640
+	.cfi_def_cfa s0, 0
+	csrr	a0, vlenb
+	slli	a0, a0, 3
+	sub	sp, sp, a0
+	andi	sp, sp, -128
+	mv	s1, sp
 	li	a0, 864
 	call	malloc
-	mv	s0, a0
+	mv	s2, a0
 	addi	a0, a0, 63
-	andi	s1, a0, -64
-	addi	a0, sp, 272
+	andi	s3, a0, -64
+	addi	a0, s1, 400
 	call	assemble_sparse
-	addi	a0, sp, 392
-	addi	t0, sp, 328
-	ld	a5, 304(sp)
-	ld	a6, 312(sp)
-	ld	a7, 320(sp)
+	addi	a0, s1, 520
+	addi	t0, s1, 456
+	ld	a5, 432(s1)
+	ld	a6, 440(s1)
+	ld	a7, 448(s1)
 	vsetivli	zero, 4, e64, m2, ta, ma
 	vle64.v	v8, (a0)
-	ld	a1, 272(sp)
-	ld	a2, 280(sp)
-	ld	a3, 288(sp)
-	ld	a4, 296(sp)
+	ld	a1, 400(s1)
+	ld	a2, 408(s1)
+	ld	a3, 416(s1)
+	ld	a4, 424(s1)
 	vsetivli	zero, 8, e64, m4, ta, ma
 	vle64.v	v12, (t0)
-	ld	a0, 424(sp)
-	sd	s0, 160(sp)
-	sd	s1, 168(sp)
+	ld	t4, 552(s1)
+	addi	sp, sp, -224
+	sd	s2, 160(sp)
+	sd	s3, 168(sp)
 	sd	zero, 176(sp)
 	li	t0, 1
 	lui	t1, %hi(.L__constant_10x10xf64)
 	addi	t1, t1, %lo(.L__constant_10x10xf64)
-	lui	s1, 228023
-	lui	t2, 4257
-	addi	t3, sp, 184
-	slli	s1, s1, 2
-	addi	s1, s1, -273
-	sd	a0, 96(sp)
-	sd	s1, 104(sp)
+	lui	t2, 228023
+	lui	t3, 4257
+	addi	t5, sp, 184
+	slli	t2, t2, 2
+	addi	a0, t2, -273
+	sd	t4, 96(sp)
+	sd	a0, 104(sp)
 	sd	t1, 112(sp)
 	sd	t0, 152(sp)
-	lui	a0, 41121
-	addi	s1, t2, -1526
+	lui	t0, 41121
+	addi	a0, t3, -1526
 	vse64.v	v12, (sp)
-	vmv.s.x	v10, s1
-	addi	s1, sp, 120
-	addi	a0, a0, -1536
+	vmv.s.x	v10, a0
+	addi	t1, sp, 120
+	addi	a0, t0, -1536
 	vmv.s.x	v11, a0
-	addi	s0, sp, 64
+	addi	t0, sp, 64
 	vsetivli	zero, 4, e64, m2, ta, ma
 	vsext.vf8	v12, v10
-	vse64.v	v12, (t3)
-	addi	a0, sp, 216
+	vse64.v	v12, (t5)
+	addi	a0, s1, 344
 	vsext.vf8	v12, v11
-	vse64.v	v12, (s1)
-	vse64.v	v8, (s0)
+	vse64.v	v12, (t1)
+	vse64.v	v8, (t0)
 	call	matmul
-	ld	s2, 224(sp)
-	ld	s3, 232(sp)
-	ld	s4, 240(sp)
-	ld	s1, 248(sp)
-	li	a0, 864
-	call	malloc
-	mv	s0, a0
-	addi	a0, a0, 63
-	mul	a2, s4, s1
-	slli	a1, s3, 3
-	andi	s1, a0, -64
-	slli	a2, a2, 3
-	add	a1, a1, s2
-	mv	a0, s1
-	call	memcpy
-	li	a3, 10
-	li	a4, 10
-	li	a5, 10
-	li	a6, 1
-	mv	a0, s0
-	mv	a1, s1
-	li	a2, 0
-	call	.LprintMemrefF64
-	fld	fa5, 0(s2)
+	addi	sp, sp, 224
+	li	s2, 0
+	ld	s3, 352(s1)
+	li	s4, 9
+	li	s5, 80
+	addi	s6, s1, 128
+	li	s7, 8
+	j	.LBB1_2
+.LBB1_1:                                #   in Loop: Header=BB1_2 Depth=1
+	call	printClose
+	call	printNewline
+	addi	s2, s2, 1
+.LBB1_2:                                # =>This Loop Header: Depth=1
+                                        #     Child Loop BB1_5 Depth 2
+	blt	s4, s2, .LBB1_8
+# %bb.3:                                #   in Loop: Header=BB1_2 Depth=1
+	mul	a0, s2, s5
+	add	a0, a0, s3
+	vsetivli	zero, 10, e64, m8, ta, ma
+	vle64.v	v8, (a0)
+	addi	a0, s1, 560
+	vs8r.v	v8, (a0)                        # Unknown-size Folded Spill
+	call	printOpen
+	li	s8, 0
+	j	.LBB1_5
+.LBB1_4:                                #   in Loop: Header=BB1_5 Depth=2
+	addi	s8, s8, 1
+.LBB1_5:                                #   Parent Loop BB1_2 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	blt	s4, s8, .LBB1_1
+# %bb.6:                                #   in Loop: Header=BB1_5 Depth=2
+	addi	a0, s1, 560
+	vl8r.v	v8, (a0)                        # Unknown-size Folded Reload
+	vsetivli	zero, 16, e64, m8, ta, ma
+	vse64.v	v8, (s6)
+	andi	a0, s8, 15
+	slli	a0, a0, 3
+	or	a0, s6, a0
+	fld	fa0, 0(a0)
+	call	printF64
+	bltu	s7, s8, .LBB1_4
+# %bb.7:                                #   in Loop: Header=BB1_5 Depth=2
+	call	printComma
+	j	.LBB1_4
+.LBB1_8:
+	fld	fa5, 704(s3)
 	fcvt.l.d	a0, fa5, rtz
-	ld	ra, 472(sp)                     # 8-byte Folded Reload
-	ld	s0, 464(sp)                     # 8-byte Folded Reload
-	ld	s1, 456(sp)                     # 8-byte Folded Reload
-	ld	s2, 448(sp)                     # 8-byte Folded Reload
-	ld	s3, 440(sp)                     # 8-byte Folded Reload
-	ld	s4, 432(sp)                     # 8-byte Folded Reload
+	addi	sp, s0, -640
+	.cfi_def_cfa sp, 640
+	ld	ra, 632(sp)                     # 8-byte Folded Reload
+	ld	s0, 624(sp)                     # 8-byte Folded Reload
+	ld	s1, 616(sp)                     # 8-byte Folded Reload
+	ld	s2, 608(sp)                     # 8-byte Folded Reload
+	ld	s3, 600(sp)                     # 8-byte Folded Reload
+	ld	s4, 592(sp)                     # 8-byte Folded Reload
+	ld	s5, 584(sp)                     # 8-byte Folded Reload
+	ld	s6, 576(sp)                     # 8-byte Folded Reload
+	ld	s7, 568(sp)                     # 8-byte Folded Reload
+	ld	s8, 560(sp)                     # 8-byte Folded Reload
 	.cfi_restore ra
 	.cfi_restore s0
 	.cfi_restore s1
 	.cfi_restore s2
 	.cfi_restore s3
 	.cfi_restore s4
-	addi	sp, sp, 480
+	.cfi_restore s5
+	.cfi_restore s6
+	.cfi_restore s7
+	.cfi_restore s8
+	addi	sp, sp, 640
 	.cfi_def_cfa_offset 0
 	ret
-.Lfunc_end2:
-	.size	main, .Lfunc_end2-main
+.Lfunc_end1:
+	.size	main, .Lfunc_end1-main
 	.cfi_endproc
                                         # -- End function
 	.section	.rodata.cst32,"aM",@progbits,32
 	.p2align	5, 0x0                          # -- Begin function assemble_sparse
-.LCPI3_0:
+.LCPI2_0:
 	.quad	0                               # 0x0
 	.quad	30                              # 0x1e
 	.quad	1                               # 0x1
 	.quad	3735928559                      # 0xdeadbeef
-.LCPI3_1:
+.LCPI2_1:
 	.quad	0                               # 0x0
 	.quad	11                              # 0xb
 	.quad	1                               # 0x1
@@ -337,11 +358,11 @@ assemble_sparse:                        # @assemble_sparse
 	addi	a7, a7, %lo(.L__constant_30xf64)
 	li	t0, 2
 	lui	t2, 228023
-	lui	a4, %hi(.LCPI3_0)
-	addi	a4, a4, %lo(.LCPI3_0)
+	lui	a4, %hi(.LCPI2_0)
+	addi	a4, a4, %lo(.LCPI2_0)
 	addi	a5, a0, 56
-	lui	t1, %hi(.LCPI3_1)
-	addi	t1, t1, %lo(.LCPI3_1)
+	lui	t1, %hi(.LCPI2_1)
+	addi	t1, t1, %lo(.LCPI2_1)
 	addi	a3, a0, 16
 	vsetivli	zero, 4, e64, m2, ta, ma
 	vle64.v	v8, (a4)
@@ -368,8 +389,8 @@ assemble_sparse:                        # @assemble_sparse
 	vsext.vf8	v10, v8
 	vse64.v	v10, (a0)
 	ret
-.Lfunc_end3:
-	.size	assemble_sparse, .Lfunc_end3-assemble_sparse
+.Lfunc_end2:
+	.size	assemble_sparse, .Lfunc_end2-assemble_sparse
 	.cfi_endproc
                                         # -- End function
 	.type	.L__constant_10x10xf64,@object  # @__constant_10x10xf64
