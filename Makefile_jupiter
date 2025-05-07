@@ -11,7 +11,21 @@ OPTFLAGS +=
 # Default optimization flags
 OPTFLAGS += -linalg-generalize-named-ops
 OPTFLAGS += -linalg-fuse-elementwise-ops
-OPTFLAGS += -sparsification-and-bufferization="vl=4 enable-vla-vectorization=true"
+#OPTFLAGS += -sparsification-and-bufferization="vl=4"
+OPTFLAGS += -pre-sparsification-rewrite
+OPTFLAGS += -empty-tensor-to-alloc-tensor
+OPTFLAGS += -one-shot-bufferize
+OPTFLAGS += -sparsification
+OPTFLAGS += -sparse-reinterpret-map
+OPTFLAGS += -sparse-space-collapse 
+OPTFLAGS += -lower-sparse-iteration-to-scf 
+OPTFLAGS += -stage-sparse-ops
+OPTFLAGS += -lower-sparse-ops-to-foreach
+OPTFLAGS += -lower-sparse-foreach-to-scf
+OPTFLAGS += -sparse-vectorization="vl=4"
+OPTFLAGS += -sparse-tensor-codegen
+OPTFLAGS += -sparse-buffer-rewrite
+OPTFLAGS += -loop-invariant-code-motion
 OPTFLAGS += -sparse-storage-specifier-to-llvm
 OPTFLAGS += -canonicalize
 OPTFLAGS += -convert-linalg-to-loops
