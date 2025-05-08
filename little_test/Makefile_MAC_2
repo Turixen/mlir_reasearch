@@ -1,0 +1,78 @@
+OPT = mlir-opt
+TRANSLATE = mlir-translate
+
+#Allow specifying additional flags before the default flags
+OPTFLAGS += 
+
+#Default optimization flags
+#OPTFLAGS += -linalg-generalize-named-opsà
+#OPTFLAGS += -sparsification-and-bufferization
+#OPTFLAGS += -sparse-tensor-codegen
+#OPTFLAGS += -sparse-storage-specifier-to-llvm
+#OPTFLAGS += -finalize-memref-to-llvm
+#OPTFLAGS += -canonicalize
+#OPTFLAGS += -cse
+#OPTFLAGS += -sparsifier="vl=4 enable-runtime-library=false"
+OPTFLAGS += -linalg-generalize-named-ops
+OPTFLAGS += -linalg-fuse-elementwise-ops
+#OPTFLAGS += -sparsification-and-bufferization="vl=4"
+
+# Sparsification part
+OPTFLAGS += -pre-sparsification-rewrite
+OPTFLAGS += -empty-tensor-to-alloc-tensor
+OPTFLAGS += -sparse-reinterpret-map="scope=all"
+OPTFLAGS += -sparsification
+OPTFLAGS += -stage-sparse-ops
+OPTFLAGS += -lower-sparse-ops-to-foreach
+OPTFLAGS += -sparse-reinterpret-map="scope=except-generic"
+OPTFLAGS += -lower-sparse-foreach-to-scf
+OPTFLAGS += -loop-invariant-code-motion
+OPTFLAGS += -sparse-vectorization="vl=4" # Only when vectorLength>0
+
+# Bufferization part
+OPTFLAGS += -one-shot-bufferize="allow-return-allocs-from-loops=true"
+
+# Sparse tensor codegen
+OPTFLAGS += -sparse-tensor-codegen # When enableRuntimeLibrary=false
+OPTFLAGS += -sparse-buffer-rewrite # When enableRuntimeLibrary=false
+OPTFLAGS += -sparse-storage-specifier-to-llvm
+
+# Rest of your pipeline
+OPTFLAGS += -canonicalize
+OPTFLAGS += -convert-linalg-to-loops
+OPTFLAGS += -convert-vector-to-scf
+OPTFLAGS += -expand-realloc
+OPTFLAGS += -convert-scf-to-cf
+OPTFLAGS += -expand-strided-metadata
+OPTFLAGS += -lower-affine
+OPTFLAGS += -convert-vector-to-llvm
+OPTFLAGS += -finalize-memref-to-llvm
+OPTFLAGS += -convert-complex-to-standard
+OPTFLAGS += -arith-expand
+OPTFLAGS += -convert-math-to-llvm
+OPTFLAGS += -convert-math-to-libm
+OPTFLAGS += -convert-complex-to-libm
+OPTFLAGS += -convert-vector-to-llvm
+OPTFLAGS += -convert-complex-to-llvm
+OPTFLAGS += -convert-vector-to-llvm
+OPTFLAGS += -convert-func-to-llvm
+OPTFLAGS += -convert-arith-to-llvm
+OPTFLAGS += -convert-cf-to-llvm
+OPTFLAGS += -convert-ub-to-llvm
+OPTFLAGS += -reconcile-unrealized-casts
+
+
+
+.PRECIOUS: %.llvm.mlir %.ll %.S
+
+%.llvm.mlir: %.mlir
+	$(OPT) $(OPTFLAGS) -o $@ $<
+
+%.ll: %.llvm.mlir
+	$(TRANSLATE) -mlir-to-llvmir -o $@ $<
+
+#%.S: %.ll
+#	llc -o $@ $<
+
+#%: %.S
+#	gcc -mabi=lp64d -o $@ $<
