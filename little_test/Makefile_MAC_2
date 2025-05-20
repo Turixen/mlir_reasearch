@@ -18,26 +18,28 @@ OPTFLAGS += -linalg-fuse-elementwise-ops
 #OPTFLAGS += -sparsification-and-bufferization="vl=4"
 
 # Sparsification part
+#OPTFLAGS += -mlir-print-ir-after-all
 OPTFLAGS += -pre-sparsification-rewrite
 OPTFLAGS += -empty-tensor-to-alloc-tensor
 OPTFLAGS += -sparse-reinterpret-map="scope=all"
-OPTFLAGS += -sparsification
+OPTFLAGS += -sparsification="enable-runtime-library=false"
 OPTFLAGS += -stage-sparse-ops
-OPTFLAGS += -lower-sparse-ops-to-foreach
+OPTFLAGS += -lower-sparse-ops-to-foreach="enable-convert=true"
 OPTFLAGS += -sparse-reinterpret-map="scope=except-generic"
 OPTFLAGS += -lower-sparse-foreach-to-scf
 OPTFLAGS += -loop-invariant-code-motion
 OPTFLAGS += -sparse-vectorization="vl=4" # Only when vectorLength>0
 
 # Bufferization part
-OPTFLAGS += -one-shot-bufferize="allow-return-allocs-from-loops=true"
+OPTFLAGS += -one-shot-bufferize="allow-return-allocs-from-loops=true dialect-filter=tensor,memref,linalg,scf,arith allow-unknown-ops=true"
+
 
 # Sparse tensor codegen
-OPTFLAGS += -sparse-tensor-codegen # When enableRuntimeLibrary=false
+OPTFLAGS += -sparse-tensor-codegen="enable-buffer-initialization=true" # When enableRuntimeLibrary=false
 OPTFLAGS += -sparse-buffer-rewrite # When enableRuntimeLibrary=false
-OPTFLAGS += -sparse-storage-specifier-to-llvm
 
 # Rest of your pipeline
+OPTFLAGS += -sparse-storage-specifier-to-llvm
 OPTFLAGS += -canonicalize
 OPTFLAGS += -convert-linalg-to-loops
 OPTFLAGS += -convert-vector-to-scf

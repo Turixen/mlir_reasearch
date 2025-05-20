@@ -1,0 +1,49 @@
+# Step 1: Generalize and fuse Linalg ops
+-func.func(linalg-generalize-named-ops)
+-func.func(linalg-fuse-elementwise-ops)
+
+# Step 2: Sparsification and bufferization
+-sparse-tensor-sparsification-and-bufferization
+
+# Optional early exit
+# (if --test-bufferization-analysis-only is set, exit here)
+
+# Step 3: Finalize sparse bufferization
+-sparse-tensor-storage-specifier-to-llvm
+-func.func(canonicalize)
+
+# Step 4: GPU codegen (conditionally enabled) if GPU codegen is enabled
+-sparse-gpu-codegen                        
+-gpu.module(strip-debuginfo)
+-gpu.module(convert-scf-to-cf)
+-gpu.module(gpu-to-nvvm)
+
+# Step 5: Lowering to LLVM (progressively)
+-func.func(convert-linalg-to-loops)
+-func.func(convert-vector-to-scf)
+-func.func(memref-expand-realloc)
+-func.func(convert-scf-to-cf)
+-memref-expand-strided-metadata
+-lower-affine
+-convert-vector-to-llvm
+-finalize-memref-to-llvm
+-func.func(convert-complex-to-standard)
+-func.func(arith-expand)
+-func.func(convert-math-to-llvm)
+-convert-math-to-libm
+-convert-complex-to-libm
+-convert-vector-to-llvm
+-convert-complex-to-llvm
+-convert-vector-to-llvm
+-convert-func-to-llvm
+-convert-arith-to-llvm
+-convert-cf-to-llvm
+
+# Step 6: Finalize GPU codegen (conditionally)
+-gpu-to-nvvm                               # attach target (if GPU)
+-gpu-to-llvm
+-gpu-module-to-binary
+
+# Step 7: Cleanup and final conversion
+-convert-ub-to-llvm
+-reconcile-unrealized-casts

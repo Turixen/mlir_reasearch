@@ -1,0 +1,203 @@
+mlir-opt  -linalg-generalize-named-ops -linalg-fuse-elementwise-ops -mlir-print-ir-after-all -sparsification-and-bufferization="vl=4 "  -sparse-storage-specifier-to-llvm  -canonicalize -convert-linalg-to-loops -convert-vector-to-scf -expand-realloc -convert-scf-to-cf -expand-strided-metadata -lower-affine -convert-vector-to-llvm -finalize-memref-to-llvm -convert-complex-to-standard -arith-expand -convert-math-to-llvm -convert-math-to-libm -convert-complex-to-libm -convert-vector-to-llvm  -convert-complex-to-llvm -convert-vector-to-llvm  -convert-func-to-llvm -convert-arith-to-llvm -convert-cf-to-llvm -convert-ub-to-llvm -reconcile-unrealized-casts -o from_scratch.llvm.mlir from_scratch.mlir
+// -----// IR Dump //----- //
+module {
+  func.func @matmul(%arg0: tensor<10x10xf64, #sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>>, %arg1: tensor<10x10xf64>, %arg2: tensor<10x10xf64>) -> tensor<10x10xf64> {
+    %0 = linalg.generic {indexing_maps = [affine_map<(d0, d1, d2) -> (d0, d2)>, affine_map<(d0, d1, d2) -> (d2, d1)>, affine_map<(d0, d1, d2) -> (d0, d1)>], iterator_types = ["parallel", "parallel", "reduction"]} ins(%arg0, %arg1 : tensor<10x10xf64, #sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>>, tensor<10x10xf64>) outs(%arg2 : tensor<10x10xf64>) {
+    ^bb0(%in: f64, %in_0: f64, %out: f64):
+      %1 = arith.mulf %in, %in_0 : f64
+      %2 = arith.addf %out, %1 : f64
+      linalg.yield %2 : f64
+    } -> tensor<10x10xf64>
+    return %0 : tensor<10x10xf64>
+  }
+  func.func @main() -> i64 {
+    %c8 = arith.constant 8 : index
+    %cst = arith.constant 0.000000e+00 : f64
+    %c1 = arith.constant 1 : index
+    %c10 = arith.constant 10 : index
+    %c0 = arith.constant 0 : index
+    %cst_0 = arith.constant dense<[[5.0072820879405331, 2.1420497309468542, 8.4364357946217474, 3.3512684114489364, 4.8578737173077684, 6.5026873298607608, 4.481183080848961, 1.6018142840321781, 1.6482067031075565, 2.7697353449463433], [8.2796435610104453, 9.7956308688691446, 5.066309369035312, 1.0691978274975567, 7.2754747197326219, 7.4679216752662611, 1.8460472498040226, 1.7245060332115747, 9.828847678500983, 5.8523888503628294], [4.735129046344202, 0.21389279999051047, 9.9823910553584571, 0.22751442405574696, 4.3063298537464378, 1.0300462704374436, 7.1885192597496097, 1.7297134743393461, 7.4494154821665912, 8.2180913094628564], [0.55370097211729696, 7.0871105126860554, 7.7450498540614178, 4.2448327660994876, 1.2746000519648371, 9.4391729894286023, 6.1902689198805465, 6.0312877871821424, 8.7890699247898425, 3.1611885774377635], [8.9903796016343396, 3.4471256572948263, 8.4932841564173884, 9.9373309006088171, 2.6191045587156303, 0.77351004199567641, 1.4024547359632467, 7.454551829233095, 2.6194195569905077, 4.0298520046877577], [4.7641019675563543, 3.8129279818642861, 9.0747728919768225, 6.4920816381757511, 6.7882405668469881, 7.0063465072165911, 5.7386637585592792, 7.5230234961300599, 0.91592641387099771, 8.6646639602141899], [5.6862365678538973, 4.8755032417073192, 9.5859588536709328, 8.1186668576209513, 5.3811119011589454, 3.8280043169558411, 9.9983397606134918, 6.1835824149566241, 3.4201107815517515, 0.84968218962971687], [2.791270331453247, 2.9735813587818685, 3.0654358664150494, 5.4929582569491755, 3.9238922832952996, 9.2657934977933269, 5.0681592194030571, 9.6910348814034712, 2.0972430846802959, 0.96789458347651514], [3.1989914495545624, 3.7607248895716507, 5.5182323136835318, 2.4724154287944913, 7.2920674615977124, 9.7009225179758473, 9.9421519655410044, 2.6109645810252315, 9.0484630420475316, 3.6771724535825703], [6.305746358135309, 7.6948754823713771, 3.6012681436537397, 1.263350310992416, 3.8581878444772943, 7.1047027925517909, 2.1904752468927735, 0.32914734762647391, 3.1668377278172235, 2.0518472657841924]]> : tensor<10x10xf64>
+    %0 = tensor.empty() : tensor<10x10xf64>
+    %1 = call @assemble_sparse() : () -> tensor<10x10xf64, #sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>>
+    %2 = call @matmul(%1, %cst_0, %0) : (tensor<10x10xf64, #sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>>, tensor<10x10xf64>, tensor<10x10xf64>) -> tensor<10x10xf64>
+    scf.for %arg0 = %c0 to %c10 step %c1 {
+      %4 = vector.transfer_read %2[%arg0, %c0], %cst {in_bounds = [true]} : tensor<10x10xf64>, vector<10xf64>
+      vector.print %4 : vector<10xf64>
+    }
+    %extracted = tensor.extract %2[%c8, %c8] : tensor<10x10xf64>
+    %3 = arith.fptosi %extracted : f64 to i64
+    return %3 : i64
+  }
+  func.func @assemble_sparse() -> tensor<10x10xf64, #sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>> {
+    %cst = arith.constant dense<[4.7563469999999999, 2.102859, 5.4238689999999998, 5.577680e+00, 3.001240e-01, 4.8357549999999998, 8.8596050000000002, 1.592490e+00, 7.372070e+00, 7.2462879999999998, 5.9191609999999999, 5.9593920000000002, 4.6956530000000001, 6.328630e-01, 3.1591619999999998, 4.7083050000000002, 8.4356449999999992, 5.4309390000000004, 2.1190630000000001, 1.545420e-01, 2.595040e+00, 1.4655819999999999, 1.321259, 3.702925, 3.542246, 6.831162, 1.723510e+00, 7.8729019999999998, 6.0081550000000004, 1.047045]> : tensor<30xf64>
+    %cst_0 = arith.constant dense<[0, 1, 5, 7, 14, 16, 21, 25, 27, 29, 30]> : tensor<11xindex>
+    %cst_1 = arith.constant dense<[8, 3, 4, 6, 9, 2, 4, 0, 1, 2, 3, 5, 7, 8, 3, 6, 2, 3, 4, 5, 8, 1, 5, 7, 8, 5, 9, 4, 7, 7]> : tensor<30xindex>
+    %0 = sparse_tensor.assemble (%cst_0, %cst_1), %cst : (tensor<11xindex>, tensor<30xindex>), tensor<30xf64> to tensor<10x10xf64, #sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>>
+    return %0 : tensor<10x10xf64, #sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>>
+  }
+}
+// -----// IR Dump //----- //
+module {
+  memref.global "private" constant @__constant_10x10xf64 : memref<10x10xf64> = dense<[[5.0072820879405331, 2.1420497309468542, 8.4364357946217474, 3.3512684114489364, 4.8578737173077684, 6.5026873298607608, 4.481183080848961, 1.6018142840321781, 1.6482067031075565, 2.7697353449463433], [8.2796435610104453, 9.7956308688691446, 5.066309369035312, 1.0691978274975567, 7.2754747197326219, 7.4679216752662611, 1.8460472498040226, 1.7245060332115747, 9.828847678500983, 5.8523888503628294], [4.735129046344202, 0.21389279999051047, 9.9823910553584571, 0.22751442405574696, 4.3063298537464378, 1.0300462704374436, 7.1885192597496097, 1.7297134743393461, 7.4494154821665912, 8.2180913094628564], [0.55370097211729696, 7.0871105126860554, 7.7450498540614178, 4.2448327660994876, 1.2746000519648371, 9.4391729894286023, 6.1902689198805465, 6.0312877871821424, 8.7890699247898425, 3.1611885774377635], [8.9903796016343396, 3.4471256572948263, 8.4932841564173884, 9.9373309006088171, 2.6191045587156303, 0.77351004199567641, 1.4024547359632467, 7.454551829233095, 2.6194195569905077, 4.0298520046877577], [4.7641019675563543, 3.8129279818642861, 9.0747728919768225, 6.4920816381757511, 6.7882405668469881, 7.0063465072165911, 5.7386637585592792, 7.5230234961300599, 0.91592641387099771, 8.6646639602141899], [5.6862365678538973, 4.8755032417073192, 9.5859588536709328, 8.1186668576209513, 5.3811119011589454, 3.8280043169558411, 9.9983397606134918, 6.1835824149566241, 3.4201107815517515, 0.84968218962971687], [2.791270331453247, 2.9735813587818685, 3.0654358664150494, 5.4929582569491755, 3.9238922832952996, 9.2657934977933269, 5.0681592194030571, 9.6910348814034712, 2.0972430846802959, 0.96789458347651514], [3.1989914495545624, 3.7607248895716507, 5.5182323136835318, 2.4724154287944913, 7.2920674615977124, 9.7009225179758473, 9.9421519655410044, 2.6109645810252315, 9.0484630420475316, 3.6771724535825703], [6.305746358135309, 7.6948754823713771, 3.6012681436537397, 1.263350310992416, 3.8581878444772943, 7.1047027925517909, 2.1904752468927735, 0.32914734762647391, 3.1668377278172235, 2.0518472657841924]]> {alignment = 64 : i64}
+  memref.global "private" constant @__constant_30xindex : memref<30xindex> = dense<[8, 3, 4, 6, 9, 2, 4, 0, 1, 2, 3, 5, 7, 8, 3, 6, 2, 3, 4, 5, 8, 1, 5, 7, 8, 5, 9, 4, 7, 7]> {alignment = 64 : i64}
+  memref.global "private" constant @__constant_11xindex : memref<11xindex> = dense<[0, 1, 5, 7, 14, 16, 21, 25, 27, 29, 30]> {alignment = 64 : i64}
+  memref.global "private" constant @__constant_30xf64 : memref<30xf64> = dense<[4.7563469999999999, 2.102859, 5.4238689999999998, 5.577680e+00, 3.001240e-01, 4.8357549999999998, 8.8596050000000002, 1.592490e+00, 7.372070e+00, 7.2462879999999998, 5.9191609999999999, 5.9593920000000002, 4.6956530000000001, 6.328630e-01, 3.1591619999999998, 4.7083050000000002, 8.4356449999999992, 5.4309390000000004, 2.1190630000000001, 1.545420e-01, 2.595040e+00, 1.4655819999999999, 1.321259, 3.702925, 3.542246, 6.831162, 1.723510e+00, 7.8729019999999998, 6.0081550000000004, 1.047045]> {alignment = 64 : i64}
+  func.func @matmul(%arg0: memref<?xindex>, %arg1: memref<?xindex>, %arg2: memref<?xf64>, %arg3: !sparse_tensor.storage_specifier<#sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>>, %arg4: memref<10x10xf64>, %arg5: memref<10x10xf64>) -> memref<10x10xf64> {
+    %cst = arith.constant dense<0.000000e+00> : vector<4xf64>
+    %c4 = arith.constant 4 : index
+    %c1 = arith.constant 1 : index
+    %c0 = arith.constant 0 : index
+    %c10 = arith.constant 10 : index
+    %0 = sparse_tensor.storage_specifier.get %arg3  val_mem_sz : !sparse_tensor.storage_specifier<#sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>>
+    %subview = memref.subview %arg2[0] [%0] [1] : memref<?xf64> to memref<?xf64>
+    %1 = sparse_tensor.storage_specifier.get %arg3  pos_mem_sz at 1 : !sparse_tensor.storage_specifier<#sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>>
+    %subview_0 = memref.subview %arg0[0] [%1] [1] : memref<?xindex> to memref<?xindex>
+    %2 = sparse_tensor.storage_specifier.get %arg3  crd_mem_sz at 1 : !sparse_tensor.storage_specifier<#sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>>
+    %subview_1 = memref.subview %arg1[0] [%2] [1] : memref<?xindex> to memref<?xindex>
+    scf.for %arg6 = %c0 to %c10 step %c1 {
+      %3 = memref.load %subview_0[%arg6] : memref<?xindex>
+      %4 = arith.addi %arg6, %c1 : index
+      %5 = memref.load %subview_0[%4] : memref<?xindex>
+      scf.for %arg7 = %3 to %5 step %c1 {
+        %6 = memref.load %subview_1[%arg7] : memref<?xindex>
+        %7 = memref.load %subview[%arg7] : memref<?xf64>
+        scf.for %arg8 = %c0 to %c10 step %c4 {
+          %8 = affine.min affine_map<(d0, d1)[s0] -> (4, d0 - d1)>(%c10, %arg8)[%c4]
+          %9 = vector.create_mask %8 : vector<4xi1>
+          %10 = vector.maskedload %arg5[%arg6, %arg8], %9, %cst : memref<10x10xf64>, vector<4xi1>, vector<4xf64> into vector<4xf64>
+          %11 = vector.broadcast %7 : f64 to vector<4xf64>
+          %12 = vector.maskedload %arg4[%6, %arg8], %9, %cst : memref<10x10xf64>, vector<4xi1>, vector<4xf64> into vector<4xf64>
+          %13 = arith.mulf %11, %12 : vector<4xf64>
+          %14 = arith.addf %10, %13 : vector<4xf64>
+          vector.maskedstore %arg5[%arg6, %arg8], %9, %14 : memref<10x10xf64>, vector<4xi1>, vector<4xf64>
+        } {"Emitted from" = "linalg.generic"}
+      } {"Emitted from" = "linalg.generic"}
+    } {"Emitted from" = "linalg.generic"}
+    return %arg5 : memref<10x10xf64>
+  }
+  func.func @main() -> i64 {
+    %c8 = arith.constant 8 : index
+    %cst = arith.constant 0.000000e+00 : f64
+    %c1 = arith.constant 1 : index
+    %c10 = arith.constant 10 : index
+    %c0 = arith.constant 0 : index
+    %0 = memref.get_global @__constant_10x10xf64 : memref<10x10xf64>
+    %alloc = memref.alloc() {alignment = 64 : i64} : memref<10x10xf64>
+    %1:4 = call @assemble_sparse() : () -> (memref<?xindex>, memref<?xindex>, memref<?xf64>, !sparse_tensor.storage_specifier<#sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>>)
+    %2 = call @matmul(%1#0, %1#1, %1#2, %1#3, %0, %alloc) : (memref<?xindex>, memref<?xindex>, memref<?xf64>, !sparse_tensor.storage_specifier<#sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>>, memref<10x10xf64>, memref<10x10xf64>) -> memref<10x10xf64>
+    scf.for %arg0 = %c0 to %c10 step %c1 {
+      %5 = vector.transfer_read %2[%arg0, %c0], %cst {in_bounds = [true]} : memref<10x10xf64>, vector<10xf64>
+      vector.print %5 : vector<10xf64>
+    }
+    %3 = memref.load %2[%c8, %c8] : memref<10x10xf64>
+    %4 = arith.fptosi %3 : f64 to i64
+    return %4 : i64
+  }
+  func.func @assemble_sparse() -> (memref<?xindex>, memref<?xindex>, memref<?xf64>, !sparse_tensor.storage_specifier<#sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>>) {
+    %c11 = arith.constant 11 : index
+    %c10 = arith.constant 10 : index
+    %0 = memref.get_global @__constant_30xf64 : memref<30xf64>
+    %1 = memref.get_global @__constant_11xindex : memref<11xindex>
+    %2 = memref.get_global @__constant_30xindex : memref<30xindex>
+    %cast = memref.cast %1 : memref<11xindex> to memref<?xindex>
+    %cast_0 = memref.cast %2 : memref<30xindex> to memref<?xindex>
+    %cast_1 = memref.cast %0 : memref<30xf64> to memref<?xf64>
+    %3 = sparse_tensor.storage_specifier.init : !sparse_tensor.storage_specifier<#sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>>
+    %4 = sparse_tensor.storage_specifier.set %3  lvl_sz at 0 with %c10 : !sparse_tensor.storage_specifier<#sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>>
+    %5 = sparse_tensor.storage_specifier.set %4  lvl_sz at 1 with %c10 : !sparse_tensor.storage_specifier<#sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>>
+    %6 = sparse_tensor.storage_specifier.set %5  pos_mem_sz at 1 with %c11 : !sparse_tensor.storage_specifier<#sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>>
+    %7 = memref.load %1[%c10] : memref<11xindex>
+    %8 = sparse_tensor.storage_specifier.set %6  crd_mem_sz at 1 with %7 : !sparse_tensor.storage_specifier<#sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>>
+    %9 = sparse_tensor.storage_specifier.set %8  val_mem_sz with %7 : !sparse_tensor.storage_specifier<#sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>>
+    return %cast, %cast_0, %cast_1, %9 : memref<?xindex>, memref<?xindex>, memref<?xf64>, !sparse_tensor.storage_specifier<#sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : dense, d1 : compressed) }>>
+  }
+}
+// -----// IR Dump //----- //
+module {
+  memref.global "private" constant @__constant_10x10xf64 : memref<10x10xf64> = dense<[[5.0072820879405331, 2.1420497309468542, 8.4364357946217474, 3.3512684114489364, 4.8578737173077684, 6.5026873298607608, 4.481183080848961, 1.6018142840321781, 1.6482067031075565, 2.7697353449463433], [8.2796435610104453, 9.7956308688691446, 5.066309369035312, 1.0691978274975567, 7.2754747197326219, 7.4679216752662611, 1.8460472498040226, 1.7245060332115747, 9.828847678500983, 5.8523888503628294], [4.735129046344202, 0.21389279999051047, 9.9823910553584571, 0.22751442405574696, 4.3063298537464378, 1.0300462704374436, 7.1885192597496097, 1.7297134743393461, 7.4494154821665912, 8.2180913094628564], [0.55370097211729696, 7.0871105126860554, 7.7450498540614178, 4.2448327660994876, 1.2746000519648371, 9.4391729894286023, 6.1902689198805465, 6.0312877871821424, 8.7890699247898425, 3.1611885774377635], [8.9903796016343396, 3.4471256572948263, 8.4932841564173884, 9.9373309006088171, 2.6191045587156303, 0.77351004199567641, 1.4024547359632467, 7.454551829233095, 2.6194195569905077, 4.0298520046877577], [4.7641019675563543, 3.8129279818642861, 9.0747728919768225, 6.4920816381757511, 6.7882405668469881, 7.0063465072165911, 5.7386637585592792, 7.5230234961300599, 0.91592641387099771, 8.6646639602141899], [5.6862365678538973, 4.8755032417073192, 9.5859588536709328, 8.1186668576209513, 5.3811119011589454, 3.8280043169558411, 9.9983397606134918, 6.1835824149566241, 3.4201107815517515, 0.84968218962971687], [2.791270331453247, 2.9735813587818685, 3.0654358664150494, 5.4929582569491755, 3.9238922832952996, 9.2657934977933269, 5.0681592194030571, 9.6910348814034712, 2.0972430846802959, 0.96789458347651514], [3.1989914495545624, 3.7607248895716507, 5.5182323136835318, 2.4724154287944913, 7.2920674615977124, 9.7009225179758473, 9.9421519655410044, 2.6109645810252315, 9.0484630420475316, 3.6771724535825703], [6.305746358135309, 7.6948754823713771, 3.6012681436537397, 1.263350310992416, 3.8581878444772943, 7.1047027925517909, 2.1904752468927735, 0.32914734762647391, 3.1668377278172235, 2.0518472657841924]]> {alignment = 64 : i64}
+  memref.global "private" constant @__constant_30xindex : memref<30xindex> = dense<[8, 3, 4, 6, 9, 2, 4, 0, 1, 2, 3, 5, 7, 8, 3, 6, 2, 3, 4, 5, 8, 1, 5, 7, 8, 5, 9, 4, 7, 7]> {alignment = 64 : i64}
+  memref.global "private" constant @__constant_11xindex : memref<11xindex> = dense<[0, 1, 5, 7, 14, 16, 21, 25, 27, 29, 30]> {alignment = 64 : i64}
+  memref.global "private" constant @__constant_30xf64 : memref<30xf64> = dense<[4.7563469999999999, 2.102859, 5.4238689999999998, 5.577680e+00, 3.001240e-01, 4.8357549999999998, 8.8596050000000002, 1.592490e+00, 7.372070e+00, 7.2462879999999998, 5.9191609999999999, 5.9593920000000002, 4.6956530000000001, 6.328630e-01, 3.1591619999999998, 4.7083050000000002, 8.4356449999999992, 5.4309390000000004, 2.1190630000000001, 1.545420e-01, 2.595040e+00, 1.4655819999999999, 1.321259, 3.702925, 3.542246, 6.831162, 1.723510e+00, 7.8729019999999998, 6.0081550000000004, 1.047045]> {alignment = 64 : i64}
+  func.func @matmul(%arg0: memref<?xindex>, %arg1: memref<?xindex>, %arg2: memref<?xf64>, %arg3: !llvm.struct<(array<2 x i64>, array<3 x i64>)>, %arg4: memref<10x10xf64>, %arg5: memref<10x10xf64>) -> memref<10x10xf64> {
+    %cst = arith.constant dense<0.000000e+00> : vector<4xf64>
+    %c4 = arith.constant 4 : index
+    %c1 = arith.constant 1 : index
+    %c0 = arith.constant 0 : index
+    %c10 = arith.constant 10 : index
+    %0 = llvm.extractvalue %arg3[1, 2] : !llvm.struct<(array<2 x i64>, array<3 x i64>)> 
+    %1 = arith.index_cast %0 : i64 to index
+    %subview = memref.subview %arg2[0] [%1] [1] : memref<?xf64> to memref<?xf64>
+    %2 = llvm.extractvalue %arg3[1, 0] : !llvm.struct<(array<2 x i64>, array<3 x i64>)> 
+    %3 = arith.index_cast %2 : i64 to index
+    %subview_0 = memref.subview %arg0[0] [%3] [1] : memref<?xindex> to memref<?xindex>
+    %4 = llvm.extractvalue %arg3[1, 1] : !llvm.struct<(array<2 x i64>, array<3 x i64>)> 
+    %5 = arith.index_cast %4 : i64 to index
+    %subview_1 = memref.subview %arg1[0] [%5] [1] : memref<?xindex> to memref<?xindex>
+    scf.for %arg6 = %c0 to %c10 step %c1 {
+      %6 = memref.load %subview_0[%arg6] : memref<?xindex>
+      %7 = arith.addi %arg6, %c1 : index
+      %8 = memref.load %subview_0[%7] : memref<?xindex>
+      scf.for %arg7 = %6 to %8 step %c1 {
+        %9 = memref.load %subview_1[%arg7] : memref<?xindex>
+        %10 = memref.load %subview[%arg7] : memref<?xf64>
+        scf.for %arg8 = %c0 to %c10 step %c4 {
+          %11 = affine.min affine_map<(d0, d1)[s0] -> (4, d0 - d1)>(%c10, %arg8)[%c4]
+          %12 = vector.create_mask %11 : vector<4xi1>
+          %13 = vector.maskedload %arg5[%arg6, %arg8], %12, %cst : memref<10x10xf64>, vector<4xi1>, vector<4xf64> into vector<4xf64>
+          %14 = vector.broadcast %10 : f64 to vector<4xf64>
+          %15 = vector.maskedload %arg4[%9, %arg8], %12, %cst : memref<10x10xf64>, vector<4xi1>, vector<4xf64> into vector<4xf64>
+          %16 = arith.mulf %14, %15 : vector<4xf64>
+          %17 = arith.addf %13, %16 : vector<4xf64>
+          vector.maskedstore %arg5[%arg6, %arg8], %12, %17 : memref<10x10xf64>, vector<4xi1>, vector<4xf64>
+        } {"Emitted from" = "linalg.generic"}
+      } {"Emitted from" = "linalg.generic"}
+    } {"Emitted from" = "linalg.generic"}
+    return %arg5 : memref<10x10xf64>
+  }
+  func.func @main() -> i64 {
+    %c8 = arith.constant 8 : index
+    %cst = arith.constant 0.000000e+00 : f64
+    %c1 = arith.constant 1 : index
+    %c10 = arith.constant 10 : index
+    %c0 = arith.constant 0 : index
+    %0 = memref.get_global @__constant_10x10xf64 : memref<10x10xf64>
+    %alloc = memref.alloc() {alignment = 64 : i64} : memref<10x10xf64>
+    %1:4 = call @assemble_sparse() : () -> (memref<?xindex>, memref<?xindex>, memref<?xf64>, !llvm.struct<(array<2 x i64>, array<3 x i64>)>)
+    %2 = call @matmul(%1#0, %1#1, %1#2, %1#3, %0, %alloc) : (memref<?xindex>, memref<?xindex>, memref<?xf64>, !llvm.struct<(array<2 x i64>, array<3 x i64>)>, memref<10x10xf64>, memref<10x10xf64>) -> memref<10x10xf64>
+    scf.for %arg0 = %c0 to %c10 step %c1 {
+      %5 = vector.transfer_read %2[%arg0, %c0], %cst {in_bounds = [true]} : memref<10x10xf64>, vector<10xf64>
+      vector.print %5 : vector<10xf64>
+    }
+    %3 = memref.load %2[%c8, %c8] : memref<10x10xf64>
+    %4 = arith.fptosi %3 : f64 to i64
+    return %4 : i64
+  }
+  func.func @assemble_sparse() -> (memref<?xindex>, memref<?xindex>, memref<?xf64>, !llvm.struct<(array<2 x i64>, array<3 x i64>)>) {
+    %c11 = arith.constant 11 : index
+    %c10 = arith.constant 10 : index
+    %0 = memref.get_global @__constant_30xf64 : memref<30xf64>
+    %1 = memref.get_global @__constant_11xindex : memref<11xindex>
+    %2 = memref.get_global @__constant_30xindex : memref<30xindex>
+    %cast = memref.cast %1 : memref<11xindex> to memref<?xindex>
+    %cast_0 = memref.cast %2 : memref<30xindex> to memref<?xindex>
+    %cast_1 = memref.cast %0 : memref<30xf64> to memref<?xf64>
+    %3 = llvm.mlir.poison : !llvm.struct<(array<2 x i64>, array<3 x i64>)>
+    %c0_i64 = arith.constant 0 : i64
+    %4 = llvm.insertvalue %c0_i64, %3[1, 0] : !llvm.struct<(array<2 x i64>, array<3 x i64>)> 
+    %5 = llvm.insertvalue %c0_i64, %4[1, 1] : !llvm.struct<(array<2 x i64>, array<3 x i64>)> 
+    %6 = llvm.insertvalue %c0_i64, %5[1, 2] : !llvm.struct<(array<2 x i64>, array<3 x i64>)> 
+    %7 = arith.index_cast %c10 : index to i64
+    %8 = llvm.insertvalue %7, %6[0, 0] : !llvm.struct<(array<2 x i64>, array<3 x i64>)> 
+    %9 = arith.index_cast %c10 : index to i64
+    %10 = llvm.insertvalue %9, %8[0, 1] : !llvm.struct<(array<2 x i64>, array<3 x i64>)> 
+    %11 = arith.index_cast %c11 : index to i64
+    %12 = llvm.insertvalue %11, %10[1, 0] : !llvm.struct<(array<2 x i64>, array<3 x i64>)> 
+    %13 = memref.load %1[%c10] : memref<11xindex>
+    %14 = arith.index_cast %13 : index to i64
+    %15 = llvm.insertvalue %14, %12[1, 1] : !llvm.struct<(array<2 x i64>, array<3 x i64>)> 
+    %16 = arith.index_cast %13 : index to i64
+    %17 = llvm.insertvalue %16, %15[1, 2] : !llvm.struct<(array<2 x i64>, array<3 x i64>)> 
+    return %cast, %cast_0, %cast_1, %17 : memref<?xindex>, memref<?xindex>, memref<?xf64>, !llvm.struct<(array<2 x i64>, array<3 x i64>)>
+  }
+}
+mlir-translate -mlir-to-llvmir -o from_scratch.ll from_scratch.llvm.mlir

@@ -1,0 +1,49 @@
+
+
+
+mlir-opt \
+    -linalg-generalize-named-ops \
+    -linalg-fuse-elementwise-ops \
+    -pre-sparsification-rewrite \
+    -empty-tensor-to-alloc-tensor \
+    -sparse-reinterpret-map="scope=all" \
+    -sparsification="enable-runtime-library=false" \
+    -stage-sparse-ops \
+    -lower-sparse-ops-to-foreach="enable-convert=true" \
+    -sparse-reinterpret-map="scope=except-generic" \
+    -lower-sparse-foreach-to-scf \
+    -loop-invariant-code-motion \
+    -sparse-vectorization="vl=4"
+
+
+mlir-opt \
+    -one-shot-bufferize="allow-return-allocs-from-loops=true dialect-filter=arith,linalg,scf,memref,tensor,func allow-unknown-ops=true"
+
+
+mlir-opt \
+    -mlir-print-ir-after-all \
+    -sparse-tensor-codegen="enable-buffer-initialization=true create-sparse-deallocs=true" \ 
+    -sparse-buffer-rewrite="enable-buffer-initialization=true"  \
+    -sparse-storage-specifier-to-llvm \
+    -canonicalize \
+    -convert-linalg-to-loops \
+    -convert-vector-to-scf \
+    -expand-realloc \
+    -convert-scf-to-cf \
+    -expand-strided-metadata \
+    -lower-affine \
+    -convert-vector-to-llvm \
+    -finalize-memref-to-llvm \
+    -convert-complex-to-standard \
+    -arith-expand \
+    -convert-math-to-llvm \
+    -convert-math-to-libm \
+    -convert-complex-to-libm \
+    -convert-vector-to-llvm \
+    -convert-complex-to-llvm \
+    -convert-vector-to-llvm \
+    -convert-func-to-llvm \
+    -convert-arith-to-llvm \
+    -convert-cf-to-llvm \
+    -convert-ub-to-llvm \
+    -reconcile-unrealized-casts manualbufferized.mlir -o manualbufferized.llvm.mlir > manual_ir_dump.txt 2>&1

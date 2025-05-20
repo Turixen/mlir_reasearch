@@ -1,0 +1,465 @@
+// -----// IR Dump After LinalgGeneralizeNamedOpsPass (linalg-generalize-named-ops) //----- //
+#map = affine_map<(d0, d1, d2) -> (d0, d2)>
+#map1 = affine_map<(d0, d1, d2) -> (d2, d1)>
+#map2 = affine_map<(d0, d1, d2) -> (d0, d1)>
+#map3 = affine_map<(d0, d1) -> (d0, d1)>
+#sparse = #sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : compressed, d1 : compressed) }>
+module {
+  func.func @matmul_masked(%arg0: tensor<10x10xf64, #sparse>, %arg1: tensor<10x10xf64>, %arg2: tensor<10x10xf64>) -> tensor<10x10xf64> {
+    %0 = linalg.generic {indexing_maps = [#map, #map1, #map2], iterator_types = ["parallel", "parallel", "reduction"]} ins(%arg0, %arg1 : tensor<10x10xf64, #sparse>, tensor<10x10xf64>) outs(%arg2 : tensor<10x10xf64>) {
+    ^bb0(%in: f64, %in_0: f64, %out: f64):
+      %1 = arith.mulf %in, %in_0 : f64
+      %2 = arith.addf %out, %1 : f64
+      linalg.yield %2 : f64
+    } -> tensor<10x10xf64>
+    return %0 : tensor<10x10xf64>
+  }
+  func.func @mul_ds(%arg0: tensor<512x1024xf32, #sparse>, %arg1: tensor<512x1024xf32>, %arg2: tensor<512x1024xf32>) -> tensor<512x1024xf32> {
+    %0 = linalg.generic {doc = "C(i,j) = A(i,j) * B(i,j)", indexing_maps = [#map3, #map3, #map3], iterator_types = ["parallel", "parallel"]} ins(%arg0, %arg1 : tensor<512x1024xf32, #sparse>, tensor<512x1024xf32>) outs(%arg2 : tensor<512x1024xf32>) {
+    ^bb0(%in: f32, %in_0: f32, %out: f32):
+      %1 = arith.mulf %in, %in_0 : f32
+      linalg.yield %1 : f32
+    } -> tensor<512x1024xf32>
+    return %0 : tensor<512x1024xf32>
+  }
+}
+
+
+// -----// IR Dump After LinalgElementwiseOpFusionPass (linalg-fuse-elementwise-ops) //----- //
+#map = affine_map<(d0, d1, d2) -> (d0, d2)>
+#map1 = affine_map<(d0, d1, d2) -> (d2, d1)>
+#map2 = affine_map<(d0, d1, d2) -> (d0, d1)>
+#map3 = affine_map<(d0, d1) -> (d0, d1)>
+#sparse = #sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : compressed, d1 : compressed) }>
+module {
+  func.func @matmul_masked(%arg0: tensor<10x10xf64, #sparse>, %arg1: tensor<10x10xf64>, %arg2: tensor<10x10xf64>) -> tensor<10x10xf64> {
+    %0 = linalg.generic {indexing_maps = [#map, #map1, #map2], iterator_types = ["parallel", "parallel", "reduction"]} ins(%arg0, %arg1 : tensor<10x10xf64, #sparse>, tensor<10x10xf64>) outs(%arg2 : tensor<10x10xf64>) {
+    ^bb0(%in: f64, %in_0: f64, %out: f64):
+      %1 = arith.mulf %in, %in_0 : f64
+      %2 = arith.addf %out, %1 : f64
+      linalg.yield %2 : f64
+    } -> tensor<10x10xf64>
+    return %0 : tensor<10x10xf64>
+  }
+  func.func @mul_ds(%arg0: tensor<512x1024xf32, #sparse>, %arg1: tensor<512x1024xf32>, %arg2: tensor<512x1024xf32>) -> tensor<512x1024xf32> {
+    %0 = tensor.empty() : tensor<512x1024xf32>
+    %1 = linalg.generic {doc = "C(i,j) = A(i,j) * B(i,j)", indexing_maps = [#map3, #map3, #map3], iterator_types = ["parallel", "parallel"]} ins(%arg0, %arg1 : tensor<512x1024xf32, #sparse>, tensor<512x1024xf32>) outs(%0 : tensor<512x1024xf32>) {
+    ^bb0(%in: f32, %in_0: f32, %out: f32):
+      %2 = arith.mulf %in, %in_0 : f32
+      linalg.yield %2 : f32
+    } -> tensor<512x1024xf32>
+    return %1 : tensor<512x1024xf32>
+  }
+}
+
+
+// -----// IR Dump After SparseReinterpretMap (sparse-reinterpret-map) //----- //
+#map = affine_map<(d0, d1, d2) -> (d0, d1)>
+#map1 = affine_map<(d0, d1, d2) -> (d1, d2)>
+#map2 = affine_map<(d0, d1, d2) -> (d0, d2)>
+#map3 = affine_map<(d0, d1) -> (d0, d1)>
+#sparse = #sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : compressed, d1 : compressed) }>
+module {
+  func.func @matmul_masked(%arg0: tensor<10x10xf64, #sparse>, %arg1: tensor<10x10xf64>, %arg2: tensor<10x10xf64>) -> tensor<10x10xf64> {
+    %0 = linalg.generic {indexing_maps = [#map, #map1, #map2], iterator_types = ["parallel", "reduction", "parallel"]} ins(%arg0, %arg1 : tensor<10x10xf64, #sparse>, tensor<10x10xf64>) outs(%arg2 : tensor<10x10xf64>) attrs =  {sorted = true} {
+    ^bb0(%in: f64, %in_0: f64, %out: f64):
+      %1 = arith.mulf %in, %in_0 : f64
+      %2 = arith.addf %out, %1 : f64
+      linalg.yield %2 : f64
+    } -> tensor<10x10xf64>
+    return %0 : tensor<10x10xf64>
+  }
+  func.func @mul_ds(%arg0: tensor<512x1024xf32, #sparse>, %arg1: tensor<512x1024xf32>, %arg2: tensor<512x1024xf32>) -> tensor<512x1024xf32> {
+    %0 = tensor.empty() : tensor<512x1024xf32>
+    %1 = linalg.generic {doc = "C(i,j) = A(i,j) * B(i,j)", indexing_maps = [#map3, #map3, #map3], iterator_types = ["parallel", "parallel"]} ins(%arg0, %arg1 : tensor<512x1024xf32, #sparse>, tensor<512x1024xf32>) outs(%0 : tensor<512x1024xf32>) attrs =  {sorted = true} {
+    ^bb0(%in: f32, %in_0: f32, %out: f32):
+      %2 = arith.mulf %in, %in_0 : f32
+      linalg.yield %2 : f32
+    } -> tensor<512x1024xf32>
+    return %1 : tensor<512x1024xf32>
+  }
+}
+
+
+// -----// IR Dump After SparsificationPass (sparsification) //----- //
+#sparse = #sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : compressed, d1 : compressed) }>
+module {
+  func.func @matmul_masked(%arg0: tensor<10x10xf64, #sparse>, %arg1: tensor<10x10xf64>, %arg2: tensor<10x10xf64>) -> tensor<10x10xf64> {
+    %c1 = arith.constant 1 : index
+    %c0 = arith.constant 0 : index
+    %c10 = arith.constant 10 : index
+    %0 = sparse_tensor.values %arg0 : tensor<10x10xf64, #sparse> to memref<?xf64>
+    %1 = bufferization.to_memref %arg1 : tensor<10x10xf64> to memref<10x10xf64>
+    %2 = bufferization.to_memref %arg2 : tensor<10x10xf64> to memref<10x10xf64>
+    %3 = sparse_tensor.positions %arg0 {level = 0 : index} : tensor<10x10xf64, #sparse> to memref<?xindex>
+    %4 = sparse_tensor.coordinates %arg0 {level = 0 : index} : tensor<10x10xf64, #sparse> to memref<?xindex>
+    %5 = sparse_tensor.positions %arg0 {level = 1 : index} : tensor<10x10xf64, #sparse> to memref<?xindex>
+    %6 = sparse_tensor.coordinates %arg0 {level = 1 : index} : tensor<10x10xf64, #sparse> to memref<?xindex>
+    %7 = memref.load %3[%c0] : memref<?xindex>
+    %8 = memref.load %3[%c1] : memref<?xindex>
+    scf.for %arg3 = %7 to %8 step %c1 {
+      %10 = memref.load %4[%arg3] : memref<?xindex>
+      %11 = memref.load %5[%arg3] : memref<?xindex>
+      %12 = arith.addi %arg3, %c1 : index
+      %13 = memref.load %5[%12] : memref<?xindex>
+      scf.for %arg4 = %11 to %13 step %c1 {
+        %14 = memref.load %6[%arg4] : memref<?xindex>
+        %15 = memref.load %0[%arg4] : memref<?xf64>
+        scf.for %arg5 = %c0 to %c10 step %c1 {
+          %16 = memref.load %2[%10, %arg5] : memref<10x10xf64>
+          %17 = memref.load %1[%14, %arg5] : memref<10x10xf64>
+          %18 = arith.mulf %15, %17 : f64
+          %19 = arith.addf %16, %18 : f64
+          memref.store %19, %2[%10, %arg5] : memref<10x10xf64>
+        } {"Emitted from" = "linalg.generic"}
+      } {"Emitted from" = "linalg.generic"}
+    } {"Emitted from" = "linalg.generic"}
+    %9 = bufferization.to_tensor %2 : memref<10x10xf64> to tensor<10x10xf64>
+    return %9 : tensor<10x10xf64>
+  }
+  func.func @mul_ds(%arg0: tensor<512x1024xf32, #sparse>, %arg1: tensor<512x1024xf32>, %arg2: tensor<512x1024xf32>) -> tensor<512x1024xf32> {
+    %c1 = arith.constant 1 : index
+    %c0 = arith.constant 0 : index
+    %cst = arith.constant 0.000000e+00 : f32
+    %0 = tensor.empty() : tensor<512x1024xf32>
+    %1 = sparse_tensor.values %arg0 : tensor<512x1024xf32, #sparse> to memref<?xf32>
+    %2 = bufferization.to_memref %arg1 : tensor<512x1024xf32> to memref<512x1024xf32>
+    %3 = bufferization.to_memref %0 : tensor<512x1024xf32> to memref<512x1024xf32>
+    linalg.fill ins(%cst : f32) outs(%3 : memref<512x1024xf32>)
+    %4 = sparse_tensor.positions %arg0 {level = 0 : index} : tensor<512x1024xf32, #sparse> to memref<?xindex>
+    %5 = sparse_tensor.coordinates %arg0 {level = 0 : index} : tensor<512x1024xf32, #sparse> to memref<?xindex>
+    %6 = sparse_tensor.positions %arg0 {level = 1 : index} : tensor<512x1024xf32, #sparse> to memref<?xindex>
+    %7 = sparse_tensor.coordinates %arg0 {level = 1 : index} : tensor<512x1024xf32, #sparse> to memref<?xindex>
+    %8 = memref.load %4[%c0] : memref<?xindex>
+    %9 = memref.load %4[%c1] : memref<?xindex>
+    scf.for %arg3 = %8 to %9 step %c1 {
+      %11 = memref.load %5[%arg3] : memref<?xindex>
+      %12 = memref.load %6[%arg3] : memref<?xindex>
+      %13 = arith.addi %arg3, %c1 : index
+      %14 = memref.load %6[%13] : memref<?xindex>
+      scf.for %arg4 = %12 to %14 step %c1 {
+        %15 = memref.load %7[%arg4] : memref<?xindex>
+        %16 = memref.load %1[%arg4] : memref<?xf32>
+        %17 = memref.load %2[%11, %15] : memref<512x1024xf32>
+        %18 = arith.mulf %16, %17 : f32
+        memref.store %18, %3[%11, %15] : memref<512x1024xf32>
+      } {"Emitted from" = "linalg.generic"}
+    } {"Emitted from" = "linalg.generic"}
+    %10 = bufferization.to_tensor %3 : memref<512x1024xf32> to tensor<512x1024xf32>
+    return %10 : tensor<512x1024xf32>
+  }
+}
+
+
+// -----// IR Dump After CSE (cse) //----- //
+#sparse = #sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : compressed, d1 : compressed) }>
+module {
+  func.func @matmul_masked(%arg0: tensor<10x10xf64, #sparse>, %arg1: tensor<10x10xf64>, %arg2: tensor<10x10xf64>) -> tensor<10x10xf64> {
+    %c1 = arith.constant 1 : index
+    %c0 = arith.constant 0 : index
+    %c10 = arith.constant 10 : index
+    %0 = sparse_tensor.values %arg0 : tensor<10x10xf64, #sparse> to memref<?xf64>
+    %1 = bufferization.to_memref %arg1 : tensor<10x10xf64> to memref<10x10xf64>
+    %2 = bufferization.to_memref %arg2 : tensor<10x10xf64> to memref<10x10xf64>
+    %3 = sparse_tensor.positions %arg0 {level = 0 : index} : tensor<10x10xf64, #sparse> to memref<?xindex>
+    %4 = sparse_tensor.coordinates %arg0 {level = 0 : index} : tensor<10x10xf64, #sparse> to memref<?xindex>
+    %5 = sparse_tensor.positions %arg0 {level = 1 : index} : tensor<10x10xf64, #sparse> to memref<?xindex>
+    %6 = sparse_tensor.coordinates %arg0 {level = 1 : index} : tensor<10x10xf64, #sparse> to memref<?xindex>
+    %7 = memref.load %3[%c0] : memref<?xindex>
+    %8 = memref.load %3[%c1] : memref<?xindex>
+    scf.for %arg3 = %7 to %8 step %c1 {
+      %10 = memref.load %4[%arg3] : memref<?xindex>
+      %11 = memref.load %5[%arg3] : memref<?xindex>
+      %12 = arith.addi %arg3, %c1 : index
+      %13 = memref.load %5[%12] : memref<?xindex>
+      scf.for %arg4 = %11 to %13 step %c1 {
+        %14 = memref.load %6[%arg4] : memref<?xindex>
+        %15 = memref.load %0[%arg4] : memref<?xf64>
+        scf.for %arg5 = %c0 to %c10 step %c1 {
+          %16 = memref.load %2[%10, %arg5] : memref<10x10xf64>
+          %17 = memref.load %1[%14, %arg5] : memref<10x10xf64>
+          %18 = arith.mulf %15, %17 : f64
+          %19 = arith.addf %16, %18 : f64
+          memref.store %19, %2[%10, %arg5] : memref<10x10xf64>
+        } {"Emitted from" = "linalg.generic"}
+      } {"Emitted from" = "linalg.generic"}
+    } {"Emitted from" = "linalg.generic"}
+    %9 = bufferization.to_tensor %2 : memref<10x10xf64> to tensor<10x10xf64>
+    return %9 : tensor<10x10xf64>
+  }
+  func.func @mul_ds(%arg0: tensor<512x1024xf32, #sparse>, %arg1: tensor<512x1024xf32>, %arg2: tensor<512x1024xf32>) -> tensor<512x1024xf32> {
+    %c1 = arith.constant 1 : index
+    %c0 = arith.constant 0 : index
+    %cst = arith.constant 0.000000e+00 : f32
+    %0 = tensor.empty() : tensor<512x1024xf32>
+    %1 = sparse_tensor.values %arg0 : tensor<512x1024xf32, #sparse> to memref<?xf32>
+    %2 = bufferization.to_memref %arg1 : tensor<512x1024xf32> to memref<512x1024xf32>
+    %3 = bufferization.to_memref %0 : tensor<512x1024xf32> to memref<512x1024xf32>
+    linalg.fill ins(%cst : f32) outs(%3 : memref<512x1024xf32>)
+    %4 = sparse_tensor.positions %arg0 {level = 0 : index} : tensor<512x1024xf32, #sparse> to memref<?xindex>
+    %5 = sparse_tensor.coordinates %arg0 {level = 0 : index} : tensor<512x1024xf32, #sparse> to memref<?xindex>
+    %6 = sparse_tensor.positions %arg0 {level = 1 : index} : tensor<512x1024xf32, #sparse> to memref<?xindex>
+    %7 = sparse_tensor.coordinates %arg0 {level = 1 : index} : tensor<512x1024xf32, #sparse> to memref<?xindex>
+    %8 = memref.load %4[%c0] : memref<?xindex>
+    %9 = memref.load %4[%c1] : memref<?xindex>
+    scf.for %arg3 = %8 to %9 step %c1 {
+      %11 = memref.load %5[%arg3] : memref<?xindex>
+      %12 = memref.load %6[%arg3] : memref<?xindex>
+      %13 = arith.addi %arg3, %c1 : index
+      %14 = memref.load %6[%13] : memref<?xindex>
+      scf.for %arg4 = %12 to %14 step %c1 {
+        %15 = memref.load %7[%arg4] : memref<?xindex>
+        %16 = memref.load %1[%arg4] : memref<?xf32>
+        %17 = memref.load %2[%11, %15] : memref<512x1024xf32>
+        %18 = arith.mulf %16, %17 : f32
+        memref.store %18, %3[%11, %15] : memref<512x1024xf32>
+      } {"Emitted from" = "linalg.generic"}
+    } {"Emitted from" = "linalg.generic"}
+    %10 = bufferization.to_tensor %3 : memref<512x1024xf32> to tensor<512x1024xf32>
+    return %10 : tensor<512x1024xf32>
+  }
+}
+
+
+// -----// IR Dump After SparseVectorization (sparse-vectorization) //----- //
+#map = affine_map<(d0, d1)[s0] -> (16, d0 - d1)>
+#sparse = #sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : compressed, d1 : compressed) }>
+module {
+  func.func @matmul_masked(%arg0: tensor<10x10xf64, #sparse>, %arg1: tensor<10x10xf64>, %arg2: tensor<10x10xf64>) -> tensor<10x10xf64> {
+    %cst = arith.constant dense<0.000000e+00> : vector<16xf64>
+    %c16 = arith.constant 16 : index
+    %c1 = arith.constant 1 : index
+    %c0 = arith.constant 0 : index
+    %c10 = arith.constant 10 : index
+    %0 = sparse_tensor.values %arg0 : tensor<10x10xf64, #sparse> to memref<?xf64>
+    %1 = bufferization.to_memref %arg1 : tensor<10x10xf64> to memref<10x10xf64>
+    %2 = bufferization.to_memref %arg2 : tensor<10x10xf64> to memref<10x10xf64>
+    %3 = sparse_tensor.positions %arg0 {level = 0 : index} : tensor<10x10xf64, #sparse> to memref<?xindex>
+    %4 = sparse_tensor.coordinates %arg0 {level = 0 : index} : tensor<10x10xf64, #sparse> to memref<?xindex>
+    %5 = sparse_tensor.positions %arg0 {level = 1 : index} : tensor<10x10xf64, #sparse> to memref<?xindex>
+    %6 = sparse_tensor.coordinates %arg0 {level = 1 : index} : tensor<10x10xf64, #sparse> to memref<?xindex>
+    %7 = memref.load %3[%c0] : memref<?xindex>
+    %8 = memref.load %3[%c1] : memref<?xindex>
+    scf.for %arg3 = %7 to %8 step %c1 {
+      %10 = memref.load %4[%arg3] : memref<?xindex>
+      %11 = memref.load %5[%arg3] : memref<?xindex>
+      %12 = arith.addi %arg3, %c1 : index
+      %13 = memref.load %5[%12] : memref<?xindex>
+      scf.for %arg4 = %11 to %13 step %c1 {
+        %14 = memref.load %6[%arg4] : memref<?xindex>
+        %15 = memref.load %0[%arg4] : memref<?xf64>
+        scf.for %arg5 = %c0 to %c10 step %c16 {
+          %16 = affine.min #map(%c10, %arg5)[%c16]
+          %17 = vector.create_mask %16 : vector<16xi1>
+          %18 = vector.maskedload %2[%10, %arg5], %17, %cst : memref<10x10xf64>, vector<16xi1>, vector<16xf64> into vector<16xf64>
+          %19 = vector.broadcast %15 : f64 to vector<16xf64>
+          %20 = vector.maskedload %1[%14, %arg5], %17, %cst : memref<10x10xf64>, vector<16xi1>, vector<16xf64> into vector<16xf64>
+          %21 = arith.mulf %19, %20 : vector<16xf64>
+          %22 = arith.addf %18, %21 : vector<16xf64>
+          vector.maskedstore %2[%10, %arg5], %17, %22 : memref<10x10xf64>, vector<16xi1>, vector<16xf64>
+        } {"Emitted from" = "linalg.generic"}
+      } {"Emitted from" = "linalg.generic"}
+    } {"Emitted from" = "linalg.generic"}
+    %9 = bufferization.to_tensor %2 : memref<10x10xf64> to tensor<10x10xf64>
+    return %9 : tensor<10x10xf64>
+  }
+  func.func @mul_ds(%arg0: tensor<512x1024xf32, #sparse>, %arg1: tensor<512x1024xf32>, %arg2: tensor<512x1024xf32>) -> tensor<512x1024xf32> {
+    %cst = arith.constant dense<0.000000e+00> : vector<16xf32>
+    %cst_0 = arith.constant dense<0> : vector<16xindex>
+    %c16 = arith.constant 16 : index
+    %c1 = arith.constant 1 : index
+    %c0 = arith.constant 0 : index
+    %cst_1 = arith.constant 0.000000e+00 : f32
+    %0 = tensor.empty() : tensor<512x1024xf32>
+    %1 = sparse_tensor.values %arg0 : tensor<512x1024xf32, #sparse> to memref<?xf32>
+    %2 = bufferization.to_memref %arg1 : tensor<512x1024xf32> to memref<512x1024xf32>
+    %3 = bufferization.to_memref %0 : tensor<512x1024xf32> to memref<512x1024xf32>
+    linalg.fill ins(%cst_1 : f32) outs(%3 : memref<512x1024xf32>)
+    %4 = sparse_tensor.positions %arg0 {level = 0 : index} : tensor<512x1024xf32, #sparse> to memref<?xindex>
+    %5 = sparse_tensor.coordinates %arg0 {level = 0 : index} : tensor<512x1024xf32, #sparse> to memref<?xindex>
+    %6 = sparse_tensor.positions %arg0 {level = 1 : index} : tensor<512x1024xf32, #sparse> to memref<?xindex>
+    %7 = sparse_tensor.coordinates %arg0 {level = 1 : index} : tensor<512x1024xf32, #sparse> to memref<?xindex>
+    %8 = memref.load %4[%c0] : memref<?xindex>
+    %9 = memref.load %4[%c1] : memref<?xindex>
+    scf.for %arg3 = %8 to %9 step %c1 {
+      %11 = memref.load %5[%arg3] : memref<?xindex>
+      %12 = memref.load %6[%arg3] : memref<?xindex>
+      %13 = arith.addi %arg3, %c1 : index
+      %14 = memref.load %6[%13] : memref<?xindex>
+      scf.for %arg4 = %12 to %14 step %c16 {
+        %15 = affine.min #map(%14, %arg4)[%c16]
+        %16 = vector.create_mask %15 : vector<16xi1>
+        %17 = vector.maskedload %7[%arg4], %16, %cst_0 : memref<?xindex>, vector<16xi1>, vector<16xindex> into vector<16xindex>
+        %18 = vector.maskedload %1[%arg4], %16, %cst : memref<?xf32>, vector<16xi1>, vector<16xf32> into vector<16xf32>
+        %19 = vector.maskedload %7[%arg4], %16, %cst_0 : memref<?xindex>, vector<16xi1>, vector<16xindex> into vector<16xindex>
+        %20 = vector.gather %2[%11, %c0] [%19], %16, %cst : memref<512x1024xf32>, vector<16xindex>, vector<16xi1>, vector<16xf32> into vector<16xf32>
+        %21 = arith.mulf %18, %20 : vector<16xf32>
+        vector.scatter %3[%11, %c0] [%17], %16, %21 : memref<512x1024xf32>, vector<16xindex>, vector<16xi1>, vector<16xf32>
+      } {"Emitted from" = "linalg.generic"}
+    } {"Emitted from" = "linalg.generic"}
+    %10 = bufferization.to_tensor %3 : memref<512x1024xf32> to tensor<512x1024xf32>
+    return %10 : tensor<512x1024xf32>
+  }
+}
+
+
+// -----// IR Dump After CSE (cse) //----- //
+#map = affine_map<(d0, d1)[s0] -> (16, d0 - d1)>
+#sparse = #sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : compressed, d1 : compressed) }>
+module {
+  func.func @matmul_masked(%arg0: tensor<10x10xf64, #sparse>, %arg1: tensor<10x10xf64>, %arg2: tensor<10x10xf64>) -> tensor<10x10xf64> {
+    %cst = arith.constant dense<0.000000e+00> : vector<16xf64>
+    %c16 = arith.constant 16 : index
+    %c1 = arith.constant 1 : index
+    %c0 = arith.constant 0 : index
+    %c10 = arith.constant 10 : index
+    %0 = sparse_tensor.values %arg0 : tensor<10x10xf64, #sparse> to memref<?xf64>
+    %1 = bufferization.to_memref %arg1 : tensor<10x10xf64> to memref<10x10xf64>
+    %2 = bufferization.to_memref %arg2 : tensor<10x10xf64> to memref<10x10xf64>
+    %3 = sparse_tensor.positions %arg0 {level = 0 : index} : tensor<10x10xf64, #sparse> to memref<?xindex>
+    %4 = sparse_tensor.coordinates %arg0 {level = 0 : index} : tensor<10x10xf64, #sparse> to memref<?xindex>
+    %5 = sparse_tensor.positions %arg0 {level = 1 : index} : tensor<10x10xf64, #sparse> to memref<?xindex>
+    %6 = sparse_tensor.coordinates %arg0 {level = 1 : index} : tensor<10x10xf64, #sparse> to memref<?xindex>
+    %7 = memref.load %3[%c0] : memref<?xindex>
+    %8 = memref.load %3[%c1] : memref<?xindex>
+    scf.for %arg3 = %7 to %8 step %c1 {
+      %10 = memref.load %4[%arg3] : memref<?xindex>
+      %11 = memref.load %5[%arg3] : memref<?xindex>
+      %12 = arith.addi %arg3, %c1 : index
+      %13 = memref.load %5[%12] : memref<?xindex>
+      scf.for %arg4 = %11 to %13 step %c1 {
+        %14 = memref.load %6[%arg4] : memref<?xindex>
+        %15 = memref.load %0[%arg4] : memref<?xf64>
+        scf.for %arg5 = %c0 to %c10 step %c16 {
+          %16 = affine.min #map(%c10, %arg5)[%c16]
+          %17 = vector.create_mask %16 : vector<16xi1>
+          %18 = vector.maskedload %2[%10, %arg5], %17, %cst : memref<10x10xf64>, vector<16xi1>, vector<16xf64> into vector<16xf64>
+          %19 = vector.broadcast %15 : f64 to vector<16xf64>
+          %20 = vector.maskedload %1[%14, %arg5], %17, %cst : memref<10x10xf64>, vector<16xi1>, vector<16xf64> into vector<16xf64>
+          %21 = arith.mulf %19, %20 : vector<16xf64>
+          %22 = arith.addf %18, %21 : vector<16xf64>
+          vector.maskedstore %2[%10, %arg5], %17, %22 : memref<10x10xf64>, vector<16xi1>, vector<16xf64>
+        } {"Emitted from" = "linalg.generic"}
+      } {"Emitted from" = "linalg.generic"}
+    } {"Emitted from" = "linalg.generic"}
+    %9 = bufferization.to_tensor %2 : memref<10x10xf64> to tensor<10x10xf64>
+    return %9 : tensor<10x10xf64>
+  }
+  func.func @mul_ds(%arg0: tensor<512x1024xf32, #sparse>, %arg1: tensor<512x1024xf32>, %arg2: tensor<512x1024xf32>) -> tensor<512x1024xf32> {
+    %cst = arith.constant dense<0.000000e+00> : vector<16xf32>
+    %cst_0 = arith.constant dense<0> : vector<16xindex>
+    %c16 = arith.constant 16 : index
+    %c1 = arith.constant 1 : index
+    %c0 = arith.constant 0 : index
+    %cst_1 = arith.constant 0.000000e+00 : f32
+    %0 = tensor.empty() : tensor<512x1024xf32>
+    %1 = sparse_tensor.values %arg0 : tensor<512x1024xf32, #sparse> to memref<?xf32>
+    %2 = bufferization.to_memref %arg1 : tensor<512x1024xf32> to memref<512x1024xf32>
+    %3 = bufferization.to_memref %0 : tensor<512x1024xf32> to memref<512x1024xf32>
+    linalg.fill ins(%cst_1 : f32) outs(%3 : memref<512x1024xf32>)
+    %4 = sparse_tensor.positions %arg0 {level = 0 : index} : tensor<512x1024xf32, #sparse> to memref<?xindex>
+    %5 = sparse_tensor.coordinates %arg0 {level = 0 : index} : tensor<512x1024xf32, #sparse> to memref<?xindex>
+    %6 = sparse_tensor.positions %arg0 {level = 1 : index} : tensor<512x1024xf32, #sparse> to memref<?xindex>
+    %7 = sparse_tensor.coordinates %arg0 {level = 1 : index} : tensor<512x1024xf32, #sparse> to memref<?xindex>
+    %8 = memref.load %4[%c0] : memref<?xindex>
+    %9 = memref.load %4[%c1] : memref<?xindex>
+    scf.for %arg3 = %8 to %9 step %c1 {
+      %11 = memref.load %5[%arg3] : memref<?xindex>
+      %12 = memref.load %6[%arg3] : memref<?xindex>
+      %13 = arith.addi %arg3, %c1 : index
+      %14 = memref.load %6[%13] : memref<?xindex>
+      scf.for %arg4 = %12 to %14 step %c16 {
+        %15 = affine.min #map(%14, %arg4)[%c16]
+        %16 = vector.create_mask %15 : vector<16xi1>
+        %17 = vector.maskedload %7[%arg4], %16, %cst_0 : memref<?xindex>, vector<16xi1>, vector<16xindex> into vector<16xindex>
+        %18 = vector.maskedload %1[%arg4], %16, %cst : memref<?xf32>, vector<16xi1>, vector<16xf32> into vector<16xf32>
+        %19 = vector.gather %2[%11, %c0] [%17], %16, %cst : memref<512x1024xf32>, vector<16xindex>, vector<16xi1>, vector<16xf32> into vector<16xf32>
+        %20 = arith.mulf %18, %19 : vector<16xf32>
+        vector.scatter %3[%11, %c0] [%17], %16, %20 : memref<512x1024xf32>, vector<16xindex>, vector<16xi1>, vector<16xf32>
+      } {"Emitted from" = "linalg.generic"}
+    } {"Emitted from" = "linalg.generic"}
+    %10 = bufferization.to_tensor %3 : memref<512x1024xf32> to tensor<512x1024xf32>
+    return %10 : tensor<512x1024xf32>
+  }
+}
+
+
+#map = affine_map<(d0, d1)[s0] -> (16, d0 - d1)>
+#sparse = #sparse_tensor.encoding<{ map = (d0, d1) -> (d0 : compressed, d1 : compressed) }>
+module {
+  func.func @matmul_masked(%arg0: tensor<10x10xf64, #sparse>, %arg1: tensor<10x10xf64>, %arg2: tensor<10x10xf64>) -> tensor<10x10xf64> {
+    %cst = arith.constant dense<0.000000e+00> : vector<16xf64>
+    %c16 = arith.constant 16 : index
+    %c1 = arith.constant 1 : index
+    %c0 = arith.constant 0 : index
+    %c10 = arith.constant 10 : index
+    %0 = sparse_tensor.values %arg0 : tensor<10x10xf64, #sparse> to memref<?xf64>
+    %1 = bufferization.to_memref %arg1 : tensor<10x10xf64> to memref<10x10xf64>
+    %2 = bufferization.to_memref %arg2 : tensor<10x10xf64> to memref<10x10xf64>
+    %3 = sparse_tensor.positions %arg0 {level = 0 : index} : tensor<10x10xf64, #sparse> to memref<?xindex>
+    %4 = sparse_tensor.coordinates %arg0 {level = 0 : index} : tensor<10x10xf64, #sparse> to memref<?xindex>
+    %5 = sparse_tensor.positions %arg0 {level = 1 : index} : tensor<10x10xf64, #sparse> to memref<?xindex>
+    %6 = sparse_tensor.coordinates %arg0 {level = 1 : index} : tensor<10x10xf64, #sparse> to memref<?xindex>
+    %7 = memref.load %3[%c0] : memref<?xindex>
+    %8 = memref.load %3[%c1] : memref<?xindex>
+    scf.for %arg3 = %7 to %8 step %c1 {
+      %10 = memref.load %4[%arg3] : memref<?xindex>
+      %11 = memref.load %5[%arg3] : memref<?xindex>
+      %12 = arith.addi %arg3, %c1 : index
+      %13 = memref.load %5[%12] : memref<?xindex>
+      scf.for %arg4 = %11 to %13 step %c1 {
+        %14 = memref.load %6[%arg4] : memref<?xindex>
+        %15 = memref.load %0[%arg4] : memref<?xf64>
+        scf.for %arg5 = %c0 to %c10 step %c16 {
+          %16 = affine.min #map(%c10, %arg5)[%c16]
+          %17 = vector.create_mask %16 : vector<16xi1>
+          %18 = vector.maskedload %2[%10, %arg5], %17, %cst : memref<10x10xf64>, vector<16xi1>, vector<16xf64> into vector<16xf64>
+          %19 = vector.broadcast %15 : f64 to vector<16xf64>
+          %20 = vector.maskedload %1[%14, %arg5], %17, %cst : memref<10x10xf64>, vector<16xi1>, vector<16xf64> into vector<16xf64>
+          %21 = arith.mulf %19, %20 : vector<16xf64>
+          %22 = arith.addf %18, %21 : vector<16xf64>
+          vector.maskedstore %2[%10, %arg5], %17, %22 : memref<10x10xf64>, vector<16xi1>, vector<16xf64>
+        } {"Emitted from" = "linalg.generic"}
+      } {"Emitted from" = "linalg.generic"}
+    } {"Emitted from" = "linalg.generic"}
+    %9 = bufferization.to_tensor %2 : memref<10x10xf64> to tensor<10x10xf64>
+    return %9 : tensor<10x10xf64>
+  }
+  func.func @mul_ds(%arg0: tensor<512x1024xf32, #sparse>, %arg1: tensor<512x1024xf32>, %arg2: tensor<512x1024xf32>) -> tensor<512x1024xf32> {
+    %cst = arith.constant dense<0.000000e+00> : vector<16xf32>
+    %cst_0 = arith.constant dense<0> : vector<16xindex>
+    %c16 = arith.constant 16 : index
+    %c1 = arith.constant 1 : index
+    %c0 = arith.constant 0 : index
+    %cst_1 = arith.constant 0.000000e+00 : f32
+    %0 = tensor.empty() : tensor<512x1024xf32>
+    %1 = sparse_tensor.values %arg0 : tensor<512x1024xf32, #sparse> to memref<?xf32>
+    %2 = bufferization.to_memref %arg1 : tensor<512x1024xf32> to memref<512x1024xf32>
+    %3 = bufferization.to_memref %0 : tensor<512x1024xf32> to memref<512x1024xf32>
+    linalg.fill ins(%cst_1 : f32) outs(%3 : memref<512x1024xf32>)
+    %4 = sparse_tensor.positions %arg0 {level = 0 : index} : tensor<512x1024xf32, #sparse> to memref<?xindex>
+    %5 = sparse_tensor.coordinates %arg0 {level = 0 : index} : tensor<512x1024xf32, #sparse> to memref<?xindex>
+    %6 = sparse_tensor.positions %arg0 {level = 1 : index} : tensor<512x1024xf32, #sparse> to memref<?xindex>
+    %7 = sparse_tensor.coordinates %arg0 {level = 1 : index} : tensor<512x1024xf32, #sparse> to memref<?xindex>
+    %8 = memref.load %4[%c0] : memref<?xindex>
+    %9 = memref.load %4[%c1] : memref<?xindex>
+    scf.for %arg3 = %8 to %9 step %c1 {
+      %11 = memref.load %5[%arg3] : memref<?xindex>
+      %12 = memref.load %6[%arg3] : memref<?xindex>
+      %13 = arith.addi %arg3, %c1 : index
+      %14 = memref.load %6[%13] : memref<?xindex>
+      scf.for %arg4 = %12 to %14 step %c16 {
+        %15 = affine.min #map(%14, %arg4)[%c16]
+        %16 = vector.create_mask %15 : vector<16xi1>
+        %17 = vector.maskedload %7[%arg4], %16, %cst_0 : memref<?xindex>, vector<16xi1>, vector<16xindex> into vector<16xindex>
+        %18 = vector.maskedload %1[%arg4], %16, %cst : memref<?xf32>, vector<16xi1>, vector<16xf32> into vector<16xf32>
+        %19 = vector.gather %2[%11, %c0] [%17], %16, %cst : memref<512x1024xf32>, vector<16xindex>, vector<16xi1>, vector<16xf32> into vector<16xf32>
+        %20 = arith.mulf %18, %19 : vector<16xf32>
+        vector.scatter %3[%11, %c0] [%17], %16, %20 : memref<512x1024xf32>, vector<16xindex>, vector<16xi1>, vector<16xf32>
+      } {"Emitted from" = "linalg.generic"}
+    } {"Emitted from" = "linalg.generic"}
+    %10 = bufferization.to_tensor %3 : memref<512x1024xf32> to tensor<512x1024xf32>
+    return %10 : tensor<512x1024xf32>
+  }
+}
+

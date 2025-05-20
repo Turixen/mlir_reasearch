@@ -1,0 +1,56 @@
+
+
+-pre-sparsification-rewrite
+-empty-tensor-to-alloc-tensor
+if (--enable-gpu-libgen){
+    -sparse-gpu-codegen                            
+}
+-sparse-reinterpret-map 
+-sparsification 
+if (SparseEmitStrategy = SparseIterator) {  
+    -sparse-space-collapse
+    -lower-sparse-iteration-to-scf
+}
+-stage-sparse-ops
+-lower-sparse-ops-to-foreach
+-sparse-reinterpret-map 
+-lower-sparse-foreach-to-scf
+-loop-invariant-code-motion
+if (vectorLength > 0){
+    -sparse-vectorization
+}
+-sparse-tensor-codegen
+-sparse-buffer-rewrite
+ 
+
+ ----------------------------------------------------------------------------------------------------------------
+-pre-sparsification-rewrite
+-empty-tensor-to-alloc-tensor
+-sparse-reinterpret-map scope=all
+-sparsification
+#####-sparse-space-collapse              # Only when sparseEmitStrategy=kSparseIterator
+#####-lower-sparse-iteration-to-scf      # Only when sparseEmitStrategy=kSparseIterator
+-stage-sparse-ops
+-lower-sparse-ops-to-foreach enable-runtime-library=<bool> "enable-convert=true"
+-sparse-reinterpret-map scope=except-generic
+-lower-foreach-to-scf
+-loop-invariant-code-motion
+-sparse-vectorization vl=<unsigned> enable-vla=<bool> enable-simd-index32=<bool>  # Only when vectorLength>0
+-sparse-tensor-conversion           # When enableRuntimeLibrary=true
+-sparse-tensor-codegen create-deallocs=<bool> enable-buffer-initialization=<bool>  # When enableRuntimeLibrary=false
+-sparse-buffer-rewrite enable-buffer-initialization=<bool>  # When enableRuntimeLibrary=false
+
+
+OPTFLAGS += -pre-sparsification-rewrite
+OPTFLAGS += -empty-tensor-to-alloc-tensor
+OPTFLAGS += -sparse-reinterpret-map="scope=all"
+OPTFLAGS += -sparsification
+OPTFLAGS += -stage-sparse-ops
+OPTFLAGS += -lower-sparse-ops-to-foreach
+OPTFLAGS += -sparse-reinterpret-map="scope=except-generic"
+OPTFLAGS += -lower-sparse-foreach-to-scf
+OPTFLAGS += -loop-invariant-code-motion
+OPTFLAGS += -sparse-vectorization="vl=4"  # Only when vectorLength>0
+OPTFLAGS += -sparse-tensor-codegen # When enableRuntimeLibrary=false
+OPTFLAGS += -sparse-buffer-rewrite  # When enableRuntimeLibrary=false
+
