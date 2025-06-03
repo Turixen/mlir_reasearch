@@ -1,0 +1,8 @@
+3.63,msec,task-clock,0.53%,3514625,100.00,0.666,CPUs utilized
+0,,context-switches,0.00%,3514625,100.00,0.000,/sec
+0,,cpu-migrations,0.00%,3514625,100.00,0.000,/sec
+81,,page-faults,0.34%,3514625,100.00,22.329,K/sec
+6509073,,cycles,0.52%,3514625,100.00,1.794,GHz
+1317815,,instructions,0.30%,3514625,100.00,0.20,insn per cycle
+122652,,branches,0.34%,3514625,100.00,33.810,M/sec
+14912,,branch-misses,0.74%,3514625,100.00,12.16,of all branches
