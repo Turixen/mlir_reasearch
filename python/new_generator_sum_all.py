@@ -429,8 +429,8 @@ module {{
         %col_indices = arith.constant dense<[{', '.join(map(str, col_indices1))}]> : tensor<{len(col_indices1)}xindex>
         %row_pointers = arith.constant dense<[{', '.join(map(str, row_pointers1))}]> : tensor<{len(row_pointers1)}xindex>
 
-        %sparse_tensor = sparse_tensor.assemble %row_pointers, %col_indices, %values
-            : tensor<{len(row_pointers1)}xindex>, tensor<{len(col_indices1)}xindex>, tensor<{len(values1)}xf64> 
+        %sparse_tensor = sparse_tensor.assemble (%row_pointers, %col_indices), %values
+            : (tensor<{len(row_pointers1)}xindex>, tensor<{len(col_indices1)}xindex>), tensor<{len(values1)}xf64> 
             to tensor<{m}x{k}xf64, #CSR>
         return %sparse_tensor : tensor<{m}x{k}xf64, #CSR>
     }}
@@ -440,8 +440,8 @@ module {{
         %col_indices = arith.constant dense<[{', '.join(map(str, col_indices2))}]> : tensor<{len(col_indices2)}xindex>
         %row_pointers = arith.constant dense<[{', '.join(map(str, row_pointers2))}]> : tensor<{len(row_pointers2)}xindex>
 
-        %sparse_tensor = sparse_tensor.assemble %row_pointers, %col_indices, %values
-            : tensor<{len(row_pointers2)}xindex>, tensor<{len(col_indices2)}xindex>, tensor<{len(values2)}xf64> 
+        %sparse_tensor = sparse_tensor.assemble (%row_pointers, %col_indices), %values
+            : (tensor<{len(row_pointers2)}xindex>, tensor<{len(col_indices2)}xindex>), tensor<{len(values2)}xf64> 
             to tensor<{k}x{n}xf64, #CSR>
         return %sparse_tensor : tensor<{k}x{n}xf64, #CSR>
     }}
