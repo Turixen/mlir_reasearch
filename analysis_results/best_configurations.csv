@@ -1,0 +1,3 @@
+metric,configuration,value,unit
+best_execution_time,vector-elementwise-8,1.98,ms
+best_ipc,scalar-standard-N/A,0.6503468395954995,instructions/cycle
