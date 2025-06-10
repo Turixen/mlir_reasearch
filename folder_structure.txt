@@ -1,13 +1,13 @@
-[1;36m.[0m
+.
 ├── all_results_scalar.csv
-├── [1;36mall_results_vector[0m
+├── all_results_vector
 │   ├── all_.ipynb_checkpoints.csv
 │   ├── all_results_vector_16.csv
 │   ├── all_results_vector_32.csv
 │   ├── all_results_vector_4.csv
 │   ├── all_results_vector_8.csv
 │   └── all_results_vector.csv
-├── [1;36manalysis_output[0m
+├── analysis_output
 │   ├── avg_instructions_by_sparsity.png
 │   ├── avg_instructions_speedup_by_sparsity.png
 │   ├── branch_misses_vs_sparsity.png
@@ -19,7 +19,7 @@
 │   ├── speedup_metrics.csv
 │   ├── statistical_analysis.txt
 │   └── stride_impact_on_cycles.png
-├── [1;36manalysis_output_stride1[0m
+├── analysis_output_stride1
 │   ├── avg_instructions_by_sparsity.png
 │   ├── branch_misses_vs_sparsity.png
 │   ├── combined_data.csv
@@ -29,20 +29,12 @@
 │   ├── sparsity_impact_on_cycles.png
 │   ├── speedup_metrics.csv
 │   └── statistical_analysis.txt
-├── [1;36manalysis_vector_16[0m
-│   ├── best_efficiency_vector_16.csv
-│   ├── conclusions_vector_16.txt
-│   ├── heatmap_vector_16.png
-│   ├── ipc_vs_sparsity_vector_16.png
-│   ├── normalized_cycles_vector_16.png
-│   ├── processed_metrics_vector_16.csv
-│   ├── sparsity_impact_vector_16.png
-│   ├── sparsity_trend_vector_16.png
-│   ├── stride_comparison_vector_16.png
-│   ├── summary_by_sparsity_vector_16.csv
-│   ├── summary_by_stride_vector_16.csv
-│   └── worst_efficiency_vector_16.csv
-├── [1;36manalysis_vector_32[0m
+├── analysis_results
+│   ├── best_configurations.csv
+│   ├── efficiency_metrics.csv
+│   ├── performance_metrics_cleaned.csv
+│   └── summary_statistics.csv
+├── analysis_vector_32
 │   ├── best_efficiency_vector_32.csv
 │   ├── conclusions_vector_32.txt
 │   ├── heatmap_vector_32.png
@@ -55,7 +47,7 @@
 │   ├── summary_by_sparsity_vector_32.csv
 │   ├── summary_by_stride_vector_32.csv
 │   └── worst_efficiency_vector_32.csv
-├── [1;36manalysis_vector_4[0m
+├── analysis_vector_4
 │   ├── best_efficiency_vector_4.csv
 │   ├── conclusions_vector_4.txt
 │   ├── heatmap_vector_4.png
@@ -68,7 +60,7 @@
 │   ├── summary_by_sparsity_vector_4.csv
 │   ├── summary_by_stride_vector_4.csv
 │   └── worst_efficiency_vector_4.csv
-├── [1;36manalysis_vector_8[0m
+├── analysis_vector_8
 │   ├── best_efficiency_vector_8.csv
 │   ├── conclusions_vector_8.txt
 │   ├── heatmap_vector_8.png
@@ -81,15 +73,16 @@
 │   ├── summary_by_sparsity_vector_8.csv
 │   ├── summary_by_stride_vector_8.csv
 │   └── worst_efficiency_vector_8.csv
+├── analysis.ipynb
 ├── Assmebly_report.md
-├── [1;36mdiff_sparsifier[0m
+├── diff_sparsifier
 │   ├── any_any.txt
 │   ├── any_storage_outer_loop_vl2.txt
 │   ├── any_storage_outer_loop.txt
 │   ├── dense-any-loop.txt
 │   ├── dense-outer-loop.txt
 │   └── none.txt
-├── [1;36melementwise[0m
+├── elementwise
 │   ├── elementwise_50_1_sum.txt
 │   ├── elementwise_50_2_sum.txt
 │   ├── elementwise_50_3_sum.txt
@@ -122,9 +115,18 @@
 │   ├── elementwise_95_3_sum.txt
 │   └── elementwise_95_4_sum.txt
 ├── folder_structure.txt
-├── [1;36mjupiter[0m
+├── jupiter
 │   ├── all_perf_analysis.ipynb
-│   ├── [1;36manalysis_output_stride1[0m
+│   ├── analysis_output_stride1
+│   │   ├── avg_instructions_by_sparsity.png
+│   │   ├── branch_misses_vs_sparsity.png
+│   │   ├── combined_data.csv
+│   │   ├── instructions_speedup_by_sparsity.png
+│   │   ├── processed_scalar_data.csv
+│   │   ├── processed_vector_data.csv
+│   │   ├── sparsity_impact_on_cycles.png
+│   │   ├── speedup_metrics.csv
+│   │   └── statistical_analysis.txt
 │   ├── compare_vl_perfomace.ipynb
 │   ├── compare.py
 │   ├── FIxedStride.ipynb
@@ -137,10 +139,10 @@
 │   ├── plot_perf-8.ipynb
 │   ├── Same_Stride.ipynb
 │   ├── stride_comparison.png
-│   ├── [1;36mstride_grouped_analysis[0m
+│   ├── stride_grouped_analysis
 │   ├── vector_cycle_analysis.png
 │   └── vector_performance_dashboard.png
-├── [1;36mlittle_test[0m
+├── little_test
 │   ├── from_scartch_elementw.mlir
 │   ├── from_scratch.llvm.mlir
 │   ├── from_scratch.mlir
@@ -158,7 +160,7 @@
 │   ├── manualbufferized.llvm.mlir
 │   ├── manualbufferized.mlir
 │   ├── pipeline_sb.llvm.mlir
-│   ├── [31msp70_st1[0m
+│   ├── sp70_st1
 │   ├── sp70_st1.ll
 │   ├── sp70_st1.llvm.mlir
 │   ├── sp70_st1.mlir
@@ -167,7 +169,7 @@
 │   ├── sparse_github.mlir
 │   ├── sparse_vect.llvm.mlir
 │   └── sparsificationEbuff.llvm.mlir
-├── [1;36mmatrices[0m
+├── matrices
 │   ├── dense_matrix.npy
 │   ├── matrix_sparsity_50_stride_1.npz
 │   ├── matrix_sparsity_50_stride_2.npz
@@ -201,7 +203,7 @@
 │   ├── matrix_sparsity_95_stride_3.npz
 │   ├── matrix_sparsity_95_stride_4.npz
 │   └── sparse_matrix2.npz
-├── [1;36mmatrixmul[0m
+├── matrixmul
 │   ├── matmul_50_1_sum.txt
 │   ├── matmul_50_2_sum.txt
 │   ├── matmul_50_3_sum.txt
@@ -233,13 +235,170 @@
 │   ├── matmul_95_2_sum.txt
 │   ├── matmul_95_3_sum.txt
 │   └── matmul_95_4_sum.txt
-├── [1;36mmlir_files[0m
-│   ├── [1;36mbuild[0m
-│   ├── [1;36mbuild_16[0m
-│   ├── [1;36mbuild_32[0m
-│   ├── [1;36mbuild_4[0m
-│   ├── [1;36mbuild_8[0m
-│   ├── [1;36mbuild_sparisifier[0m
+├── mlir_files
+│   ├── build
+│   │   ├── matmul_50_1_scalar
+│   │   ├── matmul_50_2_scalar
+│   │   ├── matmul_50_3_scalar
+│   │   ├── matmul_55_1_scalar
+│   │   ├── matmul_55_2_scalar
+│   │   ├── matmul_55_3_scalar
+│   │   ├── matmul_60_1_scalar
+│   │   ├── matmul_60_2_scalar
+│   │   ├── matmul_60_3_scalar
+│   │   ├── matmul_65_1_scalar
+│   │   ├── matmul_65_2_scalar
+│   │   ├── matmul_65_3_scalar
+│   │   ├── matmul_70_1_scalar
+│   │   ├── matmul_70_2_scalar
+│   │   ├── matmul_70_3_scalar
+│   │   ├── matmul_75_1_scalar
+│   │   ├── matmul_75_2_scalar
+│   │   ├── matmul_75_3_scalar
+│   │   ├── matmul_80_1_scalar
+│   │   ├── matmul_80_2_scalar
+│   │   ├── matmul_80_3_scalar
+│   │   ├── matmul_85_1_scalar
+│   │   ├── matmul_85_2_scalar
+│   │   ├── matmul_85_3_scalar
+│   │   ├── matmul_90_1_scalar
+│   │   ├── matmul_90_2_scalar
+│   │   ├── matmul_90_3_scalar
+│   │   ├── matmul_95_1_scalar
+│   │   ├── matmul_95_2_scalar
+│   │   ├── matmul_95_3_scalar
+│   │   └── matmul_95_4_scalar
+│   ├── build_16
+│   │   ├── matmul_50_1_vector
+│   │   ├── matmul_50_2_vector
+│   │   ├── matmul_50_3_vector
+│   │   ├── matmul_55_1_vector
+│   │   ├── matmul_55_2_vector
+│   │   ├── matmul_55_3_vector
+│   │   ├── matmul_60_1_vector
+│   │   ├── matmul_60_2_vector
+│   │   ├── matmul_60_3_vector
+│   │   ├── matmul_65_1_vector
+│   │   ├── matmul_65_2_vector
+│   │   ├── matmul_65_3_vector
+│   │   ├── matmul_70_1_vector
+│   │   ├── matmul_70_2_vector
+│   │   ├── matmul_70_3_vector
+│   │   ├── matmul_75_1_vector
+│   │   ├── matmul_75_2_vector
+│   │   ├── matmul_75_3_vector
+│   │   ├── matmul_80_1_vector
+│   │   ├── matmul_80_2_vector
+│   │   ├── matmul_80_3_vector
+│   │   ├── matmul_85_1_vector
+│   │   ├── matmul_85_2_vector
+│   │   ├── matmul_85_3_vector
+│   │   ├── matmul_90_1_vector
+│   │   ├── matmul_90_2_vector
+│   │   ├── matmul_90_3_vector
+│   │   ├── matmul_95_1_vector
+│   │   ├── matmul_95_2_vector
+│   │   ├── matmul_95_3_vector
+│   │   └── matmul_95_4_vector
+│   ├── build_32
+│   │   ├── matmul_50_1_vector
+│   │   ├── matmul_50_2_vector
+│   │   ├── matmul_50_3_vector
+│   │   ├── matmul_55_1_vector
+│   │   ├── matmul_55_2_vector
+│   │   ├── matmul_55_3_vector
+│   │   ├── matmul_60_1_vector
+│   │   ├── matmul_60_2_vector
+│   │   ├── matmul_60_3_vector
+│   │   ├── matmul_65_1_vector
+│   │   ├── matmul_65_2_vector
+│   │   ├── matmul_65_3_vector
+│   │   ├── matmul_70_1_vector
+│   │   ├── matmul_70_2_vector
+│   │   ├── matmul_70_3_vector
+│   │   ├── matmul_75_1_vector
+│   │   ├── matmul_75_2_vector
+│   │   ├── matmul_75_3_vector
+│   │   ├── matmul_80_1_vector
+│   │   ├── matmul_80_2_vector
+│   │   ├── matmul_80_3_vector
+│   │   ├── matmul_85_1_vector
+│   │   ├── matmul_85_2_vector
+│   │   ├── matmul_85_3_vector
+│   │   ├── matmul_90_1_vector
+│   │   ├── matmul_90_2_vector
+│   │   ├── matmul_90_3_vector
+│   │   ├── matmul_95_1_vector
+│   │   ├── matmul_95_2_vector
+│   │   ├── matmul_95_3_vector
+│   │   └── matmul_95_4_vector
+│   ├── build_4
+│   │   ├── matmul_50_1_vector
+│   │   ├── matmul_50_2_vector
+│   │   ├── matmul_50_3_vector
+│   │   ├── matmul_55_1_vector
+│   │   ├── matmul_55_2_vector
+│   │   ├── matmul_55_3_vector
+│   │   ├── matmul_60_1_vector
+│   │   ├── matmul_60_2_vector
+│   │   ├── matmul_60_3_vector
+│   │   ├── matmul_65_1_vector
+│   │   ├── matmul_65_2_vector
+│   │   ├── matmul_65_3_vector
+│   │   ├── matmul_70_1_vector
+│   │   ├── matmul_70_2_vector
+│   │   ├── matmul_70_3_vector
+│   │   ├── matmul_75_1_vector
+│   │   ├── matmul_75_2_vector
+│   │   ├── matmul_75_3_vector
+│   │   ├── matmul_80_1_vector
+│   │   ├── matmul_80_2_vector
+│   │   ├── matmul_80_3_vector
+│   │   ├── matmul_85_1_vector
+│   │   ├── matmul_85_2_vector
+│   │   ├── matmul_85_3_vector
+│   │   ├── matmul_90_1_vector
+│   │   ├── matmul_90_2_vector
+│   │   ├── matmul_90_3_vector
+│   │   ├── matmul_95_1_vector
+│   │   ├── matmul_95_2_vector
+│   │   ├── matmul_95_3_vector
+│   │   └── matmul_95_4_vector
+│   ├── build_8
+│   │   ├── matmul_50_1_vector
+│   │   ├── matmul_50_2_vector
+│   │   ├── matmul_50_3_vector
+│   │   ├── matmul_55_1_vector
+│   │   ├── matmul_55_2_vector
+│   │   ├── matmul_55_3_vector
+│   │   ├── matmul_60_1_vector
+│   │   ├── matmul_60_2_vector
+│   │   ├── matmul_60_3_vector
+│   │   ├── matmul_65_1_vector
+│   │   ├── matmul_65_2_vector
+│   │   ├── matmul_65_3_vector
+│   │   ├── matmul_70_1_vector
+│   │   ├── matmul_70_2_vector
+│   │   ├── matmul_70_3_vector
+│   │   ├── matmul_75_1_vector
+│   │   ├── matmul_75_2_vector
+│   │   ├── matmul_75_3_vector
+│   │   ├── matmul_80_1_vector
+│   │   ├── matmul_80_2_vector
+│   │   ├── matmul_80_3_vector
+│   │   ├── matmul_85_1_vector
+│   │   ├── matmul_85_2_vector
+│   │   ├── matmul_85_3_vector
+│   │   ├── matmul_90_1_vector
+│   │   ├── matmul_90_2_vector
+│   │   ├── matmul_90_3_vector
+│   │   ├── matmul_95_1_vector
+│   │   ├── matmul_95_2_vector
+│   │   ├── matmul_95_3_vector
+│   │   └── matmul_95_4_vector
+│   ├── build_sparisifier
+│   │   ├── no_vla
+│   │   └── vla
 │   ├── Makefile_scalar
 │   ├── Makefile_sparsifier
 │   ├── Makefile_vector_16
@@ -277,12 +436,167 @@
 │   ├── matmul_95_2.mlir
 │   ├── matmul_95_3.mlir
 │   └── matmul_95_4.mlir
-├── [1;36mmlir_files_elementwise[0m
-│   ├── [1;36mbuild[0m
-│   ├── [1;36mbuild_16[0m
-│   ├── [1;36mbuild_32[0m
-│   ├── [1;36mbuild_4[0m
-│   ├── [1;36mbuild_8[0m
+├── mlir_files_elementwise
+│   ├── build
+│   │   ├── elementwise_50_1_scalar
+│   │   ├── elementwise_50_2_scalar
+│   │   ├── elementwise_50_3_scalar
+│   │   ├── elementwise_55_1_scalar
+│   │   ├── elementwise_55_2_scalar
+│   │   ├── elementwise_55_3_scalar
+│   │   ├── elementwise_60_1_scalar
+│   │   ├── elementwise_60_2_scalar
+│   │   ├── elementwise_60_3_scalar
+│   │   ├── elementwise_65_1_scalar
+│   │   ├── elementwise_65_2_scalar
+│   │   ├── elementwise_65_3_scalar
+│   │   ├── elementwise_70_1_scalar
+│   │   ├── elementwise_70_2_scalar
+│   │   ├── elementwise_70_3_scalar
+│   │   ├── elementwise_75_1_scalar
+│   │   ├── elementwise_75_2_scalar
+│   │   ├── elementwise_75_3_scalar
+│   │   ├── elementwise_80_1_scalar
+│   │   ├── elementwise_80_2_scalar
+│   │   ├── elementwise_80_3_scalar
+│   │   ├── elementwise_85_1_scalar
+│   │   ├── elementwise_85_2_scalar
+│   │   ├── elementwise_85_3_scalar
+│   │   ├── elementwise_90_1_scalar
+│   │   ├── elementwise_90_2_scalar
+│   │   ├── elementwise_90_3_scalar
+│   │   ├── elementwise_95_1_scalar
+│   │   ├── elementwise_95_2_scalar
+│   │   ├── elementwise_95_3_scalar
+│   │   └── elementwise_95_4_scalar
+│   ├── build_16
+│   │   ├── elementwise_50_1_vector
+│   │   ├── elementwise_50_2_vector
+│   │   ├── elementwise_50_3_vector
+│   │   ├── elementwise_55_1_vector
+│   │   ├── elementwise_55_2_vector
+│   │   ├── elementwise_55_3_vector
+│   │   ├── elementwise_60_1_vector
+│   │   ├── elementwise_60_2_vector
+│   │   ├── elementwise_60_3_vector
+│   │   ├── elementwise_65_1_vector
+│   │   ├── elementwise_65_2_vector
+│   │   ├── elementwise_65_3_vector
+│   │   ├── elementwise_70_1_vector
+│   │   ├── elementwise_70_2_vector
+│   │   ├── elementwise_70_3_vector
+│   │   ├── elementwise_75_1_vector
+│   │   ├── elementwise_75_2_vector
+│   │   ├── elementwise_75_3_vector
+│   │   ├── elementwise_80_1_vector
+│   │   ├── elementwise_80_2_vector
+│   │   ├── elementwise_80_3_vector
+│   │   ├── elementwise_85_1_vector
+│   │   ├── elementwise_85_2_vector
+│   │   ├── elementwise_85_3_vector
+│   │   ├── elementwise_90_1_vector
+│   │   ├── elementwise_90_2_vector
+│   │   ├── elementwise_90_3_vector
+│   │   ├── elementwise_95_1_vector
+│   │   ├── elementwise_95_2_vector
+│   │   ├── elementwise_95_3_vector
+│   │   └── elementwise_95_4_vector
+│   ├── build_32
+│   │   ├── elementwise_50_1_vector
+│   │   ├── elementwise_50_2_vector
+│   │   ├── elementwise_50_3_vector
+│   │   ├── elementwise_55_1_vector
+│   │   ├── elementwise_55_2_vector
+│   │   ├── elementwise_55_3_vector
+│   │   ├── elementwise_60_1_vector
+│   │   ├── elementwise_60_2_vector
+│   │   ├── elementwise_60_3_vector
+│   │   ├── elementwise_65_1_vector
+│   │   ├── elementwise_65_2_vector
+│   │   ├── elementwise_65_3_vector
+│   │   ├── elementwise_70_1_vector
+│   │   ├── elementwise_70_2_vector
+│   │   ├── elementwise_70_3_vector
+│   │   ├── elementwise_75_1_vector
+│   │   ├── elementwise_75_2_vector
+│   │   ├── elementwise_75_3_vector
+│   │   ├── elementwise_80_1_vector
+│   │   ├── elementwise_80_2_vector
+│   │   ├── elementwise_80_3_vector
+│   │   ├── elementwise_85_1_vector
+│   │   ├── elementwise_85_2_vector
+│   │   ├── elementwise_85_3_vector
+│   │   ├── elementwise_90_1_vector
+│   │   ├── elementwise_90_2_vector
+│   │   ├── elementwise_90_3_vector
+│   │   ├── elementwise_95_1_vector
+│   │   ├── elementwise_95_2_vector
+│   │   ├── elementwise_95_3_vector
+│   │   └── elementwise_95_4_vector
+│   ├── build_4
+│   │   ├── elementwise_50_1_vector
+│   │   ├── elementwise_50_2_vector
+│   │   ├── elementwise_50_3_vector
+│   │   ├── elementwise_55_1_vector
+│   │   ├── elementwise_55_2_vector
+│   │   ├── elementwise_55_3_vector
+│   │   ├── elementwise_60_1_vector
+│   │   ├── elementwise_60_2_vector
+│   │   ├── elementwise_60_3_vector
+│   │   ├── elementwise_65_1_vector
+│   │   ├── elementwise_65_2_vector
+│   │   ├── elementwise_65_3_vector
+│   │   ├── elementwise_70_1_vector
+│   │   ├── elementwise_70_2_vector
+│   │   ├── elementwise_70_3_vector
+│   │   ├── elementwise_75_1_vector
+│   │   ├── elementwise_75_2_vector
+│   │   ├── elementwise_75_3_vector
+│   │   ├── elementwise_80_1_vector
+│   │   ├── elementwise_80_2_vector
+│   │   ├── elementwise_80_3_vector
+│   │   ├── elementwise_85_1_vector
+│   │   ├── elementwise_85_2_vector
+│   │   ├── elementwise_85_3_vector
+│   │   ├── elementwise_90_1_vector
+│   │   ├── elementwise_90_2_vector
+│   │   ├── elementwise_90_3_vector
+│   │   ├── elementwise_95_1_vector
+│   │   ├── elementwise_95_2_vector
+│   │   ├── elementwise_95_3_vector
+│   │   └── elementwise_95_4_vector
+│   ├── build_8
+│   │   ├── elementwise_50_1_vector
+│   │   ├── elementwise_50_2_vector
+│   │   ├── elementwise_50_3_vector
+│   │   ├── elementwise_55_1_vector
+│   │   ├── elementwise_55_2_vector
+│   │   ├── elementwise_55_3_vector
+│   │   ├── elementwise_60_1_vector
+│   │   ├── elementwise_60_2_vector
+│   │   ├── elementwise_60_3_vector
+│   │   ├── elementwise_65_1_vector
+│   │   ├── elementwise_65_2_vector
+│   │   ├── elementwise_65_3_vector
+│   │   ├── elementwise_70_1_vector
+│   │   ├── elementwise_70_2_vector
+│   │   ├── elementwise_70_3_vector
+│   │   ├── elementwise_75_1_vector
+│   │   ├── elementwise_75_2_vector
+│   │   ├── elementwise_75_3_vector
+│   │   ├── elementwise_80_1_vector
+│   │   ├── elementwise_80_2_vector
+│   │   ├── elementwise_80_3_vector
+│   │   ├── elementwise_85_1_vector
+│   │   ├── elementwise_85_2_vector
+│   │   ├── elementwise_85_3_vector
+│   │   ├── elementwise_90_1_vector
+│   │   ├── elementwise_90_2_vector
+│   │   ├── elementwise_90_3_vector
+│   │   ├── elementwise_95_1_vector
+│   │   ├── elementwise_95_2_vector
+│   │   ├── elementwise_95_3_vector
+│   │   └── elementwise_95_4_vector
 │   ├── elementwise_50_1.mlir
 │   ├── elementwise_50_2.mlir
 │   ├── elementwise_50_3.mlir
@@ -319,48 +633,172 @@
 │   ├── Makefile_vector_32
 │   ├── Makefile_vector_4
 │   └── Makefile_vector_8
-├── [1;36mmlir_files_sparse[0m
-│   ├── [1;36mbuild[0m
-│   ├── [1;36mbuild_16[0m
-│   ├── [1;36mbuild_32[0m
-│   ├── [1;36mbuild_4[0m
-│   ├── [1;36mbuild_8[0m
+├── mlir_files_sparse
+│   ├── build
+│   │   ├── sparse_sparse_50_1_scalar
+│   │   ├── sparse_sparse_50_2_scalar
+│   │   ├── sparse_sparse_50_3_scalar
+│   │   ├── sparse_sparse_55_1_scalar
+│   │   ├── sparse_sparse_55_2_scalar
+│   │   ├── sparse_sparse_55_3_scalar
+│   │   ├── sparse_sparse_60_1_scalar
+│   │   ├── sparse_sparse_60_2_scalar
+│   │   ├── sparse_sparse_60_3_scalar
+│   │   ├── sparse_sparse_65_1_scalar
+│   │   ├── sparse_sparse_65_2_scalar
+│   │   ├── sparse_sparse_65_3_scalar
+│   │   ├── sparse_sparse_70_1_scalar
+│   │   ├── sparse_sparse_70_2_scalar
+│   │   ├── sparse_sparse_70_3_scalar
+│   │   ├── sparse_sparse_75_1_scalar
+│   │   ├── sparse_sparse_75_2_scalar
+│   │   ├── sparse_sparse_75_3_scalar
+│   │   ├── sparse_sparse_80_1_scalar
+│   │   ├── sparse_sparse_80_2_scalar
+│   │   ├── sparse_sparse_80_3_scalar
+│   │   ├── sparse_sparse_85_1_scalar
+│   │   ├── sparse_sparse_85_2_scalar
+│   │   ├── sparse_sparse_85_3_scalar
+│   │   ├── sparse_sparse_90_1_scalar
+│   │   ├── sparse_sparse_90_2_scalar
+│   │   ├── sparse_sparse_90_3_scalar
+│   │   ├── sparse_sparse_95_1_scalar
+│   │   ├── sparse_sparse_95_2_scalar
+│   │   ├── sparse_sparse_95_3_scalar
+│   │   └── sparse_sparse_95_4_scalar
+│   ├── build_16
+│   │   ├── sparse_sparse_50_1_vector
+│   │   ├── sparse_sparse_50_2_vector
+│   │   ├── sparse_sparse_50_3_vector
+│   │   ├── sparse_sparse_55_1_vector
+│   │   ├── sparse_sparse_55_2_vector
+│   │   ├── sparse_sparse_55_3_vector
+│   │   ├── sparse_sparse_60_1_vector
+│   │   ├── sparse_sparse_60_2_vector
+│   │   ├── sparse_sparse_60_3_vector
+│   │   ├── sparse_sparse_65_1_vector
+│   │   ├── sparse_sparse_65_2_vector
+│   │   ├── sparse_sparse_65_3_vector
+│   │   ├── sparse_sparse_70_1_vector
+│   │   ├── sparse_sparse_70_2_vector
+│   │   ├── sparse_sparse_70_3_vector
+│   │   ├── sparse_sparse_75_1_vector
+│   │   ├── sparse_sparse_75_2_vector
+│   │   ├── sparse_sparse_75_3_vector
+│   │   ├── sparse_sparse_80_1_vector
+│   │   ├── sparse_sparse_80_2_vector
+│   │   ├── sparse_sparse_80_3_vector
+│   │   ├── sparse_sparse_85_1_vector
+│   │   ├── sparse_sparse_85_2_vector
+│   │   ├── sparse_sparse_85_3_vector
+│   │   ├── sparse_sparse_90_1_vector
+│   │   ├── sparse_sparse_90_2_vector
+│   │   ├── sparse_sparse_90_3_vector
+│   │   ├── sparse_sparse_95_1_vector
+│   │   ├── sparse_sparse_95_2_vector
+│   │   ├── sparse_sparse_95_3_vector
+│   │   └── sparse_sparse_95_4_vector
+│   ├── build_32
+│   │   ├── sparse_sparse_50_1_vector
+│   │   ├── sparse_sparse_50_2_vector
+│   │   ├── sparse_sparse_50_3_vector
+│   │   ├── sparse_sparse_55_1_vector
+│   │   ├── sparse_sparse_55_2_vector
+│   │   ├── sparse_sparse_55_3_vector
+│   │   ├── sparse_sparse_60_1_vector
+│   │   ├── sparse_sparse_60_2_vector
+│   │   ├── sparse_sparse_60_3_vector
+│   │   ├── sparse_sparse_65_1_vector
+│   │   ├── sparse_sparse_65_2_vector
+│   │   ├── sparse_sparse_65_3_vector
+│   │   ├── sparse_sparse_70_1_vector
+│   │   ├── sparse_sparse_70_2_vector
+│   │   ├── sparse_sparse_70_3_vector
+│   │   ├── sparse_sparse_75_1_vector
+│   │   ├── sparse_sparse_75_2_vector
+│   │   ├── sparse_sparse_75_3_vector
+│   │   ├── sparse_sparse_80_1_vector
+│   │   ├── sparse_sparse_80_2_vector
+│   │   ├── sparse_sparse_80_3_vector
+│   │   ├── sparse_sparse_85_1_vector
+│   │   ├── sparse_sparse_85_2_vector
+│   │   ├── sparse_sparse_85_3_vector
+│   │   ├── sparse_sparse_90_1_vector
+│   │   ├── sparse_sparse_90_2_vector
+│   │   ├── sparse_sparse_90_3_vector
+│   │   ├── sparse_sparse_95_1_vector
+│   │   ├── sparse_sparse_95_2_vector
+│   │   ├── sparse_sparse_95_3_vector
+│   │   └── sparse_sparse_95_4_vector
+│   ├── build_4
+│   │   ├── sparse_sparse_50_1_vector
+│   │   ├── sparse_sparse_50_2_vector
+│   │   ├── sparse_sparse_50_3_vector
+│   │   ├── sparse_sparse_55_1_vector
+│   │   ├── sparse_sparse_55_2_vector
+│   │   ├── sparse_sparse_55_3_vector
+│   │   ├── sparse_sparse_60_1_vector
+│   │   ├── sparse_sparse_60_2_vector
+│   │   ├── sparse_sparse_60_3_vector
+│   │   ├── sparse_sparse_65_1_vector
+│   │   ├── sparse_sparse_65_2_vector
+│   │   ├── sparse_sparse_65_3_vector
+│   │   ├── sparse_sparse_70_1_vector
+│   │   ├── sparse_sparse_70_2_vector
+│   │   ├── sparse_sparse_70_3_vector
+│   │   ├── sparse_sparse_75_1_vector
+│   │   ├── sparse_sparse_75_2_vector
+│   │   ├── sparse_sparse_75_3_vector
+│   │   ├── sparse_sparse_80_1_vector
+│   │   ├── sparse_sparse_80_2_vector
+│   │   ├── sparse_sparse_80_3_vector
+│   │   ├── sparse_sparse_85_1_vector
+│   │   ├── sparse_sparse_85_2_vector
+│   │   ├── sparse_sparse_85_3_vector
+│   │   ├── sparse_sparse_90_1_vector
+│   │   ├── sparse_sparse_90_2_vector
+│   │   ├── sparse_sparse_90_3_vector
+│   │   ├── sparse_sparse_95_1_vector
+│   │   ├── sparse_sparse_95_2_vector
+│   │   ├── sparse_sparse_95_3_vector
+│   │   └── sparse_sparse_95_4_vector
+│   ├── build_8
+│   │   ├── sparse_sparse_50_1_vector
+│   │   ├── sparse_sparse_50_2_vector
+│   │   ├── sparse_sparse_50_3_vector
+│   │   ├── sparse_sparse_55_1_vector
+│   │   ├── sparse_sparse_55_2_vector
+│   │   ├── sparse_sparse_55_3_vector
+│   │   ├── sparse_sparse_60_1_vector
+│   │   ├── sparse_sparse_60_2_vector
+│   │   ├── sparse_sparse_60_3_vector
+│   │   ├── sparse_sparse_65_1_vector
+│   │   ├── sparse_sparse_65_2_vector
+│   │   ├── sparse_sparse_65_3_vector
+│   │   ├── sparse_sparse_70_1_vector
+│   │   ├── sparse_sparse_70_2_vector
+│   │   ├── sparse_sparse_70_3_vector
+│   │   ├── sparse_sparse_75_1_vector
+│   │   ├── sparse_sparse_75_2_vector
+│   │   ├── sparse_sparse_75_3_vector
+│   │   ├── sparse_sparse_80_1_vector
+│   │   ├── sparse_sparse_80_2_vector
+│   │   ├── sparse_sparse_80_3_vector
+│   │   ├── sparse_sparse_85_1_vector
+│   │   ├── sparse_sparse_85_2_vector
+│   │   ├── sparse_sparse_85_3_vector
+│   │   ├── sparse_sparse_90_1_vector
+│   │   ├── sparse_sparse_90_2_vector
+│   │   ├── sparse_sparse_90_3_vector
+│   │   ├── sparse_sparse_95_1_vector
+│   │   ├── sparse_sparse_95_2_vector
+│   │   ├── sparse_sparse_95_3_vector
+│   │   └── sparse_sparse_95_4_vector
 │   ├── Makefile_scalar
 │   ├── Makefile_vector_16
 │   ├── Makefile_vector_32
 │   ├── Makefile_vector_4
 │   ├── Makefile_vector_8
-│   ├── sparse_50_1.mlir
-│   ├── sparse_50_2.mlir
-│   ├── sparse_50_3.mlir
-│   ├── sparse_55_1.mlir
-│   ├── sparse_55_2.mlir
-│   ├── sparse_55_3.mlir
-│   ├── sparse_60_1.mlir
-│   ├── sparse_60_2.mlir
-│   ├── sparse_60_3.mlir
-│   ├── sparse_65_1.mlir
-│   ├── sparse_65_2.mlir
-│   ├── sparse_65_3.mlir
-│   ├── sparse_70_1.mlir
-│   ├── sparse_70_2.mlir
-│   ├── sparse_70_3.mlir
-│   ├── sparse_75_1.mlir
-│   ├── sparse_75_2.mlir
-│   ├── sparse_75_3.mlir
-│   ├── sparse_80_1.mlir
-│   ├── sparse_80_2.mlir
-│   ├── sparse_80_3.mlir
-│   ├── sparse_85_1.mlir
-│   ├── sparse_85_2.mlir
-│   ├── sparse_85_3.mlir
-│   ├── sparse_90_1.mlir
-│   ├── sparse_90_2.mlir
-│   ├── sparse_90_3.mlir
-│   ├── sparse_95_1.mlir
-│   ├── sparse_95_2.mlir
-│   ├── sparse_95_3.mlir
-│   ├── sparse_95_4.mlir
 │   ├── sparse_sparse_50_1.mlir
 │   ├── sparse_sparse_50_2.mlir
 │   ├── sparse_sparse_50_3.mlir
@@ -393,10 +831,12 @@
 │   ├── sparse_sparse_95_3.mlir
 │   └── sparse_sparse_95_4.mlir
 ├── mlir_help.txt
-├── [1;36mPipelines_exaplainations[0m
+├── perf_list.txt
+├── perf.c
+├── Pipelines_exaplainations
 │   ├── sparsification&bufferization.txt
 │   └── sparsifier.txt
-├── [1;36mpython[0m
+├── python
 │   ├── full_generator_2.py
 │   ├── full_generator_3.py
 │   ├── new_generator_sum_all.py
@@ -404,87 +844,924 @@
 ├── README.md
 ├── recap.html
 ├── Report.md
-├── [1;36mresults_scalar[0m
-│   ├── [1;36mmlir_files[0m
-│   ├── [1;36mmlir_files_elementwise[0m
-│   ├── [1;36mmlir_files_sparse[0m
-│   ├── mlir_sparsity_50_stride_1.csv
-│   ├── mlir_sparsity_50_stride_2.csv
-│   ├── mlir_sparsity_50_stride_3.csv
-│   ├── mlir_sparsity_55_stride_1.csv
-│   ├── mlir_sparsity_55_stride_2.csv
-│   ├── mlir_sparsity_55_stride_3.csv
-│   ├── mlir_sparsity_60_stride_1.csv
-│   ├── mlir_sparsity_60_stride_2.csv
-│   ├── mlir_sparsity_60_stride_3.csv
-│   ├── mlir_sparsity_65_stride_1.csv
-│   ├── mlir_sparsity_65_stride_2.csv
-│   ├── mlir_sparsity_65_stride_3.csv
-│   ├── mlir_sparsity_70_stride_1.csv
-│   ├── mlir_sparsity_70_stride_2.csv
-│   ├── mlir_sparsity_70_stride_3.csv
-│   ├── mlir_sparsity_75_stride_1.csv
-│   ├── mlir_sparsity_75_stride_2.csv
-│   ├── mlir_sparsity_75_stride_3.csv
-│   ├── mlir_sparsity_80_stride_1.csv
-│   ├── mlir_sparsity_80_stride_2.csv
-│   ├── mlir_sparsity_80_stride_3.csv
-│   ├── mlir_sparsity_85_stride_1.csv
-│   ├── mlir_sparsity_85_stride_2.csv
-│   ├── mlir_sparsity_85_stride_3.csv
-│   ├── mlir_sparsity_90_stride_1.csv
-│   ├── mlir_sparsity_90_stride_2.csv
-│   ├── mlir_sparsity_90_stride_3.csv
-│   ├── mlir_sparsity_95_stride_1.csv
-│   ├── mlir_sparsity_95_stride_2.csv
-│   ├── mlir_sparsity_95_stride_3.csv
-│   ├── mlir_sparsity_95_stride_4.csv
-│   ├── output_scalar_mlir_sparsity_50_stride_1.txt
-│   ├── output_scalar_mlir_sparsity_50_stride_2.txt
-│   ├── output_scalar_mlir_sparsity_50_stride_3.txt
-│   ├── output_scalar_mlir_sparsity_55_stride_1.txt
-│   ├── output_scalar_mlir_sparsity_55_stride_2.txt
-│   ├── output_scalar_mlir_sparsity_55_stride_3.txt
-│   ├── output_scalar_mlir_sparsity_60_stride_1.txt
-│   ├── output_scalar_mlir_sparsity_60_stride_2.txt
-│   ├── output_scalar_mlir_sparsity_60_stride_3.txt
-│   ├── output_scalar_mlir_sparsity_65_stride_1.txt
-│   ├── output_scalar_mlir_sparsity_65_stride_2.txt
-│   ├── output_scalar_mlir_sparsity_65_stride_3.txt
-│   ├── output_scalar_mlir_sparsity_70_stride_1.txt
-│   ├── output_scalar_mlir_sparsity_70_stride_2.txt
-│   ├── output_scalar_mlir_sparsity_70_stride_3.txt
-│   ├── output_scalar_mlir_sparsity_75_stride_1.txt
-│   ├── output_scalar_mlir_sparsity_75_stride_2.txt
-│   ├── output_scalar_mlir_sparsity_75_stride_3.txt
-│   ├── output_scalar_mlir_sparsity_80_stride_1.txt
-│   ├── output_scalar_mlir_sparsity_80_stride_2.txt
-│   ├── output_scalar_mlir_sparsity_80_stride_3.txt
-│   ├── output_scalar_mlir_sparsity_85_stride_1.txt
-│   ├── output_scalar_mlir_sparsity_85_stride_2.txt
-│   ├── output_scalar_mlir_sparsity_85_stride_3.txt
-│   ├── output_scalar_mlir_sparsity_90_stride_1.txt
-│   ├── output_scalar_mlir_sparsity_90_stride_2.txt
-│   ├── output_scalar_mlir_sparsity_90_stride_3.txt
-│   ├── output_scalar_mlir_sparsity_95_stride_1.txt
-│   ├── output_scalar_mlir_sparsity_95_stride_2.txt
-│   ├── output_scalar_mlir_sparsity_95_stride_3.txt
-│   └── output_scalar_mlir_sparsity_95_stride_4.txt
-├── [1;36mresults_vector[0m
-│   ├── [1;36mmlir_files_elementwise_results_vector_16[0m
-│   ├── [1;36mmlir_files_elementwise_results_vector_32[0m
-│   ├── [1;36mmlir_files_elementwise_results_vector_4[0m
-│   ├── [1;36mmlir_files_elementwise_results_vector_8[0m
-│   ├── [1;36mmlir_files_results_vector_16[0m
-│   ├── [1;36mmlir_files_results_vector_32[0m
-│   ├── [1;36mmlir_files_results_vector_4[0m
-│   ├── [1;36mmlir_files_results_vector_8[0m
-│   ├── [1;36mmlir_files_sparse_results_vector_16[0m
-│   ├── [1;36mmlir_files_sparse_results_vector_32[0m
-│   ├── [1;36mmlir_files_sparse_results_vector_4[0m
-│   └── [1;36mmlir_files_sparse_results_vector_8[0m
-├── [31mscalar_pipeline.sh[0m
-├── [1;36msparse_sparse[0m
+├── results_scalar
+│   ├── mlir_files
+│   │   ├── matmul_50_1.csv
+│   │   ├── matmul_50_2.csv
+│   │   ├── matmul_50_3.csv
+│   │   ├── matmul_55_1.csv
+│   │   ├── matmul_55_2.csv
+│   │   ├── matmul_55_3.csv
+│   │   ├── matmul_60_1.csv
+│   │   ├── matmul_60_2.csv
+│   │   ├── matmul_60_3.csv
+│   │   ├── matmul_65_1.csv
+│   │   ├── matmul_65_2.csv
+│   │   ├── matmul_65_3.csv
+│   │   ├── matmul_70_1.csv
+│   │   ├── matmul_70_2.csv
+│   │   ├── matmul_70_3.csv
+│   │   ├── matmul_75_1.csv
+│   │   ├── matmul_75_2.csv
+│   │   ├── matmul_75_3.csv
+│   │   ├── matmul_80_1.csv
+│   │   ├── matmul_80_2.csv
+│   │   ├── matmul_80_3.csv
+│   │   ├── matmul_85_1.csv
+│   │   ├── matmul_85_2.csv
+│   │   ├── matmul_85_3.csv
+│   │   ├── matmul_90_1.csv
+│   │   ├── matmul_90_2.csv
+│   │   ├── matmul_90_3.csv
+│   │   ├── matmul_95_1.csv
+│   │   ├── matmul_95_2.csv
+│   │   ├── matmul_95_3.csv
+│   │   ├── matmul_95_4.csv
+│   │   ├── output_scalar_matmul_50_1.txt
+│   │   ├── output_scalar_matmul_50_2.txt
+│   │   ├── output_scalar_matmul_50_3.txt
+│   │   ├── output_scalar_matmul_55_1.txt
+│   │   ├── output_scalar_matmul_55_2.txt
+│   │   ├── output_scalar_matmul_55_3.txt
+│   │   ├── output_scalar_matmul_60_1.txt
+│   │   ├── output_scalar_matmul_60_2.txt
+│   │   ├── output_scalar_matmul_60_3.txt
+│   │   ├── output_scalar_matmul_65_1.txt
+│   │   ├── output_scalar_matmul_65_2.txt
+│   │   ├── output_scalar_matmul_65_3.txt
+│   │   ├── output_scalar_matmul_70_1.txt
+│   │   ├── output_scalar_matmul_70_2.txt
+│   │   ├── output_scalar_matmul_70_3.txt
+│   │   ├── output_scalar_matmul_75_1.txt
+│   │   ├── output_scalar_matmul_75_2.txt
+│   │   ├── output_scalar_matmul_75_3.txt
+│   │   ├── output_scalar_matmul_80_1.txt
+│   │   ├── output_scalar_matmul_80_2.txt
+│   │   ├── output_scalar_matmul_80_3.txt
+│   │   ├── output_scalar_matmul_85_1.txt
+│   │   ├── output_scalar_matmul_85_2.txt
+│   │   ├── output_scalar_matmul_85_3.txt
+│   │   ├── output_scalar_matmul_90_1.txt
+│   │   ├── output_scalar_matmul_90_2.txt
+│   │   ├── output_scalar_matmul_90_3.txt
+│   │   ├── output_scalar_matmul_95_1.txt
+│   │   ├── output_scalar_matmul_95_2.txt
+│   │   ├── output_scalar_matmul_95_3.txt
+│   │   └── output_scalar_matmul_95_4.txt
+│   ├── mlir_files_elementwise
+│   │   ├── elementwise_50_1.csv
+│   │   ├── elementwise_50_2.csv
+│   │   ├── elementwise_50_3.csv
+│   │   ├── elementwise_55_1.csv
+│   │   ├── elementwise_55_2.csv
+│   │   ├── elementwise_55_3.csv
+│   │   ├── elementwise_60_1.csv
+│   │   ├── elementwise_60_2.csv
+│   │   ├── elementwise_60_3.csv
+│   │   ├── elementwise_65_1.csv
+│   │   ├── elementwise_65_2.csv
+│   │   ├── elementwise_65_3.csv
+│   │   ├── elementwise_70_1.csv
+│   │   ├── elementwise_70_2.csv
+│   │   ├── elementwise_70_3.csv
+│   │   ├── elementwise_75_1.csv
+│   │   ├── elementwise_75_2.csv
+│   │   ├── elementwise_75_3.csv
+│   │   ├── elementwise_80_1.csv
+│   │   ├── elementwise_80_2.csv
+│   │   ├── elementwise_80_3.csv
+│   │   ├── elementwise_85_1.csv
+│   │   ├── elementwise_85_2.csv
+│   │   ├── elementwise_85_3.csv
+│   │   ├── elementwise_90_1.csv
+│   │   ├── elementwise_90_2.csv
+│   │   ├── elementwise_90_3.csv
+│   │   ├── elementwise_95_1.csv
+│   │   ├── elementwise_95_2.csv
+│   │   ├── elementwise_95_3.csv
+│   │   ├── elementwise_95_4.csv
+│   │   ├── output_scalar_elementwise_50_1.txt
+│   │   ├── output_scalar_elementwise_50_2.txt
+│   │   ├── output_scalar_elementwise_50_3.txt
+│   │   ├── output_scalar_elementwise_55_1.txt
+│   │   ├── output_scalar_elementwise_55_2.txt
+│   │   ├── output_scalar_elementwise_55_3.txt
+│   │   ├── output_scalar_elementwise_60_1.txt
+│   │   ├── output_scalar_elementwise_60_2.txt
+│   │   ├── output_scalar_elementwise_60_3.txt
+│   │   ├── output_scalar_elementwise_65_1.txt
+│   │   ├── output_scalar_elementwise_65_2.txt
+│   │   ├── output_scalar_elementwise_65_3.txt
+│   │   ├── output_scalar_elementwise_70_1.txt
+│   │   ├── output_scalar_elementwise_70_2.txt
+│   │   ├── output_scalar_elementwise_70_3.txt
+│   │   ├── output_scalar_elementwise_75_1.txt
+│   │   ├── output_scalar_elementwise_75_2.txt
+│   │   ├── output_scalar_elementwise_75_3.txt
+│   │   ├── output_scalar_elementwise_80_1.txt
+│   │   ├── output_scalar_elementwise_80_2.txt
+│   │   ├── output_scalar_elementwise_80_3.txt
+│   │   ├── output_scalar_elementwise_85_1.txt
+│   │   ├── output_scalar_elementwise_85_2.txt
+│   │   ├── output_scalar_elementwise_85_3.txt
+│   │   ├── output_scalar_elementwise_90_1.txt
+│   │   ├── output_scalar_elementwise_90_2.txt
+│   │   ├── output_scalar_elementwise_90_3.txt
+│   │   ├── output_scalar_elementwise_95_1.txt
+│   │   ├── output_scalar_elementwise_95_2.txt
+│   │   ├── output_scalar_elementwise_95_3.txt
+│   │   └── output_scalar_elementwise_95_4.txt
+│   └── mlir_files_sparse
+│       ├── sparse_sparse_50_1.csv
+│       ├── sparse_sparse_50_2.csv
+│       ├── sparse_sparse_50_3.csv
+│       ├── sparse_sparse_55_1.csv
+│       ├── sparse_sparse_55_2.csv
+│       ├── sparse_sparse_55_3.csv
+│       ├── sparse_sparse_60_1.csv
+│       ├── sparse_sparse_60_2.csv
+│       ├── sparse_sparse_60_3.csv
+│       ├── sparse_sparse_65_1.csv
+│       ├── sparse_sparse_65_2.csv
+│       ├── sparse_sparse_65_3.csv
+│       ├── sparse_sparse_70_1.csv
+│       ├── sparse_sparse_70_2.csv
+│       ├── sparse_sparse_70_3.csv
+│       ├── sparse_sparse_75_1.csv
+│       ├── sparse_sparse_75_2.csv
+│       ├── sparse_sparse_75_3.csv
+│       ├── sparse_sparse_80_1.csv
+│       ├── sparse_sparse_80_2.csv
+│       ├── sparse_sparse_80_3.csv
+│       ├── sparse_sparse_85_1.csv
+│       ├── sparse_sparse_85_2.csv
+│       ├── sparse_sparse_85_3.csv
+│       ├── sparse_sparse_90_1.csv
+│       ├── sparse_sparse_90_2.csv
+│       ├── sparse_sparse_90_3.csv
+│       ├── sparse_sparse_95_1.csv
+│       ├── sparse_sparse_95_2.csv
+│       ├── sparse_sparse_95_3.csv
+│       └── sparse_sparse_95_4.csv
+├── results_vector
+│   ├── mlir_files_elementwise_results_vector_16
+│   │   ├── results_vector_elementwise_50_1.csv
+│   │   ├── results_vector_elementwise_50_1.txt
+│   │   ├── results_vector_elementwise_50_2.csv
+│   │   ├── results_vector_elementwise_50_2.txt
+│   │   ├── results_vector_elementwise_50_3.csv
+│   │   ├── results_vector_elementwise_50_3.txt
+│   │   ├── results_vector_elementwise_55_1.csv
+│   │   ├── results_vector_elementwise_55_1.txt
+│   │   ├── results_vector_elementwise_55_2.csv
+│   │   ├── results_vector_elementwise_55_2.txt
+│   │   ├── results_vector_elementwise_55_3.csv
+│   │   ├── results_vector_elementwise_55_3.txt
+│   │   ├── results_vector_elementwise_60_1.csv
+│   │   ├── results_vector_elementwise_60_1.txt
+│   │   ├── results_vector_elementwise_60_2.csv
+│   │   ├── results_vector_elementwise_60_2.txt
+│   │   ├── results_vector_elementwise_60_3.csv
+│   │   ├── results_vector_elementwise_60_3.txt
+│   │   ├── results_vector_elementwise_65_1.csv
+│   │   ├── results_vector_elementwise_65_1.txt
+│   │   ├── results_vector_elementwise_65_2.csv
+│   │   ├── results_vector_elementwise_65_2.txt
+│   │   ├── results_vector_elementwise_65_3.csv
+│   │   ├── results_vector_elementwise_65_3.txt
+│   │   ├── results_vector_elementwise_70_1.csv
+│   │   ├── results_vector_elementwise_70_1.txt
+│   │   ├── results_vector_elementwise_70_2.csv
+│   │   ├── results_vector_elementwise_70_2.txt
+│   │   ├── results_vector_elementwise_70_3.csv
+│   │   ├── results_vector_elementwise_70_3.txt
+│   │   ├── results_vector_elementwise_75_1.csv
+│   │   ├── results_vector_elementwise_75_1.txt
+│   │   ├── results_vector_elementwise_75_2.csv
+│   │   ├── results_vector_elementwise_75_2.txt
+│   │   ├── results_vector_elementwise_75_3.csv
+│   │   ├── results_vector_elementwise_75_3.txt
+│   │   ├── results_vector_elementwise_80_1.csv
+│   │   ├── results_vector_elementwise_80_1.txt
+│   │   ├── results_vector_elementwise_80_2.csv
+│   │   ├── results_vector_elementwise_80_2.txt
+│   │   ├── results_vector_elementwise_80_3.csv
+│   │   ├── results_vector_elementwise_80_3.txt
+│   │   ├── results_vector_elementwise_85_1.csv
+│   │   ├── results_vector_elementwise_85_1.txt
+│   │   ├── results_vector_elementwise_85_2.csv
+│   │   ├── results_vector_elementwise_85_2.txt
+│   │   ├── results_vector_elementwise_85_3.csv
+│   │   ├── results_vector_elementwise_85_3.txt
+│   │   ├── results_vector_elementwise_90_1.csv
+│   │   ├── results_vector_elementwise_90_1.txt
+│   │   ├── results_vector_elementwise_90_2.csv
+│   │   ├── results_vector_elementwise_90_2.txt
+│   │   ├── results_vector_elementwise_90_3.csv
+│   │   ├── results_vector_elementwise_90_3.txt
+│   │   ├── results_vector_elementwise_95_1.csv
+│   │   ├── results_vector_elementwise_95_1.txt
+│   │   ├── results_vector_elementwise_95_2.csv
+│   │   ├── results_vector_elementwise_95_2.txt
+│   │   ├── results_vector_elementwise_95_3.csv
+│   │   ├── results_vector_elementwise_95_3.txt
+│   │   ├── results_vector_elementwise_95_4.csv
+│   │   └── results_vector_elementwise_95_4.txt
+│   ├── mlir_files_elementwise_results_vector_32
+│   │   ├── results_vector_elementwise_50_1.csv
+│   │   ├── results_vector_elementwise_50_1.txt
+│   │   ├── results_vector_elementwise_50_2.csv
+│   │   ├── results_vector_elementwise_50_2.txt
+│   │   ├── results_vector_elementwise_50_3.csv
+│   │   ├── results_vector_elementwise_50_3.txt
+│   │   ├── results_vector_elementwise_55_1.csv
+│   │   ├── results_vector_elementwise_55_1.txt
+│   │   ├── results_vector_elementwise_55_2.csv
+│   │   ├── results_vector_elementwise_55_2.txt
+│   │   ├── results_vector_elementwise_55_3.csv
+│   │   ├── results_vector_elementwise_55_3.txt
+│   │   ├── results_vector_elementwise_60_1.csv
+│   │   ├── results_vector_elementwise_60_1.txt
+│   │   ├── results_vector_elementwise_60_2.csv
+│   │   ├── results_vector_elementwise_60_2.txt
+│   │   ├── results_vector_elementwise_60_3.csv
+│   │   ├── results_vector_elementwise_60_3.txt
+│   │   ├── results_vector_elementwise_65_1.csv
+│   │   ├── results_vector_elementwise_65_1.txt
+│   │   ├── results_vector_elementwise_65_2.csv
+│   │   ├── results_vector_elementwise_65_2.txt
+│   │   ├── results_vector_elementwise_65_3.csv
+│   │   ├── results_vector_elementwise_65_3.txt
+│   │   ├── results_vector_elementwise_70_1.csv
+│   │   ├── results_vector_elementwise_70_1.txt
+│   │   ├── results_vector_elementwise_70_2.csv
+│   │   ├── results_vector_elementwise_70_2.txt
+│   │   ├── results_vector_elementwise_70_3.csv
+│   │   ├── results_vector_elementwise_70_3.txt
+│   │   ├── results_vector_elementwise_75_1.csv
+│   │   ├── results_vector_elementwise_75_1.txt
+│   │   ├── results_vector_elementwise_75_2.csv
+│   │   ├── results_vector_elementwise_75_2.txt
+│   │   ├── results_vector_elementwise_75_3.csv
+│   │   ├── results_vector_elementwise_75_3.txt
+│   │   ├── results_vector_elementwise_80_1.csv
+│   │   ├── results_vector_elementwise_80_1.txt
+│   │   ├── results_vector_elementwise_80_2.csv
+│   │   ├── results_vector_elementwise_80_2.txt
+│   │   ├── results_vector_elementwise_80_3.csv
+│   │   ├── results_vector_elementwise_80_3.txt
+│   │   ├── results_vector_elementwise_85_1.csv
+│   │   ├── results_vector_elementwise_85_1.txt
+│   │   ├── results_vector_elementwise_85_2.csv
+│   │   ├── results_vector_elementwise_85_2.txt
+│   │   ├── results_vector_elementwise_85_3.csv
+│   │   ├── results_vector_elementwise_85_3.txt
+│   │   ├── results_vector_elementwise_90_1.csv
+│   │   ├── results_vector_elementwise_90_1.txt
+│   │   ├── results_vector_elementwise_90_2.csv
+│   │   ├── results_vector_elementwise_90_2.txt
+│   │   ├── results_vector_elementwise_90_3.csv
+│   │   ├── results_vector_elementwise_90_3.txt
+│   │   ├── results_vector_elementwise_95_1.csv
+│   │   ├── results_vector_elementwise_95_1.txt
+│   │   ├── results_vector_elementwise_95_2.csv
+│   │   ├── results_vector_elementwise_95_2.txt
+│   │   ├── results_vector_elementwise_95_3.csv
+│   │   ├── results_vector_elementwise_95_3.txt
+│   │   ├── results_vector_elementwise_95_4.csv
+│   │   └── results_vector_elementwise_95_4.txt
+│   ├── mlir_files_elementwise_results_vector_4
+│   │   ├── results_vector_elementwise_50_1.csv
+│   │   ├── results_vector_elementwise_50_1.txt
+│   │   ├── results_vector_elementwise_50_2.csv
+│   │   ├── results_vector_elementwise_50_2.txt
+│   │   ├── results_vector_elementwise_50_3.csv
+│   │   ├── results_vector_elementwise_50_3.txt
+│   │   ├── results_vector_elementwise_55_1.csv
+│   │   ├── results_vector_elementwise_55_1.txt
+│   │   ├── results_vector_elementwise_55_2.csv
+│   │   ├── results_vector_elementwise_55_2.txt
+│   │   ├── results_vector_elementwise_55_3.csv
+│   │   ├── results_vector_elementwise_55_3.txt
+│   │   ├── results_vector_elementwise_60_1.csv
+│   │   ├── results_vector_elementwise_60_1.txt
+│   │   ├── results_vector_elementwise_60_2.csv
+│   │   ├── results_vector_elementwise_60_2.txt
+│   │   ├── results_vector_elementwise_60_3.csv
+│   │   ├── results_vector_elementwise_60_3.txt
+│   │   ├── results_vector_elementwise_65_1.csv
+│   │   ├── results_vector_elementwise_65_1.txt
+│   │   ├── results_vector_elementwise_65_2.csv
+│   │   ├── results_vector_elementwise_65_2.txt
+│   │   ├── results_vector_elementwise_65_3.csv
+│   │   ├── results_vector_elementwise_65_3.txt
+│   │   ├── results_vector_elementwise_70_1.csv
+│   │   ├── results_vector_elementwise_70_1.txt
+│   │   ├── results_vector_elementwise_70_2.csv
+│   │   ├── results_vector_elementwise_70_2.txt
+│   │   ├── results_vector_elementwise_70_3.csv
+│   │   ├── results_vector_elementwise_70_3.txt
+│   │   ├── results_vector_elementwise_75_1.csv
+│   │   ├── results_vector_elementwise_75_1.txt
+│   │   ├── results_vector_elementwise_75_2.csv
+│   │   ├── results_vector_elementwise_75_2.txt
+│   │   ├── results_vector_elementwise_75_3.csv
+│   │   ├── results_vector_elementwise_75_3.txt
+│   │   ├── results_vector_elementwise_80_1.csv
+│   │   ├── results_vector_elementwise_80_1.txt
+│   │   ├── results_vector_elementwise_80_2.csv
+│   │   ├── results_vector_elementwise_80_2.txt
+│   │   ├── results_vector_elementwise_80_3.csv
+│   │   ├── results_vector_elementwise_80_3.txt
+│   │   ├── results_vector_elementwise_85_1.csv
+│   │   ├── results_vector_elementwise_85_1.txt
+│   │   ├── results_vector_elementwise_85_2.csv
+│   │   ├── results_vector_elementwise_85_2.txt
+│   │   ├── results_vector_elementwise_85_3.csv
+│   │   ├── results_vector_elementwise_85_3.txt
+│   │   ├── results_vector_elementwise_90_1.csv
+│   │   ├── results_vector_elementwise_90_1.txt
+│   │   ├── results_vector_elementwise_90_2.csv
+│   │   ├── results_vector_elementwise_90_2.txt
+│   │   ├── results_vector_elementwise_90_3.csv
+│   │   ├── results_vector_elementwise_90_3.txt
+│   │   ├── results_vector_elementwise_95_1.csv
+│   │   ├── results_vector_elementwise_95_1.txt
+│   │   ├── results_vector_elementwise_95_2.csv
+│   │   ├── results_vector_elementwise_95_2.txt
+│   │   ├── results_vector_elementwise_95_3.csv
+│   │   ├── results_vector_elementwise_95_3.txt
+│   │   ├── results_vector_elementwise_95_4.csv
+│   │   └── results_vector_elementwise_95_4.txt
+│   ├── mlir_files_elementwise_results_vector_8
+│   │   ├── results_vector_elementwise_50_1.csv
+│   │   ├── results_vector_elementwise_50_1.txt
+│   │   ├── results_vector_elementwise_50_2.csv
+│   │   ├── results_vector_elementwise_50_2.txt
+│   │   ├── results_vector_elementwise_50_3.csv
+│   │   ├── results_vector_elementwise_50_3.txt
+│   │   ├── results_vector_elementwise_55_1.csv
+│   │   ├── results_vector_elementwise_55_1.txt
+│   │   ├── results_vector_elementwise_55_2.csv
+│   │   ├── results_vector_elementwise_55_2.txt
+│   │   ├── results_vector_elementwise_55_3.csv
+│   │   ├── results_vector_elementwise_55_3.txt
+│   │   ├── results_vector_elementwise_60_1.csv
+│   │   ├── results_vector_elementwise_60_1.txt
+│   │   ├── results_vector_elementwise_60_2.csv
+│   │   ├── results_vector_elementwise_60_2.txt
+│   │   ├── results_vector_elementwise_60_3.csv
+│   │   ├── results_vector_elementwise_60_3.txt
+│   │   ├── results_vector_elementwise_65_1.csv
+│   │   ├── results_vector_elementwise_65_1.txt
+│   │   ├── results_vector_elementwise_65_2.csv
+│   │   ├── results_vector_elementwise_65_2.txt
+│   │   ├── results_vector_elementwise_65_3.csv
+│   │   ├── results_vector_elementwise_65_3.txt
+│   │   ├── results_vector_elementwise_70_1.csv
+│   │   ├── results_vector_elementwise_70_1.txt
+│   │   ├── results_vector_elementwise_70_2.csv
+│   │   ├── results_vector_elementwise_70_2.txt
+│   │   ├── results_vector_elementwise_70_3.csv
+│   │   ├── results_vector_elementwise_70_3.txt
+│   │   ├── results_vector_elementwise_75_1.csv
+│   │   ├── results_vector_elementwise_75_1.txt
+│   │   ├── results_vector_elementwise_75_2.csv
+│   │   ├── results_vector_elementwise_75_2.txt
+│   │   ├── results_vector_elementwise_75_3.csv
+│   │   ├── results_vector_elementwise_75_3.txt
+│   │   ├── results_vector_elementwise_80_1.csv
+│   │   ├── results_vector_elementwise_80_1.txt
+│   │   ├── results_vector_elementwise_80_2.csv
+│   │   ├── results_vector_elementwise_80_2.txt
+│   │   ├── results_vector_elementwise_80_3.csv
+│   │   ├── results_vector_elementwise_80_3.txt
+│   │   ├── results_vector_elementwise_85_1.csv
+│   │   ├── results_vector_elementwise_85_1.txt
+│   │   ├── results_vector_elementwise_85_2.csv
+│   │   ├── results_vector_elementwise_85_2.txt
+│   │   ├── results_vector_elementwise_85_3.csv
+│   │   ├── results_vector_elementwise_85_3.txt
+│   │   ├── results_vector_elementwise_90_1.csv
+│   │   ├── results_vector_elementwise_90_1.txt
+│   │   ├── results_vector_elementwise_90_2.csv
+│   │   ├── results_vector_elementwise_90_2.txt
+│   │   ├── results_vector_elementwise_90_3.csv
+│   │   ├── results_vector_elementwise_90_3.txt
+│   │   ├── results_vector_elementwise_95_1.csv
+│   │   ├── results_vector_elementwise_95_1.txt
+│   │   ├── results_vector_elementwise_95_2.csv
+│   │   ├── results_vector_elementwise_95_2.txt
+│   │   ├── results_vector_elementwise_95_3.csv
+│   │   ├── results_vector_elementwise_95_3.txt
+│   │   ├── results_vector_elementwise_95_4.csv
+│   │   └── results_vector_elementwise_95_4.txt
+│   ├── mlir_files_results_vector_16
+│   │   ├── results_vector_matmul_50_1.csv
+│   │   ├── results_vector_matmul_50_1.txt
+│   │   ├── results_vector_matmul_50_2.csv
+│   │   ├── results_vector_matmul_50_2.txt
+│   │   ├── results_vector_matmul_50_3.csv
+│   │   ├── results_vector_matmul_50_3.txt
+│   │   ├── results_vector_matmul_55_1.csv
+│   │   ├── results_vector_matmul_55_1.txt
+│   │   ├── results_vector_matmul_55_2.csv
+│   │   ├── results_vector_matmul_55_2.txt
+│   │   ├── results_vector_matmul_55_3.csv
+│   │   ├── results_vector_matmul_55_3.txt
+│   │   ├── results_vector_matmul_60_1.csv
+│   │   ├── results_vector_matmul_60_1.txt
+│   │   ├── results_vector_matmul_60_2.csv
+│   │   ├── results_vector_matmul_60_2.txt
+│   │   ├── results_vector_matmul_60_3.csv
+│   │   ├── results_vector_matmul_60_3.txt
+│   │   ├── results_vector_matmul_65_1.csv
+│   │   ├── results_vector_matmul_65_1.txt
+│   │   ├── results_vector_matmul_65_2.csv
+│   │   ├── results_vector_matmul_65_2.txt
+│   │   ├── results_vector_matmul_65_3.csv
+│   │   ├── results_vector_matmul_65_3.txt
+│   │   ├── results_vector_matmul_70_1.csv
+│   │   ├── results_vector_matmul_70_1.txt
+│   │   ├── results_vector_matmul_70_2.csv
+│   │   ├── results_vector_matmul_70_2.txt
+│   │   ├── results_vector_matmul_70_3.csv
+│   │   ├── results_vector_matmul_70_3.txt
+│   │   ├── results_vector_matmul_75_1.csv
+│   │   ├── results_vector_matmul_75_1.txt
+│   │   ├── results_vector_matmul_75_2.csv
+│   │   ├── results_vector_matmul_75_2.txt
+│   │   ├── results_vector_matmul_75_3.csv
+│   │   ├── results_vector_matmul_75_3.txt
+│   │   ├── results_vector_matmul_80_1.csv
+│   │   ├── results_vector_matmul_80_1.txt
+│   │   ├── results_vector_matmul_80_2.csv
+│   │   ├── results_vector_matmul_80_2.txt
+│   │   ├── results_vector_matmul_80_3.csv
+│   │   ├── results_vector_matmul_80_3.txt
+│   │   ├── results_vector_matmul_85_1.csv
+│   │   ├── results_vector_matmul_85_1.txt
+│   │   ├── results_vector_matmul_85_2.csv
+│   │   ├── results_vector_matmul_85_2.txt
+│   │   ├── results_vector_matmul_85_3.csv
+│   │   ├── results_vector_matmul_85_3.txt
+│   │   ├── results_vector_matmul_90_1.csv
+│   │   ├── results_vector_matmul_90_1.txt
+│   │   ├── results_vector_matmul_90_2.csv
+│   │   ├── results_vector_matmul_90_2.txt
+│   │   ├── results_vector_matmul_90_3.csv
+│   │   ├── results_vector_matmul_90_3.txt
+│   │   ├── results_vector_matmul_95_1.csv
+│   │   ├── results_vector_matmul_95_1.txt
+│   │   ├── results_vector_matmul_95_2.csv
+│   │   ├── results_vector_matmul_95_2.txt
+│   │   ├── results_vector_matmul_95_3.csv
+│   │   ├── results_vector_matmul_95_3.txt
+│   │   ├── results_vector_matmul_95_4.csv
+│   │   └── results_vector_matmul_95_4.txt
+│   ├── mlir_files_results_vector_32
+│   │   ├── results_vector_matmul_50_1.csv
+│   │   ├── results_vector_matmul_50_1.txt
+│   │   ├── results_vector_matmul_50_2.csv
+│   │   ├── results_vector_matmul_50_2.txt
+│   │   ├── results_vector_matmul_50_3.csv
+│   │   ├── results_vector_matmul_50_3.txt
+│   │   ├── results_vector_matmul_55_1.csv
+│   │   ├── results_vector_matmul_55_1.txt
+│   │   ├── results_vector_matmul_55_2.csv
+│   │   ├── results_vector_matmul_55_2.txt
+│   │   ├── results_vector_matmul_55_3.csv
+│   │   ├── results_vector_matmul_55_3.txt
+│   │   ├── results_vector_matmul_60_1.csv
+│   │   ├── results_vector_matmul_60_1.txt
+│   │   ├── results_vector_matmul_60_2.csv
+│   │   ├── results_vector_matmul_60_2.txt
+│   │   ├── results_vector_matmul_60_3.csv
+│   │   ├── results_vector_matmul_60_3.txt
+│   │   ├── results_vector_matmul_65_1.csv
+│   │   ├── results_vector_matmul_65_1.txt
+│   │   ├── results_vector_matmul_65_2.csv
+│   │   ├── results_vector_matmul_65_2.txt
+│   │   ├── results_vector_matmul_65_3.csv
+│   │   ├── results_vector_matmul_65_3.txt
+│   │   ├── results_vector_matmul_70_1.csv
+│   │   ├── results_vector_matmul_70_1.txt
+│   │   ├── results_vector_matmul_70_2.csv
+│   │   ├── results_vector_matmul_70_2.txt
+│   │   ├── results_vector_matmul_70_3.csv
+│   │   ├── results_vector_matmul_70_3.txt
+│   │   ├── results_vector_matmul_75_1.csv
+│   │   ├── results_vector_matmul_75_1.txt
+│   │   ├── results_vector_matmul_75_2.csv
+│   │   ├── results_vector_matmul_75_2.txt
+│   │   ├── results_vector_matmul_75_3.csv
+│   │   ├── results_vector_matmul_75_3.txt
+│   │   ├── results_vector_matmul_80_1.csv
+│   │   ├── results_vector_matmul_80_1.txt
+│   │   ├── results_vector_matmul_80_2.csv
+│   │   ├── results_vector_matmul_80_2.txt
+│   │   ├── results_vector_matmul_80_3.csv
+│   │   ├── results_vector_matmul_80_3.txt
+│   │   ├── results_vector_matmul_85_1.csv
+│   │   ├── results_vector_matmul_85_1.txt
+│   │   ├── results_vector_matmul_85_2.csv
+│   │   ├── results_vector_matmul_85_2.txt
+│   │   ├── results_vector_matmul_85_3.csv
+│   │   ├── results_vector_matmul_85_3.txt
+│   │   ├── results_vector_matmul_90_1.csv
+│   │   ├── results_vector_matmul_90_1.txt
+│   │   ├── results_vector_matmul_90_2.csv
+│   │   ├── results_vector_matmul_90_2.txt
+│   │   ├── results_vector_matmul_90_3.csv
+│   │   ├── results_vector_matmul_90_3.txt
+│   │   ├── results_vector_matmul_95_1.csv
+│   │   ├── results_vector_matmul_95_1.txt
+│   │   ├── results_vector_matmul_95_2.csv
+│   │   ├── results_vector_matmul_95_2.txt
+│   │   ├── results_vector_matmul_95_3.csv
+│   │   ├── results_vector_matmul_95_3.txt
+│   │   ├── results_vector_matmul_95_4.csv
+│   │   └── results_vector_matmul_95_4.txt
+│   ├── mlir_files_results_vector_4
+│   │   ├── results_vector_matmul_50_1.csv
+│   │   ├── results_vector_matmul_50_1.txt
+│   │   ├── results_vector_matmul_50_2.csv
+│   │   ├── results_vector_matmul_50_2.txt
+│   │   ├── results_vector_matmul_50_3.csv
+│   │   ├── results_vector_matmul_50_3.txt
+│   │   ├── results_vector_matmul_55_1.csv
+│   │   ├── results_vector_matmul_55_1.txt
+│   │   ├── results_vector_matmul_55_2.csv
+│   │   ├── results_vector_matmul_55_2.txt
+│   │   ├── results_vector_matmul_55_3.csv
+│   │   ├── results_vector_matmul_55_3.txt
+│   │   ├── results_vector_matmul_60_1.csv
+│   │   ├── results_vector_matmul_60_1.txt
+│   │   ├── results_vector_matmul_60_2.csv
+│   │   ├── results_vector_matmul_60_2.txt
+│   │   ├── results_vector_matmul_60_3.csv
+│   │   ├── results_vector_matmul_60_3.txt
+│   │   ├── results_vector_matmul_65_1.csv
+│   │   ├── results_vector_matmul_65_1.txt
+│   │   ├── results_vector_matmul_65_2.csv
+│   │   ├── results_vector_matmul_65_2.txt
+│   │   ├── results_vector_matmul_65_3.csv
+│   │   ├── results_vector_matmul_65_3.txt
+│   │   ├── results_vector_matmul_70_1.csv
+│   │   ├── results_vector_matmul_70_1.txt
+│   │   ├── results_vector_matmul_70_2.csv
+│   │   ├── results_vector_matmul_70_2.txt
+│   │   ├── results_vector_matmul_70_3.csv
+│   │   ├── results_vector_matmul_70_3.txt
+│   │   ├── results_vector_matmul_75_1.csv
+│   │   ├── results_vector_matmul_75_1.txt
+│   │   ├── results_vector_matmul_75_2.csv
+│   │   ├── results_vector_matmul_75_2.txt
+│   │   ├── results_vector_matmul_75_3.csv
+│   │   ├── results_vector_matmul_75_3.txt
+│   │   ├── results_vector_matmul_80_1.csv
+│   │   ├── results_vector_matmul_80_1.txt
+│   │   ├── results_vector_matmul_80_2.csv
+│   │   ├── results_vector_matmul_80_2.txt
+│   │   ├── results_vector_matmul_80_3.csv
+│   │   ├── results_vector_matmul_80_3.txt
+│   │   ├── results_vector_matmul_85_1.csv
+│   │   ├── results_vector_matmul_85_1.txt
+│   │   ├── results_vector_matmul_85_2.csv
+│   │   ├── results_vector_matmul_85_2.txt
+│   │   ├── results_vector_matmul_85_3.csv
+│   │   ├── results_vector_matmul_85_3.txt
+│   │   ├── results_vector_matmul_90_1.csv
+│   │   ├── results_vector_matmul_90_1.txt
+│   │   ├── results_vector_matmul_90_2.csv
+│   │   ├── results_vector_matmul_90_2.txt
+│   │   ├── results_vector_matmul_90_3.csv
+│   │   ├── results_vector_matmul_90_3.txt
+│   │   ├── results_vector_matmul_95_1.csv
+│   │   ├── results_vector_matmul_95_1.txt
+│   │   ├── results_vector_matmul_95_2.csv
+│   │   ├── results_vector_matmul_95_2.txt
+│   │   ├── results_vector_matmul_95_3.csv
+│   │   ├── results_vector_matmul_95_3.txt
+│   │   ├── results_vector_matmul_95_4.csv
+│   │   └── results_vector_matmul_95_4.txt
+│   ├── mlir_files_results_vector_8
+│   │   ├── results_vector_matmul_50_1.csv
+│   │   ├── results_vector_matmul_50_1.txt
+│   │   ├── results_vector_matmul_50_2.csv
+│   │   ├── results_vector_matmul_50_2.txt
+│   │   ├── results_vector_matmul_50_3.csv
+│   │   ├── results_vector_matmul_50_3.txt
+│   │   ├── results_vector_matmul_55_1.csv
+│   │   ├── results_vector_matmul_55_1.txt
+│   │   ├── results_vector_matmul_55_2.csv
+│   │   ├── results_vector_matmul_55_2.txt
+│   │   ├── results_vector_matmul_55_3.csv
+│   │   ├── results_vector_matmul_55_3.txt
+│   │   ├── results_vector_matmul_60_1.csv
+│   │   ├── results_vector_matmul_60_1.txt
+│   │   ├── results_vector_matmul_60_2.csv
+│   │   ├── results_vector_matmul_60_2.txt
+│   │   ├── results_vector_matmul_60_3.csv
+│   │   ├── results_vector_matmul_60_3.txt
+│   │   ├── results_vector_matmul_65_1.csv
+│   │   ├── results_vector_matmul_65_1.txt
+│   │   ├── results_vector_matmul_65_2.csv
+│   │   ├── results_vector_matmul_65_2.txt
+│   │   ├── results_vector_matmul_65_3.csv
+│   │   ├── results_vector_matmul_65_3.txt
+│   │   ├── results_vector_matmul_70_1.csv
+│   │   ├── results_vector_matmul_70_1.txt
+│   │   ├── results_vector_matmul_70_2.csv
+│   │   ├── results_vector_matmul_70_2.txt
+│   │   ├── results_vector_matmul_70_3.csv
+│   │   ├── results_vector_matmul_70_3.txt
+│   │   ├── results_vector_matmul_75_1.csv
+│   │   ├── results_vector_matmul_75_1.txt
+│   │   ├── results_vector_matmul_75_2.csv
+│   │   ├── results_vector_matmul_75_2.txt
+│   │   ├── results_vector_matmul_75_3.csv
+│   │   ├── results_vector_matmul_75_3.txt
+│   │   ├── results_vector_matmul_80_1.csv
+│   │   ├── results_vector_matmul_80_1.txt
+│   │   ├── results_vector_matmul_80_2.csv
+│   │   ├── results_vector_matmul_80_2.txt
+│   │   ├── results_vector_matmul_80_3.csv
+│   │   ├── results_vector_matmul_80_3.txt
+│   │   ├── results_vector_matmul_85_1.csv
+│   │   ├── results_vector_matmul_85_1.txt
+│   │   ├── results_vector_matmul_85_2.csv
+│   │   ├── results_vector_matmul_85_2.txt
+│   │   ├── results_vector_matmul_85_3.csv
+│   │   ├── results_vector_matmul_85_3.txt
+│   │   ├── results_vector_matmul_90_1.csv
+│   │   ├── results_vector_matmul_90_1.txt
+│   │   ├── results_vector_matmul_90_2.csv
+│   │   ├── results_vector_matmul_90_2.txt
+│   │   ├── results_vector_matmul_90_3.csv
+│   │   ├── results_vector_matmul_90_3.txt
+│   │   ├── results_vector_matmul_95_1.csv
+│   │   ├── results_vector_matmul_95_1.txt
+│   │   ├── results_vector_matmul_95_2.csv
+│   │   ├── results_vector_matmul_95_2.txt
+│   │   ├── results_vector_matmul_95_3.csv
+│   │   ├── results_vector_matmul_95_3.txt
+│   │   ├── results_vector_matmul_95_4.csv
+│   │   └── results_vector_matmul_95_4.txt
+│   ├── mlir_files_sparse_results_vector_16
+│   │   ├── results_vector_sparse_sparse_50_1.csv
+│   │   ├── results_vector_sparse_sparse_50_1.txt
+│   │   ├── results_vector_sparse_sparse_50_2.csv
+│   │   ├── results_vector_sparse_sparse_50_2.txt
+│   │   ├── results_vector_sparse_sparse_50_3.csv
+│   │   ├── results_vector_sparse_sparse_50_3.txt
+│   │   ├── results_vector_sparse_sparse_55_1.csv
+│   │   ├── results_vector_sparse_sparse_55_1.txt
+│   │   ├── results_vector_sparse_sparse_55_2.csv
+│   │   ├── results_vector_sparse_sparse_55_2.txt
+│   │   ├── results_vector_sparse_sparse_55_3.csv
+│   │   ├── results_vector_sparse_sparse_55_3.txt
+│   │   ├── results_vector_sparse_sparse_60_1.csv
+│   │   ├── results_vector_sparse_sparse_60_1.txt
+│   │   ├── results_vector_sparse_sparse_60_2.csv
+│   │   ├── results_vector_sparse_sparse_60_2.txt
+│   │   ├── results_vector_sparse_sparse_60_3.csv
+│   │   ├── results_vector_sparse_sparse_60_3.txt
+│   │   ├── results_vector_sparse_sparse_65_1.csv
+│   │   ├── results_vector_sparse_sparse_65_1.txt
+│   │   ├── results_vector_sparse_sparse_65_2.csv
+│   │   ├── results_vector_sparse_sparse_65_2.txt
+│   │   ├── results_vector_sparse_sparse_65_3.csv
+│   │   ├── results_vector_sparse_sparse_65_3.txt
+│   │   ├── results_vector_sparse_sparse_70_1.csv
+│   │   ├── results_vector_sparse_sparse_70_1.txt
+│   │   ├── results_vector_sparse_sparse_70_2.csv
+│   │   ├── results_vector_sparse_sparse_70_2.txt
+│   │   ├── results_vector_sparse_sparse_70_3.csv
+│   │   ├── results_vector_sparse_sparse_70_3.txt
+│   │   ├── results_vector_sparse_sparse_75_1.csv
+│   │   ├── results_vector_sparse_sparse_75_1.txt
+│   │   ├── results_vector_sparse_sparse_75_2.csv
+│   │   ├── results_vector_sparse_sparse_75_2.txt
+│   │   ├── results_vector_sparse_sparse_75_3.csv
+│   │   ├── results_vector_sparse_sparse_75_3.txt
+│   │   ├── results_vector_sparse_sparse_80_1.csv
+│   │   ├── results_vector_sparse_sparse_80_1.txt
+│   │   ├── results_vector_sparse_sparse_80_2.csv
+│   │   ├── results_vector_sparse_sparse_80_2.txt
+│   │   ├── results_vector_sparse_sparse_80_3.csv
+│   │   ├── results_vector_sparse_sparse_80_3.txt
+│   │   ├── results_vector_sparse_sparse_85_1.csv
+│   │   ├── results_vector_sparse_sparse_85_1.txt
+│   │   ├── results_vector_sparse_sparse_85_2.csv
+│   │   ├── results_vector_sparse_sparse_85_2.txt
+│   │   ├── results_vector_sparse_sparse_85_3.csv
+│   │   ├── results_vector_sparse_sparse_85_3.txt
+│   │   ├── results_vector_sparse_sparse_90_1.csv
+│   │   ├── results_vector_sparse_sparse_90_1.txt
+│   │   ├── results_vector_sparse_sparse_90_2.csv
+│   │   ├── results_vector_sparse_sparse_90_2.txt
+│   │   ├── results_vector_sparse_sparse_90_3.csv
+│   │   ├── results_vector_sparse_sparse_90_3.txt
+│   │   ├── results_vector_sparse_sparse_95_1.csv
+│   │   ├── results_vector_sparse_sparse_95_1.txt
+│   │   ├── results_vector_sparse_sparse_95_2.csv
+│   │   ├── results_vector_sparse_sparse_95_2.txt
+│   │   ├── results_vector_sparse_sparse_95_3.csv
+│   │   ├── results_vector_sparse_sparse_95_3.txt
+│   │   ├── results_vector_sparse_sparse_95_4.csv
+│   │   └── results_vector_sparse_sparse_95_4.txt
+│   ├── mlir_files_sparse_results_vector_32
+│   │   ├── results_vector_sparse_sparse_50_1.csv
+│   │   ├── results_vector_sparse_sparse_50_1.txt
+│   │   ├── results_vector_sparse_sparse_50_2.csv
+│   │   ├── results_vector_sparse_sparse_50_2.txt
+│   │   ├── results_vector_sparse_sparse_50_3.csv
+│   │   ├── results_vector_sparse_sparse_50_3.txt
+│   │   ├── results_vector_sparse_sparse_55_1.csv
+│   │   ├── results_vector_sparse_sparse_55_1.txt
+│   │   ├── results_vector_sparse_sparse_55_2.csv
+│   │   ├── results_vector_sparse_sparse_55_2.txt
+│   │   ├── results_vector_sparse_sparse_55_3.csv
+│   │   ├── results_vector_sparse_sparse_55_3.txt
+│   │   ├── results_vector_sparse_sparse_60_1.csv
+│   │   ├── results_vector_sparse_sparse_60_1.txt
+│   │   ├── results_vector_sparse_sparse_60_2.csv
+│   │   ├── results_vector_sparse_sparse_60_2.txt
+│   │   ├── results_vector_sparse_sparse_60_3.csv
+│   │   ├── results_vector_sparse_sparse_60_3.txt
+│   │   ├── results_vector_sparse_sparse_65_1.csv
+│   │   ├── results_vector_sparse_sparse_65_1.txt
+│   │   ├── results_vector_sparse_sparse_65_2.csv
+│   │   ├── results_vector_sparse_sparse_65_2.txt
+│   │   ├── results_vector_sparse_sparse_65_3.csv
+│   │   ├── results_vector_sparse_sparse_65_3.txt
+│   │   ├── results_vector_sparse_sparse_70_1.csv
+│   │   ├── results_vector_sparse_sparse_70_1.txt
+│   │   ├── results_vector_sparse_sparse_70_2.csv
+│   │   ├── results_vector_sparse_sparse_70_2.txt
+│   │   ├── results_vector_sparse_sparse_70_3.csv
+│   │   ├── results_vector_sparse_sparse_70_3.txt
+│   │   ├── results_vector_sparse_sparse_75_1.csv
+│   │   ├── results_vector_sparse_sparse_75_1.txt
+│   │   ├── results_vector_sparse_sparse_75_2.csv
+│   │   ├── results_vector_sparse_sparse_75_2.txt
+│   │   ├── results_vector_sparse_sparse_75_3.csv
+│   │   ├── results_vector_sparse_sparse_75_3.txt
+│   │   ├── results_vector_sparse_sparse_80_1.csv
+│   │   ├── results_vector_sparse_sparse_80_1.txt
+│   │   ├── results_vector_sparse_sparse_80_2.csv
+│   │   ├── results_vector_sparse_sparse_80_2.txt
+│   │   ├── results_vector_sparse_sparse_80_3.csv
+│   │   ├── results_vector_sparse_sparse_80_3.txt
+│   │   ├── results_vector_sparse_sparse_85_1.csv
+│   │   ├── results_vector_sparse_sparse_85_1.txt
+│   │   ├── results_vector_sparse_sparse_85_2.csv
+│   │   ├── results_vector_sparse_sparse_85_2.txt
+│   │   ├── results_vector_sparse_sparse_85_3.csv
+│   │   ├── results_vector_sparse_sparse_85_3.txt
+│   │   ├── results_vector_sparse_sparse_90_1.csv
+│   │   ├── results_vector_sparse_sparse_90_1.txt
+│   │   ├── results_vector_sparse_sparse_90_2.csv
+│   │   ├── results_vector_sparse_sparse_90_2.txt
+│   │   ├── results_vector_sparse_sparse_90_3.csv
+│   │   ├── results_vector_sparse_sparse_90_3.txt
+│   │   ├── results_vector_sparse_sparse_95_1.csv
+│   │   ├── results_vector_sparse_sparse_95_1.txt
+│   │   ├── results_vector_sparse_sparse_95_2.csv
+│   │   ├── results_vector_sparse_sparse_95_2.txt
+│   │   ├── results_vector_sparse_sparse_95_3.csv
+│   │   ├── results_vector_sparse_sparse_95_3.txt
+│   │   ├── results_vector_sparse_sparse_95_4.csv
+│   │   └── results_vector_sparse_sparse_95_4.txt
+│   ├── mlir_files_sparse_results_vector_4
+│   │   ├── results_vector_sparse_sparse_50_1.csv
+│   │   ├── results_vector_sparse_sparse_50_1.txt
+│   │   ├── results_vector_sparse_sparse_50_2.csv
+│   │   ├── results_vector_sparse_sparse_50_2.txt
+│   │   ├── results_vector_sparse_sparse_50_3.csv
+│   │   ├── results_vector_sparse_sparse_50_3.txt
+│   │   ├── results_vector_sparse_sparse_55_1.csv
+│   │   ├── results_vector_sparse_sparse_55_1.txt
+│   │   ├── results_vector_sparse_sparse_55_2.csv
+│   │   ├── results_vector_sparse_sparse_55_2.txt
+│   │   ├── results_vector_sparse_sparse_55_3.csv
+│   │   ├── results_vector_sparse_sparse_55_3.txt
+│   │   ├── results_vector_sparse_sparse_60_1.csv
+│   │   ├── results_vector_sparse_sparse_60_1.txt
+│   │   ├── results_vector_sparse_sparse_60_2.csv
+│   │   ├── results_vector_sparse_sparse_60_2.txt
+│   │   ├── results_vector_sparse_sparse_60_3.csv
+│   │   ├── results_vector_sparse_sparse_60_3.txt
+│   │   ├── results_vector_sparse_sparse_65_1.csv
+│   │   ├── results_vector_sparse_sparse_65_1.txt
+│   │   ├── results_vector_sparse_sparse_65_2.csv
+│   │   ├── results_vector_sparse_sparse_65_2.txt
+│   │   ├── results_vector_sparse_sparse_65_3.csv
+│   │   ├── results_vector_sparse_sparse_65_3.txt
+│   │   ├── results_vector_sparse_sparse_70_1.csv
+│   │   ├── results_vector_sparse_sparse_70_1.txt
+│   │   ├── results_vector_sparse_sparse_70_2.csv
+│   │   ├── results_vector_sparse_sparse_70_2.txt
+│   │   ├── results_vector_sparse_sparse_70_3.csv
+│   │   ├── results_vector_sparse_sparse_70_3.txt
+│   │   ├── results_vector_sparse_sparse_75_1.csv
+│   │   ├── results_vector_sparse_sparse_75_1.txt
+│   │   ├── results_vector_sparse_sparse_75_2.csv
+│   │   ├── results_vector_sparse_sparse_75_2.txt
+│   │   ├── results_vector_sparse_sparse_75_3.csv
+│   │   ├── results_vector_sparse_sparse_75_3.txt
+│   │   ├── results_vector_sparse_sparse_80_1.csv
+│   │   ├── results_vector_sparse_sparse_80_1.txt
+│   │   ├── results_vector_sparse_sparse_80_2.csv
+│   │   ├── results_vector_sparse_sparse_80_2.txt
+│   │   ├── results_vector_sparse_sparse_80_3.csv
+│   │   ├── results_vector_sparse_sparse_80_3.txt
+│   │   ├── results_vector_sparse_sparse_85_1.csv
+│   │   ├── results_vector_sparse_sparse_85_1.txt
+│   │   ├── results_vector_sparse_sparse_85_2.csv
+│   │   ├── results_vector_sparse_sparse_85_2.txt
+│   │   ├── results_vector_sparse_sparse_85_3.csv
+│   │   ├── results_vector_sparse_sparse_85_3.txt
+│   │   ├── results_vector_sparse_sparse_90_1.csv
+│   │   ├── results_vector_sparse_sparse_90_1.txt
+│   │   ├── results_vector_sparse_sparse_90_2.csv
+│   │   ├── results_vector_sparse_sparse_90_2.txt
+│   │   ├── results_vector_sparse_sparse_90_3.csv
+│   │   ├── results_vector_sparse_sparse_90_3.txt
+│   │   ├── results_vector_sparse_sparse_95_1.csv
+│   │   ├── results_vector_sparse_sparse_95_1.txt
+│   │   ├── results_vector_sparse_sparse_95_2.csv
+│   │   ├── results_vector_sparse_sparse_95_2.txt
+│   │   ├── results_vector_sparse_sparse_95_3.csv
+│   │   ├── results_vector_sparse_sparse_95_3.txt
+│   │   ├── results_vector_sparse_sparse_95_4.csv
+│   │   └── results_vector_sparse_sparse_95_4.txt
+│   └── mlir_files_sparse_results_vector_8
+│       ├── results_vector_sparse_sparse_50_1.csv
+│       ├── results_vector_sparse_sparse_50_1.txt
+│       ├── results_vector_sparse_sparse_50_2.csv
+│       ├── results_vector_sparse_sparse_50_2.txt
+│       ├── results_vector_sparse_sparse_50_3.csv
+│       ├── results_vector_sparse_sparse_50_3.txt
+│       ├── results_vector_sparse_sparse_55_1.csv
+│       ├── results_vector_sparse_sparse_55_1.txt
+│       ├── results_vector_sparse_sparse_55_2.csv
+│       ├── results_vector_sparse_sparse_55_2.txt
+│       ├── results_vector_sparse_sparse_55_3.csv
+│       ├── results_vector_sparse_sparse_55_3.txt
+│       ├── results_vector_sparse_sparse_60_1.csv
+│       ├── results_vector_sparse_sparse_60_1.txt
+│       ├── results_vector_sparse_sparse_60_2.csv
+│       ├── results_vector_sparse_sparse_60_2.txt
+│       ├── results_vector_sparse_sparse_60_3.csv
+│       ├── results_vector_sparse_sparse_60_3.txt
+│       ├── results_vector_sparse_sparse_65_1.csv
+│       ├── results_vector_sparse_sparse_65_1.txt
+│       ├── results_vector_sparse_sparse_65_2.csv
+│       ├── results_vector_sparse_sparse_65_2.txt
+│       ├── results_vector_sparse_sparse_65_3.csv
+│       ├── results_vector_sparse_sparse_65_3.txt
+│       ├── results_vector_sparse_sparse_70_1.csv
+│       ├── results_vector_sparse_sparse_70_1.txt
+│       ├── results_vector_sparse_sparse_70_2.csv
+│       ├── results_vector_sparse_sparse_70_2.txt
+│       ├── results_vector_sparse_sparse_70_3.csv
+│       ├── results_vector_sparse_sparse_70_3.txt
+│       ├── results_vector_sparse_sparse_75_1.csv
+│       ├── results_vector_sparse_sparse_75_1.txt
+│       ├── results_vector_sparse_sparse_75_2.csv
+│       ├── results_vector_sparse_sparse_75_2.txt
+│       ├── results_vector_sparse_sparse_75_3.csv
+│       ├── results_vector_sparse_sparse_75_3.txt
+│       ├── results_vector_sparse_sparse_80_1.csv
+│       ├── results_vector_sparse_sparse_80_1.txt
+│       ├── results_vector_sparse_sparse_80_2.csv
+│       ├── results_vector_sparse_sparse_80_2.txt
+│       ├── results_vector_sparse_sparse_80_3.csv
+│       ├── results_vector_sparse_sparse_80_3.txt
+│       ├── results_vector_sparse_sparse_85_1.csv
+│       ├── results_vector_sparse_sparse_85_1.txt
+│       ├── results_vector_sparse_sparse_85_2.csv
+│       ├── results_vector_sparse_sparse_85_2.txt
+│       ├── results_vector_sparse_sparse_85_3.csv
+│       ├── results_vector_sparse_sparse_85_3.txt
+│       ├── results_vector_sparse_sparse_90_1.csv
+│       ├── results_vector_sparse_sparse_90_1.txt
+│       ├── results_vector_sparse_sparse_90_2.csv
+│       ├── results_vector_sparse_sparse_90_2.txt
+│       ├── results_vector_sparse_sparse_90_3.csv
+│       ├── results_vector_sparse_sparse_90_3.txt
+│       ├── results_vector_sparse_sparse_95_1.csv
+│       ├── results_vector_sparse_sparse_95_1.txt
+│       ├── results_vector_sparse_sparse_95_2.csv
+│       ├── results_vector_sparse_sparse_95_2.txt
+│       ├── results_vector_sparse_sparse_95_3.csv
+│       ├── results_vector_sparse_sparse_95_3.txt
+│       ├── results_vector_sparse_sparse_95_4.csv
+│       └── results_vector_sparse_sparse_95_4.txt
+├── scalar_pipeline.sh
+├── sparse_sparse
 │   ├── sparse_sparse_50_1_sum.txt
 │   ├── sparse_sparse_50_2_sum.txt
 │   ├── sparse_sparse_50_3_sum.txt
@@ -516,16 +1793,26 @@
 │   ├── sparse_sparse_95_2_sum.txt
 │   ├── sparse_sparse_95_3_sum.txt
 │   └── sparse_sparse_95_4_sum.txt
-├── [1;36mstride_grouped_analysis[0m
+├── stride_grouped_analysis
 │   ├── combined_data.csv
 │   ├── overall_instructions_speedup_by_sparsity.png
 │   ├── processed_scalar_data.csv
 │   ├── processed_vector_data.csv
 │   ├── speedup_metrics.csv
-│   ├── [1;36mstride_analysis[0m
-│   └── [1;36mstride_comparison[0m
-├── [1;36mtest[0m
-│   ├── [1;36mbasic[0m
+│   ├── stride_analysis
+│   │   ├── stride_1
+│   │   ├── stride_2
+│   │   ├── stride_3
+│   │   └── stride_4
+│   └── stride_comparison
+│       ├── avg_instructions_speedup_by_stride.png
+│       ├── instructions_speedup_comparison.png
+│       ├── instructions_speedup_heatmap.png
+│       ├── overall_instructions_speedup_by_sparsity.png
+│       └── stride_comparison_summary.txt
+├── test
+│   ├── basic
+│   │   └── test_basic.S
 │   ├── little_generator.py
 │   ├── Makefile_sparsifier_any_any
 │   ├── Makefile_sparsifier_basic
@@ -534,14 +1821,31 @@
 │   ├── mlir_sparsity_70_stride_1.mlir
 │   ├── mlir_sparsity_90_stride_1.mlir
 │   ├── simple_test.mlir
-│   ├── [1;36msparsifier[0m
+│   ├── sparsifier
+│   │   ├── any_loop_any_storage
+│   │   ├── index_opt
+│   │   ├── test
+│   │   ├── test.ll
+│   │   ├── test.llvm.mlir
+│   │   ├── test.mlir
+│   │   ├── test.S
+│   │   └── test.sh
 │   ├── sparsifier_any_s_any_loop.S
 │   ├── sparsifier_basic.S
 │   ├── sparsifier_enable-simd-index32.S
 │   ├── test.mlir
-│   └── [1;36mvector_4[0m
-├── [31mtest.sh[0m
+│   └── vector_4
+│       ├── big_32bit
+│       ├── big_32bit.ll
+│       ├── big_32bit.llvm.mlir
+│       ├── big_32bit.mlir
+│       ├── big_32bit.S
+│       ├── commented_assembly.S
+│       ├── Makefile
+│       └── simd32
+├── test.sh
+├── Untitled.ipynb
 ├── update.txt
-└── [31mvector_pipeline.sh[0m
+└── vector_pipeline.sh
 
-62 directories, 483 files
+536 directories, 1313 files

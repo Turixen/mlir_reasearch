@@ -11,7 +11,7 @@ OPTFLAGS +=
 # Default optimization flags
 OPTFLAGS += -linalg-generalize-named-ops
 OPTFLAGS += -linalg-fuse-elementwise-ops
-OPTFLAGS += -sparsification-and-bufferization="vl=8 enable-vla-vectorization=true"
+OPTFLAGS += -sparsification-and-bufferization="vl=8 enable-vla-vectorization=false"
 OPTFLAGS += -sparse-storage-specifier-to-llvm
 OPTFLAGS += -canonicalize
 OPTFLAGS += -convert-linalg-to-loops
